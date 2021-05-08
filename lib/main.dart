@@ -38,6 +38,10 @@ class _MyAppState extends State<MyApp> {
           title: Text(_textToShow),
         ),
         body: Text(_textToShow),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => {},
+          child: Icon(Icons.add),
+        ),
         bottomNavigationBar: BottomBar(
           changeIndex: _changeIndex,
           indexSelected: _indexSelected,
