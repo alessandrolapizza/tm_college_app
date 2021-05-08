@@ -17,9 +17,9 @@ class _MyAppState extends State<MyApp> {
   String get _textToShow {
     String _resultText;
     if (_indexSelected == 0) {
-      _resultText = "Default Screen";
+      _resultText = "Devoirs";
     } else {
-      _resultText = "Settings Screen";
+      _resultText = "Paramètres";
     }
     return _resultText;
   }
@@ -37,7 +37,6 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: Text(_textToShow),
         ),
-        body: Text(_textToShow),
         floatingActionButton: FloatingActionButton(
           onPressed: () => {},
           child: Icon(Icons.add),
