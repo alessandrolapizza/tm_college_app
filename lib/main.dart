@@ -27,6 +27,7 @@ class _MyAppState extends State<MyApp> {
   void _changeIndex(index) {
     setState(() {
       _indexSelected = index;
+      print(index);
     });
   }
 
@@ -37,10 +38,12 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: Text(_textToShow),
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () => {},
-          child: Icon(Icons.add),
-        ),
+        floatingActionButton: _indexSelected == 0
+            ? FloatingActionButton(
+                onPressed: () => {},
+                child: Icon(Icons.add),
+              )
+            : null,
         bottomNavigationBar: BottomBar(
           changeIndex: _changeIndex,
           indexSelected: _indexSelected,
