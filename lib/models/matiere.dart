@@ -1,9 +1,11 @@
+import "package:flutter/foundation.dart";
+
 class Matiere {
   String titre;
   int id;
 
   Matiere({
-    this.titre,
-    this.id,
+    @required this.titre,
+    @required this.id,
   });
 }
