@@ -4,7 +4,10 @@ class BottomBar extends StatelessWidget {
   final Function changeIndex;
   final int indexSelected;
 
-  BottomBar({@required this.changeIndex, @required this.indexSelected});
+  BottomBar({
+    @required this.changeIndex,
+    @required this.indexSelected,
+  });
 
   @override
   Widget build(BuildContext context) {
