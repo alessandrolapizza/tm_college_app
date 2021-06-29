@@ -49,57 +49,67 @@ class _MyAppState extends State<MyApp> {
                 child: Card(
                   child: Row(
                     children: [
-                      Row(
-                        children: [
-                          Container(
-                            margin: EdgeInsets.all(5),
-                            padding: EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              color: Colors.orangeAccent, //à construire
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                width: 0.1,
-                              ),
-                            ),
-                            child: Icon(
-                              Icons.calculate, // à construire
-                              color: Colors.white,
-                              size: 45,
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.symmetric(
-                              vertical: 13,
-                              horizontal: 7,
-                            ),
-                            child: Column(
-                              children: [
-                                Text(
-                                  "Mathématiques", // à construire
-                                  style: TextStyle(fontWeight: FontWeight.w600),
-                                ),
-                                Container(
-                                  margin: EdgeInsets.only(top: 3),
-                                  child: Text(
-                                    "Manger + lire l !!",
-                                    overflow: TextOverflow.clip,
-                                  ),
-                                ), // à construire
-                              ],
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                            ),
-                          ),
-                        ],
+                      Expanded(
+                        flex: 1,
+                        child: Card(
+                          color: Colors.red, // à construire
+                        ),
                       ),
-                      Container(
-                        child: IconButton(
-                          onPressed: () {},
-                          icon: Icon(Icons.check),
-                          color: Colors.green,
+                      Expanded(
+                        flex: 4,
+                        child: Container(
+                          margin: EdgeInsets.symmetric(vertical: 10),
+                          decoration: BoxDecoration(
+                            color: Colors.orangeAccent, //à construire
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              width: 0.1,
+                            ),
+                          ),
+                          child: Icon(
+                            Icons.calculate, // à construire
+                            color: Colors.white,
+                            size: 40,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 13,
+                        child: Container(
+                          margin: EdgeInsets.symmetric(vertical: 10),
+                          child: Column(
+                            children: [
+                              Text(
+                                "Mathématiques", // à construire
+                                style: TextStyle(fontWeight: FontWeight.w600),
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(top: 3),
+                                child: Text(
+                                  "overflowoverflowoverflowoverflowoverflowoverflowoverflowoverflowoverflowoverflowoverflowoverflowoverflow", // à construire
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 2,
+                                ),
+                              ),
+                            ],
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 3,
+                        child: Container(
+                          child: IconButton(
+                            onPressed: () {},
+                            icon: Icon(Icons.check),
+                            color: Colors.green,
+                            splashRadius: 20,
+                          ),
                         ),
                       ),
                     ],
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                   ),
                 ),
               ),
