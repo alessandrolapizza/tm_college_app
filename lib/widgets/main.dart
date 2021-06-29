@@ -52,7 +52,7 @@ class _MyAppState extends State<MyApp> {
                       Expanded(
                         flex: 1,
                         child: Card(
-                          color: Colors.red, // à construire
+                          color: Colors.red, // à construire (couleur de priorité)
                         ),
                       ),
                       Expanded(
@@ -60,14 +60,14 @@ class _MyAppState extends State<MyApp> {
                         child: Container(
                           margin: EdgeInsets.symmetric(vertical: 10),
                           decoration: BoxDecoration(
-                            color: Colors.orangeAccent, //à construire
+                            color: Colors.orangeAccent, //à construire (couleur de matière)
                             shape: BoxShape.circle,
                             border: Border.all(
                               width: 0.1,
                             ),
                           ),
                           child: Icon(
-                            Icons.calculate, // à construire
+                            Icons.calculate, // à construire (icon de matière)
                             color: Colors.white,
                             size: 40,
                           ),
@@ -80,13 +80,13 @@ class _MyAppState extends State<MyApp> {
                           child: Column(
                             children: [
                               Text(
-                                "Mathématiques", // à construire
+                                "Mathématiques", // à construire (Nom de la matière)
                                 style: TextStyle(fontWeight: FontWeight.w600),
                               ),
                               Container(
                                 margin: EdgeInsets.only(top: 3),
                                 child: Text(
-                                  "overflowoverflowoverflowoverflowoverflowoverflowoverflowoverflowoverflowoverflowoverflowoverflowoverflow", // à construire
+                                  "overflowoverflowoverflowoverflowoverflowoverflowoverflowoverflowoverflowoverflowoverflowoverflowoverflow", // à construire (Contenu du devoir)
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 2,
                                 ),
