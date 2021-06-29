@@ -14,11 +14,11 @@ class BottomBar extends StatelessWidget {
     return BottomNavigationBar(
       items: [
         BottomNavigationBarItem(
-          icon: Icon(Icons.school_rounded),
+          icon: Icon(Icons.library_books_rounded),
           label: "Devoirs",
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.settings_rounded),
+          icon: Icon(Icons.school_rounded),
           label: "Matières"
         ),
       ],
