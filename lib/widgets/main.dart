@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import "package:intl/intl.dart";
 
-import 'bottombar.dart';
+import 'barre_de_navigation.dart';
 
 void main() {
   runApp(MyApp());
