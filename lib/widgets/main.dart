@@ -32,6 +32,14 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  void _pointeurAction() {
+    if (_indexSelected == 0) {
+      print("rien pour l'instant"); 
+    } else if (_indexSelected == 1) {
+      //mettre la fonction ici.
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -45,7 +53,7 @@ class _MyAppState extends State<MyApp> {
           ],
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () => {},
+          onPressed: () => _pointeurAction(),
           child: Icon(Icons.add),
         ),
         bottomNavigationBar: BarreDeNavigation(
