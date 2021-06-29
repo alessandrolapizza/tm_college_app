@@ -48,7 +48,7 @@ class _MyAppState extends State<MyApp> {
           onPressed: () => {},
           child: Icon(Icons.add),
         ),
-        bottomNavigationBar: BottomBar(
+        bottomNavigationBar: BarreDeNavigation(
           changeIndex: _changeIndex,
           indexSelected: _indexSelected,
         ),

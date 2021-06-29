@@ -1,10 +1,10 @@
 import "package:flutter/material.dart";
 
-class BottomBar extends StatelessWidget {
+class BarreDeNavigation extends StatelessWidget {
   final Function changeIndex;
   final int indexSelected;
 
-  BottomBar({
+  BarreDeNavigation({
     @required this.changeIndex,
     @required this.indexSelected,
   });
