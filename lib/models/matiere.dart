@@ -1,13 +1,13 @@
 import "package:flutter/material.dart";
 
 class Matiere {
-  final String titre;
+  final String nom;
   final int id;
   final Color couleurMatiere;
   final Icons iconMatiere;
 
   Matiere({
-    @required this.titre,
+    @required this.nom,
     @required this.id,
     @required this.couleurMatiere,
     @required this.iconMatiere,
