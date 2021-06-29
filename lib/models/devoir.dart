@@ -3,11 +3,11 @@ import "package:flutter/foundation.dart";
 import "matiere.dart";
 
 class Devoir {
-  String contenu;
-  int id;
-  DateTime dateLimite;
-  Matiere matiere;
-  int importance;
+  final String contenu;
+  final int id;
+  final DateTime dateLimite;
+  final Matiere matiere;
+  final int importance;
 
   Devoir({
     @required this.contenu,
