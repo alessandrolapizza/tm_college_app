@@ -44,12 +44,10 @@ class _MyAppState extends State<MyApp> {
             //devoirs
           ],
         ),
-        floatingActionButton: _indexSelected == 0
-            ? FloatingActionButton(
-                onPressed: () => {},
-                child: Icon(Icons.add),
-              )
-            : null,
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => {},
+          child: Icon(Icons.add),
+        ),
         bottomNavigationBar: BottomBar(
           changeIndex: _changeIndex,
           indexSelected: _indexSelected,
