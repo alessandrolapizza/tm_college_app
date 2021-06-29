@@ -1,11 +1,13 @@
-import "package:flutter/foundation.dart";
+import "package:flutter/material.dart";
 
 class Matiere {
-  String titre;
-  int id;
+  final String titre;
+  final int id;
+  final Color couleurMatiere;
 
   Matiere({
     @required this.titre,
     @required this.id,
+    @required this.couleurMatiere,
   });
 }
