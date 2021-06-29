@@ -20,7 +20,7 @@ class _MyAppState extends State<MyApp> {
     if (_indexSelected == 0) {
       _resultText = "Devoirs";
     } else {
-      _resultText = "Paramètres";
+      _resultText = "Matières";
     }
     return _resultText;
   }
