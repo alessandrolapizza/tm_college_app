@@ -19,7 +19,7 @@ class BottomBar extends StatelessWidget {
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.settings_rounded),
-          label: "Paramètres",
+          label: "Matières"
         ),
       ],
       currentIndex: indexSelected,
