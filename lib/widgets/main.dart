@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import "package:intl/intl.dart";
 
 import 'barre_de_navigation.dart';
 
@@ -7,12 +6,22 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   @override
-  _MyAppState createState() => _MyAppState();
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: MyHomePage(),
+    );
+  }
 }
 
-class _MyAppState extends State<MyApp> {
+class MyHomePage extends StatefulWidget {
+
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
   var _indexSelected = 0;
 
   String get _textToShow {
@@ -32,12 +41,21 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  void _pointeurAction() {
+  void _pointeurAction(ctx) {
     if (_indexSelected == 0) {
-      print("rien pour l'instant"); 
+      print("rien pour l'instant");
     } else if (_indexSelected == 1) {
-      //mettre la fonction ici.
+      _creerMatiere(ctx);
     }
+  }
+
+  void _creerMatiere(BuildContext ctx) {
+    showModalBottomSheet(
+      context: ctx,
+      builder: (_) {
+        return Column(children: [],);
+      },
+    );
   }
 
   @override
@@ -53,7 +71,7 @@ class _MyAppState extends State<MyApp> {
           ],
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () => _pointeurAction(),
+          onPressed: () => _pointeurAction(context),
           child: Icon(Icons.add),
         ),
         bottomNavigationBar: BarreDeNavigation(
