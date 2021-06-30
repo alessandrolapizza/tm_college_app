@@ -8,8 +8,8 @@ class Matiere {
 
   Matiere({
     @required this.nom,
-    @required this.id,
     @required this.couleurMatiere,
     @required this.iconMatiere,
+    this.id,
   });
 }
