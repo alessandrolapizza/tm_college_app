@@ -1,27 +1,35 @@
 import 'package:flutter/material.dart';
 
-import 'barre_de_navigation.dart';
+import "page_creer_matiere.dart";
+import 'barre_navigation.dart';
+import "../models/matiere.dart";
+import 'carte_devoir.dart';
+import "../models/devoir.dart";
 
 void main() {
-  runApp(MyApp());
+  runApp(App());
 }
 
-class MyApp extends StatelessWidget {
+class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: MyHomePage(),
+      title: "TM_COLLEGE_APP", //Provisoire
+      initialRoute: "/",
+      routes: {
+        "/": (context) => PageAccueil(),
+        "/page_creer_matiere": (context) => PageCreerMatiere(),
+      },
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-
+class PageAccueil extends StatefulWidget {
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _PageAccueilState createState() => _PageAccueilState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _PageAccueilState extends State<PageAccueil> {
   var _indexSelected = 0;
 
   String get _textToShow {
@@ -41,43 +49,48 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void _pointeurAction(ctx) {
+  void _pointeurAction() {
     if (_indexSelected == 0) {
       print("rien pour l'instant");
     } else if (_indexSelected == 1) {
-      _creerMatiere(ctx);
+      Navigator.pushNamed(context, "/page_creer_matiere");
     }
-  }
-
-  void _creerMatiere(BuildContext ctx) {
-    showModalBottomSheet(
-      context: ctx,
-      builder: (_) {
-        return Column(children: [],);
-      },
-    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text(_textToShow),
-        ),
-        body: Column(
-          children: [
-            //devoirs
-          ],
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () => _pointeurAction(context),
-          child: Icon(Icons.add),
-        ),
-        bottomNavigationBar: BarreDeNavigation(
-          changeIndex: _changeIndex,
-          indexSelected: _indexSelected,
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(_textToShow),
+      ),
+      body: Column(
+        children: [
+          //Changer conditions d'apparitions
+          CarteDevoir(
+            Devoir(
+                contenu: "test 123455555",
+                id: 1,
+                dateLimite: DateTime.now(),
+                matiere: Matiere(
+                    couleurMatiere: Colors.red,
+                    iconMatiere: Icons.calculate,
+                    id: 2,
+                    nom: "Mathématiques"),
+                importance: 1),
+          )
+        ],
+      ),
+      floatingActionButton: Builder(
+        builder: (context) {
+          return FloatingActionButton(
+            onPressed: () => _pointeurAction(),
+            child: Icon(Icons.add),
+          );
+        },
+      ),
+      bottomNavigationBar: BarreNavigation(
+        changeIndex: _changeIndex,
+        indexSelected: _indexSelected,
       ),
     );
   }
