@@ -4,7 +4,7 @@ class Matiere {
   final String nom;
   final int id;
   final Color couleurMatiere;
-  final IconData iconMatiere;
+  IconData iconMatiere;
 
   Matiere({
     @required this.nom,
