@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import "page_creer_devoir.dart";
 import "page_creer_matiere.dart";
 import 'barre_navigation.dart';
 import "../models/matiere.dart";
@@ -19,6 +20,7 @@ class App extends StatelessWidget {
       routes: {
         "/": (context) => PageAccueil(),
         "/page_creer_matiere": (context) => PageCreerMatiere(),
+        "/page_creer_devoir": (context) => PageCreerDevoir(),
       },
     );
   }
@@ -51,7 +53,7 @@ class _PageAccueilState extends State<PageAccueil> {
 
   void _pointeurAction() {
     if (_indexSelected == 0) {
-      print("rien pour l'instant");
+      Navigator.pushNamed(context, "/page_creer_devoir");
     } else if (_indexSelected == 1) {
       Navigator.pushNamed(context, "/page_creer_matiere");
     }
