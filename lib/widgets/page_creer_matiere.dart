@@ -1,10 +1,9 @@
 import "package:flutter/material.dart";
 
 import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
+import "package:flutter_iconpicker/flutter_iconpicker.dart";
 
 class PageCreerMatiere extends StatelessWidget {
-  var controllerTexteMatiere = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,7 +54,18 @@ class PageCreerMatiere extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         OutlinedButton(
-                          onPressed: () {},
+                          onPressed: () async {
+                            var iconSelected =
+                                await FlutterIconPicker.showIconPicker(
+                              context,
+                              noResultsText: "Aucun résultats pour :",
+                              searchHintText: "Rechercher (noms anglais)",
+                              closeChild: Text("Annuler"),
+                              barrierDismissible: false,
+                              title: Text("Choisir un icon"),
+                            );
+                            print(iconSelected);
+                          },
                           child: Row(
                             children: [
                               Text("Icon "),
@@ -64,7 +74,28 @@ class PageCreerMatiere extends StatelessWidget {
                           ),
                         ),
                         OutlinedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            showDialog(
+                                barrierDismissible: false,
+                                context: context,
+                                builder: (_) {
+                                  return AlertDialog(
+                                    title: Text("Choisir une couleur"),
+                                    actions: [
+                                      TextButton(
+                                        child: Text("Annuler"),
+                                        onPressed: () => Navigator.pop(context),
+                                      )
+                                    ],
+                                    content: SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              4,
+                                      child: MaterialColorPicker(),
+                                    ),
+                                  );
+                                });
+                          },
                           child: Row(
                             children: [
                               Text("Couleur "),
