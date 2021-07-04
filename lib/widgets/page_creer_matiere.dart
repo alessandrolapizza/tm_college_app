@@ -91,7 +91,12 @@ class PageCreerMatiere extends StatelessWidget {
                                       height:
                                           MediaQuery.of(context).size.height /
                                               4,
-                                      child: MaterialColorPicker(),
+                                      child: MaterialColorPicker(
+                                        physics: ScrollPhysics(
+                                          parent:
+                                              NeverScrollableScrollPhysics(),
+                                        ),
+                                      ),
                                     ),
                                   );
                                 });
