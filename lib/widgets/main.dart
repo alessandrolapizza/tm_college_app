@@ -12,7 +12,7 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
   BaseDeDonnees bD = BaseDeDonnees();
-  
+
   bD.defCheminMatieres();
 
   runApp(App());
@@ -77,15 +77,18 @@ class _PageAccueilState extends State<PageAccueil> {
           //Changer conditions d'apparitions
           CarteDevoir(
             Devoir(
-                contenu: "test 123455555",
-                id: 1,
-                dateLimite: DateTime.now(),
-                matiere: Matiere(
-                    couleurMatiere: Colors.red,
-                    iconMatiere: Icons.calculate,
-                    id: 2,
-                    nom: "Mathématiques"),
-                importance: 1),
+              contenu:
+                  "test 123455555 overflow overflow overflow overflow overflow overflow",
+              id: 1,
+              dateLimite: DateTime.now(),
+              matiere: Matiere(
+                couleurMatiere: Colors.red,
+                iconMatiere: Icons.calculate,
+                id: 2,
+                nom: "Mathématiques",
+              ),
+              importance: 1,
+            ),
           )
         ],
       ),
