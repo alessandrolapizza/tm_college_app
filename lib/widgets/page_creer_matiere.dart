@@ -3,7 +3,12 @@ import "package:flutter/material.dart";
 import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
 import "package:flutter_iconpicker/flutter_iconpicker.dart";
 
-class PageCreerMatiere extends StatelessWidget {
+class PageCreerMatiere extends StatefulWidget {
+  @override
+  _PageCreerMatiereState createState() => _PageCreerMatiereState();
+}
+
+class _PageCreerMatiereState extends State<PageCreerMatiere> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,7 +64,7 @@ class PageCreerMatiere extends StatelessWidget {
                                 await FlutterIconPicker.showIconPicker(
                               context,
                               noResultsText: "Aucun résultats pour :",
-                              searchHintText: "Rechercher (noms anglais)",
+                              searchHintText: "Rechercher (anglais)",
                               closeChild: Text("Annuler"),
                               barrierDismissible: false,
                               title: Text("Choisir un icon"),
