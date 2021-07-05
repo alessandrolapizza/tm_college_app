@@ -9,6 +9,20 @@ class PageCreerMatiere extends StatefulWidget {
 }
 
 class _PageCreerMatiereState extends State<PageCreerMatiere> {
+  IconData _iconSelectionne;
+
+  void _selectionnerIcon(context) async {
+    _iconSelectionne = await FlutterIconPicker.showIconPicker(
+      context,
+      noResultsText: "Aucun résultats pour :",
+      searchHintText: "Rechercher (anglais)",
+      closeChild: Text("Annuler"),
+      barrierDismissible: false,
+      title: Text("Choisir un icon"),
+    );
+    setState(() => _iconSelectionne);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,22 +73,13 @@ class _PageCreerMatiereState extends State<PageCreerMatiere> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         OutlinedButton(
-                          onPressed: () async {
-                            var iconSelected =
-                                await FlutterIconPicker.showIconPicker(
-                              context,
-                              noResultsText: "Aucun résultats pour :",
-                              searchHintText: "Rechercher (anglais)",
-                              closeChild: Text("Annuler"),
-                              barrierDismissible: false,
-                              title: Text("Choisir un icon"),
-                            );
-                            print(iconSelected);
-                          },
+                          onPressed: () => _selectionnerIcon(context),
                           child: Row(
                             children: [
                               Text("Icon "),
-                              Icon(Icons.edit),
+                              Icon(_iconSelectionne == null
+                                  ? Icons.edit
+                                  : _iconSelectionne),
                             ],
                           ),
                         ),
