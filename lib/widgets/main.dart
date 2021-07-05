@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
 
-import "page_creer_devoir.dart";
-import "page_creer_matiere.dart";
-import 'barre_navigation.dart';
+import "./page_creer_devoir.dart";
+import "./page_creer_matiere.dart";
+import './barre_navigation.dart';
+import './carte_devoir.dart';
 import "../models/matiere.dart";
-import 'carte_devoir.dart';
 import "../models/devoir.dart";
+import '../models/base_de_donnees.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  BaseDeDonnees bD = BaseDeDonnees();
+  
+  bD.defCheminMatieres();
+
   runApp(App());
 }
 
