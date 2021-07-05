@@ -54,7 +54,7 @@ class CarteDevoir extends StatelessWidget {
               Expanded(
                 flex: 13,
                 child: Container(
-                  margin: EdgeInsets.symmetric(vertical: 10),
+                  margin: EdgeInsets.only(top: 10, bottom: 10, left: 10),
                   child: Column(
                     children: [
                       Text(
