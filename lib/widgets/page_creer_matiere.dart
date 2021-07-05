@@ -10,6 +10,7 @@ class PageCreerMatiere extends StatefulWidget {
 
 class _PageCreerMatiereState extends State<PageCreerMatiere> {
   IconData _iconSelectionne;
+  Color _couleurSelectionne;
 
   void _selectionnerIcon(context) async {
     _iconSelectionne = await FlutterIconPicker.showIconPicker(
@@ -21,6 +22,44 @@ class _PageCreerMatiereState extends State<PageCreerMatiere> {
       title: Text("Choisir un icon"),
     );
     setState(() => _iconSelectionne);
+  }
+
+  void _selectionnerCouleur() async {
+    int _couleurValide = 0;
+
+    _couleurSelectionne = await showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (_) {
+        return AlertDialog(
+          title: Text("Choisir une couleur"),
+          actions: [
+            TextButton(
+              child: Text("Annuler"),
+              onPressed: () => Navigator.pop(context),
+            )
+          ],
+          content: SizedBox(
+            height: MediaQuery.of(context).size.height / 4,
+            child: MaterialColorPicker(
+              onColorChange: (Color couleur) {
+                if (_couleurValide == 0) {
+                  _couleurValide++;
+                } else {
+                  Navigator.pop(context, couleur);
+                }
+              },
+              onBack: () => _couleurValide--,
+              physics: ScrollPhysics(
+                parent: NeverScrollableScrollPhysics(),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+
+    setState(() => _couleurSelectionne);
   }
 
   @override
@@ -77,44 +116,29 @@ class _PageCreerMatiereState extends State<PageCreerMatiere> {
                           child: Row(
                             children: [
                               Text("Icon "),
-                              Icon(_iconSelectionne == null
-                                  ? Icons.edit
-                                  : _iconSelectionne),
+                              Icon(
+                                _iconSelectionne == null
+                                    ? Icons.edit
+                                    : _iconSelectionne,
+                                size: 20,
+                              ),
                             ],
                           ),
                         ),
                         OutlinedButton(
-                          onPressed: () {
-                            showDialog(
-                                barrierDismissible: false,
-                                context: context,
-                                builder: (_) {
-                                  return AlertDialog(
-                                    title: Text("Choisir une couleur"),
-                                    actions: [
-                                      TextButton(
-                                        child: Text("Annuler"),
-                                        onPressed: () => Navigator.pop(context),
-                                      )
-                                    ],
-                                    content: SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              4,
-                                      child: MaterialColorPicker(
-                                        physics: ScrollPhysics(
-                                          parent:
-                                              NeverScrollableScrollPhysics(),
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                });
-                          },
+                          onPressed: () => _selectionnerCouleur(),
                           child: Row(
                             children: [
                               Text("Couleur "),
-                              Icon(Icons.edit),
+                              _couleurSelectionne == null
+                                  ? Icon(
+                                      Icons.edit,
+                                      size: 20,
+                                    )
+                                  : CircleColor(
+                                      color: _couleurSelectionne,
+                                      circleSize: 20,
+                                    ),
                             ],
                           ),
                         )
