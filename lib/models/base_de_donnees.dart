@@ -1,3 +1,5 @@
+import "package:flutter/material.dart";
+
 import "package:sqflite/sqflite.dart";
 import "package:path/path.dart";
 
@@ -40,7 +42,7 @@ class BaseDeDonnees {
           nom: maps[i]["nom"],
           salle: maps[i]["salle"],
           iconMatiere: maps[i]["iconMatiere"],
-          couleurMatiere: maps[i]["couleurMatiereValeur"],
+          couleurMatiere: Color(maps[i]["couleurMatiereValeur"]),
         );
       },
     );
