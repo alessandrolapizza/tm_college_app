@@ -39,11 +39,11 @@ class PageAccueil extends StatefulWidget {
 }
 
 class _PageAccueilState extends State<PageAccueil> {
-  var _indexSelected = 0;
+  var _indexSelectionne = 0;
 
   String get _textToShow {
     String _resultText;
-    if (_indexSelected == 0) {
+    if (_indexSelectionne == 0) {
       _resultText = "Devoirs";
     } else {
       _resultText = "Matières";
@@ -51,17 +51,17 @@ class _PageAccueilState extends State<PageAccueil> {
     return _resultText;
   }
 
-  void _changeIndex(index) {
+  void _changerIndex(index) {
     setState(() {
-      _indexSelected = index;
+      _indexSelectionne = index;
       print(index);
     });
   }
 
   void _pointeurAction() {
-    if (_indexSelected == 0) {
+    if (_indexSelectionne == 0) {
       Navigator.pushNamed(context, "/page_creer_devoir");
-    } else if (_indexSelected == 1) {
+    } else if (_indexSelectionne == 1) {
       Navigator.pushNamed(context, "/page_creer_matiere");
     }
   }
@@ -101,8 +101,8 @@ class _PageAccueilState extends State<PageAccueil> {
         },
       ),
       bottomNavigationBar: BarreNavigation(
-        changeIndex: _changeIndex,
-        indexSelected: _indexSelected,
+        changerIndex: _changerIndex,
+        indexSelectionne: _indexSelectionne,
       ),
     );
   }
