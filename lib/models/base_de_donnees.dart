@@ -26,4 +26,22 @@ class BaseDeDonnees {
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
+
+  Future<List<Matiere>> matieres() async {
+    final bD = await baseDeDonneesMatieres;
+
+    final List<Map<String, dynamic>> maps = await bD.query("matieres");
+
+    return List.generate(
+      maps.length,
+      (i) {
+        return Matiere(
+          id: maps[i]["id"],
+          nom: maps[i]["nom"],
+          iconMatiere: maps[i]["iconMatiere"],
+          couleurMatiere: maps[i]["couleurMatiere"],
+        );
+      },
+    );
+  }
 }
