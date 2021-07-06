@@ -1,12 +1,12 @@
 import "package:flutter/material.dart";
 
 class BarreNavigation extends StatelessWidget {
-  final Function changeIndex;
-  final int indexSelected;
+  final Function changerIndex;
+  final int indexSelectionne;
 
   BarreNavigation({
-    @required this.changeIndex,
-    @required this.indexSelected,
+    @required this.changerIndex,
+    @required this.indexSelectionne,
   });
 
   @override
@@ -19,11 +19,11 @@ class BarreNavigation extends StatelessWidget {
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.school_rounded),
-          label: "Matières"
+          label: "Matières",
         ),
       ],
-      currentIndex: indexSelected,
-      onTap: (int index) => changeIndex(index),
+      currentIndex: indexSelectionne,
+      onTap: (int index) => changerIndex(index),
     );
   }
 }
