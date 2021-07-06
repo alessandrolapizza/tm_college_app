@@ -55,4 +55,14 @@ class BaseDeDonnees {
       whereArgs: [matiere.id],
     );
   }
+
+  Future<void> supprimerMatiere(int id) async {
+    final bD = await baseDeDonneesMatieres;
+
+    await bD.delete(
+      "matieres",
+      where: "id = ?",
+      whereArgs: [id],
+    );
+  }
 }
