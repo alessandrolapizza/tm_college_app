@@ -1,6 +1,8 @@
 import "package:sqflite/sqflite.dart";
 import "package:path/path.dart";
 
+import "./matiere.dart";
+
 class BaseDeDonnees {
   var baseDeDonneesMatieres;
 
@@ -13,6 +15,15 @@ class BaseDeDonnees {
         );
       },
       version: 1,
+    );
+  }
+
+  Future<void> insererMatiere(Matiere matiere) async {
+    final bD = await baseDeDonneesMatieres;
+    await bD.insert(
+      "matieres",
+      matiere.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
 }
