@@ -20,7 +20,7 @@ class Matiere {
       "id": id,
       "nom": nom,
       "iconMatiere": iconMatiere,
-      "couleurMatiere": couleurMatiere.value,
+      "couleurMatiereValeur": couleurMatiere.value,
     };
   }
 }
