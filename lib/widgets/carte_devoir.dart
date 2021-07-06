@@ -3,7 +3,7 @@ import "package:flutter/material.dart";
 import "../models/devoir.dart";
 
 class CarteDevoir extends StatelessWidget {
-  final listeCouleurImportance = [
+  static const listeCouleurImportance = [
     Colors.white,
     Colors.lightGreen,
     Colors.orange,
