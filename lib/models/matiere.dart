@@ -15,12 +15,12 @@ class Matiere {
     this.id,
   });
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> mapBD() {
     return {
       "id": id,
       "nom": nom,
       "iconMatiere": iconMatiere,
-      "couleurMatiere": couleurMatiere,
+      "couleurMatiere": couleurMatiere.value,
     };
   }
 }
