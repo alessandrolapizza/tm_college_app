@@ -41,7 +41,7 @@ class PageAccueil extends StatefulWidget {
 class _PageAccueilState extends State<PageAccueil> {
   var _indexSelectionne = 0;
 
-  String get _textToShow {
+  String get _texteAAfficher {
     String _resultText;
     if (_indexSelectionne == 0) {
       _resultText = "Devoirs";
@@ -70,7 +70,7 @@ class _PageAccueilState extends State<PageAccueil> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(_textToShow),
+        title: Text(_texteAAfficher),
       ),
       body: Column(
         children: [
