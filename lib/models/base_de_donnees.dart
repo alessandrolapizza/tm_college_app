@@ -44,4 +44,15 @@ class BaseDeDonnees {
       },
     );
   }
+
+  Future<void> modifierMatiere(Matiere matiere) async {
+    final bD = await baseDeDonneesMatieres;
+
+    await bD.update(
+      "matieres",
+      matiere.toMap(),
+      where: "id = ?",
+      whereArgs: [matiere.id],
+    );
+  }
 }
