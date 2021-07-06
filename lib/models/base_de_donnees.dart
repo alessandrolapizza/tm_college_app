@@ -11,7 +11,7 @@ class BaseDeDonnees {
       join(await getDatabasesPath(), "matieres_basededonnees.db"),
       onCreate: (bD, version) {
         return bD.execute(
-          "CREATE TABLE matieres(id INTEGER, nom TEXT, iconMatiere BLOB, couleurMatiere BLOB)",
+          "CREATE TABLE matieres(id INTEGER, nom TEXT, salle TEXT, iconMatiere BLOB, couleurMatiere BLOB)",
         );
       },
       version: 1,
@@ -38,6 +38,7 @@ class BaseDeDonnees {
         return Matiere(
           id: maps[i]["id"],
           nom: maps[i]["nom"],
+          salle: maps[i]["salle"],
           iconMatiere: maps[i]["iconMatiere"],
           couleurMatiere: maps[i]["couleurMatiere"],
         );
