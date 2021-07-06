@@ -3,6 +3,7 @@ import "package:flutter/material.dart";
 class Matiere {
   final int id;
   final String nom;
+  final String salle;
   final IconData iconMatiere;
   final Color couleurMatiere;
 
@@ -10,6 +11,7 @@ class Matiere {
     @required this.nom,
     @required this.iconMatiere,
     @required this.couleurMatiere,
+    @required this.salle,
     this.id,
   });
 
