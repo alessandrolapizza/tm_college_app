@@ -3,14 +3,32 @@ import "package:flutter/material.dart";
 import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
 import "package:flutter_iconpicker/flutter_iconpicker.dart";
 
+import "../models/base_de_donnees.dart";
+import "../models/matiere.dart";
+
+import 'dart:math'; //provisoire
+
+Random random = new Random(); //provisoire
+int randomNumber = random.nextInt(10000); //provisoire
+
 class PageCreerMatiere extends StatefulWidget {
+  final BaseDeDonnees bD;
+
+  PageCreerMatiere(this.bD);
   @override
-  _PageCreerMatiereState createState() => _PageCreerMatiereState();
+  _PageCreerMatiereState createState() => _PageCreerMatiereState(bD);
 }
 
 class _PageCreerMatiereState extends State<PageCreerMatiere> {
+  TextEditingController _nomMatiereController = TextEditingController();
+  TextEditingController _salleController = TextEditingController();
+
   IconData _iconSelectionne;
   Color _couleurSelectionne;
+
+  BaseDeDonnees _bD;
+
+  _PageCreerMatiereState(this._bD);
 
   void _selectionnerIcon(context) async {
     _iconSelectionne = await FlutterIconPicker.showIconPicker(
@@ -21,6 +39,7 @@ class _PageCreerMatiereState extends State<PageCreerMatiere> {
       barrierDismissible: false,
       title: Text("Choisir un icon"),
     );
+
     setState(() => _iconSelectionne);
   }
 
@@ -62,6 +81,18 @@ class _PageCreerMatiereState extends State<PageCreerMatiere> {
     setState(() => _couleurSelectionne);
   }
 
+  Future<void> _nouvelleMatiere() async {
+    await _bD.insererMatiere(
+      Matiere(
+        couleurMatiere: _couleurSelectionne,
+        id: randomNumber,
+        iconMatiere: _iconSelectionne,
+        nom: _nomMatiereController.text,
+        salle: _salleController.text,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,6 +114,7 @@ class _PageCreerMatiereState extends State<PageCreerMatiere> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           TextField(
+                            controller: _nomMatiereController,
                             autofocus: true,
                             maxLength: 20,
                             keyboardType: TextInputType.text,
@@ -96,6 +128,7 @@ class _PageCreerMatiereState extends State<PageCreerMatiere> {
                             ),
                           ),
                           TextField(
+                            controller: _salleController,
                             maxLength: 5,
                             keyboardType: TextInputType.text,
                             decoration: InputDecoration(
@@ -159,7 +192,10 @@ class _PageCreerMatiereState extends State<PageCreerMatiere> {
                         padding: EdgeInsets.symmetric(horizontal: 5),
                       ),
                       OutlinedButton(
-                        onPressed: () {},
+                        onPressed: () async {
+                          await _nouvelleMatiere();
+                          Navigator.pop(context);
+                        },
                         child: Text("Enregistrer"),
                       ),
                     ],
