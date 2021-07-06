@@ -11,7 +11,7 @@ class BaseDeDonnees {
       join(await getDatabasesPath(), "matieres_basededonnees.db"),
       onCreate: (bD, version) {
         return bD.execute(
-          "CREATE TABLE matieres(id INTEGER, nom TEXT, salle TEXT, iconMatiere TEXT, couleurMatiere TEXT)",
+          "CREATE TABLE matieres(id INTEGER, nom TEXT, salle TEXT, iconMatiere TEXT, couleurMatiereValeur INTEGER)",
         );
       },
       version: 1,
@@ -22,7 +22,7 @@ class BaseDeDonnees {
     final bD = await baseDeDonneesMatieres;
     await bD.insert(
       "matieres",
-      matiere.toMap(),
+      matiere.mapBD(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
@@ -40,7 +40,7 @@ class BaseDeDonnees {
           nom: maps[i]["nom"],
           salle: maps[i]["salle"],
           iconMatiere: maps[i]["iconMatiere"],
-          couleurMatiere: maps[i]["couleurMatiere"],
+          couleurMatiere: maps[i]["couleurMatiereValeur"],
         );
       },
     );
@@ -51,7 +51,7 @@ class BaseDeDonnees {
 
     await bD.update(
       "matieres",
-      matiere.toMap(),
+      matiere.mapBD(),
       where: "id = ?",
       whereArgs: [matiere.id],
     );
