@@ -12,4 +12,13 @@ class Matiere {
     @required this.couleurMatiere,
     this.id,
   });
+
+  Map<String, dynamic> toMap() {
+    return {
+      "id": id,
+      "nom": nom,
+      "iconMatiere": iconMatiere,
+      "couleurMatiere": couleurMatiere,
+    };
+  }
 }
