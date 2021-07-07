@@ -44,8 +44,6 @@ class PageAccueil extends StatefulWidget {
 class _PageAccueilState extends State<PageAccueil> {
   var _indexSelectionne = 0;
 
-  var _listeMatieresBD;
-
   String get _texteAAfficher {
     String _resultText;
     if (_indexSelectionne == 0) {
