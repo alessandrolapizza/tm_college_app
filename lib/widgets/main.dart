@@ -4,14 +4,17 @@ import "./page_creer_devoir.dart";
 import "./page_creer_matiere.dart";
 import './barre_navigation.dart';
 import './carte_devoir.dart';
+import "./carte_matiere.dart";
 import "../models/matiere.dart";
 import "../models/devoir.dart";
 import '../models/base_de_donnees.dart';
 
+BaseDeDonnees bD;
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
-  BaseDeDonnees bD = BaseDeDonnees();
+  bD = BaseDeDonnees();
 
   bD.defCheminMatieres();
 
@@ -26,7 +29,7 @@ class App extends StatelessWidget {
       initialRoute: "/",
       routes: {
         "/": (context) => PageAccueil(),
-        "/page_creer_matiere": (context) => PageCreerMatiere(),
+        "/page_creer_matiere": (context) => PageCreerMatiere(bD),
         "/page_creer_devoir": (context) => PageCreerDevoir(),
       },
     );
@@ -40,6 +43,8 @@ class PageAccueil extends StatefulWidget {
 
 class _PageAccueilState extends State<PageAccueil> {
   var _indexSelectionne = 0;
+
+  var _listeMatieresBD;
 
   String get _texteAAfficher {
     String _resultText;
@@ -72,26 +77,47 @@ class _PageAccueilState extends State<PageAccueil> {
       appBar: AppBar(
         title: Text(_texteAAfficher),
       ),
-      body: Column(
-        children: [
-          //Changer conditions d'apparitions
-          CarteDevoir(
-            Devoir(
-              contenu:
-                  "test 123455555 overflow overflow overflow overflow overflow overflow",
-              id: 1,
-              dateLimite: DateTime.now(),
-              matiere: Matiere(
-                couleurMatiere: Colors.red,
-                iconMatiere: Icons.calculate,
-                id: 2,
-                nom: "Mathématiques",
-              ),
-              importance: 1,
-            ),
-          )
-        ],
-      ),
+      body: Builder(builder: (context) {
+        return Column(
+          children: _indexSelectionne == 0
+              ? [
+                  CarteDevoir(
+                    Devoir(
+                      contenu:
+                          "test 123455555 overflow overflow overflow overflow overflow overflow",
+                      id: 1,
+                      dateLimite: DateTime.now(),
+                      matiere: Matiere(
+                        salle: "746",
+                        couleurMatiere: Colors.red,
+                        iconMatiere: Icons.calculate,
+                        id: 2,
+                        nom: "Mathématiques",
+                      ),
+                      importance: 1,
+                    ),
+                  )
+                ]
+              : [
+                  FutureBuilder(
+                      future: bD.matieres(),
+                      builder: (_, snapshot) {
+                        debugPrint(snapshot.toString());
+                        return Expanded(
+                          child: ListView.builder(
+                            itemCount: snapshot.data.length,
+                            itemBuilder: (_, index) {
+                              debugPrint(snapshot.data.toString());
+                              return CarteMatiere(snapshot.data[index]);
+                            },
+                          ),
+                        );
+                      })
+                ],
+        );
+      })
+      //Changer conditions d'apparitions
+      ,
       floatingActionButton: Builder(
         builder: (context) {
           return FloatingActionButton(
