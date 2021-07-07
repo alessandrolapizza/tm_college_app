@@ -19,6 +19,7 @@ class Matiere {
     return {
       "id": id,
       "nom": nom,
+      "salle": salle,
       "iconMatiereCode": iconMatiere.codePoint,
       "couleurMatiereValeur": couleurMatiere.value,
     };
