@@ -41,7 +41,10 @@ class BaseDeDonnees {
           id: maps[i]["id"],
           nom: maps[i]["nom"],
           salle: maps[i]["salle"],
-          iconMatiere: IconData(maps[i]["iconMatiereCode"]),
+          iconMatiere: IconData(
+            maps[i]["iconMatiereCode"],
+            fontFamily: "MaterialIcons",
+          ),
           couleurMatiere: Color(maps[i]["couleurMatiereValeur"]),
         );
       },
