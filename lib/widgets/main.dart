@@ -65,7 +65,7 @@ class _PageAccueilState extends State<PageAccueil> {
     if (_indexSelectionne == 0) {
       Navigator.pushNamed(context, "/page_creer_devoir");
     } else if (_indexSelectionne == 1) {
-      Navigator.pushNamed(context, "/page_creer_matiere");
+      Navigator.pushNamed(context, "/page_creer_matiere").then((_) => setState(() {}));
     }
   }
 
@@ -100,16 +100,22 @@ class _PageAccueilState extends State<PageAccueil> {
                   FutureBuilder(
                       future: bD.matieres(),
                       builder: (_, snapshot) {
-                        debugPrint(snapshot.toString());
-                        return Expanded(
-                          child: ListView.builder(
-                            itemCount: snapshot.data.length,
-                            itemBuilder: (_, index) {
-                              debugPrint(snapshot.data.toString());
-                              return CarteMatiere(snapshot.data[index]);
-                            },
-                          ),
-                        );
+                        var children;
+                        if (snapshot.hasData) {
+                          children = Expanded(
+                            child: ListView.builder(
+                              itemCount: snapshot.data.length,
+                              itemBuilder: (_, index) {
+                                return CarteMatiere(snapshot.data[index]);
+                              },
+                            ),
+                          );
+                        } else {
+                          children = Expanded(
+                            child: Center(child: CircularProgressIndicator()),
+                          );
+                        }
+                        return children;
                       })
                 ],
         );
