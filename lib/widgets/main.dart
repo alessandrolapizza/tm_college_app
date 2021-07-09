@@ -75,8 +75,8 @@ class _PageAccueilState extends State<PageAccueil> {
       appBar: AppBar(
         title: Text(_texteAAfficher),
       ),
-      body: Builder(builder: (context) {
-        return Column(
+      body: 
+      Column(
           children: _indexSelectionne == 0
               ? [
                   CarteDevoir(
@@ -118,8 +118,8 @@ class _PageAccueilState extends State<PageAccueil> {
                         return children;
                       })
                 ],
-        );
-      })
+        )
+
       //Changer conditions d'apparitions
       ,
       floatingActionButton: Builder(
