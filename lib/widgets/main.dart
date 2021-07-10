@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import "./page_visualiser_matiere.dart";
 import "./page_creer_devoir.dart";
 import "./page_creer_matiere.dart";
 import './barre_navigation.dart';
@@ -28,9 +29,10 @@ class App extends StatelessWidget {
       title: "TM_COLLEGE_APP", //Provisoire
       initialRoute: "/",
       routes: {
-        "/": (context) => PageAccueil(),
-        "/page_creer_matiere": (context) => PageCreerMatiere(bD),
-        "/page_creer_devoir": (context) => PageCreerDevoir(),
+        "/": (_) => PageAccueil(),
+        "/page_creer_matiere": (_) => PageCreerMatiere(bD),
+        "/page_creer_devoir": (_) => PageCreerDevoir(),
+        "/page_visualiser_matiere": (_) => PageVisualiserMatiere(),
       },
     );
   }
