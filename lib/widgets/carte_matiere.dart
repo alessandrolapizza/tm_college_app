@@ -10,7 +10,11 @@ class CarteMatiere extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () => Navigator.pushNamed(
+        context,
+        "/page_visualiser_matiere",
+        arguments: matiere,
+      ),
       child: Container(
         height: 90,
         width: double.infinity,
@@ -22,7 +26,8 @@ class CarteMatiere extends StatelessWidget {
                 child: Container(
                   margin: EdgeInsets.symmetric(vertical: 10),
                   decoration: BoxDecoration(
-                    color: matiere.couleurMatiere, //à construire (couleur de matière)
+                    color: matiere
+                        .couleurMatiere, //à construire (couleur de matière)
                     shape: BoxShape.circle,
                     border: Border.all(
                       width: 0.1,
@@ -48,7 +53,8 @@ class CarteMatiere extends StatelessWidget {
                       Container(
                         margin: EdgeInsets.only(top: 3),
                         child: Text(
-                          "Salle : " + matiere.salle, // à construire (Contenu du devoir)
+                          "Salle : " +
+                              matiere.salle, // à construire (Contenu du devoir)
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,
                         ),
@@ -58,7 +64,6 @@ class CarteMatiere extends StatelessWidget {
                   ),
                 ),
               ),
-              
             ],
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.stretch,
