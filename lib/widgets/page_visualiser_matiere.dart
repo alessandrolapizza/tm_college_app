@@ -1,7 +1,8 @@
 import "package:flutter/material.dart";
 
-class PageVisualiserMatiere extends StatefulWidget {
+import "../models/matiere.dart";
 
+class PageVisualiserMatiere extends StatefulWidget {
   @override
   _PageVisualiserMatiereState createState() => _PageVisualiserMatiereState();
 }
@@ -9,8 +10,14 @@ class PageVisualiserMatiere extends StatefulWidget {
 class _PageVisualiserMatiereState extends State<PageVisualiserMatiere> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      
+  final matiere = ModalRoute.of(context).settings.arguments as Matiere;
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(matiere.nom),
+      ),
     );
   }
 }
+
+
+//à continuer
