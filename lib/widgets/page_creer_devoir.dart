@@ -13,6 +13,9 @@ class PageCreerDevoir extends StatelessWidget {
             width: MediaQuery.of(context).size.width / 1.05,
             child: Column(
               children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 5),
+                ),
                 Wrap(
                   runSpacing: 15,
                   children: [

@@ -8,7 +8,7 @@ import "../models/matiere.dart";
 
 import 'dart:math'; //provisoire
 
-Random random = new Random(); //provisoire
+Random random = Random(); //provisoire
 int randomNumber = random.nextInt(10000); //provisoire
 
 class PageCreerMatiere extends StatefulWidget {
@@ -104,101 +104,105 @@ class _PageCreerMatiereState extends State<PageCreerMatiere> {
           child: SizedBox(
             width: MediaQuery.of(context).size.width / 1.05,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Column(
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 8),
+                ),
+                Wrap(
+                  runSpacing: 15,
                   children: [
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height / 4,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          TextField(
-                            controller: _nomMatiereController,
-                            autofocus: true,
-                            maxLength: 20,
-                            keyboardType: TextInputType.text,
-                            textInputAction: TextInputAction.next,
-                            onEditingComplete: () =>
-                                FocusScope.of(context).nextFocus(),
-                            decoration: InputDecoration(
-                              icon: Icon(Icons.text_fields_rounded),
-                              labelText: "Nom de la matière",
-                              border: OutlineInputBorder(),
-                            ),
-                          ),
-                          TextField(
-                            controller: _salleController,
-                            maxLength: 5,
-                            keyboardType: TextInputType.text,
-                            decoration: InputDecoration(
-                              icon:
-                                  Icon(Icons.format_list_numbered_rtl_rounded),
-                              labelText: "Numéro de salle",
-                              border: OutlineInputBorder(),
-                            ),
-                          ),
-                        ],
+                    TextField(
+                      controller: _nomMatiereController,
+                      autofocus: true,
+                      maxLength: 20,
+                      keyboardType: TextInputType.text,
+                      textInputAction: TextInputAction.next,
+                      onEditingComplete: () =>
+                          FocusScope.of(context).nextFocus(),
+                      decoration: InputDecoration(
+                        icon: Icon(Icons.text_fields_rounded),
+                        labelText: "Nom de la matière",
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                    TextField(
+                      controller: _salleController,
+                      maxLength: 5,
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                        icon: Icon(Icons.format_list_numbered_rtl_rounded),
+                        labelText: "Numéro de salle",
+                        border: OutlineInputBorder(),
                       ),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        OutlinedButton(
-                          onPressed: () => _selectionnerIcon(context),
-                          child: Row(
-                            children: [
-                              Text("Icon "),
-                              Icon(
-                                _iconSelectionne == null
-                                    ? Icons.edit
-                                    : _iconSelectionne,
-                                size: 20,
-                              ),
-                            ],
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width / 2.5,
+                          child: OutlinedButton(
+                            onPressed: () => _selectionnerIcon(context),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text("Icon "),
+                                Icon(
+                                  _iconSelectionne == null
+                                      ? Icons.edit
+                                      : _iconSelectionne,
+                                  size: 20,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                        OutlinedButton(
-                          onPressed: () => _selectionnerCouleur(),
-                          child: Row(
-                            children: [
-                              Text("Couleur "),
-                              _couleurSelectionne == null
-                                  ? Icon(
-                                      Icons.edit,
-                                      size: 20,
-                                    )
-                                  : CircleColor(
-                                      color: _couleurSelectionne,
-                                      circleSize: 20,
-                                    ),
-                            ],
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width / 2.5,
+                          child: OutlinedButton(
+                            onPressed: () => _selectionnerCouleur(),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text("Couleur "),
+                                _couleurSelectionne == null
+                                    ? Icon(
+                                        Icons.edit,
+                                        size: 20,
+                                      )
+                                    : CircleColor(
+                                        color: _couleurSelectionne,
+                                        circleSize: 20,
+                                      ),
+                              ],
+                            ),
                           ),
                         )
                       ],
                     ),
                   ],
                 ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      OutlinedButton(
-                        onPressed: () => Navigator.pop(context),
-                        child: Text("Annuler"),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 5),
-                      ),
-                      OutlinedButton(
-                        onPressed: () async {
-                          await _nouvelleMatiere();
-                          Navigator.pop(context);
-                        },
-                        child: Text("Enregistrer"),
-                      ),
-                    ],
+                Expanded(
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        OutlinedButton(
+                          onPressed: () => Navigator.pop(context),
+                          child: Text("Annuler"),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 5),
+                        ),
+                        OutlinedButton(
+                          onPressed: () async {
+                            await _nouvelleMatiere();
+                            Navigator.pop(context);
+                          },
+                          child: Text("Enregistrer"),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
