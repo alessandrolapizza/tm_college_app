@@ -91,7 +91,6 @@ class _PageAccueilState extends State<PageAccueil> {
                       salle: "746",
                       couleurMatiere: Colors.red,
                       iconMatiere: Icons.calculate,
-                      id: 2,
                       nom: "Mathématiques",
                     ),
                     importance: 1,
@@ -108,6 +107,7 @@ class _PageAccueilState extends State<PageAccueil> {
                           child: ListView.builder(
                             itemCount: snapshot.data.length,
                             itemBuilder: (_, index) {
+                              debugPrint(snapshot.data[index].id);
                               return CarteMatiere(snapshot.data[index]);
                             },
                           ),

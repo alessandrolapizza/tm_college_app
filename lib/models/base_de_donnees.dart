@@ -13,7 +13,7 @@ class BaseDeDonnees {
       join(await getDatabasesPath(), "matieres_basededonnees.db"),
       onCreate: (bD, version) {
         return bD.execute(
-          "CREATE TABLE matieres(id INTEGER, nom TEXT, salle TEXT, iconMatiereCode INTEGER, couleurMatiereValeur INTEGER)",
+          "CREATE TABLE matieres(id TEXT, nom TEXT, salle TEXT, iconMatiereCode INTEGER, couleurMatiereValeur INTEGER)",
         );
       },
       version: 1,

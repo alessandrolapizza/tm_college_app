@@ -1,7 +1,8 @@
 import "package:flutter/material.dart";
+import "package:uuid/uuid.dart";
 
 class Matiere {
-  final int id;
+  final String id;
   final String nom;
   final String salle;
   final IconData iconMatiere;
@@ -12,8 +13,8 @@ class Matiere {
     @required this.iconMatiere,
     @required this.couleurMatiere,
     @required this.salle,
-    this.id,
-  });
+    id,
+  }) : id = id == null ? Uuid().v4() : id;
 
   Map<String, dynamic> mapBD() {
     return {

@@ -1,6 +1,6 @@
 import "package:flutter/foundation.dart";
 
-import "matiere.dart";
+import "./matiere.dart";
 
 class Devoir {
   final String contenu;

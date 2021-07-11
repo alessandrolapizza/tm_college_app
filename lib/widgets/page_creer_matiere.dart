@@ -6,11 +6,6 @@ import "package:flutter_iconpicker/flutter_iconpicker.dart";
 import "../models/base_de_donnees.dart";
 import "../models/matiere.dart";
 
-import 'dart:math'; //provisoire
-
-Random random = Random(); //provisoire
-int randomNumber = random.nextInt(10000); //provisoire
-
 class PageCreerMatiere extends StatefulWidget {
   final BaseDeDonnees bD;
 
@@ -85,7 +80,6 @@ class _PageCreerMatiereState extends State<PageCreerMatiere> {
     await _bD.insererMatiere(
       Matiere(
         couleurMatiere: _couleurSelectionne,
-        id: randomNumber,
         iconMatiere: _iconSelectionne,
         nom: _nomMatiereController.text,
         salle: _salleController.text,
