@@ -18,8 +18,8 @@ class Matiere {
 
   static final noSubject = Matiere(
       nom: "Divers",
-      iconMatiere: Icons.ac_unit,
-      couleurMatiere: Colors.amber,
+      iconMatiere: Icons.task_rounded,
+      couleurMatiere: Colors.blueGrey,
       salle: "");
 
   Map<String, dynamic> mapBD() {
