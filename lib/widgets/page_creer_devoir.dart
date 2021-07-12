@@ -1,6 +1,67 @@
 import "package:flutter/material.dart";
 
-class PageCreerDevoir extends StatelessWidget {
+import "../models/matiere.dart";
+import "../models/base_de_donnees.dart";
+
+class PageCreerDevoir extends StatefulWidget {
+  final BaseDeDonnees bD;
+
+  PageCreerDevoir(this.bD);
+  @override
+  _PageCreerDevoirState createState() => _PageCreerDevoirState(bD);
+}
+
+class _PageCreerDevoirState extends State<PageCreerDevoir> {
+  BaseDeDonnees _bD;
+
+  _PageCreerDevoirState(this._bD);
+
+  Matiere _subjectSelected = Matiere.noSubject;
+
+  Future<void> _selectSubject() async {
+    _subjectSelected = await showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return SafeArea(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Expanded(
+                  child: FutureBuilder(
+                    future: _bD.matieres(),
+                    builder: (_, snapshot) {
+                      var children;
+                      if (snapshot.hasData) {
+                        children = ListView.builder(
+                          itemCount: snapshot.data.length,
+                          itemBuilder: (_, index) {
+                            return ListTile(
+                              onTap: () {},
+                              leading: CircleAvatar(
+                                backgroundColor:
+                                    snapshot.data[index].couleurMatiere,
+                                child: Icon(
+                                  snapshot.data[index].iconMatiere,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              title: Text(snapshot.data[index].nom),
+                            );
+                          },
+                        );
+                      } else {
+                        children = Center(child: CircularProgressIndicator());
+                      }
+                      return children;
+                    },
+                  ),
+                )
+              ],
+            ),
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +81,7 @@ class PageCreerDevoir extends StatelessWidget {
                   runSpacing: 15,
                   children: [
                     OutlinedButton(
-                      onPressed: () {},
+                      onPressed: () => _selectSubject(),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -78,7 +139,7 @@ class PageCreerDevoir extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         OutlinedButton(
-                          onPressed: () {},
+                          onPressed: () => Navigator.pop(context),
                           child: Text("Annuler"),
                         ),
                         Padding(
