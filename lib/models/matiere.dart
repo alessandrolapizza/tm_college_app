@@ -16,6 +16,12 @@ class Matiere {
     id,
   }) : id = id == null ? Uuid().v4() : id;
 
+  static final noSubject = Matiere(
+      nom: "Divers",
+      iconMatiere: Icons.ac_unit,
+      couleurMatiere: Colors.amber,
+      salle: "");
+
   Map<String, dynamic> mapBD() {
     return {
       "id": id,
