@@ -35,19 +35,14 @@ class CarteDevoir extends StatelessWidget {
                 flex: 4,
                 child: Container(
                   margin: EdgeInsets.symmetric(vertical: 10),
-                  decoration: BoxDecoration(
-                    color: devoir.matiere
-                        .couleurMatiere, //à construire (couleur de matière)
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      width: 0.1,
+                  child: CircleAvatar(
+                    backgroundColor: devoir.matiere.couleurMatiere,
+                    child: Icon(
+                      devoir.matiere
+                          .iconMatiere, // à construire (icon de matière)
+                      color: Colors.white,
+                      size: 40,
                     ),
-                  ),
-                  child: Icon(
-                    devoir
-                        .matiere.iconMatiere, // à construire (icon de matière)
-                    color: Colors.white,
-                    size: 40,
                   ),
                 ),
               ),
