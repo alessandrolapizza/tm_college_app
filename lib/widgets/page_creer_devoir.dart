@@ -16,17 +16,37 @@ class _PageCreerDevoirState extends State<PageCreerDevoir> {
 
   _PageCreerDevoirState(this._bD);
 
-  Matiere _subjectSelected = Matiere.noSubject;
+  Matiere _subjectSelected;
 
   Future<void> _selectSubject() async {
     _subjectSelected = await showModalBottomSheet(
-        context: context,
-        builder: (context) {
-          return SafeArea(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Expanded(
+      context: context,
+      builder: (_) {
+        return SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Expanded(
+                child: ShaderMask(
+                  shaderCallback: (Rect rect) {
+                    return LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Colors.black,
+                        Colors.transparent,
+                        Colors.transparent,
+                        Colors.black,
+                      ],
+                      stops: [
+                        0.0,
+                        0.02,
+                        0.98,
+                        1.0
+                      ],
+                    ).createShader(rect);
+                  },
+                  blendMode: BlendMode.dstOut,
                   child: FutureBuilder(
                     future: _bD.matieres(),
                     builder: (_, snapshot) {
@@ -36,7 +56,8 @@ class _PageCreerDevoirState extends State<PageCreerDevoir> {
                           itemCount: snapshot.data.length,
                           itemBuilder: (_, index) {
                             return ListTile(
-                              onTap: () {},
+                              onTap: () =>
+                                  Navigator.pop(context, snapshot.data[index]),
                               leading: CircleAvatar(
                                 backgroundColor:
                                     snapshot.data[index].couleurMatiere,
@@ -55,11 +76,30 @@ class _PageCreerDevoirState extends State<PageCreerDevoir> {
                       return children;
                     },
                   ),
-                )
-              ],
-            ),
-          );
-        });
+                ),
+              ),
+              ListTile(
+                onTap: () => Navigator.pop(context, Matiere.noSubject),
+                leading: CircleAvatar(
+                  backgroundColor: Matiere.noSubject.couleurMatiere,
+                  child: Icon(
+                    Matiere.noSubject.iconMatiere,
+                    color: Colors.white,
+                  ),
+                ),
+                title: Text(Matiere.noSubject.nom),
+              )
+            ],
+          ),
+        );
+      },
+    );
+
+    if (_subjectSelected == Matiere.noSubject) {
+      _subjectSelected = null;
+    }
+
+    setState(() => _subjectSelected);
   }
 
   @override
@@ -84,10 +124,27 @@ class _PageCreerDevoirState extends State<PageCreerDevoir> {
                       onPressed: () => _selectSubject(),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text("Matière "),
-                          Icon(Icons.school_rounded),
-                        ],
+                        children: _subjectSelected == null
+                            ? [
+                                Text("Matière "),
+                                Icon(
+                                  Icons.school_rounded,
+                                  size: 20,
+                                ),
+                              ]
+                            : [
+                                CircleAvatar(
+                                  backgroundColor:
+                                      _subjectSelected.couleurMatiere,
+                                  child: Icon(
+                                    _subjectSelected.iconMatiere,
+                                    color: Colors.white,
+                                    size: 20,
+                                  ),
+                                  radius: 15,
+                                ),
+                                Text(" " + _subjectSelected.nom),
+                              ],
                       ),
                     ),
                     TextField(
