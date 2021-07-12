@@ -31,6 +31,7 @@ class PageCreerDevoir extends StatelessWidget {
                     ),
                     TextField(
                       keyboardType: TextInputType.multiline,
+                      autofocus: true,
                       maxLines: 3,
                       decoration: InputDecoration(
                         labelText: "Contenu",
