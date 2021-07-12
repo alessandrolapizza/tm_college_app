@@ -25,18 +25,13 @@ class CarteMatiere extends StatelessWidget {
                 flex: 1,
                 child: Container(
                   margin: EdgeInsets.symmetric(vertical: 10),
-                  decoration: BoxDecoration(
-                    color: matiere
-                        .couleurMatiere, //à construire (couleur de matière)
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      width: 0.1,
+                  child: CircleAvatar(
+                    backgroundColor: matiere.couleurMatiere,
+                    child: Icon(
+                      matiere.iconMatiere, // à construire (icon de matière)
+                      color: Colors.white,
+                      size: 40,
                     ),
-                  ),
-                  child: Icon(
-                    matiere.iconMatiere, // à construire (icon de matière)
-                    color: Colors.white,
-                    size: 40,
                   ),
                 ),
               ),
