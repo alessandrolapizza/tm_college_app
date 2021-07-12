@@ -31,7 +31,7 @@ class App extends StatelessWidget {
       routes: {
         "/": (_) => PageAccueil(),
         "/page_creer_matiere": (_) => PageCreerMatiere(bD),
-        "/page_creer_devoir": (_) => PageCreerDevoir(),
+        "/page_creer_devoir": (_) => PageCreerDevoir(bD),
         "/page_visualiser_matiere": (_) => PageVisualiserMatiere(),
       },
     );
@@ -98,27 +98,25 @@ class _PageAccueilState extends State<PageAccueil> {
                 )
               ]
             : [
-                FutureBuilder(
-                    future: bD.matieres(),
-                    builder: (_, snapshot) {
-                      var children;
-                      if (snapshot.hasData) {
-                        children = Expanded(
-                          child: ListView.builder(
+                Expanded(
+                  child: FutureBuilder(
+                      future: bD.matieres(),
+                      builder: (_, snapshot) {
+                        var children;
+                        if (snapshot.hasData) {
+                          children = ListView.builder(
                             itemCount: snapshot.data.length,
                             itemBuilder: (_, index) {
                               debugPrint(snapshot.data[index].id);
                               return CarteMatiere(snapshot.data[index]);
                             },
-                          ),
-                        );
-                      } else {
-                        children = Expanded(
-                          child: Center(child: CircularProgressIndicator()),
-                        );
-                      }
-                      return children;
-                    })
+                          );
+                        } else {
+                          children = Center(child: CircularProgressIndicator());
+                        }
+                        return children;
+                      }),
+                )
               ],
       )
 
