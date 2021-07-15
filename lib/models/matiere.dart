@@ -17,6 +17,7 @@ class Matiere {
   }) : id = id == null ? Uuid().v4() : id;
 
   static final noSubject = Matiere(
+      id: "0",
       nom: "Divers",
       iconMatiere: Icons.more_horiz,
       couleurMatiere: Colors.blueGrey,
