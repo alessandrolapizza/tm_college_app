@@ -130,10 +130,10 @@ class _PageCreerMatiereState extends State<PageCreerMatiere> {
                       ),
                     ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         SizedBox(
-                          width: MediaQuery.of(context).size.width / 2.5,
+                          width: MediaQuery.of(context).size.width / 2.3,
                           child: OutlinedButton(
                             onPressed: () => _selectionnerIcon(context),
                             child: Row(
@@ -151,7 +151,7 @@ class _PageCreerMatiereState extends State<PageCreerMatiere> {
                           ),
                         ),
                         SizedBox(
-                          width: MediaQuery.of(context).size.width / 2.5,
+                          width: MediaQuery.of(context).size.width / 2.3,
                           child: OutlinedButton(
                             onPressed: () => _selectionnerCouleur(),
                             child: Row(
