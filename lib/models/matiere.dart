@@ -18,7 +18,7 @@ class Matiere {
 
   static final noSubject = Matiere(
       nom: "Divers",
-      iconMatiere: Icons.task_rounded,
+      iconMatiere: Icons.more_horiz,
       couleurMatiere: Colors.blueGrey,
       salle: "");
 
