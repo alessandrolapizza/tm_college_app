@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import "package:intl/intl.dart";
+import 'package:intl/date_symbol_data_local.dart';
 
 import "./page_visualiser_matiere.dart";
 import "./page_creer_devoir.dart";
@@ -18,6 +20,10 @@ void main() {
   bD = BaseDeDonnees();
 
   bD.defCheminMatieres();
+
+  initializeDateFormatting();
+
+  Intl.defaultLocale = "fr";
 
   runApp(App());
 }
