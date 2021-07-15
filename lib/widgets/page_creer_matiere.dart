@@ -26,23 +26,25 @@ class _PageCreerMatiereState extends State<PageCreerMatiere> {
   _PageCreerMatiereState(this._bD);
 
   void _selectionnerIcon(context) async {
-    _iconSelectionne = await FlutterIconPicker.showIconPicker(
+    IconData _icon = await FlutterIconPicker.showIconPicker(
       context,
       noResultsText: "Aucun résultats pour :",
       searchHintText: "Rechercher (anglais)",
       closeChild: Text("Annuler"),
-      barrierDismissible: false,
+      barrierDismissible: true,
       title: Text("Choisir un icon"),
     );
 
-    setState(() => _iconSelectionne);
+    if (_icon != null) {
+      setState(() => _iconSelectionne = _icon);
+    }
   }
 
   void _selectionnerCouleur() async {
     int _couleurValide = 0;
 
-    _couleurSelectionne = await showDialog(
-      barrierDismissible: false,
+    Color _couleur = await showDialog(
+      barrierDismissible: true,
       context: context,
       builder: (_) {
         return AlertDialog(
@@ -72,8 +74,9 @@ class _PageCreerMatiereState extends State<PageCreerMatiere> {
         );
       },
     );
-
-    setState(() => _couleurSelectionne);
+    if (_couleur != null) {
+      setState(() => _couleurSelectionne = _couleur);
+    }
   }
 
   Future<void> _nouvelleMatiere() async {
