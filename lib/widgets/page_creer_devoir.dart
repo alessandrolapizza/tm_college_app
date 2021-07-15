@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:intl/intl.dart";
 
 import "../models/matiere.dart";
 import "../models/base_de_donnees.dart";
@@ -17,79 +18,110 @@ class _PageCreerDevoirState extends State<PageCreerDevoir> {
   _PageCreerDevoirState(this._bD);
 
   Matiere _subjectSelected;
+  DateTime _dateSelected;
+  int _prioritySelected = 0;
+
+  Future<void> _selectPriority() async {
+    _prioritySelected = await showModalBottomSheet(
+      context: context,
+      builder: (_) {
+        return SafeArea(
+            child: Column(
+          children: [
+            ListView.builder(
+              shrinkWrap: true,
+              itemCount: 1,
+              itemBuilder: (_, index) {
+                return ListTile(
+                  title: Text("test"),
+                );
+              },
+            ),
+          ],
+        ));
+      },
+    );
+  }
+
+  Future<void> _selectDate() async {
+    _dateSelected = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2020), //à construire plus tard.
+      lastDate: DateTime(2050), //à construire plus tard.
+    );
+
+    setState(() => _dateSelected);
+  }
 
   Future<void> _selectSubject() async {
     _subjectSelected = await showModalBottomSheet(
       context: context,
       builder: (_) {
         return SafeArea(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Expanded(
-                child: ShaderMask(
-                  shaderCallback: (Rect rect) {
-                    return LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Colors.black,
-                        Colors.transparent,
-                        Colors.transparent,
-                        Colors.black,
-                      ],
-                      stops: [
-                        0.0,
-                        0.02,
-                        0.98,
-                        1.0
-                      ],
-                    ).createShader(rect);
-                  },
-                  blendMode: BlendMode.dstOut,
-                  child: FutureBuilder(
-                    future: _bD.matieres(),
-                    builder: (_, snapshot) {
-                      var children;
-                      if (snapshot.hasData) {
-                        children = ListView.builder(
-                          itemCount: snapshot.data.length,
-                          itemBuilder: (_, index) {
-                            return ListTile(
-                              onTap: () =>
-                                  Navigator.pop(context, snapshot.data[index]),
-                              leading: CircleAvatar(
-                                backgroundColor:
-                                    snapshot.data[index].couleurMatiere,
-                                child: Icon(
-                                  snapshot.data[index].iconMatiere,
-                                  color: Colors.white,
+          child: ShaderMask(
+            shaderCallback: (Rect rect) {
+              return LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Colors.black,
+                  Colors.transparent,
+                  Colors.transparent,
+                  Colors.black,
+                ],
+                stops: [0.0, 0.02, 0.98, 1.0],
+              ).createShader(rect);
+            },
+            blendMode: BlendMode.dstOut,
+            child: FutureBuilder(
+              future: _bD.matieres(),
+              builder: (_, snapshot) {
+                var children;
+                if (snapshot.hasData) {
+                  children = SingleChildScrollView(
+                    child: ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: snapshot.data.length + 1,
+                      shrinkWrap: true,
+                      itemBuilder: (_, index) {
+                        print(index);
+                        print(snapshot.data.length);
+                        return index != snapshot.data.length
+                            ? ListTile(
+                                onTap: () => Navigator.pop(
+                                    context, snapshot.data[index]),
+                                leading: CircleAvatar(
+                                  backgroundColor:
+                                      snapshot.data[index].couleurMatiere,
+                                  child: Icon(
+                                    snapshot.data[index].iconMatiere,
+                                    color: Colors.white,
+                                  ),
                                 ),
-                              ),
-                              title: Text(snapshot.data[index].nom),
-                            );
-                          },
-                        );
-                      } else {
-                        children = Center(child: CircularProgressIndicator());
-                      }
-                      return children;
-                    },
-                  ),
-                ),
-              ),
-              ListTile(
-                onTap: () => Navigator.pop(context, Matiere.noSubject),
-                leading: CircleAvatar(
-                  backgroundColor: Matiere.noSubject.couleurMatiere,
-                  child: Icon(
-                    Matiere.noSubject.iconMatiere,
-                    color: Colors.white,
-                  ),
-                ),
-                title: Text(Matiere.noSubject.nom),
-              )
-            ],
+                                title: Text(snapshot.data[index].nom),
+                              )
+                            : ListTile(
+                                onTap: () => Navigator.pop(context),
+                                leading: CircleAvatar(
+                                  backgroundColor:
+                                      Matiere.noSubject.couleurMatiere,
+                                  child: Icon(
+                                    Matiere.noSubject.iconMatiere,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                title: Text(Matiere.noSubject.nom),
+                              );
+                      },
+                    ),
+                  );
+                } else {
+                  children = Center(child: CircularProgressIndicator());
+                }
+                return children;
+              },
+            ),
           ),
         );
       },
@@ -160,27 +192,40 @@ class _PageCreerDevoirState extends State<PageCreerDevoir> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         SizedBox(
-                          width: MediaQuery.of(context).size.width / 2.5,
+                          width: MediaQuery.of(context).size.width / 2.3,
                           child: OutlinedButton(
-                            onPressed: () {},
+                            onPressed: () => _selectDate(),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text("Date "),
-                                Icon(Icons.date_range_rounded),
-                              ],
+                              children: _dateSelected == null
+                                  ? [
+                                      Text("Date "),
+                                      Icon(
+                                        Icons.date_range_rounded,
+                                        size: 20,
+                                      ),
+                                    ]
+                                  : [
+                                      Text(
+                                        DateFormat("EEE d MMMM")
+                                            .format(_dateSelected),
+                                      )
+                                    ],
                             ),
                           ),
                         ),
                         SizedBox(
-                          width: MediaQuery.of(context).size.width / 2.5,
+                          width: MediaQuery.of(context).size.width / 2.3,
                           child: OutlinedButton(
-                            onPressed: () {},
+                            onPressed: () => _selectPriority(),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text("Importance "),
-                                Icon(Icons.format_list_numbered_rtl_rounded),
+                                Icon(
+                                  Icons.format_list_numbered_rtl_rounded,
+                                  size: 20,
+                                ),
                               ],
                             ),
                           ),
