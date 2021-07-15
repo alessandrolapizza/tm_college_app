@@ -1,6 +1,8 @@
 import "package:flutter/material.dart";
+import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
 import "package:intl/intl.dart";
 
+import "../models/devoir.dart";
 import "../models/matiere.dart";
 import "../models/base_de_donnees.dart";
 
@@ -26,19 +28,25 @@ class _PageCreerDevoirState extends State<PageCreerDevoir> {
       context: context,
       builder: (_) {
         return SafeArea(
-            child: Column(
-          children: [
-            ListView.builder(
+          child: SingleChildScrollView(
+            child: ListView.builder(
+              physics: NeverScrollableScrollPhysics(),
               shrinkWrap: true,
-              itemCount: 1,
+              itemCount: 4,
               itemBuilder: (_, index) {
                 return ListTile(
-                  title: Text("test"),
+                  onTap: () => Navigator.pop(context, index),
+                  leading: CircleAvatar(
+                    backgroundColor: Devoir.listeCouleurImportance[index],
+                  ),
+                  title: Text(
+                    Devoir.listeTexteImportance[index],
+                  ),
                 );
               },
             ),
-          ],
-        ));
+          ),
+        );
       },
     );
   }
@@ -222,10 +230,15 @@ class _PageCreerDevoirState extends State<PageCreerDevoir> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text("Importance "),
-                                Icon(
-                                  Icons.format_list_numbered_rtl_rounded,
-                                  size: 20,
-                                ),
+                                _prioritySelected == 0
+                                    ? Icon(
+                                        Icons.format_list_numbered_rtl_rounded,
+                                        size: 20,
+                                      )
+                                    : CircleColor(
+                                        color: Devoir.listeCouleurImportance[
+                                            _prioritySelected],
+                                        circleSize: 20),
                               ],
                             ),
                           ),
