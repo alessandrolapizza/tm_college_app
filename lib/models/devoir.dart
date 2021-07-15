@@ -9,11 +9,18 @@ class Devoir {
   final Matiere matiere;
   final int importance;
 
-  static const listeCouleurImportance = [
+  static const List<Color> listeCouleurImportance = [
     Colors.white,
     Colors.lightGreen,
     Colors.orange,
     Colors.red,
+  ];
+
+  static const List<String> listeTexteImportance = [
+    "Indifférent",
+    "Normal",
+    "Moyen",
+    "Urgent",
   ];
 
   Devoir({
