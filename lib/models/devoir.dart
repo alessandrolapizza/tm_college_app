@@ -1,4 +1,4 @@
-import "package:flutter/foundation.dart";
+import "package:flutter/material.dart";
 
 import "./matiere.dart";
 
@@ -8,6 +8,13 @@ class Devoir {
   final DateTime dateLimite;
   final Matiere matiere;
   final int importance;
+
+  static const listeCouleurImportance = [
+    Colors.white,
+    Colors.lightGreen,
+    Colors.orange,
+    Colors.red,
+  ];
 
   Devoir({
     @required this.contenu,

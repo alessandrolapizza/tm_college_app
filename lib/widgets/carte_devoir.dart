@@ -3,13 +3,6 @@ import "package:flutter/material.dart";
 import "../models/devoir.dart";
 
 class CarteDevoir extends StatelessWidget {
-  static const listeCouleurImportance = [
-    Colors.white,
-    Colors.lightGreen,
-    Colors.orange,
-    Colors.red,
-  ];
-
   final Devoir devoir;
 
   CarteDevoir(this.devoir);
@@ -27,7 +20,7 @@ class CarteDevoir extends StatelessWidget {
               Expanded(
                 flex: 1,
                 child: Card(
-                  color: listeCouleurImportance[
+                  color: Devoir.listeCouleurImportance[
                       devoir.importance], // à construire (couleur de priorité)
                 ),
               ),
