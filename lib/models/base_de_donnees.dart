@@ -4,6 +4,7 @@ import "package:sqflite/sqflite.dart";
 import "package:path/path.dart";
 
 import "./matiere.dart";
+import "./devoir.dart";
 
 class BaseDeDonnees {
   Future<Database> database;
@@ -24,16 +25,25 @@ class BaseDeDonnees {
   }
 
   Future<void> insererMatiere(Matiere matiere) async {
+    final db = await database;
+    await db.insert(
+      "matieres",
+      matiere.toMapDb(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
+  Future<void> insertHomework(Devoir homework) async {
     final bD = await database;
     await bD.insert(
-      "matieres",
-      matiere.mapBD(),
+      "homeworks",
+      homework.toMapDb(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
 
   Future<List<Matiere>> matieres() async {
-    final bD = await database;
+    final Database bD = await database;
 
     final List<Map<String, dynamic>> maps = await bD.query("matieres");
 
@@ -54,14 +64,52 @@ class BaseDeDonnees {
     );
   }
 
-  Future<void> modifierMatiere(Matiere matiere) async {
-    final bD = await database;
+  Future<List<Devoir>> homeworks() async {
+    final db = await database;
 
-    await bD.update(
+    Map<String, Matiere> subjectsIdMaps;
+
+    final List<Map<String, dynamic>> homeworksMaps =
+        await db.query("homeworks");
+
+    final List<Matiere> subjectsList = await matieres();
+
+    subjectsList.forEach((subject) => subjectsIdMaps[subject.id] = subject);
+
+    return List.generate(
+      homeworksMaps.length,
+      (i) {
+        return Devoir(
+          id: homeworksMaps[i]["id"],
+          subjectId: homeworksMaps[i]["subjectId"],
+          subject: subjectsIdMaps[homeworksMaps[i]["subjectId"]],
+          content: homeworksMaps[i]["content"],
+          dueDate: DateTime.parse(homeworksMaps[i]["dueDate"]),
+          priority: homeworksMaps[i]["priority"],
+        );
+      },
+    );
+  }
+
+  Future<void> modifierMatiere(Matiere matiere) async {
+    final db = await database;
+
+    await db.update(
       "matieres",
-      matiere.mapBD(),
+      matiere.toMapDb(),
       where: "id = ?",
       whereArgs: [matiere.id],
+    );
+  }
+
+  Future<void> updateHomework(Devoir homework) async {
+    final db = await database;
+
+    await db.update(
+      "homeworks",
+      homework.toMapDb(),
+      where: "id = ?",
+      whereArgs: [homework.id],
     );
   }
 
@@ -70,6 +118,16 @@ class BaseDeDonnees {
 
     await bD.delete(
       "matieres",
+      where: "id = ?",
+      whereArgs: [id],
+    );
+  }
+
+  Future<void> deleteHomework(int id) async {
+    final db = await database;
+
+    await db.delete(
+      "homeworks",
       where: "id = ?",
       whereArgs: [id],
     );
