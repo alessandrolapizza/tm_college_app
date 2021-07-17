@@ -20,6 +20,16 @@ class Devoir {
     id,
   }) : id = id == null ? Uuid().v4() : id;
 
+  Map<String, dynamic> toMapBd() {
+    return {
+      "id": id,
+      "subjectId": subjectId,
+      "content": content,
+      "dueDate": dueDate.toString(),
+      "priority": priority,
+    };
+  }
+
   static const List<Color> listeCouleurImportance = [
     Colors.white,
     Colors.lightGreen,
