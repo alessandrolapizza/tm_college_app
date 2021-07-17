@@ -6,14 +6,17 @@ import "package:path/path.dart";
 import "./matiere.dart";
 
 class BaseDeDonnees {
-  var baseDeDonneesMatieres;
+  Future<Database> database;
 
   void defCheminMatieres() async {
-    baseDeDonneesMatieres = openDatabase(
+    database = openDatabase(
       join(await getDatabasesPath(), "matieres_basededonnees.db"),
-      onCreate: (bD, version) {
-        return bD.execute(
+      onCreate: (db, version) {
+        db.execute(
           "CREATE TABLE matieres(id TEXT, nom TEXT, salle TEXT, iconMatiereCode INTEGER, couleurMatiereValeur INTEGER)",
+        );
+        db.execute(
+          "CREATE TABLE homeworks(id TEXT, subjectId TEXT, content TEXT, dueDate TEXT, priority INTEGER)",
         );
       },
       version: 1,
@@ -21,7 +24,7 @@ class BaseDeDonnees {
   }
 
   Future<void> insererMatiere(Matiere matiere) async {
-    final bD = await baseDeDonneesMatieres;
+    final bD = await database;
     await bD.insert(
       "matieres",
       matiere.mapBD(),
@@ -30,7 +33,7 @@ class BaseDeDonnees {
   }
 
   Future<List<Matiere>> matieres() async {
-    final bD = await baseDeDonneesMatieres;
+    final bD = await database;
 
     final List<Map<String, dynamic>> maps = await bD.query("matieres");
 
@@ -52,7 +55,7 @@ class BaseDeDonnees {
   }
 
   Future<void> modifierMatiere(Matiere matiere) async {
-    final bD = await baseDeDonneesMatieres;
+    final bD = await database;
 
     await bD.update(
       "matieres",
@@ -63,7 +66,7 @@ class BaseDeDonnees {
   }
 
   Future<void> supprimerMatiere(int id) async {
-    final bD = await baseDeDonneesMatieres;
+    final bD = await database;
 
     await bD.delete(
       "matieres",
