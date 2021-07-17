@@ -20,7 +20,7 @@ class Devoir {
     id,
   }) : id = id == null ? Uuid().v4() : id;
 
-  Map<String, dynamic> toMapBd() {
+  Map<String, dynamic> toMapDb() {
     return {
       "id": id,
       "subjectId": subjectId,
