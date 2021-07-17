@@ -23,7 +23,7 @@ class Matiere {
       couleurMatiere: Colors.blueGrey,
       salle: "");
 
-  Map<String, dynamic> mapBD() {
+  Map<String, dynamic> toMapDb() {
     return {
       "id": id,
       "nom": nom,
