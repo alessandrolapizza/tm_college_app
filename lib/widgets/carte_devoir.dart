@@ -21,7 +21,7 @@ class CarteDevoir extends StatelessWidget {
                 flex: 1,
                 child: Card(
                   color: Devoir.listeCouleurImportance[
-                      devoir.importance], // à construire (couleur de priorité)
+                      devoir.priority], // à construire (couleur de priorité)
                 ),
               ),
               Expanded(
@@ -29,9 +29,9 @@ class CarteDevoir extends StatelessWidget {
                 child: Container(
                   margin: EdgeInsets.symmetric(vertical: 10),
                   child: CircleAvatar(
-                    backgroundColor: devoir.matiere.couleurMatiere,
+                    backgroundColor: devoir.subject.couleurMatiere,
                     child: Icon(
-                      devoir.matiere
+                      devoir.subject
                           .iconMatiere, // à construire (icon de matière)
                       color: Colors.white,
                       size: 40,
@@ -46,13 +46,13 @@ class CarteDevoir extends StatelessWidget {
                   child: Column(
                     children: [
                       Text(
-                        devoir.matiere.nom, // à construire (Nom de la matière)
+                        devoir.subject.nom, // à construire (Nom de la matière)
                         style: TextStyle(fontWeight: FontWeight.w600),
                       ),
                       Container(
                         margin: EdgeInsets.only(top: 3),
                         child: Text(
-                          devoir.contenu, // à construire (Contenu du devoir)
+                          devoir.content, // à construire (Contenu du devoir)
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,
                         ),
