@@ -1,13 +1,20 @@
 import "package:flutter/material.dart";
-
-import "./matiere.dart";
+import "package:uuid/uuid.dart";
 
 class Devoir {
-  final String contenu;
-  final int id;
-  final DateTime dateLimite;
-  final Matiere matiere;
-  final int importance;
+  final String id;
+  final String subjectId;
+  final String content;
+  final DateTime dueDate;
+  final int priority;
+
+  Devoir({
+    @required this.subjectId,
+    @required this.content,
+    @required this.dueDate,
+    @required this.priority,
+    id,
+  }) : id = id == null ? Uuid().v4() : id;
 
   static const List<Color> listeCouleurImportance = [
     Colors.white,
@@ -22,12 +29,4 @@ class Devoir {
     "Moyen",
     "Urgent",
   ];
-
-  Devoir({
-    @required this.contenu,
-    @required this.id,
-    @required this.dateLimite,
-    this.matiere,
-    this.importance,
-  });
 }
