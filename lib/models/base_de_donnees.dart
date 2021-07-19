@@ -67,7 +67,7 @@ class BaseDeDonnees {
   Future<List<Devoir>> homeworks() async {
     final db = await database;
 
-    Map<String, Matiere> subjectsIdMaps;
+    Map<String, Matiere> subjectsIdMaps = {};
 
     final List<Map<String, dynamic>> homeworksMaps =
         await db.query("homeworks");
