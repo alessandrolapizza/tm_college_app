@@ -24,7 +24,7 @@ class _PageCreerDevoirState extends State<PageCreerDevoir> {
   int _prioritySelected = 0;
 
   Future<void> _selectPriority() async {
-    _prioritySelected = await showModalBottomSheet(
+    int _priority = await showModalBottomSheet(
       context: context,
       builder: (_) {
         return SafeArea(
@@ -49,10 +49,14 @@ class _PageCreerDevoirState extends State<PageCreerDevoir> {
         );
       },
     );
+    if (_priority != null) {
+      setState(() => _prioritySelected = _priority);
+    }
   }
 
   Future<void> _selectDate() async {
     _dateSelected = await showDatePicker(
+      cancelText: "Annuler",
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime(2020), //à construire plus tard.
@@ -63,7 +67,7 @@ class _PageCreerDevoirState extends State<PageCreerDevoir> {
   }
 
   Future<void> _selectSubject() async {
-    _subjectSelected = await showModalBottomSheet(
+    Matiere _subject = await showModalBottomSheet(
       context: context,
       builder: (_) {
         return SafeArea(
@@ -135,8 +139,10 @@ class _PageCreerDevoirState extends State<PageCreerDevoir> {
       },
     );
 
-    if (_subjectSelected == Matiere.noSubject) {
+    if (_subject == Matiere.noSubject) {
       _subjectSelected = null;
+    } else if (_subject != null) {
+      _subjectSelected = _subject;
     }
 
     setState(() => _subjectSelected);
