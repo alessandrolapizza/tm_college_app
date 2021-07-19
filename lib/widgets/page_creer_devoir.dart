@@ -23,6 +23,8 @@ class _PageCreerDevoirState extends State<PageCreerDevoir> {
   DateTime _dateSelected;
   int _prioritySelected = 0;
 
+  TextEditingController _contentController = TextEditingController();
+
   Future<void> _selectPriority() async {
     int _priority = await showModalBottomSheet(
       context: context,
@@ -148,6 +150,16 @@ class _PageCreerDevoirState extends State<PageCreerDevoir> {
     setState(() => _subjectSelected);
   }
 
+  Future<void> _newHomework() async {
+    await _bD.insertHomework(
+      Devoir(
+          content: _contentController.text,
+          dueDate: _dateSelected,
+          subjectId: _subjectSelected.id,
+          priority: _prioritySelected),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -267,7 +279,10 @@ class _PageCreerDevoirState extends State<PageCreerDevoir> {
                           padding: EdgeInsets.symmetric(horizontal: 5),
                         ),
                         OutlinedButton(
-                          onPressed: () {},
+                          onPressed: () async {
+                            await _newHomework();
+                            Navigator.pop(context);
+                          },
                           child: Text("Enregistrer"),
                         )
                       ],
