@@ -13,10 +13,10 @@ class Devoir {
 
   Devoir({
     @required this.subjectId,
-    @required this.subject,
     @required this.content,
     @required this.dueDate,
     @required this.priority,
+    this.subject,
     id,
   }) : id = id == null ? Uuid().v4() : id;
 
