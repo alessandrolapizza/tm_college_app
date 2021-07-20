@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import "package:intl/intl.dart";
 import 'package:intl/date_symbol_data_local.dart';
+import "package:sortedmap/sortedmap.dart";
+import 'package:sticky_headers/sticky_headers/widget.dart';
 
+import "../models/devoir.dart";
 import "./page_visualiser_matiere.dart";
 import "./page_creer_devoir.dart";
 import "./page_creer_matiere.dart";
@@ -82,24 +85,79 @@ class _PageAccueilState extends State<PageAccueil> {
     return Scaffold(
       appBar: AppBar(
         title: Text(_texteAAfficher),
+        centerTitle: false,
       ),
+
       body: _indexSelectionne == 0
           ? FutureBuilder(
               future: bD.homeworks(),
               builder: (_, snapshot) {
-                var children;
+                var child;
                 if (snapshot.hasData) {
-                  children = ListView.builder(
-                    itemCount: snapshot.data.length,
+                  Map<DateTime, List<Devoir>> homeworksDateMap = {};
+                  SortedMap<Comparable<DateTime>, List<Devoir>>
+                      homeworksDateMapSorted = SortedMap(Ordering.byKey());
+
+                  snapshot.data.forEach(
+                    (homework) {
+                      if (homeworksDateMap.containsKey(homework.dueDate)) {
+                        homeworksDateMap[homework.dueDate].add(homework);
+                      } else {
+                        homeworksDateMap[homework.dueDate] = [homework];
+                      }
+                    },
+                  );
+
+                  homeworksDateMapSorted.addAll(homeworksDateMap);
+
+                  debugPrint(homeworksDateMapSorted.toString());
+
+                  child = ListView.builder(
+                    itemCount: homeworksDateMapSorted.length,
                     itemBuilder: (_, index) {
-                      debugPrint(snapshot.data[index].id);
-                      return CarteDevoir(snapshot.data[index]);
+                      return StickyHeader(
+                        header: Container(
+                            height: 30,
+                            width: double.infinity,
+                            child: Material(
+                              elevation: 1.5,
+                              child: Container(
+                                color: Colors.grey[50],
+                                child: Center(
+                                  child: Text(
+                                    DateFormat("EEEE d MMMM").format(
+                                      homeworksDateMapSorted.keys
+                                          .toList()[index],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            )),
+                        content: ListView.builder(
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: homeworksDateMapSorted.values
+                              .toList()[index]
+                              .length,
+                          itemBuilder: (_, idx) {
+                            debugPrint(homeworksDateMapSorted.values
+                                .toList()
+                                .toString());
+                            debugPrint(homeworksDateMapSorted.values
+                                .toList()
+                                .length
+                                .toString());
+                            return CarteDevoir(homeworksDateMapSorted.values
+                                .toList()[index][idx]);
+                          },
+                        ),
+                      );
                     },
                   );
                 } else {
-                  children = Center(child: CircularProgressIndicator());
+                  child = Center(child: CircularProgressIndicator());
                 }
-                return children;
+                return child;
               },
             )
           : FutureBuilder(
