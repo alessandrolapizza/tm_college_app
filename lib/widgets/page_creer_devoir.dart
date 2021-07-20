@@ -116,7 +116,8 @@ class _PageCreerDevoirState extends State<PageCreerDevoir> {
                                 title: Text(snapshot.data[index].nom),
                               )
                             : ListTile(
-                                onTap: () => Navigator.pop(context),
+                                onTap: () =>
+                                    Navigator.pop(context, Matiere.noSubject),
                                 leading: CircleAvatar(
                                   backgroundColor:
                                       Matiere.noSubject.couleurMatiere,
@@ -141,13 +142,9 @@ class _PageCreerDevoirState extends State<PageCreerDevoir> {
       },
     );
 
-    if (_subject == Matiere.noSubject) {
-      _subjectSelected = null;
-    } else if (_subject != null) {
-      _subjectSelected = _subject;
+    if (_subject != null) {
+      setState(() => _subjectSelected = _subject);
     }
-
-    setState(() => _subjectSelected);
   }
 
   Future<void> _newHomework() async {
@@ -182,7 +179,8 @@ class _PageCreerDevoirState extends State<PageCreerDevoir> {
                       onPressed: () => _selectSubject(),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: _subjectSelected == null
+                        children: _subjectSelected == null ||
+                                _subjectSelected == Matiere.noSubject
                             ? [
                                 Text("Matière "),
                                 Icon(
@@ -206,6 +204,7 @@ class _PageCreerDevoirState extends State<PageCreerDevoir> {
                       ),
                     ),
                     TextField(
+                      controller: _contentController,
                       keyboardType: TextInputType.multiline,
                       autofocus: true,
                       maxLines: 3,
