@@ -184,14 +184,14 @@ class _PageCreerMatiereState extends State<PageCreerMatiere> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        OutlinedButton(
+                        TextButton(
                           onPressed: () => Navigator.pop(context),
                           child: Text("Annuler"),
                         ),
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 5),
                         ),
-                        OutlinedButton(
+                        ElevatedButton(
                           onPressed: () async {
                             await _nouvelleMatiere();
                             Navigator.pop(context);

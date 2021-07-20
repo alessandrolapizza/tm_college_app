@@ -17,7 +17,9 @@ class PageCreerDevoir extends StatefulWidget {
 class _PageCreerDevoirState extends State<PageCreerDevoir> {
   BaseDeDonnees _bD;
 
-  _PageCreerDevoirState(this._bD);
+  _PageCreerDevoirState(
+    this._bD,
+  );
 
   Matiere _subjectSelected;
   DateTime _dateSelected;
@@ -270,14 +272,14 @@ class _PageCreerDevoirState extends State<PageCreerDevoir> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        OutlinedButton(
+                        TextButton(
                           onPressed: () => Navigator.pop(context),
                           child: Text("Annuler"),
                         ),
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 5),
                         ),
-                        OutlinedButton(
+                        ElevatedButton(
                           onPressed: () async {
                             await _newHomework();
                             Navigator.pop(context);
