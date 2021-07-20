@@ -8,20 +8,18 @@ import "./page_creer_matiere.dart";
 import './barre_navigation.dart';
 import './carte_devoir.dart';
 import "./carte_matiere.dart";
-import "../models/matiere.dart";
-import "../models/devoir.dart";
 import '../models/base_de_donnees.dart';
 
 BaseDeDonnees bD;
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   bD = BaseDeDonnees();
 
-  bD.defCheminMatieres();
+  await bD.defCheminMatieres();
 
-  initializeDateFormatting();
+  await initializeDateFormatting();
 
   Intl.defaultLocale = "fr";
 

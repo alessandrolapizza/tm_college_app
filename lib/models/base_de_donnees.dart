@@ -9,7 +9,7 @@ import "./devoir.dart";
 class BaseDeDonnees {
   Future<Database> database;
 
-  void defCheminMatieres() async {
+  Future<void> defCheminMatieres() async {
     database = openDatabase(
       join(await getDatabasesPath(), "matieres_basededonnees.db"),
       onCreate: (db, version) {
