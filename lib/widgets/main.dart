@@ -71,7 +71,8 @@ class _PageAccueilState extends State<PageAccueil> {
 
   void _pointeurAction() {
     if (_indexSelectionne == 0) {
-      Navigator.pushNamed(context, "/page_creer_devoir");
+      Navigator.pushNamed(context, "/page_creer_devoir")
+          .then((_) => setState(() {}));
     } else if (_indexSelectionne == 1) {
       Navigator.pushNamed(context, "/page_creer_matiere")
           .then((_) => setState(() {}));
@@ -84,50 +85,46 @@ class _PageAccueilState extends State<PageAccueil> {
       appBar: AppBar(
         title: Text(_texteAAfficher),
       ),
-      body: Column(
-        children: _indexSelectionne == 0
-            ? [
-                CarteDevoir(
-                  Devoir(
-                    contenu:
-                        "test 123455555 overflow overflow overflow overflow overflow overflow",
-                    id: 1,
-                    dateLimite: DateTime.now(),
-                    matiere: Matiere(
-                      salle: "746",
-                      couleurMatiere: Colors.red,
-                      iconMatiere: Icons.calculate,
-                      nom: "Mathématiques",
-                    ),
-                    importance: 1,
-                  ),
-                )
-              ]
-            : [
-                Expanded(
-                  child: FutureBuilder(
-                      future: bD.matieres(),
-                      builder: (_, snapshot) {
-                        var children;
-                        if (snapshot.hasData) {
-                          children = ListView.builder(
-                            itemCount: snapshot.data.length,
-                            itemBuilder: (_, index) {
-                              debugPrint(snapshot.data[index].id);
-                              return CarteMatiere(snapshot.data[index]);
-                            },
-                          );
-                        } else {
-                          children = Center(child: CircularProgressIndicator());
-                        }
-                        return children;
-                      }),
-                )
-              ],
-      )
+      body: _indexSelectionne == 0
+          ? FutureBuilder(
+              future: bD.homeworks(),
+              builder: (_, snapshot) {
+                var children;
+                if (snapshot.hasData) {
+                  children = ListView.builder(
+                    itemCount: snapshot.data.length,
+                    itemBuilder: (_, index) {
+                      debugPrint(snapshot.data[index].id);
+                      return CarteDevoir(snapshot.data[index]);
+                    },
+                  );
+                } else {
+                  children = Center(child: CircularProgressIndicator());
+                }
+                return children;
+              },
+            )
+          : FutureBuilder(
+              future: bD.matieres(),
+              builder: (_, snapshot) {
+                var children;
+                if (snapshot.hasData) {
+                  children = ListView.builder(
+                    itemCount: snapshot.data.length,
+                    itemBuilder: (_, index) {
+                      debugPrint(snapshot.data[index].id);
+                      return CarteMatiere(snapshot.data[index]);
+                    },
+                  );
+                } else {
+                  children = Center(child: CircularProgressIndicator());
+                }
+                return children;
+              },
+            ),
 
       //Changer conditions d'apparitions
-      ,
+
       floatingActionButton: Builder(
         builder: (context) {
           return FloatingActionButton(
