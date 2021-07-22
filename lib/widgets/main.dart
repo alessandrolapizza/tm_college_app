@@ -38,12 +38,7 @@ class App extends StatelessWidget {
     );
     return MaterialApp(
       localizationsDelegates: [GlobalMaterialLocalizations.delegate],
-      supportedLocales: [
-        Locale(
-          "fr",
-          "FR",
-        )
-      ],
+      supportedLocales: [Locale("fr", "FR")],
       title: "TM_COLLEGE_APP", //Provisoire
       initialRoute: "/",
       routes: {
@@ -139,6 +134,13 @@ class _PageAccueilState extends State<PageAccueil> {
                                     DateFormat("EEEE d MMMM").format(
                                       homeworksDateMapSorted.keys
                                           .toList()[index],
+                                    ),
+                                    style: TextStyle(
+                                      color: DateTime.now().isAfter(
+                                              homeworksDateMapSorted.keys
+                                                  .toList()[index])
+                                          ? Colors.red
+                                          : Colors.black, fontWeight: FontWeight.w500
                                     ),
                                   ),
                                 ),
