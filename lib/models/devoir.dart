@@ -10,12 +10,14 @@ class Devoir {
   final String content;
   final DateTime dueDate;
   final int priority;
+  final bool done;
 
   Devoir({
     @required this.subjectId,
     @required this.content,
     @required this.dueDate,
     @required this.priority,
+    @required this.done,
     this.subject,
     id,
   }) : id = id == null ? Uuid().v4() : id;
@@ -27,6 +29,7 @@ class Devoir {
       "content": content,
       "dueDate": dueDate.toString(),
       "priority": priority,
+      "done": done ? 1 : 0,
     };
   }
 
@@ -36,5 +39,4 @@ class Devoir {
     "Moyenne": Colors.orange,
     "Urgente": Colors.red,
   };
-
 }

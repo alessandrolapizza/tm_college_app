@@ -41,7 +41,8 @@ class _PageCreerDevoirState extends State<PageCreerDevoir> {
                 return ListTile(
                   onTap: () => Navigator.pop(context, index),
                   leading: CircleAvatar(
-                    backgroundColor: Devoir.priorityColorMap.values.toList()[index],
+                    backgroundColor:
+                        Devoir.priorityColorMap.values.toList()[index],
                   ),
                   title: Text(
                     Devoir.priorityColorMap.keys.toList()[index],
@@ -152,10 +153,12 @@ class _PageCreerDevoirState extends State<PageCreerDevoir> {
   Future<void> _newHomework() async {
     await _bD.insertHomework(
       Devoir(
-          content: _contentController.text,
-          dueDate: _dateSelected,
-          subjectId: _subjectSelected.id,
-          priority: _prioritySelected),
+        content: _contentController.text,
+        dueDate: _dateSelected,
+        subjectId: _subjectSelected.id,
+        priority: _prioritySelected,
+        done: false,
+      ),
     );
   }
 
@@ -260,8 +263,8 @@ class _PageCreerDevoirState extends State<PageCreerDevoir> {
                                         size: 20,
                                       )
                                     : CircleColor(
-                                        color: Devoir.priorityColorMap.values.toList()[
-                                            _prioritySelected],
+                                        color: Devoir.priorityColorMap.values
+                                            .toList()[_prioritySelected],
                                         circleSize: 20),
                               ],
                             ),

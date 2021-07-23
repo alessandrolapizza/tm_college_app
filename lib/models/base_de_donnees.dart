@@ -17,7 +17,7 @@ class BaseDeDonnees {
           "CREATE TABLE matieres(id TEXT, nom TEXT, salle TEXT, iconMatiereCode INTEGER, couleurMatiereValeur INTEGER)",
         );
         db.execute(
-          "CREATE TABLE homeworks(id TEXT, subjectId TEXT, content TEXT, dueDate TEXT, priority INTEGER)",
+          "CREATE TABLE homeworks(id TEXT, subjectId TEXT, content TEXT, dueDate TEXT, priority INTEGER, done INTEGER)",
         );
       },
       version: 1,
@@ -67,7 +67,9 @@ class BaseDeDonnees {
   Future<List<Devoir>> homeworks() async {
     final db = await database;
 
-    Map<String, Matiere> subjectsIdMaps = {Matiere.noSubject.id: Matiere.noSubject};
+    Map<String, Matiere> subjectsIdMaps = {
+      Matiere.noSubject.id: Matiere.noSubject
+    };
 
     final List<Map<String, dynamic>> homeworksMaps =
         await db.query("homeworks");
@@ -86,6 +88,7 @@ class BaseDeDonnees {
           content: homeworksMaps[i]["content"],
           dueDate: DateTime.parse(homeworksMaps[i]["dueDate"]),
           priority: homeworksMaps[i]["priority"],
+          done: homeworksMaps[i]["done"] == 0 ? false : true,
         );
       },
     );
