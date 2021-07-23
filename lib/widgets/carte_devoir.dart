@@ -10,7 +10,11 @@ class CarteDevoir extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () => Navigator.pushNamed(
+        context,
+        "/homework_details_page",
+        arguments: devoir,
+      ),
       child: Container(
         height: 90,
         width: double.infinity,
@@ -21,7 +25,7 @@ class CarteDevoir extends StatelessWidget {
               Expanded(
                 flex: 1,
                 child: Card(
-                  color: Devoir.listeCouleurImportance[
+                  color: Devoir.priorityColorMap.values.toList()[
                       devoir.priority], // à construire (couleur de priorité)
                 ),
               ),

@@ -30,17 +30,11 @@ class Devoir {
     };
   }
 
-  static const List<Color> listeCouleurImportance = [
-    Colors.white,
-    Colors.lightGreen,
-    Colors.orange,
-    Colors.red,
-  ];
+  static const Map<String, Color> priorityColorMap = {
+    "Indifférente": Colors.white,
+    "Normale": Colors.lightGreen,
+    "Moyenne": Colors.orange,
+    "Urgente": Colors.red,
+  };
 
-  static const List<String> listeTexteImportance = [
-    "Indifférent",
-    "Normal",
-    "Moyen",
-    "Urgent",
-  ];
 }

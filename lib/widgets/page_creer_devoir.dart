@@ -41,10 +41,10 @@ class _PageCreerDevoirState extends State<PageCreerDevoir> {
                 return ListTile(
                   onTap: () => Navigator.pop(context, index),
                   leading: CircleAvatar(
-                    backgroundColor: Devoir.listeCouleurImportance[index],
+                    backgroundColor: Devoir.priorityColorMap.values.toList()[index],
                   ),
                   title: Text(
-                    Devoir.listeTexteImportance[index],
+                    Devoir.priorityColorMap.keys.toList()[index],
                   ),
                 );
               },
@@ -63,7 +63,7 @@ class _PageCreerDevoirState extends State<PageCreerDevoir> {
       cancelText: "Annuler",
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime(2020), //à construire plus tard.
+      firstDate: DateTime(2019), //à construire plus tard.
       lastDate: DateTime(2050), //à construire plus tard.
     );
 
@@ -174,8 +174,7 @@ class _PageCreerDevoirState extends State<PageCreerDevoir> {
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 5),
                 ),
-                Wrap(
-                  runSpacing: 15,
+                Column(
                   children: [
                     OutlinedButton(
                       onPressed: () => _selectSubject(),
@@ -205,15 +204,21 @@ class _PageCreerDevoirState extends State<PageCreerDevoir> {
                               ],
                       ),
                     ),
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 15),
+                    ),
                     TextField(
                       controller: _contentController,
                       keyboardType: TextInputType.multiline,
                       autofocus: true,
-                      maxLines: 3,
+                      maxLines: 4,
                       decoration: InputDecoration(
                         labelText: "Contenu",
                         border: OutlineInputBorder(),
                       ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 15),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -255,7 +260,7 @@ class _PageCreerDevoirState extends State<PageCreerDevoir> {
                                         size: 20,
                                       )
                                     : CircleColor(
-                                        color: Devoir.listeCouleurImportance[
+                                        color: Devoir.priorityColorMap.values.toList()[
                                             _prioritySelected],
                                         circleSize: 20),
                               ],
