@@ -55,20 +55,18 @@ class _PageCreerMatiereState extends State<PageCreerMatiere> {
               onPressed: () => Navigator.pop(context),
             )
           ],
-          content: SizedBox(
-            height: MediaQuery.of(context).size.height / 4,
-            child: MaterialColorPicker(
-              onColorChange: (Color couleur) {
-                if (_couleurValide == 0) {
-                  _couleurValide++;
-                } else {
-                  Navigator.pop(context, couleur);
-                }
-              },
-              onBack: () => _couleurValide--,
-              physics: ScrollPhysics(
-                parent: NeverScrollableScrollPhysics(),
-              ),
+          content: MaterialColorPicker(
+            shrinkWrap: true,
+            onColorChange: (Color couleur) {
+              if (_couleurValide == 0) {
+                _couleurValide++;
+              } else {
+                Navigator.pop(context, couleur);
+              }
+            },
+            onBack: () => _couleurValide--,
+            physics: ScrollPhysics(
+              parent: NeverScrollableScrollPhysics(),
             ),
           ),
         );
