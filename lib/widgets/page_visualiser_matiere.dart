@@ -10,7 +10,7 @@ class PageVisualiserMatiere extends StatefulWidget {
 class _PageVisualiserMatiereState extends State<PageVisualiserMatiere> {
   @override
   Widget build(BuildContext context) {
-  final matiere = ModalRoute.of(context).settings.arguments as Matiere;
+  final Matiere matiere = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       appBar: AppBar(
         title: Text(matiere.nom),
