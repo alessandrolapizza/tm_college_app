@@ -4,6 +4,7 @@ import "package:intl/intl.dart";
 import "package:sortedmap/sortedmap.dart";
 import 'package:sticky_headers/sticky_headers/widget.dart';
 import "package:flutter_localizations/flutter_localizations.dart";
+import 'package:tm_college_app/widgets/page_visualiser_devoir.dart';
 
 import "../models/devoir.dart";
 import "./page_visualiser_matiere.dart";
@@ -37,8 +38,15 @@ class App extends StatelessWidget {
       ],
     );
     return MaterialApp(
-      localizationsDelegates: [GlobalMaterialLocalizations.delegate],
-      supportedLocales: [Locale("fr", "FR")],
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+      ],
+      supportedLocales: [
+        Locale(
+          "fr",
+          "FR",
+        ),
+      ],
       title: "TM_COLLEGE_APP", //Provisoire
       initialRoute: "/",
       routes: {
@@ -46,6 +54,7 @@ class App extends StatelessWidget {
         "/page_creer_matiere": (_) => PageCreerMatiere(bD),
         "/page_creer_devoir": (_) => PageCreerDevoir(bD),
         "/page_visualiser_matiere": (_) => PageVisualiserMatiere(),
+        "/homework_details_page": (_) => HomeworkDetailsPage(),
       },
     );
   }
@@ -136,12 +145,12 @@ class _PageAccueilState extends State<PageAccueil> {
                                           .toList()[index],
                                     ),
                                     style: TextStyle(
-                                      color: DateTime.now().isAfter(
-                                              homeworksDateMapSorted.keys
-                                                  .toList()[index])
-                                          ? Colors.red
-                                          : Colors.black, fontWeight: FontWeight.w500
-                                    ),
+                                        color: DateTime.now().isAfter(
+                                                homeworksDateMapSorted.keys
+                                                    .toList()[index])
+                                            ? Colors.red
+                                            : Colors.black,
+                                        fontWeight: FontWeight.w500),
                                   ),
                                 ),
                               ),
