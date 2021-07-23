@@ -115,9 +115,6 @@ class HomeworkDetailsPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(bottom: 15),
-                ),
               ],
             ),
           ),
