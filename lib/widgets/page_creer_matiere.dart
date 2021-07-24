@@ -103,8 +103,7 @@ class _PageCreerMatiereState extends State<PageCreerMatiere> {
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 8),
                 ),
-                Wrap(
-                  runSpacing: 15,
+                Column(
                   children: [
                     TextField(
                       controller: _nomMatiereController,
@@ -120,6 +119,9 @@ class _PageCreerMatiereState extends State<PageCreerMatiere> {
                         border: OutlineInputBorder(),
                       ),
                     ),
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 15),
+                    ),
                     TextField(
                       controller: _salleController,
                       maxLength: 5,
@@ -129,6 +131,9 @@ class _PageCreerMatiereState extends State<PageCreerMatiere> {
                         labelText: "Numéro de salle",
                         border: OutlineInputBorder(),
                       ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 15),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
