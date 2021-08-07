@@ -1,10 +1,10 @@
 import "package:flutter/material.dart";
 
-class BarreNavigation extends StatelessWidget {
+class HomePageBottomAppBar extends StatelessWidget {
   final Function changerIndex;
   final int indexSelectionne;
 
-  BarreNavigation({
+  HomePageBottomAppBar({
     @required this.changerIndex,
     @required this.indexSelectionne,
   });
