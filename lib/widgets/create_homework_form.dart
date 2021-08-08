@@ -21,6 +21,7 @@ class CreateHomeworkForm extends StatelessWidget {
           }
           return null;
         },
+        maxLength: 1000,
         controller: homeworkContentController,
         keyboardType: TextInputType.multiline,
         autofocus: true,

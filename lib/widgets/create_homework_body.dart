@@ -25,6 +25,8 @@ class CreateHomeworkBody extends StatelessWidget {
 
   final GlobalKey<FormState> createHomeworkFormKey;
 
+  final bool dateMissing;
+
   CreateHomeworkBody({
     @required this.selectSubjectFunction,
     @required this.selectedSubject,
@@ -35,6 +37,7 @@ class CreateHomeworkBody extends StatelessWidget {
     @required this.selectedPriority,
     @required this.createHomeworkFunction,
     @required this.createHomeworkFormKey,
+    @required this.dateMissing,
   });
 
   @override
@@ -72,6 +75,7 @@ class CreateHomeworkBody extends StatelessWidget {
                         child: CreateHomeworkSelectDateButton(
                           selectDateFunction: selectDateFunction,
                           selectedDate: selectedDate,
+                          dateMissing: dateMissing,
                         ),
                       ),
                       SizedBox(

@@ -7,14 +7,26 @@ class CreateHomeworkSelectDateButton extends StatelessWidget {
 
   final DateTime selectedDate;
 
+  final bool dateMissing;
+
   CreateHomeworkSelectDateButton({
     @required this.selectDateFunction,
     @required this.selectedDate,
+    @required this.dateMissing,
   });
 
   @override
   Widget build(BuildContext context) {
     return OutlinedButton(
+      style: ButtonStyle(
+        foregroundColor:
+            dateMissing ? MaterialStateProperty.all(Colors.red) : null,
+        side: dateMissing
+            ? MaterialStateProperty.all(
+                BorderSide(color: Colors.red),
+              )
+            : null,
+      ),
       onPressed: () => selectDateFunction(),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,

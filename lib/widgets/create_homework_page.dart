@@ -30,9 +30,11 @@ class _CreateHomeworkPageState extends State<CreateHomeworkPage> {
 
   int _selectedPriority = 0;
 
-  Matiere _selectedSubject;
+  Matiere _selectedSubject = Matiere.noSubject;
 
   DateTime _selectedDate;
+
+  bool _dateMissing = false;
 
   Future<void> _selectSubject() async {
     Matiere subject = await showModalBottomSheet(
@@ -138,15 +140,25 @@ class _CreateHomeworkPageState extends State<CreateHomeworkPage> {
   }
 
   Future<void> _createHomework() async {
-    await _bD.insertHomework(
-      Devoir(
-        content: _homeworkContentController.text,
-        dueDate: _selectedDate,
-        subjectId: _selectedSubject.id,
-        priority: _selectedPriority,
-        done: false,
-      ),
-    );
+    if (_createHomeworkFormKey.currentState.validate() &&
+        _selectedDate != null) {
+      await _bD.insertHomework(
+        Devoir(
+          content: _homeworkContentController.text,
+          dueDate: _selectedDate,
+          subjectId: _selectedSubject.id,
+          priority: _selectedPriority,
+          done: false,
+        ),
+      );
+      return true;
+    } else if (_selectedDate == null) {
+      _dateMissing = true;
+    } else {
+      _dateMissing = false;
+    }
+    setState(() => _dateMissing);
+    return false;
   }
 
   @override
@@ -166,6 +178,7 @@ class _CreateHomeworkPageState extends State<CreateHomeworkPage> {
         selectedPriority: _selectedPriority,
         createHomeworkFunction: _createHomework,
         createHomeworkFormKey: _createHomeworkFormKey,
+        dateMissing: _dateMissing,
       ),
     );
   }
