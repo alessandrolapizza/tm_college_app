@@ -89,7 +89,7 @@ class _CreateHomeworkPageState extends State<CreateHomeworkPage> {
   }
 
   Future<void> _selectDate() async {
-    _selectedDate = await showDatePicker(
+    DateTime date = await showDatePicker(
       cancelText: "Annuler",
       context: context,
       initialDate: DateTime.now(),
@@ -97,7 +97,9 @@ class _CreateHomeworkPageState extends State<CreateHomeworkPage> {
       lastDate: DateTime(2050), //à construire plus tard.
     );
 
-    setState(() => _selectedDate);
+    if (date != null) {
+      setState(() => _selectedDate = date);
+    }
   }
 
   Future<void> _selectPriority() async {
