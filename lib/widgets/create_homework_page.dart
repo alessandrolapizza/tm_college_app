@@ -23,13 +23,16 @@ class _CreateHomeworkPageState extends State<CreateHomeworkPage> {
 
   _CreateHomeworkPageState(this._bD);
 
-  Matiere _selectedSubject;
+  final TextEditingController _homeworkContentController =
+      TextEditingController();
 
-  TextEditingController _homeworkContentController = TextEditingController();
-
-  DateTime _selectedDate;
+  final GlobalKey<FormState> _createHomeworkFormKey = GlobalKey();
 
   int _selectedPriority = 0;
+
+  Matiere _selectedSubject;
+
+  DateTime _selectedDate;
 
   Future<void> _selectSubject() async {
     Matiere subject = await showModalBottomSheet(
@@ -162,6 +165,7 @@ class _CreateHomeworkPageState extends State<CreateHomeworkPage> {
         selectPriorityFunction: _selectPriority,
         selectedPriority: _selectedPriority,
         createHomeworkFunction: _createHomework,
+        createHomeworkFormKey: _createHomeworkFormKey,
       ),
     );
   }

@@ -23,6 +23,8 @@ class CreateHomeworkBody extends StatelessWidget {
 
   final Function createHomeworkFunction;
 
+  final GlobalKey<FormState> createHomeworkFormKey;
+
   CreateHomeworkBody({
     @required this.selectSubjectFunction,
     @required this.selectedSubject,
@@ -32,6 +34,7 @@ class CreateHomeworkBody extends StatelessWidget {
     @required this.selectPriorityFunction,
     @required this.selectedPriority,
     @required this.createHomeworkFunction,
+    @required this.createHomeworkFormKey,
   });
 
   @override
@@ -55,7 +58,9 @@ class CreateHomeworkBody extends StatelessWidget {
                     padding: EdgeInsets.only(bottom: 15),
                   ),
                   CreateHomeworkForm(
-                      homeworkContentController: homeworkContentController),
+                    homeworkContentController: homeworkContentController,
+                    createHomeworkFormKey: createHomeworkFormKey,
+                  ),
                   Padding(
                     padding: EdgeInsets.only(bottom: 15),
                   ),

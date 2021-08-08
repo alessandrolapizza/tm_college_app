@@ -3,9 +3,12 @@ import "package:flutter/material.dart";
 class CreateHomeworkForm extends StatelessWidget {
   final TextEditingController homeworkContentController;
 
-  CreateHomeworkForm({@required this.homeworkContentController});
+  final GlobalKey<FormState> createHomeworkFormKey;
 
-  final GlobalKey<FormState> createHomeworkFormKey = GlobalKey();
+  CreateHomeworkForm({
+    @required this.homeworkContentController,
+    @required this.createHomeworkFormKey,
+  });
 
   @override
   Widget build(BuildContext context) {
