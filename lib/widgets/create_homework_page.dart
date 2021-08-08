@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import 'package:tm_college_app/widgets/create_homework_body.dart';
 import 'package:tm_college_app/widgets/fade_gradient.dart';
 import 'package:tm_college_app/widgets/modular_app_bar.dart';
+import "package:flutter_material_color_picker/flutter_material_color_picker.dart";
 
 import "../models/devoir.dart";
 import "../models/matiere.dart";
@@ -119,9 +120,9 @@ class _CreateHomeworkPageState extends State<CreateHomeworkPage> {
               itemBuilder: (_, index) {
                 return ListTile(
                   onTap: () => Navigator.pop(context, index),
-                  leading: CircleAvatar(
-                    backgroundColor:
-                        Devoir.priorityColorMap.values.toList()[index],
+                  leading: CircleColor(
+                    color: Devoir.priorityColorMap.values.toList()[index],
+                    circleSize: 40,
                   ),
                   title: Text(
                     Devoir.priorityColorMap.keys.toList()[index],
