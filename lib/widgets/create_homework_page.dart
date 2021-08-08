@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:tm_college_app/widgets/circle_avatar_with_border.dart';
 import 'package:tm_college_app/widgets/create_homework_body.dart';
 import 'package:tm_college_app/widgets/fade_gradient.dart';
 import 'package:tm_college_app/widgets/modular_app_bar.dart';
@@ -53,28 +54,20 @@ class _CreateHomeworkPageState extends State<CreateHomeworkPage> {
                             ? ListTile(
                                 onTap: () => Navigator.pop(
                                     context, snapshot.data[index]),
-                                leading: CircleAvatar(
-                                  backgroundColor:
-                                      snapshot.data[index].couleurMatiere,
-                                  child: Icon(
-                                    snapshot.data[index].iconMatiere,
-                                    color: Colors.white,
-                                  ),
+                                leading: CircleAvatarWithBorder(
+                                  color: snapshot.data[index].couleurMatiere,
+                                  icon: snapshot.data[index].iconMatiere,
                                 ),
                                 title: Text(snapshot.data[index].nom),
                               )
                             : ListTile(
+                                title: Text(Matiere.noSubject.nom),
                                 onTap: () =>
                                     Navigator.pop(context, Matiere.noSubject),
-                                leading: CircleAvatar(
-                                  backgroundColor:
-                                      Matiere.noSubject.couleurMatiere,
-                                  child: Icon(
-                                    Matiere.noSubject.iconMatiere,
-                                    color: Colors.white,
-                                  ),
+                                leading: CircleAvatarWithBorder(
+                                  color: Matiere.noSubject.couleurMatiere,
+                                  icon: Matiere.noSubject.iconMatiere,
                                 ),
-                                title: Text(Matiere.noSubject.nom),
                               );
                       },
                     ),

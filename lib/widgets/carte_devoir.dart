@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:tm_college_app/widgets/circle_avatar_with_border.dart';
 
 import "../models/devoir.dart";
 
@@ -33,14 +34,9 @@ class CarteDevoir extends StatelessWidget {
                 flex: 4,
                 child: Container(
                   margin: EdgeInsets.symmetric(vertical: 10),
-                  child: CircleAvatar(
-                    backgroundColor: devoir.subject.couleurMatiere,
-                    child: Icon(
-                      devoir.subject
-                          .iconMatiere, // à construire (icon de matière)
-                      color: Colors.white,
-                      size: 40,
-                    ),
+                  child: CircleAvatarWithBorder(
+                    color: devoir.subject.couleurMatiere,
+                    icon: devoir.subject.iconMatiere,
                   ),
                 ),
               ),

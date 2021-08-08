@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:tm_college_app/widgets/circle_avatar_with_border.dart';
 
 import "../models/matiere.dart";
 
@@ -26,13 +27,9 @@ class CarteMatiere extends StatelessWidget {
                 flex: 1,
                 child: Container(
                   margin: EdgeInsets.symmetric(vertical: 10),
-                  child: CircleAvatar(
-                    backgroundColor: matiere.couleurMatiere,
-                    child: Icon(
-                      matiere.iconMatiere, // à construire (icon de matière)
-                      color: Colors.white,
-                      size: 40,
-                    ),
+                  child: CircleAvatarWithBorder(
+                    color: matiere.couleurMatiere,
+                    icon: matiere.iconMatiere,
                   ),
                 ),
               ),
