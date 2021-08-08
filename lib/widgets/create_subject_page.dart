@@ -27,9 +27,15 @@ class _CreateSubjectPageState extends State<CreateSubjectPage> {
   final TextEditingController _subjectRoomNumberController =
       TextEditingController();
 
+  final GlobalKey<FormState> _createSubjectFormKey = GlobalKey();
+
   IconData _selectedIcon;
 
   Color _selectedColor;
+
+  bool _iconMissing = false;
+
+  bool _colorMissing = false;
 
   void _selectIcon(context) async {
     IconData _icon = await FlutterIconPicker.showIconPicker(
@@ -84,14 +90,33 @@ class _CreateSubjectPageState extends State<CreateSubjectPage> {
   }
 
   Future<void> _createSubject() async {
-    await _bD.insererMatiere(
-      Matiere(
-        couleurMatiere: _selectedColor,
-        iconMatiere: _selectedIcon,
-        nom: _subjectNameController.text,
-        salle: _subjectRoomNumberController.text,
-      ),
-    );
+    if (_createSubjectFormKey.currentState.validate() &&
+        _selectedIcon != null &&
+        _selectedColor != null) {
+      await _bD.insererMatiere(
+        Matiere(
+          couleurMatiere: _selectedColor,
+          iconMatiere: _selectedIcon,
+          nom: _subjectNameController.text,
+          salle: _subjectRoomNumberController.text,
+        ),
+      );
+      return true;
+    } else {
+      if (_selectedColor == null) {
+        _colorMissing = true;
+      } else {
+        _colorMissing = false;
+      }
+      setState(() => _colorMissing);
+      if (_selectedIcon == null) {
+        _iconMissing = true;
+      } else {
+        _iconMissing = false;
+      }
+      setState(() => _iconMissing);
+      return false;
+    }
   }
 
   @override
@@ -109,6 +134,9 @@ class _CreateSubjectPageState extends State<CreateSubjectPage> {
         createSubjectFunction: _createSubject,
         subjectNameController: _subjectNameController,
         subjectRoomNumberController: _subjectRoomNumberController,
+        createSubjectFormKey: _createSubjectFormKey,
+        iconMissing: _iconMissing,
+        colorMissing: _colorMissing,
       ),
     );
   }

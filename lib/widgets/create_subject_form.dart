@@ -5,12 +5,13 @@ class CreateSubjectForm extends StatelessWidget {
 
   final TextEditingController subjectRoomNumberController;
 
+  final GlobalKey<FormState> createSubjectFormKey;
+
   CreateSubjectForm({
     @required this.subjectNameController,
     @required this.subjectRoomNumberController,
+    @required this.createSubjectFormKey,
   });
-
-  final GlobalKey<FormState> createSubjectFormKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +44,7 @@ class CreateSubjectForm extends StatelessWidget {
           TextFormField(
             validator: (value) {
               if (value == null || value.trim() == "") {
-                return "Un nunméro de salle doit être fourni";
+                return "Un numéro de salle doit être fourni";
               }
               return null;
             },

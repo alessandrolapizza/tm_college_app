@@ -5,9 +5,12 @@ class CreateSubjectSelectIconButton extends StatelessWidget {
 
   final IconData selectedIcon;
 
+  final bool iconMissing;
+
   CreateSubjectSelectIconButton({
     @required this.selectIconFunction,
     @required this.selectedIcon,
+    @required this.iconMissing,
   });
 
   @override
@@ -23,6 +26,15 @@ class CreateSubjectSelectIconButton extends StatelessWidget {
             size: 20,
           ),
         ],
+      ),
+      style: ButtonStyle(
+        foregroundColor:
+            iconMissing ? MaterialStateProperty.all(Colors.red) : null,
+        side: iconMissing
+            ? MaterialStateProperty.all(
+                BorderSide(color: Colors.red),
+              )
+            : null,
       ),
     );
   }

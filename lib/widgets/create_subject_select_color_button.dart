@@ -6,9 +6,12 @@ class CreateSubjectSelectColorButton extends StatelessWidget {
 
   final Color selectedColor;
 
+  final bool colorMissing;
+
   CreateSubjectSelectColorButton({
     @required this.selectColor,
     @required this.selectedColor,
+    @required this.colorMissing,
   });
 
   @override
@@ -29,6 +32,15 @@ class CreateSubjectSelectColorButton extends StatelessWidget {
                   circleSize: 20,
                 ),
         ],
+      ),
+      style: ButtonStyle(
+        foregroundColor:
+            colorMissing ? MaterialStateProperty.all(Colors.red) : null,
+        side: colorMissing
+            ? MaterialStateProperty.all(
+                BorderSide(color: Colors.red),
+              )
+            : null,
       ),
     );
   }

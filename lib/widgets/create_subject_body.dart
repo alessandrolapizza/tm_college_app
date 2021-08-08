@@ -19,6 +19,12 @@ class CreateSubjectBody extends StatelessWidget {
 
   final TextEditingController subjectRoomNumberController;
 
+  final GlobalKey<FormState> createSubjectFormKey;
+
+  final bool iconMissing;
+
+  final bool colorMissing;
+
   CreateSubjectBody({
     @required this.selectIconFunction,
     @required this.selectedIcon,
@@ -27,6 +33,9 @@ class CreateSubjectBody extends StatelessWidget {
     @required this.createSubjectFunction,
     @required this.subjectNameController,
     @required this.subjectRoomNumberController,
+    @required this.createSubjectFormKey,
+    @required this.iconMissing,
+    @required this.colorMissing,
   });
 
   @override
@@ -45,6 +54,7 @@ class CreateSubjectBody extends StatelessWidget {
                   CreateSubjectForm(
                     subjectNameController: subjectNameController,
                     subjectRoomNumberController: subjectRoomNumberController,
+                    createSubjectFormKey: createSubjectFormKey,
                   ),
                   Padding(
                     padding: EdgeInsets.only(bottom: 15),
@@ -57,6 +67,7 @@ class CreateSubjectBody extends StatelessWidget {
                         child: CreateSubjectSelectIconButton(
                           selectIconFunction: selectIconFunction,
                           selectedIcon: selectedIcon,
+                          iconMissing: iconMissing,
                         ),
                       ),
                       SizedBox(
@@ -64,6 +75,7 @@ class CreateSubjectBody extends StatelessWidget {
                         child: CreateSubjectSelectColorButton(
                           selectColor: selectColor,
                           selectedColor: selectedColor,
+                          colorMissing: colorMissing,
                         ),
                       )
                     ],

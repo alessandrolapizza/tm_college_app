@@ -22,8 +22,10 @@ class CreatePagesBottomButton extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () async {
-                await createFunction();
-                Navigator.pop(context);
+                final bool created = await createFunction();
+                if (created) {
+                  Navigator.pop(context);
+                }
               },
               child: Text("Enregistrer"),
             ),
