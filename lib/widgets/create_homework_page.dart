@@ -152,13 +152,15 @@ class _CreateHomeworkPageState extends State<CreateHomeworkPage> {
         ),
       );
       return true;
-    } else if (_selectedDate == null) {
-      _dateMissing = true;
     } else {
-      _dateMissing = false;
+      if (_selectedDate == null) {
+        _dateMissing = true;
+      } else {
+        _dateMissing = false;
+      }
+      setState(() => _dateMissing);
+      return false;
     }
-    setState(() => _dateMissing);
-    return false;
   }
 
   @override
