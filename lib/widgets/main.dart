@@ -12,6 +12,21 @@ import '../models/base_de_donnees.dart';
 
 BaseDeDonnees bD;
 
+const Map<int, Color> color = {
+  50: Color(4283522728),
+  100: Color(4283522728),
+  200: Color(4283522728),
+  300: Color(4283522728),
+  400: Color(4283522728),
+  500: Color(4283522728),
+  600: Color(4283522728),
+  700: Color(4283522728),
+  800: Color(4283522728),
+  900: Color(4283522728),
+};
+
+MaterialColor customMaterialColor = MaterialColor(4283522728, color);
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -25,6 +40,7 @@ void main() async {
 }
 
 class App extends StatelessWidget {
+  
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations(
@@ -51,6 +67,9 @@ class App extends StatelessWidget {
         "/page_visualiser_matiere": (_) => PageVisualiserMatiere(),
         "/homework_details_page": (_) => ViewHomeworkPage(),
       },
+      theme: ThemeData(
+        primarySwatch: customMaterialColor,
+      ),
     );
   }
 }
