@@ -26,7 +26,10 @@ class CircleAvatarWithBorder extends StatelessWidget {
               fit: BoxFit.contain,
               child: Icon(
                 icon,
-                color: Colors.white,
+                color: ThemeData.estimateBrightnessForColor(color) ==
+                        Brightness.dark
+                    ? Colors.white
+                    : Colors.black,
                 size: 1000,
               ),
             ),
