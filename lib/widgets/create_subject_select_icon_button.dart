@@ -18,7 +18,7 @@ class CreateSubjectSelectIconButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ModularOutlinedButton(
       missingObject: iconMissing,
-      onPressedFunction: selectIconFunction,
+      onPressedFunction: () => selectIconFunction(context),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

@@ -2,7 +2,9 @@ import "package:flutter/material.dart";
 
 import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
 import "package:flutter_iconpicker/flutter_iconpicker.dart";
+import 'package:tm_college_app/widgets/app.dart';
 import 'package:tm_college_app/widgets/create_subject_body.dart';
+import 'package:tm_college_app/widgets/theme_controller.dart';
 
 import "./modular_app_bar.dart";
 import "../models/base_de_donnees.dart";
@@ -37,12 +39,20 @@ class _CreateSubjectPageState extends State<CreateSubjectPage> {
 
   bool _colorMissing = false;
 
-  void _selectIcon() async {
+  void _selectIcon(BuildContext ctx) async {
     IconData _icon = await FlutterIconPicker.showIconPicker(
       context,
       noResultsText: "Aucun résultats pour :",
       searchHintText: "Rechercher (anglais)",
-      closeChild: Text("Annuler"),
+      closeChild: Text(
+        "Annuler",
+        style: TextStyle(
+          color:
+              Theme.of(ctx).outlinedButtonTheme.style.foregroundColor.resolve(
+                    Set<MaterialState>.from(MaterialState.values),
+                  ),
+        ),
+      ),
       barrierDismissible: true,
       title: Text("Choisir un icon"),
     );
@@ -59,26 +69,34 @@ class _CreateSubjectPageState extends State<CreateSubjectPage> {
       barrierDismissible: true,
       context: context,
       builder: (_) {
-        return AlertDialog(
-          title: Text("Choisir une couleur"),
-          actions: [
-            TextButton(
-              child: Text("Annuler"),
-              onPressed: () => Navigator.pop(context),
-            )
-          ],
-          content: MaterialColorPicker(
-            shrinkWrap: true,
-            onColorChange: (Color couleur) {
-              if (_couleurValide == 0) {
-                _couleurValide++;
-              } else {
-                Navigator.pop(context, couleur);
-              }
-            },
-            onBack: () => _couleurValide--,
-            physics: ScrollPhysics(
-              parent: NeverScrollableScrollPhysics(),
+        return ThemeController(
+          color: _selectedColor == null
+              ? Color(App.defaultColorThemeValue)
+              : _selectedColor,
+          child: AlertDialog(
+            title: Text(
+              "Choisir une couleur",
+              style: TextStyle(color: Colors.black),
+            ),
+            actions: [
+              TextButton(
+                child: Text("Annuler"),
+                onPressed: () => Navigator.pop(context),
+              )
+            ],
+            content: MaterialColorPicker(
+              shrinkWrap: true,
+              onColorChange: (Color couleur) {
+                if (_couleurValide == 0) {
+                  _couleurValide++;
+                } else {
+                  Navigator.pop(context, couleur);
+                }
+              },
+              onBack: () => _couleurValide--,
+              physics: ScrollPhysics(
+                parent: NeverScrollableScrollPhysics(),
+              ),
             ),
           ),
         );
@@ -121,22 +139,27 @@ class _CreateSubjectPageState extends State<CreateSubjectPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: ModularAppBar(
-        title: "Nouvelle matière",
-        centerTitle: true,
-      ),
-      body: CreateSubjectBody(
-        selectIconFunction: _selectIcon,
-        selectedIcon: _selectedIcon,
-        selectColor: _selectColor,
-        selectedColor: _selectedColor,
-        createSubjectFunction: _createSubject,
-        subjectNameController: _subjectNameController,
-        subjectRoomNumberController: _subjectRoomNumberController,
-        createSubjectFormKey: _createSubjectFormKey,
-        iconMissing: _iconMissing,
-        colorMissing: _colorMissing,
+    return ThemeController(
+      color: _selectedColor == null
+          ? Color(App.defaultColorThemeValue)
+          : _selectedColor,
+      child: Scaffold(
+        appBar: ModularAppBar(
+          title: "Nouvelle matière",
+          centerTitle: true,
+        ),
+        body: CreateSubjectBody(
+          selectIconFunction: _selectIcon,
+          selectedIcon: _selectedIcon,
+          selectColor: _selectColor,
+          selectedColor: _selectedColor,
+          createSubjectFunction: _createSubject,
+          subjectNameController: _subjectNameController,
+          subjectRoomNumberController: _subjectRoomNumberController,
+          createSubjectFormKey: _createSubjectFormKey,
+          iconMissing: _iconMissing,
+          colorMissing: _colorMissing,
+        ),
       ),
     );
   }

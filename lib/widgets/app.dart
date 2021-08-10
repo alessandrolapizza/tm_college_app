@@ -14,6 +14,8 @@ class App extends StatelessWidget {
 
   App({@required this.database});
 
+  static const int defaultColorThemeValue = 4283522728;
+
   static MaterialColor toMaterialColor(int colorValue) {
     Map<int, Color> colorMap = {
       50: Color(colorValue),
@@ -27,7 +29,6 @@ class App extends StatelessWidget {
       800: Color(colorValue),
       900: Color(colorValue),
     };
-    print(Color(colorValue));
     return MaterialColor(colorValue, colorMap);
   }
 
@@ -58,7 +59,12 @@ class App extends StatelessWidget {
         "/homework_details_page": (_) => ViewHomeworkPage(),
       },
       theme: ThemeData(
-        primarySwatch: toMaterialColor(4283522728),
+        primarySwatch: toMaterialColor(defaultColorThemeValue),
+        inputDecorationTheme: InputDecorationTheme(
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.black),
+          ),
+        ),
       ),
     );
   }

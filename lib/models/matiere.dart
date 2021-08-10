@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:uuid/uuid.dart";
+import "../widgets/app.dart";
 
 class Matiere {
   final String id;
@@ -20,7 +21,7 @@ class Matiere {
       id: "0",
       nom: "Divers",
       iconMatiere: Icons.more_horiz,
-      couleurMatiere: Colors.blueGrey,
+      couleurMatiere: App.toMaterialColor(App.defaultColorThemeValue),
       salle: "");
 
   Map<String, dynamic> toMapDb() {

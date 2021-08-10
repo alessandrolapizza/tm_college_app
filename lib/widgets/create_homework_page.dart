@@ -1,9 +1,11 @@
 import "package:flutter/material.dart";
+import 'package:tm_college_app/widgets/app.dart';
 import 'package:tm_college_app/widgets/circle_avatar_with_border.dart';
 import 'package:tm_college_app/widgets/create_homework_body.dart';
 import 'package:tm_college_app/widgets/fade_gradient.dart';
 import 'package:tm_college_app/widgets/modular_app_bar.dart';
 import "package:flutter_material_color_picker/flutter_material_color_picker.dart";
+import 'package:tm_college_app/widgets/theme_controller.dart';
 
 import "../models/devoir.dart";
 import "../models/matiere.dart";
@@ -95,12 +97,18 @@ class _CreateHomeworkPageState extends State<CreateHomeworkPage> {
 
   Future<void> _selectDate() async {
     DateTime date = await showDatePicker(
-      cancelText: "Annuler",
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2019), //à construire plus tard.
-      lastDate: DateTime(2050), //à construire plus tard.
-    );
+        cancelText: "Annuler",
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(2019), //à construire plus tard.
+        lastDate: DateTime(2050),
+        builder: (BuildContext context, Widget child) {
+          return ThemeController(
+            child: child,
+            color: _selectedSubject.couleurMatiere,
+          );
+        } //à construire plus tard.
+        );
 
     if (date != null) {
       setState(() => _selectedDate = date);
@@ -165,22 +173,25 @@ class _CreateHomeworkPageState extends State<CreateHomeworkPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: ModularAppBar(
-        title: "Nouveau devoir",
-        centerTitle: true,
-      ),
-      body: CreateHomeworkBody(
-        selectSubjectFunction: _selectSubject,
-        selectedSubject: _selectedSubject,
-        homeworkContentController: _homeworkContentController,
-        selectDateFunction: _selectDate,
-        selectedDate: _selectedDate,
-        selectPriorityFunction: _selectPriority,
-        selectedPriority: _selectedPriority,
-        createHomeworkFunction: _createHomework,
-        createHomeworkFormKey: _createHomeworkFormKey,
-        dateMissing: _dateMissing,
+    return ThemeController(
+      color: _selectedSubject.couleurMatiere,
+      child: Scaffold(
+        appBar: ModularAppBar(
+          title: "Nouveau devoir",
+          centerTitle: true,
+        ),
+        body: CreateHomeworkBody(
+          selectSubjectFunction: _selectSubject,
+          selectedSubject: _selectedSubject,
+          homeworkContentController: _homeworkContentController,
+          selectDateFunction: _selectDate,
+          selectedDate: _selectedDate,
+          selectPriorityFunction: _selectPriority,
+          selectedPriority: _selectedPriority,
+          createHomeworkFunction: _createHomework,
+          createHomeworkFormKey: _createHomeworkFormKey,
+          dateMissing: _dateMissing,
+        ),
       ),
     );
   }
