@@ -37,7 +37,7 @@ class _CreateSubjectPageState extends State<CreateSubjectPage> {
 
   bool _colorMissing = false;
 
-  void _selectIcon(context) async {
+  void _selectIcon() async {
     IconData _icon = await FlutterIconPicker.showIconPicker(
       context,
       noResultsText: "Aucun résultats pour :",

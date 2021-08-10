@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 
 import "package:intl/intl.dart";
+import 'package:tm_college_app/widgets/modular_outlined_button.dart';
 
 class CreateHomeworkSelectDateButton extends StatelessWidget {
   final Function selectDateFunction;
@@ -17,17 +18,9 @@ class CreateHomeworkSelectDateButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return OutlinedButton(
-      style: ButtonStyle(
-        foregroundColor:
-            dateMissing ? MaterialStateProperty.all(Colors.red) : null,
-        side: dateMissing
-            ? MaterialStateProperty.all(
-                BorderSide(color: Colors.red),
-              )
-            : null,
-      ),
-      onPressed: () => selectDateFunction(),
+    return ModularOutlinedButton(
+      missingObject: dateMissing,
+      onPressedFunction: selectDateFunction,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: selectedDate == null

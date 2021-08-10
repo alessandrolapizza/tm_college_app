@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:tm_college_app/widgets/modular_outlined_button.dart';
 
 class CreateSubjectSelectIconButton extends StatelessWidget {
   final Function selectIconFunction;
@@ -15,8 +16,9 @@ class CreateSubjectSelectIconButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return OutlinedButton(
-      onPressed: () => selectIconFunction(context),
+    return ModularOutlinedButton(
+      missingObject: iconMissing,
+      onPressedFunction: selectIconFunction,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -26,15 +28,6 @@ class CreateSubjectSelectIconButton extends StatelessWidget {
             size: 20,
           ),
         ],
-      ),
-      style: ButtonStyle(
-        foregroundColor:
-            iconMissing ? MaterialStateProperty.all(Colors.red) : null,
-        side: iconMissing
-            ? MaterialStateProperty.all(
-                BorderSide(color: Colors.red),
-              )
-            : null,
       ),
     );
   }

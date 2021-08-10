@@ -19,9 +19,17 @@ class CircleAvatarWithBorder extends StatelessWidget {
         heightFactor: 0.98,
         child: CircleAvatar(
           backgroundColor: color,
-          child: Icon(
-            icon,
-            color: Colors.white,
+          child: FractionallySizedBox(
+            widthFactor: 0.6,
+            heightFactor: 0.6,
+            child: FittedBox(
+              fit: BoxFit.contain,
+              child: Icon(
+                icon,
+                color: Colors.white,
+                size: 1000,
+              ),
+            ),
           ),
         ),
       ),

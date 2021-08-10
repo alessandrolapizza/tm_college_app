@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_material_color_picker/flutter_material_color_picker.dart";
+import 'package:tm_college_app/widgets/modular_outlined_button.dart';
 import "../models/devoir.dart";
 
 class CreateHomeworkSelectPriorityButton extends StatelessWidget {
@@ -14,8 +15,8 @@ class CreateHomeworkSelectPriorityButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return OutlinedButton(
-      onPressed: () => selectPriorityFunction(),
+    return ModularOutlinedButton(
+      onPressedFunction: selectPriorityFunction,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

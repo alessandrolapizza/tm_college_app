@@ -1,4 +1,6 @@
 import "package:flutter/material.dart";
+import 'package:tm_college_app/widgets/circle_avatar_with_border.dart';
+import 'package:tm_college_app/widgets/modular_outlined_button.dart';
 import "../models/matiere.dart";
 
 class CreateHomeworkSelectSubjectButton extends StatelessWidget {
@@ -13,8 +15,8 @@ class CreateHomeworkSelectSubjectButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return OutlinedButton(
-      onPressed: () => selectSubjectFunction(),
+    return ModularOutlinedButton(
+      onPressedFunction: selectSubjectFunction,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children:
@@ -27,14 +29,12 @@ class CreateHomeworkSelectSubjectButton extends StatelessWidget {
                     ),
                   ]
                 : [
-                    CircleAvatar(
-                      backgroundColor: selectedSubject.couleurMatiere,
-                      child: Icon(
-                        selectedSubject.iconMatiere,
-                        color: Colors.white,
-                        size: 20,
+                    FractionallySizedBox(
+                      heightFactor: 0.75,
+                      child: CircleAvatarWithBorder(
+                        color: selectedSubject.couleurMatiere,
+                        icon: selectedSubject.iconMatiere,
                       ),
-                      radius: 15,
                     ),
                     Text(" " + selectedSubject.nom),
                   ],
