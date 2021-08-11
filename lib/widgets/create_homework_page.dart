@@ -176,6 +176,7 @@ class _CreateHomeworkPageState extends State<CreateHomeworkPage> {
       color: _selectedSubject.couleurMatiere,
       child: Scaffold(
         appBar: ModularAppBar(
+          backArrow: true,
           title: "Nouveau devoir",
           centerTitle: true,
         ),

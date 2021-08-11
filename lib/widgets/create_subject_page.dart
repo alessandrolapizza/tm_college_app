@@ -1,5 +1,4 @@
 import "package:flutter/material.dart";
-import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
 import "package:flutter_iconpicker/flutter_iconpicker.dart";
@@ -146,6 +145,7 @@ class _CreateSubjectPageState extends State<CreateSubjectPage> {
           : _selectedColor,
       child: Scaffold(
         appBar: ModularAppBar(
+          backArrow: true,
           title: "Nouvelle matière",
           centerTitle: true,
         ),
