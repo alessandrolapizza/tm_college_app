@@ -32,6 +32,8 @@ class App extends StatelessWidget {
     return MaterialColor(colorValue, colorMap);
   }
 
+  static const Locale defaultLocale = Locale("fr", "FR");
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations(
@@ -44,10 +46,7 @@ class App extends StatelessWidget {
         GlobalMaterialLocalizations.delegate,
       ],
       supportedLocales: [
-        Locale(
-          "fr",
-          "FR",
-        ),
+        defaultLocale,
       ],
       title: "TM_COLLEGE_APP", //Provisoire
       initialRoute: "/",

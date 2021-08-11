@@ -1,5 +1,4 @@
 import "package:flutter/material.dart";
-import 'package:tm_college_app/widgets/app.dart';
 import 'package:tm_college_app/widgets/circle_avatar_with_border.dart';
 import 'package:tm_college_app/widgets/create_homework_body.dart';
 import 'package:tm_college_app/widgets/fade_gradient.dart';

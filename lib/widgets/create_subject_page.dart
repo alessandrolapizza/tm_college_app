@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
 import "package:flutter_iconpicker/flutter_iconpicker.dart";
