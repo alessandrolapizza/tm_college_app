@@ -16,7 +16,7 @@ class ModularOutlinedButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 35,
+      height: 40,
       width: double.infinity,
       child: OutlinedButton(
         style: ButtonStyle(
