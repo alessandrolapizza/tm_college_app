@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 
 import 'package:tm_college_app/widgets/home_page_bottom_app_bar.dart';
+import 'package:tm_college_app/widgets/modular_icon_button.dart';
 import "./modular_app_bar.dart";
 import "./home_page_body_homeworks.dart";
 import "./modular_floating_action_button.dart";
@@ -64,6 +65,14 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: ModularAppBar(
+        actions: _index == 0
+            ? [
+                ModularIconButton(
+                  onPressedFunction: () {},
+                  icon: Icons.checklist,
+                )
+              ]
+            : null,
         title: _title,
         centerTitle: false,
       ),

@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:tm_college_app/widgets/circle_avatar_with_border.dart';
+import 'package:tm_college_app/widgets/modular_icon_button.dart';
 
 import "../models/devoir.dart";
 
@@ -66,11 +67,10 @@ class CarteDevoir extends StatelessWidget {
               Expanded(
                 flex: 3,
                 child: Container(
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: Icon(Icons.check),
+                  child: ModularIconButton(
                     color: Colors.green,
-                    splashRadius: 20,
+                    onPressedFunction: () {},
+                    icon: Icons.check,
                   ),
                 ),
               ),

@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:tm_college_app/widgets/modular_icon_button.dart';
 import 'package:tm_college_app/widgets/theme_controller.dart';
 
 import 'package:tm_college_app/widgets/view_homework_body.dart';
@@ -7,6 +8,7 @@ import "../models/devoir.dart";
 import "./modular_floating_action_button.dart";
 
 import "./modular_app_bar.dart";
+import "./modular_icon_button.dart";
 
 class ViewHomeworkPage extends StatelessWidget {
   @override
@@ -20,14 +22,15 @@ class ViewHomeworkPage extends StatelessWidget {
           icon: Icons.edit,
         ),
         appBar: ModularAppBar(
+          backArrow: true,
           actions: [
-            IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.delete),
+            ModularIconButton(
+              onPressedFunction: () {},
+              icon: Icons.delete,
             ),
-            IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.check),
+            ModularIconButton(
+              onPressedFunction: () {},
+              icon: Icons.check,
             )
           ],
           title: "Détails du devoir",
