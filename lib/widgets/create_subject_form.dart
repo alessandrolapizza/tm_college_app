@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import "package:flutter/material.dart";
 
 class CreateSubjectForm extends StatelessWidget {
@@ -20,6 +21,7 @@ class CreateSubjectForm extends StatelessWidget {
       child: Column(
         children: [
           TextFormField(
+            selectionControls: materialTextSelectionControls,
             validator: (value) {
               if (value == null || value.trim() == "") {
                 return "Un nom de matière doit être fourni";
@@ -42,6 +44,7 @@ class CreateSubjectForm extends StatelessWidget {
             padding: EdgeInsets.only(bottom: 15),
           ),
           TextFormField(
+            selectionControls: materialTextSelectionControls,
             validator: (value) {
               if (value == null || value.trim() == "") {
                 return "Un numéro de salle doit être fourni";

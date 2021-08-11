@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import "package:flutter/material.dart";
 
 class CreateHomeworkForm extends StatelessWidget {
@@ -15,6 +16,7 @@ class CreateHomeworkForm extends StatelessWidget {
     return Form(
       key: createHomeworkFormKey,
       child: TextFormField(
+        selectionControls: materialTextSelectionControls,
         validator: (value) {
           if (value == null || value.trim() == "") {
             return "Un contenu doit être fourni";
