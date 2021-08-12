@@ -19,7 +19,14 @@ class HomePageBodySubjects extends StatelessWidget {
             itemCount: snapshot.data.length,
             itemBuilder: (_, index) {
               debugPrint(snapshot.data[index].id);
-              return CarteMatiere(snapshot.data[index]);
+              return CarteMatiere(
+                matiere: snapshot.data[index],
+                onTapFunction: () => Navigator.pushNamed(
+                  context,
+                  "/page_visualiser_matiere",
+                  arguments: snapshot.data[index],
+                ),
+              );
             },
           );
         } else {

@@ -6,16 +6,17 @@ import "../models/matiere.dart";
 class CarteMatiere extends StatelessWidget {
   final Matiere matiere;
 
-  CarteMatiere(this.matiere);
+  final Function onTapFunction;
+
+  CarteMatiere({
+    @required this.matiere,
+    this.onTapFunction,
+  });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Navigator.pushNamed(
-        context,
-        "/page_visualiser_matiere",
-        arguments: matiere,
-      ),
+      onTap: onTapFunction,
       child: Container(
         height: 90,
         width: double.infinity,
