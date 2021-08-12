@@ -8,15 +8,20 @@ import "./carte_devoir.dart";
 import "../models/devoir.dart";
 import "../models/base_de_donnees.dart";
 
-class HomePageBodyHomeworks extends StatelessWidget {
+class HomePageBodyHomeworks extends StatefulWidget {
   final BaseDeDonnees db;
 
   HomePageBodyHomeworks(this.db);
 
   @override
+  _HomePageBodyHomeworksState createState() => _HomePageBodyHomeworksState();
+}
+
+class _HomePageBodyHomeworksState extends State<HomePageBodyHomeworks> {
+  @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: db.homeworks(),
+      future: widget.db.homeworks(),
       builder: (_, snapshot) {
         var child;
         if (snapshot.hasData) {
