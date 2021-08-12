@@ -7,16 +7,17 @@ import "../models/devoir.dart";
 class CarteDevoir extends StatelessWidget {
   final Devoir devoir;
 
-  CarteDevoir(this.devoir);
+  final Function onTapFunction;
+
+  CarteDevoir({
+    @required this.devoir,
+    this.onTapFunction,
+  });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Navigator.pushNamed(
-        context,
-        "/homework_details_page",
-        arguments: devoir,
-      ),
+      onTap: onTapFunction != null ? onTapFunction : null,
       child: Container(
         height: 90,
         width: double.infinity,

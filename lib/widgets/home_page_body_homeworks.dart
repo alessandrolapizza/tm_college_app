@@ -100,8 +100,14 @@ class HomePageBodyHomeworks extends StatelessWidget {
                           //    .toList()
                           //    .length
                           //    .toString());
-                          return CarteDevoir(homeworksDateMapToDoSorted.values
-                              .toList()[index][idx]);
+                          return CarteDevoir(
+                            devoir: homeworksDateMapToDoSorted.values
+                                .toList()[index][idx],
+                            onTapFunction: () => Navigator.pushNamed(
+                                context, "/homework_details_page",
+                                arguments: homeworksDateMapToDoSorted.values
+                                    .toList()[index][idx]),
+                          );
                         },
                       ),
                     );
