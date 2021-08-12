@@ -9,7 +9,7 @@ class ModularIconButton extends StatelessWidget {
 
   ModularIconButton({
     @required this.icon,
-    @required this.onPressedFunction,
+    this.onPressedFunction,
     this.color,
   });
 
