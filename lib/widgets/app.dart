@@ -55,7 +55,9 @@ class App extends StatelessWidget {
         "/create_subject_page": (_) => CreateSubjectPage(database),
         "/create_homework_page": (_) => CreateHomeworkPage(database),
         "/page_visualiser_matiere": (_) => PageVisualiserMatiere(),
-        "/homework_details_page": (_) => ViewHomeworkPage(),
+        "/homework_details_page": (_) => ViewHomeworkPage(
+              db: database,
+            ),
       },
       theme: ThemeData(
         primarySwatch: toMaterialColor(defaultColorThemeValue),

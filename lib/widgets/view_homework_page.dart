@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:tm_college_app/models/base_de_donnees.dart';
 import 'package:tm_college_app/widgets/modular_icon_button.dart';
 import 'package:tm_college_app/widgets/theme_controller.dart';
 
@@ -11,6 +12,10 @@ import "./modular_app_bar.dart";
 import "./modular_icon_button.dart";
 
 class ViewHomeworkPage extends StatelessWidget {
+  final BaseDeDonnees db;
+
+  ViewHomeworkPage({@required this.db});
+
   @override
   Widget build(BuildContext context) {
     final Devoir homework = ModalRoute.of(context).settings.arguments;
@@ -29,7 +34,14 @@ class ViewHomeworkPage extends StatelessWidget {
               icon: Icons.delete,
             ),
             ModularIconButton(
-              onPressedFunction: () {},
+              onPressedFunction: () async {
+                await Devoir.homeworkChecker(
+                  homework: homework,
+                  done: true,
+                  db: db,
+                );
+                Navigator.pop(context);
+              },
               icon: Icons.check,
             )
           ],

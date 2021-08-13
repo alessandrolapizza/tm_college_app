@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:uuid/uuid.dart";
+import "../models/base_de_donnees.dart";
 
 import "./matiere.dart";
 
@@ -39,4 +40,22 @@ class Devoir {
     "Moyenne": Colors.orange,
     "Urgente": Colors.red,
   };
+
+  static Future<void> homeworkChecker({
+    @required Devoir homework,
+    @required bool done,
+    @required BaseDeDonnees db,
+  }) async {
+    Devoir checkedHomework = Devoir(
+      done: done,
+      content: homework.content,
+      dueDate: homework.dueDate,
+      priority: homework.priority,
+      subjectId: homework.subjectId,
+      subject: homework.subject,
+      id: homework.id,
+    );
+
+    await db.updateHomework(checkedHomework);
+  }
 }

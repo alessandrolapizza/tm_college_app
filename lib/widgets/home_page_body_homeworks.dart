@@ -18,6 +18,25 @@ class HomePageBodyHomeworks extends StatefulWidget {
 }
 
 class _HomePageBodyHomeworksState extends State<HomePageBodyHomeworks> {
+  final ScrollController _scrollControllerHomeworks = ScrollController();
+
+  void checkHomework(
+    Devoir homework,
+  ) async {
+    await Devoir.homeworkChecker(
+      homework: homework,
+      done: true,
+      db: widget.db,
+    );
+    setState(() {});
+    double offset = _scrollControllerHomeworks.offset;
+    _scrollControllerHomeworks.animateTo(
+      offset + 0.5,
+      duration: Duration(milliseconds: 1),
+      curve: Curves.bounceIn,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -64,6 +83,8 @@ class _HomePageBodyHomeworksState extends State<HomePageBodyHomeworks> {
           child = homeworksDateMapToDoSorted.length == 0
               ? Text("test")
               : ListView.builder(
+                  physics: AlwaysScrollableScrollPhysics(),
+                  controller: _scrollControllerHomeworks,
                   itemCount: homeworksDateMapToDoSorted.length,
                   itemBuilder: (_, index) {
                     return StickyHeader(
@@ -109,9 +130,11 @@ class _HomePageBodyHomeworksState extends State<HomePageBodyHomeworks> {
                             devoir: homeworksDateMapToDoSorted.values
                                 .toList()[index][idx],
                             onTapFunction: () => Navigator.pushNamed(
-                                context, "/homework_details_page",
-                                arguments: homeworksDateMapToDoSorted.values
-                                    .toList()[index][idx]),
+                                    context, "/homework_details_page",
+                                    arguments: homeworksDateMapToDoSorted.values
+                                        .toList()[index][idx])
+                                .then((_) => setState(() {})),
+                            onCheckFunction: checkHomework,
                           );
                         },
                       ),
