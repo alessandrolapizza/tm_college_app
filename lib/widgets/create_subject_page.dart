@@ -4,6 +4,7 @@ import 'package:flutter_material_color_picker/flutter_material_color_picker.dart
 import "package:flutter_iconpicker/flutter_iconpicker.dart";
 import 'package:tm_college_app/widgets/app.dart';
 import 'package:tm_college_app/widgets/create_subject_body.dart';
+import 'package:tm_college_app/widgets/modular_alert_dialog.dart';
 import 'package:tm_college_app/widgets/theme_controller.dart';
 
 import "./modular_app_bar.dart";
@@ -69,34 +70,26 @@ class _CreateSubjectPageState extends State<CreateSubjectPage> {
       barrierDismissible: true,
       context: context,
       builder: (_) {
-        return ThemeController(
-          color: _selectedColor == null
+        return ModularAlertDialog(
+          themeColor: _selectedColor == null
               ? Color(App.defaultColorThemeValue)
               : _selectedColor,
-          child: AlertDialog(
-            title: Text(
-              "Choisir une couleur",
-              style: TextStyle(color: Colors.black),
-            ),
-            actions: [
-              TextButton(
-                child: Text("Annuler"),
-                onPressed: () => Navigator.pop(context),
-              )
-            ],
-            content: MaterialColorPicker(
-              shrinkWrap: true,
-              onColorChange: (Color couleur) {
-                if (_couleurValide == 0) {
-                  _couleurValide++;
-                } else {
-                  Navigator.pop(context, couleur);
-                }
-              },
-              onBack: () => _couleurValide--,
-              physics: ScrollPhysics(
-                parent: NeverScrollableScrollPhysics(),
-              ),
+          title: Text(
+            "Choisir une couleur",
+            style: TextStyle(color: Colors.black),
+          ),
+          content: MaterialColorPicker(
+            shrinkWrap: true,
+            onColorChange: (Color couleur) {
+              if (_couleurValide == 0) {
+                _couleurValide++;
+              } else {
+                Navigator.pop(context, couleur);
+              }
+            },
+            onBack: () => _couleurValide--,
+            physics: ScrollPhysics(
+              parent: NeverScrollableScrollPhysics(),
             ),
           ),
         );

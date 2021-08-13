@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:tm_college_app/models/base_de_donnees.dart';
+import 'package:tm_college_app/widgets/modular_alert_dialog.dart';
 import 'package:tm_college_app/widgets/modular_icon_button.dart';
 import 'package:tm_college_app/widgets/theme_controller.dart';
 
@@ -37,27 +38,22 @@ class ViewHomeworkPage extends StatelessWidget {
                   builder: (_) {
                     return ThemeController(
                       color: homework.subject.couleurMatiere,
-                      child: AlertDialog(
+                      child: ModularAlertDialog(
+                        themeColor: homework.subject.couleurMatiere,
                         title: Text("Supprimer devoir ?"),
                         content:
                             Text("Es-tu sûr de vouloir supprimer ce devoir ?"),
-                        actions: [
-                          TextButton(
-                            child: Text("Annuler"),
-                            onPressed: () => Navigator.pop(context),
+                        actionButton: TextButton(
+                          child: Text(
+                            "Supprimer",
+                            style: TextStyle(color: Colors.red),
                           ),
-                          TextButton(
-                            child: Text(
-                              "Supprimer",
-                              style: TextStyle(color: Colors.red),
-                            ),
-                            onPressed: () async {
-                              await db.deleteHomework(homework);
-                              Navigator.pop(context);
-                              Navigator.pop(context);
-                            },
-                          )
-                        ],
+                          onPressed: () async {
+                            await db.deleteHomework(homework);
+                            Navigator.pop(context);
+                            Navigator.pop(context);
+                          },
+                        ),
                       ),
                     );
                   },
