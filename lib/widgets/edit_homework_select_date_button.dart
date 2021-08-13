@@ -3,14 +3,14 @@ import "package:flutter/material.dart";
 import "package:intl/intl.dart";
 import 'package:tm_college_app/widgets/modular_outlined_button.dart';
 
-class CreateHomeworkSelectDateButton extends StatelessWidget {
+class EditHomeworkSelectDateButton extends StatelessWidget {
   final Function selectDateFunction;
 
   final DateTime selectedDate;
 
   final bool dateMissing;
 
-  CreateHomeworkSelectDateButton({
+  EditHomeworkSelectDateButton({
     @required this.selectDateFunction,
     @required this.selectedDate,
     @required this.dateMissing,

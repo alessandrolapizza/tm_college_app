@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:tm_college_app/widgets/circle_avatar_with_border.dart';
-import 'package:tm_college_app/widgets/create_homework_body.dart';
+import 'package:tm_college_app/widgets/edit_homework_body.dart';
 import 'package:tm_college_app/widgets/fade_gradient.dart';
 import 'package:tm_college_app/widgets/modular_app_bar.dart';
 import "package:flutter_material_color_picker/flutter_material_color_picker.dart";
@@ -10,19 +10,16 @@ import "../models/devoir.dart";
 import "../models/matiere.dart";
 import "../models/base_de_donnees.dart";
 
-class CreateHomeworkPage extends StatefulWidget {
-  final BaseDeDonnees bD;
+class EditHomeworkPage extends StatefulWidget {
+  final BaseDeDonnees db;
 
-  CreateHomeworkPage(this.bD);
+  EditHomeworkPage(this.db);
 
   @override
-  _CreateHomeworkPageState createState() => _CreateHomeworkPageState(bD);
+  _EditHomeworkPageState createState() => _EditHomeworkPageState();
 }
 
-class _CreateHomeworkPageState extends State<CreateHomeworkPage> {
-  final BaseDeDonnees _bD;
-
-  _CreateHomeworkPageState(this._bD);
+class _EditHomeworkPageState extends State<EditHomeworkPage> {
 
   final TextEditingController _homeworkContentController =
       TextEditingController();
@@ -44,7 +41,7 @@ class _CreateHomeworkPageState extends State<CreateHomeworkPage> {
         return SafeArea(
           child: FadeGradient(
             child: FutureBuilder(
-              future: _bD.matieres(),
+              future: widget.db.matieres(),
               builder: (_, snapshot) {
                 var children;
                 if (snapshot.hasData) {
@@ -149,7 +146,7 @@ class _CreateHomeworkPageState extends State<CreateHomeworkPage> {
   Future<void> _createHomework() async {
     if (_createHomeworkFormKey.currentState.validate() &&
         _selectedDate != null) {
-      await _bD.insertHomework(
+      await widget.db.insertHomework(
         Devoir(
           content: _homeworkContentController.text,
           dueDate: _selectedDate,
@@ -180,7 +177,7 @@ class _CreateHomeworkPageState extends State<CreateHomeworkPage> {
           title: "Nouveau devoir",
           centerTitle: true,
         ),
-        body: CreateHomeworkBody(
+        body: EditHomeworkBody(
           selectSubjectFunction: _selectSubject,
           selectedSubject: _selectedSubject,
           homeworkContentController: _homeworkContentController,

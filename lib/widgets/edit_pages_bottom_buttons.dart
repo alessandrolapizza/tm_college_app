@@ -1,9 +1,9 @@
 import "package:flutter/material.dart";
 
-class CreatePagesBottomButton extends StatelessWidget {
+class EditPagesBottomButton extends StatelessWidget {
   final Function createFunction;
 
-  CreatePagesBottomButton({@required this.createFunction});
+  EditPagesBottomButton({@required this.createFunction});
 
   @override
   Widget build(BuildContext context) {

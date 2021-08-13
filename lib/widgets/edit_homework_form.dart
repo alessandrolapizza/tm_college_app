@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import "package:flutter/material.dart";
 
-class CreateHomeworkForm extends StatelessWidget {
+class EditHomeworkForm extends StatelessWidget {
   final TextEditingController homeworkContentController;
 
   final GlobalKey<FormState> createHomeworkFormKey;
 
-  CreateHomeworkForm({
+  EditHomeworkForm({
     @required this.homeworkContentController,
     @required this.createHomeworkFormKey,
   });

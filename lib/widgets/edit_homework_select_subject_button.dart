@@ -3,12 +3,12 @@ import 'package:tm_college_app/widgets/circle_avatar_with_border.dart';
 import 'package:tm_college_app/widgets/modular_outlined_button.dart';
 import "../models/matiere.dart";
 
-class CreateHomeworkSelectSubjectButton extends StatelessWidget {
+class EditHomeworkSelectSubjectButton extends StatelessWidget {
   final Function selectSubjectFunction;
 
   final Matiere selectedSubject;
 
-  CreateHomeworkSelectSubjectButton({
+  EditHomeworkSelectSubjectButton({
     @required this.selectSubjectFunction,
     @required this.selectedSubject,
   });

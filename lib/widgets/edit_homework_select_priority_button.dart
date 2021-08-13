@@ -3,12 +3,12 @@ import "package:flutter_material_color_picker/flutter_material_color_picker.dart
 import 'package:tm_college_app/widgets/modular_outlined_button.dart';
 import "../models/devoir.dart";
 
-class CreateHomeworkSelectPriorityButton extends StatelessWidget {
+class EditHomeworkSelectPriorityButton extends StatelessWidget {
   final Function selectPriorityFunction;
 
   final int selectedPriority;
 
-  CreateHomeworkSelectPriorityButton({
+  EditHomeworkSelectPriorityButton({
     @required this.selectPriorityFunction,
     @required this.selectedPriority,
   });

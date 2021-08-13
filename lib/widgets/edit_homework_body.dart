@@ -1,12 +1,12 @@
 import "package:flutter/material.dart";
-import 'package:tm_college_app/widgets/create_homework_form.dart';
-import 'package:tm_college_app/widgets/create_homework_select_date_button.dart';
-import 'package:tm_college_app/widgets/create_homework_select_priority_button.dart';
-import 'package:tm_college_app/widgets/create_homework_select_subject_button.dart';
-import 'package:tm_college_app/widgets/create_pages_bottom_buttons.dart';
+import 'package:tm_college_app/widgets/edit_homework_form.dart';
+import 'package:tm_college_app/widgets/edit_homework_select_date_button.dart';
+import 'package:tm_college_app/widgets/edit_homework_select_priority_button.dart';
+import 'package:tm_college_app/widgets/edit_homework_select_subject_button.dart';
+import 'package:tm_college_app/widgets/edit_pages_bottom_buttons.dart';
 import "../models/matiere.dart";
 
-class CreateHomeworkBody extends StatelessWidget {
+class EditHomeworkBody extends StatelessWidget {
   final Function selectSubjectFunction;
 
   final Matiere selectedSubject;
@@ -27,7 +27,7 @@ class CreateHomeworkBody extends StatelessWidget {
 
   final bool dateMissing;
 
-  CreateHomeworkBody({
+  EditHomeworkBody({
     @required this.selectSubjectFunction,
     @required this.selectedSubject,
     @required this.homeworkContentController,
@@ -53,14 +53,14 @@ class CreateHomeworkBody extends StatelessWidget {
               ),
               Column(
                 children: [
-                  CreateHomeworkSelectSubjectButton(
+                  EditHomeworkSelectSubjectButton(
                     selectSubjectFunction: selectSubjectFunction,
                     selectedSubject: selectedSubject,
                   ),
                   Padding(
                     padding: EdgeInsets.only(bottom: 15),
                   ),
-                  CreateHomeworkForm(
+                  EditHomeworkForm(
                     homeworkContentController: homeworkContentController,
                     createHomeworkFormKey: createHomeworkFormKey,
                   ),
@@ -72,7 +72,7 @@ class CreateHomeworkBody extends StatelessWidget {
                     children: [
                       SizedBox(
                         width: MediaQuery.of(context).size.width / 2.3,
-                        child: CreateHomeworkSelectDateButton(
+                        child: EditHomeworkSelectDateButton(
                           selectDateFunction: selectDateFunction,
                           selectedDate: selectedDate,
                           dateMissing: dateMissing,
@@ -80,7 +80,7 @@ class CreateHomeworkBody extends StatelessWidget {
                       ),
                       SizedBox(
                         width: MediaQuery.of(context).size.width / 2.3,
-                        child: CreateHomeworkSelectPriorityButton(
+                        child: EditHomeworkSelectPriorityButton(
                           selectPriorityFunction: selectPriorityFunction,
                           selectedPriority: selectedPriority,
                         ),
@@ -89,7 +89,7 @@ class CreateHomeworkBody extends StatelessWidget {
                   ),
                 ],
               ),
-              CreatePagesBottomButton(createFunction: createHomeworkFunction),
+              EditPagesBottomButton(createFunction: createHomeworkFunction),
             ],
           ),
         ),
