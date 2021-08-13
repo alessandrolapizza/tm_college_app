@@ -30,7 +30,39 @@ class ViewHomeworkPage extends StatelessWidget {
           backArrow: true,
           actions: [
             ModularIconButton(
-              onPressedFunction: () {},
+              onPressedFunction: () {
+                showDialog(
+                  barrierDismissible: true,
+                  context: context,
+                  builder: (_) {
+                    return ThemeController(
+                      color: homework.subject.couleurMatiere,
+                      child: AlertDialog(
+                        title: Text("Supprimer devoir ?"),
+                        content:
+                            Text("Es-tu sûr de vouloir supprimer ce devoir ?"),
+                        actions: [
+                          TextButton(
+                            child: Text("Annuler"),
+                            onPressed: () => Navigator.pop(context),
+                          ),
+                          TextButton(
+                            child: Text(
+                              "Supprimer",
+                              style: TextStyle(color: Colors.red),
+                            ),
+                            onPressed: () async {
+                              await db.deleteHomework(homework);
+                              Navigator.pop(context);
+                              Navigator.pop(context);
+                            },
+                          )
+                        ],
+                      ),
+                    );
+                  },
+                );
+              },
               icon: Icons.delete,
             ),
             ModularIconButton(

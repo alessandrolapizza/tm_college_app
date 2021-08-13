@@ -126,8 +126,10 @@ class BaseDeDonnees {
     );
   }
 
-  Future<void> deleteHomework(int id) async {
+  Future<void> deleteHomework(Devoir homework) async {
     final db = await database;
+
+    final String id = homework.id;
 
     await db.delete(
       "homeworks",
