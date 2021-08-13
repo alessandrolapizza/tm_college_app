@@ -7,7 +7,12 @@ import "../models/devoir.dart";
 class ViewHomeworkBody extends StatelessWidget {
   final Devoir homework;
 
-  ViewHomeworkBody({@required this.homework});
+  final bool homePage;
+
+  ViewHomeworkBody({
+    @required this.homework,
+    @required this.homePage,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +34,10 @@ class ViewHomeworkBody extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(bottom: 15),
               ),
-              ViewHomeworkDetailsSentence(homework: homework),
+              ViewHomeworkDetailsSentence(
+                homework: homework,
+                homePage: homePage,
+              ),
               Padding(
                 padding: EdgeInsets.only(bottom: 15),
               ),

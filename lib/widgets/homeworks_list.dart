@@ -128,10 +128,13 @@ class _HomeworksList extends State<HomeworksList> {
                           return CarteDevoir(
                             devoir: homeworks.values.toList()[index][idx],
                             onTapFunction: () => Navigator.pushNamed(
-                                    context, "/homework_details_page",
-                                    arguments: homeworks.values.toList()[index]
-                                        [idx])
-                                .then((_) => setState(() {})),
+                              context,
+                              "/homework_details_page",
+                              arguments: [
+                                homeworks.values.toList()[index][idx],
+                                widget.homePage,
+                              ],
+                            ).then((_) => setState(() {})),
                             actionButton: widget.homePage
                                 ? ModularIconButton(
                                     color: Colors.green,

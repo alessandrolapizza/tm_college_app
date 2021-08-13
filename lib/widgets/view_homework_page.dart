@@ -19,63 +19,108 @@ class ViewHomeworkPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Devoir homework = ModalRoute.of(context).settings.arguments;
+    final List<dynamic> arguments = ModalRoute.of(context).settings.arguments;
+    final Devoir homework = arguments[0];
+    final bool homePage = arguments[1];
     return ThemeController(
       color: homework.subject.couleurMatiere,
       child: Scaffold(
         floatingActionButton: ModularFloatingActionButton(
-          onPressedFunction: null,
-          icon: Icons.edit,
+          onPressedFunction: () async {
+            await Devoir.homeworkChecker(
+              homework: homework,
+              db: db,
+            );
+            Navigator.pop(context);
+          },
+          icon: homePage ? Icons.edit : Icons.settings_backup_restore_outlined,
         ),
         appBar: ModularAppBar(
           backArrow: true,
-          actions: [
-            ModularIconButton(
-              onPressedFunction: () {
-                showDialog(
-                  barrierDismissible: true,
-                  context: context,
-                  builder: (_) {
-                    return ThemeController(
-                      color: homework.subject.couleurMatiere,
-                      child: ModularAlertDialog(
-                        themeColor: homework.subject.couleurMatiere,
-                        title: Text("Supprimer devoir ?"),
-                        content:
-                            Text("Es-tu sûr de vouloir supprimer ce devoir ?"),
-                        actionButton: TextButton(
-                          child: Text(
-                            "Supprimer",
-                            style: TextStyle(color: Colors.red),
-                          ),
-                          onPressed: () async {
-                            await db.deleteHomework(homework);
-                            Navigator.pop(context);
-                            Navigator.pop(context);
-                          },
-                        ),
-                      ),
-                    );
-                  },
-                );
-              },
-              icon: Icons.delete,
-            ),
-            ModularIconButton(
-              onPressedFunction: () async {
-                await Devoir.homeworkChecker(
-                  homework: homework,
-                  db: db,
-                );
-                Navigator.pop(context);
-              },
-              icon: Icons.check,
-            )
-          ],
+          actions: homePage
+              ? [
+                  ModularIconButton(
+                    onPressedFunction: () {
+                      showDialog(
+                        barrierDismissible: true,
+                        context: context,
+                        builder: (_) {
+                          return ThemeController(
+                            color: homework.subject.couleurMatiere,
+                            child: ModularAlertDialog(
+                              themeColor: homework.subject.couleurMatiere,
+                              title: Text("Supprimer devoir ?"),
+                              content: Text(
+                                  "Es-tu sûr de vouloir supprimer ce devoir ?"),
+                              actionButton: TextButton(
+                                child: Text(
+                                  "Supprimer",
+                                  style: TextStyle(color: Colors.red),
+                                ),
+                                onPressed: () async {
+                                  await db.deleteHomework(homework);
+                                  Navigator.pop(context);
+                                  Navigator.pop(context);
+                                },
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                    icon: Icons.delete,
+                  ),
+                  ModularIconButton(
+                    onPressedFunction: () async {
+                      await Devoir.homeworkChecker(
+                        homework: homework,
+                        db: db,
+                      );
+                      Navigator.pop(context);
+                    },
+                    icon: Icons.check,
+                  )
+                ]
+              : [
+                  ModularIconButton(
+                    onPressedFunction: () {
+                      showDialog(
+                        barrierDismissible: true,
+                        context: context,
+                        builder: (_) {
+                          return ThemeController(
+                            color: homework.subject.couleurMatiere,
+                            child: ModularAlertDialog(
+                              themeColor: homework.subject.couleurMatiere,
+                              title: Text("Supprimer devoir ?"),
+                              content: Text(
+                                  "Es-tu sûr de vouloir supprimer ce devoir ?"),
+                              actionButton: TextButton(
+                                child: Text(
+                                  "Supprimer",
+                                  style: TextStyle(color: Colors.red),
+                                ),
+                                onPressed: () async {
+                                  await db.deleteHomework(homework);
+                                  Navigator.pop(context);
+                                  Navigator.pop(context);
+                                },
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                    icon: Icons.delete,
+                  )
+                ],
           title: "Détails du devoir",
           centerTitle: true,
         ),
-        body: ViewHomeworkBody(homework: homework),
+        body: ViewHomeworkBody(
+          homework: homework,
+          homePage: homePage,
+        ),
       ),
     );
   }

@@ -6,7 +6,12 @@ import "../models/devoir.dart";
 class ViewHomeworkDetailsSentence extends StatelessWidget {
   final Devoir homework;
 
-  ViewHomeworkDetailsSentence({@required this.homework});
+  final bool homePage;
+
+  ViewHomeworkDetailsSentence({
+    @required this.homework,
+    @required this.homePage,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +28,9 @@ class ViewHomeworkDetailsSentence extends StatelessWidget {
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              Text(" à faire pour le "),
+              Text(
+                homePage ? " à faire pour le " : " qui était à faire pour le ",
+              ),
               Text(
                 DateFormat("EEEE d MMMM").format(homework.dueDate),
                 style: TextStyle(
@@ -38,7 +45,9 @@ class ViewHomeworkDetailsSentence extends StatelessWidget {
               Text(
                 "Contenu du devoir ",
               ),
-              Text("à faire pour le "),
+              Text(
+                homePage ? "à faire pour le " : "qui était à faire pour le ",
+              ),
               Text(
                 DateFormat("EEEE d MMMM").format(homework.dueDate),
                 style: TextStyle(
