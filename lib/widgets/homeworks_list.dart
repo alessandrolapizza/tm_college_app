@@ -3,21 +3,27 @@ import "package:flutter/material.dart";
 import "package:sortedmap/sortedmap.dart";
 import 'package:sticky_headers/sticky_headers/widget.dart';
 import "package:intl/intl.dart";
+import 'package:tm_college_app/widgets/modular_icon_button.dart';
 
 import "./carte_devoir.dart";
 import "../models/devoir.dart";
 import "../models/base_de_donnees.dart";
 
-class HomePageBodyHomeworks extends StatefulWidget {
+class HomeworksList extends StatefulWidget {
   final BaseDeDonnees db;
 
-  HomePageBodyHomeworks(this.db);
+  final bool homePage;
+
+  HomeworksList({
+    @required this.db,
+    @required this.homePage,
+  });
 
   @override
-  _HomePageBodyHomeworksState createState() => _HomePageBodyHomeworksState();
+  _HomeworksList createState() => _HomeworksList();
 }
 
-class _HomePageBodyHomeworksState extends State<HomePageBodyHomeworks> {
+class _HomeworksList extends State<HomeworksList> {
   final ScrollController _scrollControllerHomeworks = ScrollController();
 
   void checkHomework(
@@ -25,7 +31,6 @@ class _HomePageBodyHomeworksState extends State<HomePageBodyHomeworks> {
   ) async {
     await Devoir.homeworkChecker(
       homework: homework,
-      done: true,
       db: widget.db,
     );
     setState(() {});
@@ -44,48 +49,52 @@ class _HomePageBodyHomeworksState extends State<HomePageBodyHomeworks> {
       builder: (_, snapshot) {
         var child;
         if (snapshot.hasData) {
-          Map<DateTime, List<Devoir>> homeworksDateMap = {};
+          Map<DateTime, List<Devoir>> homeworksDateMapDone = {};
           Map<DateTime, List<Devoir>> homeworksDateMapToDo = {};
-          SortedMap<Comparable<DateTime>, List<Devoir>> homeworksDateMapSorted =
-              SortedMap(Ordering.byKey());
+          SortedMap<Comparable<DateTime>, List<Devoir>>
+              homeworksDateMapDoneSorted = SortedMap(Ordering.byKey());
           SortedMap<Comparable<DateTime>, List<Devoir>>
               homeworksDateMapToDoSorted = SortedMap(Ordering.byKey());
 
           snapshot.data.forEach(
             (Devoir homework) {
-              if (homeworksDateMap.containsKey(homework.dueDate)) {
-                homeworksDateMap[homework.dueDate].add(homework);
-              } else {
-                homeworksDateMap[homework.dueDate] = [homework];
-              }
               if (!homework.done) {
                 if (homeworksDateMapToDo.containsKey(homework.dueDate)) {
                   homeworksDateMapToDo[homework.dueDate].add(homework);
                 } else {
                   homeworksDateMapToDo[homework.dueDate] = [homework];
                 }
+              } else {
+                if (homeworksDateMapDone.containsKey(homework.dueDate)) {
+                  homeworksDateMapDone[homework.dueDate].add(homework);
+                } else {
+                  homeworksDateMapDone[homework.dueDate] = [homework];
+                }
               }
             },
           );
 
-          if (homeworksDateMap != null) {
-            homeworksDateMapSorted.addAll(homeworksDateMap);
+          if (homeworksDateMapDone != null) {
+            homeworksDateMapDoneSorted.addAll(homeworksDateMapDone);
           }
 
           if (homeworksDateMapToDo != null) {
             homeworksDateMapToDoSorted.addAll(homeworksDateMapToDo);
           }
 
-          //régler ce probleme
+          debugPrint(homeworksDateMapDoneSorted.toString());
 
-          debugPrint(homeworksDateMapSorted.toString());
+          SortedMap<Comparable<DateTime>, List<Devoir>> homeworks =
+              widget.homePage
+                  ? homeworksDateMapToDoSorted
+                  : homeworksDateMapDoneSorted;
 
-          child = homeworksDateMapToDoSorted.length == 0
+          child = homeworks.length == 0
               ? Text("test")
               : ListView.builder(
                   physics: AlwaysScrollableScrollPhysics(),
                   controller: _scrollControllerHomeworks,
-                  itemCount: homeworksDateMapToDoSorted.length,
+                  itemCount: homeworks.length,
                   itemBuilder: (_, index) {
                     return StickyHeader(
                       header: Container(
@@ -98,13 +107,12 @@ class _HomePageBodyHomeworksState extends State<HomePageBodyHomeworks> {
                               child: Center(
                                 child: Text(
                                   DateFormat("EEEE d MMMM").format(
-                                    homeworksDateMapToDoSorted.keys
-                                        .toList()[index],
+                                    homeworks.keys.toList()[index],
                                   ),
                                   style: TextStyle(
                                       color: DateTime.now().isAfter(
-                                              homeworksDateMapToDoSorted.keys
-                                                  .toList()[index])
+                                        homeworks.keys.toList()[index],
+                                      )
                                           ? Colors.red
                                           : Colors.black,
                                       fontWeight: FontWeight.w500),
@@ -115,26 +123,30 @@ class _HomePageBodyHomeworksState extends State<HomePageBodyHomeworks> {
                       content: ListView.builder(
                         physics: NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
-                        itemCount: homeworksDateMapToDoSorted.values
-                            .toList()[index]
-                            .length,
+                        itemCount: homeworks.values.toList()[index].length,
                         itemBuilder: (_, idx) {
-                          //debugPrint(homeworksDateMapToDoSorted.values
-                          //    .toList()
-                          //    .toString());
-                          //debugPrint(homeworksDateMapToDoSorted.values
-                          //    .toList()
-                          //    .length
-                          //    .toString());
                           return CarteDevoir(
-                            devoir: homeworksDateMapToDoSorted.values
-                                .toList()[index][idx],
+                            devoir: homeworks.values.toList()[index][idx],
                             onTapFunction: () => Navigator.pushNamed(
                                     context, "/homework_details_page",
-                                    arguments: homeworksDateMapToDoSorted.values
-                                        .toList()[index][idx])
+                                    arguments: homeworks.values.toList()[index]
+                                        [idx])
                                 .then((_) => setState(() {})),
-                            onCheckFunction: checkHomework,
+                            actionButton: widget.homePage
+                                ? ModularIconButton(
+                                    color: Colors.green,
+                                    onPressedFunction: () => checkHomework(
+                                      homeworks.values.toList()[index][idx],
+                                    ),
+                                    icon: Icons.check,
+                                  )
+                                : ModularIconButton(
+                                    color: Colors.orange,
+                                    onPressedFunction: () => checkHomework(
+                                      homeworks.values.toList()[index][idx],
+                                    ),
+                                    icon: Icons.settings_backup_restore,
+                                  ),
                           );
                         },
                       ),

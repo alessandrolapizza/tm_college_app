@@ -3,7 +3,7 @@ import "package:flutter/material.dart";
 import 'package:tm_college_app/widgets/home_page_bottom_app_bar.dart';
 import 'package:tm_college_app/widgets/modular_icon_button.dart';
 import "./modular_app_bar.dart";
-import "./home_page_body_homeworks.dart";
+import 'homeworks_list.dart';
 import "./modular_floating_action_button.dart";
 import "./home_page_body_subjects.dart";
 import "../models/base_de_donnees.dart";
@@ -42,7 +42,10 @@ class _HomePageState extends State<HomePage> {
     Widget body;
 
     if (_index == 0) {
-      body = HomePageBodyHomeworks(db);
+      body = HomeworksList(
+        db: db,
+        homePage: true,
+      );
     } else {
       body = HomePageBodySubjects(db);
     }
@@ -68,7 +71,8 @@ class _HomePageState extends State<HomePage> {
         actions: _index == 0
             ? [
                 ModularIconButton(
-                  onPressedFunction: () {},
+                  onPressedFunction: () =>
+                      Navigator.pushNamed(context, "/done_homeworks_page"),
                   icon: Icons.checklist,
                 )
               ]

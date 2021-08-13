@@ -3,6 +3,7 @@ import "package:flutter_localizations/flutter_localizations.dart";
 import "package:flutter/services.dart";
 import 'package:tm_college_app/widgets/create_homework_page.dart';
 import 'package:tm_college_app/widgets/create_subject_page.dart';
+import 'package:tm_college_app/widgets/done_homeworks_page.dart';
 import 'package:tm_college_app/widgets/view_homework_page.dart';
 import "./home_page.dart";
 import "../models/base_de_donnees.dart";
@@ -55,9 +56,8 @@ class App extends StatelessWidget {
         "/create_subject_page": (_) => CreateSubjectPage(database),
         "/create_homework_page": (_) => CreateHomeworkPage(database),
         "/page_visualiser_matiere": (_) => PageVisualiserMatiere(),
-        "/homework_details_page": (_) => ViewHomeworkPage(
-              db: database,
-            ),
+        "/homework_details_page": (_) => ViewHomeworkPage(db: database),
+        "/done_homeworks_page": (_) => DoneHomeworksPage(db: database),
       },
       theme: ThemeData(
         primarySwatch: toMaterialColor(defaultColorThemeValue),

@@ -9,12 +9,12 @@ class CarteDevoir extends StatelessWidget {
 
   final Function onTapFunction;
 
-  final Function onCheckFunction;
+  final Widget actionButton;
 
   CarteDevoir({
     @required this.devoir,
     this.onTapFunction,
-    this.onCheckFunction,
+    this.actionButton,
   });
 
   @override
@@ -71,11 +71,7 @@ class CarteDevoir extends StatelessWidget {
               Expanded(
                 flex: 3,
                 child: Container(
-                  child: ModularIconButton(
-                    color: Colors.green,
-                    onPressedFunction: () => onCheckFunction(devoir),
-                    icon: Icons.check,
-                  ),
+                  child: actionButton,
                 ),
               ),
             ],

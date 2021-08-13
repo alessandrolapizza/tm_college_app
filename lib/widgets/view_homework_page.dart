@@ -65,7 +65,6 @@ class ViewHomeworkPage extends StatelessWidget {
               onPressedFunction: () async {
                 await Devoir.homeworkChecker(
                   homework: homework,
-                  done: true,
                   db: db,
                 );
                 Navigator.pop(context);

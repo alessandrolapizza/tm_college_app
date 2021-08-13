@@ -43,11 +43,10 @@ class Devoir {
 
   static Future<void> homeworkChecker({
     @required Devoir homework,
-    @required bool done,
     @required BaseDeDonnees db,
   }) async {
     Devoir checkedHomework = Devoir(
-      done: done,
+      done: homework.done ? false : true,
       content: homework.content,
       dueDate: homework.dueDate,
       priority: homework.priority,
