@@ -54,16 +54,13 @@ class ThemeController extends StatelessWidget {
           ),
         ),
         inputDecorationTheme: InputDecorationTheme(
-            labelStyle: TextStyle(color: adaptedColor),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: adaptedColor),
-            )),
+          labelStyle: TextStyle(color: adaptedColor),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: adaptedColor),
+          ),
+        ),
       ),
       child: child,
     );
   }
 }
-
-// couleur btn
-
-// couleur titre appbar

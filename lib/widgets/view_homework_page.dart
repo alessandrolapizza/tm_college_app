@@ -21,7 +21,9 @@ class ViewHomeworkPage extends StatefulWidget {
   _ViewHomeworkPageState createState() => _ViewHomeworkPageState();
 }
 
-List<Devoir> updatedHomework;
+List<Devoir> _updatedHomework;
+
+bool _modified = false;
 
 class _ViewHomeworkPageState extends State<ViewHomeworkPage> {
   @override
@@ -30,15 +32,15 @@ class _ViewHomeworkPageState extends State<ViewHomeworkPage> {
     final Devoir homework = arguments[0];
     final bool homePage = arguments[1];
     return ThemeController(
-      color: updatedHomework == null
-          ? homework.subject.couleurMatiere
-          : updatedHomework[0].subject.couleurMatiere,
+      color: _modified
+          ? _updatedHomework[0].subject.couleurMatiere
+          : homework.subject.couleurMatiere,
       child: Scaffold(
         floatingActionButton: !homePage
             ? ModularFloatingActionButton(
                 onPressedFunction: () async {
                   await Devoir.homeworkChecker(
-                    homework: homework,
+                    homework: _modified ? _updatedHomework[0] : homework,
                     db: widget.db,
                   );
                   Navigator.pop(context);
@@ -46,15 +48,18 @@ class _ViewHomeworkPageState extends State<ViewHomeworkPage> {
                 icon: Icons.settings_backup_restore_outlined,
               )
             : ModularFloatingActionButton(
-                onPressedFunction: () async =>
-                    updatedHomework = await Navigator.pushNamed(
-                  context,
-                  "/edit_homework_page",
-                  arguments: homework,
-                ).then((Object value) {
-                  setState(() => updatedHomework);
-                  return value;
-                }),
+                onPressedFunction: () async {
+                  _updatedHomework = await Navigator.pushNamed(
+                    context,
+                    "/edit_homework_page",
+                    arguments: homework,
+                  ) as List<Devoir>;
+
+                  if (_updatedHomework != null) {
+                    _modified = true;
+                    setState(() => _updatedHomework);
+                  }
+                },
                 icon: Icons.edit,
               ),
         appBar: ModularAppBar(
@@ -140,7 +145,7 @@ class _ViewHomeworkPageState extends State<ViewHomeworkPage> {
           centerTitle: true,
         ),
         body: ViewHomeworkBody(
-          homework: updatedHomework == null ? homework : updatedHomework[0],
+          homework: _modified ? _updatedHomework[0] : homework,
           homePage: homePage,
         ),
       ),
