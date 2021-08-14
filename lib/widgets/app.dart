@@ -54,7 +54,7 @@ class App extends StatelessWidget {
       routes: {
         "/": (_) => HomePage(database),
         "/create_subject_page": (_) => CreateSubjectPage(database),
-        "/edit_homework_page": (_) => EditHomeworkPage(database),
+        "/edit_homework_page": (_) => EditHomeworkPage(db: database),
         "/page_visualiser_matiere": (_) => PageVisualiserMatiere(),
         "/homework_details_page": (_) => ViewHomeworkPage(db: database),
         "/done_homeworks_page": (_) => DoneHomeworksPage(db: database),

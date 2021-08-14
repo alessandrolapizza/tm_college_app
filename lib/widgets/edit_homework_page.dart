@@ -13,22 +13,20 @@ import "../models/base_de_donnees.dart";
 class EditHomeworkPage extends StatefulWidget {
   final BaseDeDonnees db;
 
-  EditHomeworkPage(this.db);
+  EditHomeworkPage({@required this.db});
 
   @override
   _EditHomeworkPageState createState() => _EditHomeworkPageState();
 }
 
 class _EditHomeworkPageState extends State<EditHomeworkPage> {
-
-  final TextEditingController _homeworkContentController =
-      TextEditingController();
+  TextEditingController _homeworkContentController;
 
   final GlobalKey<FormState> _createHomeworkFormKey = GlobalKey();
 
-  int _selectedPriority = 0;
+  int _selectedPriority;
 
-  Matiere _selectedSubject = Matiere.noSubject;
+  Matiere _selectedSubject;
 
   DateTime _selectedDate;
 
@@ -143,19 +141,27 @@ class _EditHomeworkPageState extends State<EditHomeworkPage> {
     }
   }
 
-  Future<void> _createHomework() async {
+  Future<void> _editHomework(Devoir homework) async {
+    bool created = false;
+    final Devoir newHomework = Devoir(
+      content: _homeworkContentController.text,
+      dueDate: _selectedDate,
+      subjectId: _selectedSubject.id,
+      priority: _selectedPriority,
+      done: false,
+      subject: _selectedSubject,
+      id: homework == null ? null : homework.id,
+    );
     if (_createHomeworkFormKey.currentState.validate() &&
         _selectedDate != null) {
-      await widget.db.insertHomework(
-        Devoir(
-          content: _homeworkContentController.text,
-          dueDate: _selectedDate,
-          subjectId: _selectedSubject.id,
-          priority: _selectedPriority,
-          done: false,
-        ),
-      );
-      return true;
+      homework == null
+          ? await widget.db.insertHomework(
+              newHomework,
+            )
+          : await widget.db.updateHomework(
+              newHomework,
+            );
+      created = true;
     } else {
       if (_selectedDate == null) {
         _dateMissing = true;
@@ -163,12 +169,36 @@ class _EditHomeworkPageState extends State<EditHomeworkPage> {
         _dateMissing = false;
       }
       setState(() => _dateMissing);
-      return false;
+      created = false;
+    }
+    if (created) {
+      Navigator.pop(context, [newHomework]);
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final Devoir _homework = ModalRoute.of(context).settings.arguments;
+    _selectedPriority = _selectedPriority != null
+        ? _selectedPriority
+        : _homework == null
+            ? 0
+            : _homework.priority;
+    _homeworkContentController = _homeworkContentController != null
+        ? _homeworkContentController
+        : _homework == null
+            ? TextEditingController()
+            : TextEditingController(text: _homework.content);
+    _selectedSubject = _selectedSubject != null
+        ? _selectedSubject
+        : _homework == null
+            ? Matiere.noSubject
+            : _homework.subject;
+    _selectedDate = _selectedDate != null
+        ? _selectedDate
+        : _homework == null
+            ? null
+            : _homework.dueDate;
     return ThemeController(
       color: _selectedSubject.couleurMatiere,
       child: Scaffold(
@@ -185,7 +215,7 @@ class _EditHomeworkPageState extends State<EditHomeworkPage> {
           selectedDate: _selectedDate,
           selectPriorityFunction: _selectPriority,
           selectedPriority: _selectedPriority,
-          createHomeworkFunction: _createHomework,
+          editHomeworkFunction: () => _editHomework(_homework),
           createHomeworkFormKey: _createHomeworkFormKey,
           dateMissing: _dateMissing,
         ),

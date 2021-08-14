@@ -21,7 +21,7 @@ class EditHomeworkBody extends StatelessWidget {
 
   final int selectedPriority;
 
-  final Function createHomeworkFunction;
+  final Function editHomeworkFunction;
 
   final GlobalKey<FormState> createHomeworkFormKey;
 
@@ -35,7 +35,7 @@ class EditHomeworkBody extends StatelessWidget {
     @required this.selectedDate,
     @required this.selectPriorityFunction,
     @required this.selectedPriority,
-    @required this.createHomeworkFunction,
+    @required this.editHomeworkFunction,
     @required this.createHomeworkFormKey,
     @required this.dateMissing,
   });
@@ -89,7 +89,7 @@ class EditHomeworkBody extends StatelessWidget {
                   ),
                 ],
               ),
-              EditPagesBottomButton(createFunction: createHomeworkFunction),
+              EditPagesBottomButton(editFunction: editHomeworkFunction),
             ],
           ),
         ),

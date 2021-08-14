@@ -1,9 +1,9 @@
 import "package:flutter/material.dart";
 
 class EditPagesBottomButton extends StatelessWidget {
-  final Function createFunction;
+  final Function editFunction;
 
-  EditPagesBottomButton({@required this.createFunction});
+  EditPagesBottomButton({@required this.editFunction});
 
   @override
   Widget build(BuildContext context) {
@@ -21,12 +21,7 @@ class EditPagesBottomButton extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 5),
             ),
             ElevatedButton(
-              onPressed: () async {
-                final bool created = await createFunction();
-                if (created) {
-                  Navigator.pop(context);
-                }
-              },
+              onPressed: () => editFunction(),
               child: Text("Enregistrer"),
             ),
           ],

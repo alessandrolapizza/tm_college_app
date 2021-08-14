@@ -82,7 +82,7 @@ class CreateSubjectBody extends StatelessWidget {
                   ),
                 ],
               ),
-              EditPagesBottomButton(createFunction: createSubjectFunction),
+              EditPagesBottomButton(editFunction: createSubjectFunction),
             ],
           ),
         ),
