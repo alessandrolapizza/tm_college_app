@@ -23,16 +23,15 @@ class ViewHomeworkPage extends StatefulWidget {
 
 List<Devoir> _updatedHomework;
 
-bool _modified = false;
-
 class _ViewHomeworkPageState extends State<ViewHomeworkPage> {
   @override
   Widget build(BuildContext context) {
     final List<dynamic> arguments = ModalRoute.of(context).settings.arguments;
     final Devoir homework = arguments[0];
     final bool homePage = arguments[1];
+    bool modified = false;
     return ThemeController(
-      color: _modified
+      color: modified
           ? _updatedHomework[0].subject.couleurMatiere
           : homework.subject.couleurMatiere,
       child: Scaffold(
@@ -52,11 +51,11 @@ class _ViewHomeworkPageState extends State<ViewHomeworkPage> {
                   _updatedHomework = await Navigator.pushNamed(
                     context,
                     "/edit_homework_page",
-                    arguments: _modified ? _updatedHomework[0] : homework,
+                    arguments: modified ? _updatedHomework[0] : homework,
                   ) as List<Devoir>;
 
                   if (_updatedHomework != null) {
-                    _modified = true;
+                    modified = true;
                     setState(() => _updatedHomework);
                   }
                 },
@@ -145,7 +144,7 @@ class _ViewHomeworkPageState extends State<ViewHomeworkPage> {
           centerTitle: true,
         ),
         body: ViewHomeworkBody(
-          homework: _modified ? _updatedHomework[0] : homework,
+          homework: modified ? _updatedHomework[0] : homework,
           homePage: homePage,
         ),
       ),
