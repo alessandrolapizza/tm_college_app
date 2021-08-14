@@ -112,7 +112,7 @@ class _CreateSubjectPageState extends State<CreateSubjectPage> {
           salle: _subjectRoomNumberController.text,
         ),
       );
-      return true;
+      Navigator.pop(context);
     } else {
       if (_selectedColor == null) {
         _colorMissing = true;
@@ -126,7 +126,6 @@ class _CreateSubjectPageState extends State<CreateSubjectPage> {
         _iconMissing = false;
       }
       setState(() => _iconMissing);
-      return false;
     }
   }
 

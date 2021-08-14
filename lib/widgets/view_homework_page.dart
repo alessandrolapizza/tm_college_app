@@ -40,7 +40,7 @@ class _ViewHomeworkPageState extends State<ViewHomeworkPage> {
             ? ModularFloatingActionButton(
                 onPressedFunction: () async {
                   await Devoir.homeworkChecker(
-                    homework: _modified ? _updatedHomework[0] : homework,
+                    homework: homework,
                     db: widget.db,
                   );
                   Navigator.pop(context);
@@ -52,7 +52,7 @@ class _ViewHomeworkPageState extends State<ViewHomeworkPage> {
                   _updatedHomework = await Navigator.pushNamed(
                     context,
                     "/edit_homework_page",
-                    arguments: homework,
+                    arguments: _modified ? _updatedHomework[0] : homework,
                   ) as List<Devoir>;
 
                   if (_updatedHomework != null) {
