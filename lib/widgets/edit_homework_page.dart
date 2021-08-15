@@ -178,33 +178,36 @@ class _EditHomeworkPageState extends State<EditHomeworkPage> {
 
   @override
   Widget build(BuildContext context) {
-    final Devoir _homework = ModalRoute.of(context).settings.arguments;
+    final List<dynamic> arguments = ModalRoute.of(context).settings.arguments;
+    final Devoir homework = arguments[0];
+    final bool newHomework = arguments[1];
     _selectedPriority = _selectedPriority != null
         ? _selectedPriority
-        : _homework == null
+        : homework == null
             ? 0
-            : _homework.priority;
+            : homework.priority;
     _homeworkContentController = _homeworkContentController != null
         ? _homeworkContentController
-        : _homework == null
+        : homework == null
             ? TextEditingController()
-            : TextEditingController(text: _homework.content);
+            : TextEditingController(text: homework.content);
     _selectedSubject = _selectedSubject != null
         ? _selectedSubject
-        : _homework == null
+        : homework == null
             ? Matiere.noSubject
-            : _homework.subject;
+            : homework.subject;
     _selectedDate = _selectedDate != null
         ? _selectedDate
-        : _homework == null
+        : homework == null
             ? null
-            : _homework.dueDate;
+            : homework.dueDate;
     return ThemeController(
       color: _selectedSubject.couleurMatiere,
       child: Scaffold(
         appBar: ModularAppBar(
+          hideSettingsButton: true,
           backArrow: true,
-          title: "Nouveau devoir",
+          title: newHomework ? "Nouveau devoir" : "Modifier devoir",
           centerTitle: true,
         ),
         body: EditHomeworkBody(
@@ -215,7 +218,7 @@ class _EditHomeworkPageState extends State<EditHomeworkPage> {
           selectedDate: _selectedDate,
           selectPriorityFunction: _selectPriority,
           selectedPriority: _selectedPriority,
-          editHomeworkFunction: () => _editHomework(_homework),
+          editHomeworkFunction: () => _editHomework(homework),
           createHomeworkFormKey: _createHomeworkFormKey,
           dateMissing: _dateMissing,
         ),

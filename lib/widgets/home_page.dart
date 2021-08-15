@@ -55,8 +55,8 @@ class _HomePageState extends State<HomePage> {
 
   void _routePointer() {
     if (_index == 0) {
-      Navigator.pushNamed(context, "/edit_homework_page")
-          .then((_) => setState(() {}));
+      Navigator.pushNamed(context, "/edit_homework_page",
+          arguments: [null, true]).then((_) => setState(() {}));
     } else if (_index == 1) {
       Navigator.pushNamed(context, "/create_subject_page")
           .then((_) => setState(() {}));

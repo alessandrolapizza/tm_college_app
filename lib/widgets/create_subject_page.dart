@@ -137,6 +137,7 @@ class _CreateSubjectPageState extends State<CreateSubjectPage> {
           : _selectedColor,
       child: Scaffold(
         appBar: ModularAppBar(
+          hideSettingsButton: true,
           backArrow: true,
           title: "Nouvelle matière",
           centerTitle: true,

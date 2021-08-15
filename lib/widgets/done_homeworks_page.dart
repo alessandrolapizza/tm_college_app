@@ -12,6 +12,7 @@ class DoneHomeworksPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: ModularAppBar(
+        hideSettingsButton: true,
         backArrow: true,
         title: "Devoirs complétés",
       ),

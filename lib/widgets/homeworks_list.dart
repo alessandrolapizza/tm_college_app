@@ -129,7 +129,7 @@ class _HomeworksList extends State<HomeworksList> {
                             devoir: homeworks.values.toList()[index][idx],
                             onTapFunction: () => Navigator.pushNamed(
                               context,
-                              "/homework_details_page",
+                              "/view_homework_page",
                               arguments: [
                                 homeworks.values.toList()[index][idx],
                                 widget.homePage,

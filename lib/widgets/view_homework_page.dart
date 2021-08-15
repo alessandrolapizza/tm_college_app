@@ -13,17 +13,17 @@ import "./modular_floating_action_button.dart";
 import "./modular_app_bar.dart";
 import "./modular_icon_button.dart";
 
-class RouteAwareViewHomeworkPage extends StatefulWidget {
+class ViewHomeworkPage extends StatefulWidget {
   final BaseDeDonnees db;
 
-  RouteAwareViewHomeworkPage({@required this.db});
+  ViewHomeworkPage({@required this.db});
 
   @override
   _RouteAwareViewHomeworkPageState createState() =>
       _RouteAwareViewHomeworkPageState();
 }
 
-class _RouteAwareViewHomeworkPageState extends State<RouteAwareViewHomeworkPage>
+class _RouteAwareViewHomeworkPageState extends State<ViewHomeworkPage>
     with RouteAware {
   List<Devoir> _updatedHomework;
 
@@ -83,14 +83,17 @@ class _RouteAwareViewHomeworkPageState extends State<RouteAwareViewHomeworkPage>
                   _updatedHomework = await Navigator.pushNamed(
                     context,
                     "/edit_homework_page",
-                    arguments:
-                        _useUpdatedHomework ? _updatedHomework[0] : homework,
+                    arguments: [
+                      _useUpdatedHomework ? _updatedHomework[0] : homework,
+                      false
+                    ],
                   ) as List<Devoir>;
                   setState(() => _updatedHomework);
                 },
                 icon: Icons.edit,
               ),
         appBar: ModularAppBar(
+          hideSettingsButton: true,
           backArrow: true,
           actions: homePage
               ? [
