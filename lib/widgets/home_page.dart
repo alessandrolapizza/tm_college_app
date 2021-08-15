@@ -72,7 +72,8 @@ class _HomePageState extends State<HomePage> {
             ? [
                 ModularIconButton(
                   onPressedFunction: () =>
-                      Navigator.pushNamed(context, "/done_homeworks_page"),
+                      Navigator.pushNamed(context, "/done_homeworks_page")
+                          .then((_) => setState(() {})),
                   icon: Icons.checklist,
                 )
               ]

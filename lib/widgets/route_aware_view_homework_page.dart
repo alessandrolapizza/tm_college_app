@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:tm_college_app/models/base_de_donnees.dart';
+import 'package:tm_college_app/widgets/app.dart';
 import 'package:tm_college_app/widgets/modular_alert_dialog.dart';
 import 'package:tm_college_app/widgets/modular_icon_button.dart';
 import 'package:tm_college_app/widgets/theme_controller.dart';
@@ -12,26 +13,57 @@ import "./modular_floating_action_button.dart";
 import "./modular_app_bar.dart";
 import "./modular_icon_button.dart";
 
-class ViewHomeworkPage extends StatefulWidget {
+class RouteAwareViewHomeworkPage extends StatefulWidget {
   final BaseDeDonnees db;
 
-  ViewHomeworkPage({@required this.db});
+  RouteAwareViewHomeworkPage({@required this.db});
 
   @override
-  _ViewHomeworkPageState createState() => _ViewHomeworkPageState();
+  _RouteAwareViewHomeworkPageState createState() =>
+      _RouteAwareViewHomeworkPageState();
 }
 
-List<Devoir> _updatedHomework;
+class _RouteAwareViewHomeworkPageState extends State<RouteAwareViewHomeworkPage>
+    with RouteAware {
+  List<Devoir> _updatedHomework;
 
-class _ViewHomeworkPageState extends State<ViewHomeworkPage> {
+  bool _useUpdatedHomework = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    App.routeObserver.subscribe(
+      this,
+      ModalRoute.of(context),
+    );
+  }
+
+  @override
+  void dispose() {
+    App.routeObserver.unsubscribe(this);
+    super.dispose();
+  }
+
+  @override
+  void didPush() {
+    _useUpdatedHomework = false;
+  }
+
+  void didPopNext() async {
+    _useUpdatedHomework = true;
+  }
+
   @override
   Widget build(BuildContext context) {
     final List<dynamic> arguments = ModalRoute.of(context).settings.arguments;
     final Devoir homework = arguments[0];
     final bool homePage = arguments[1];
-    bool modified = false;
+    _useUpdatedHomework = true && _updatedHomework == null
+        ? _useUpdatedHomework = false
+        : _useUpdatedHomework;
+
     return ThemeController(
-      color: modified
+      color: _useUpdatedHomework
           ? _updatedHomework[0].subject.couleurMatiere
           : homework.subject.couleurMatiere,
       child: Scaffold(
@@ -51,13 +83,10 @@ class _ViewHomeworkPageState extends State<ViewHomeworkPage> {
                   _updatedHomework = await Navigator.pushNamed(
                     context,
                     "/edit_homework_page",
-                    arguments: modified ? _updatedHomework[0] : homework,
+                    arguments:
+                        _useUpdatedHomework ? _updatedHomework[0] : homework,
                   ) as List<Devoir>;
-
-                  if (_updatedHomework != null) {
-                    modified = true;
-                    setState(() => _updatedHomework);
-                  }
+                  setState(() => _updatedHomework);
                 },
                 icon: Icons.edit,
               ),
@@ -144,7 +173,7 @@ class _ViewHomeworkPageState extends State<ViewHomeworkPage> {
           centerTitle: true,
         ),
         body: ViewHomeworkBody(
-          homework: modified ? _updatedHomework[0] : homework,
+          homework: _useUpdatedHomework ? _updatedHomework[0] : homework,
           homePage: homePage,
         ),
       ),

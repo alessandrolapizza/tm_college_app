@@ -4,7 +4,7 @@ import "package:flutter/services.dart";
 import 'package:tm_college_app/widgets/edit_homework_page.dart';
 import 'package:tm_college_app/widgets/create_subject_page.dart';
 import 'package:tm_college_app/widgets/done_homeworks_page.dart';
-import 'package:tm_college_app/widgets/view_homework_page.dart';
+import 'package:tm_college_app/widgets/route_aware_view_homework_page.dart';
 import "./home_page.dart";
 import "../models/base_de_donnees.dart";
 
@@ -14,6 +14,8 @@ class App extends StatelessWidget {
   final BaseDeDonnees database;
 
   App({@required this.database});
+
+  static final RouteObserver<ModalRoute<void>> routeObserver = RouteObserver();
 
   static const int defaultColorThemeValue = 4283522728;
 
@@ -43,6 +45,7 @@ class App extends StatelessWidget {
       ],
     );
     return MaterialApp(
+      navigatorObservers: [routeObserver],
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
       ],
@@ -56,7 +59,8 @@ class App extends StatelessWidget {
         "/create_subject_page": (_) => CreateSubjectPage(database),
         "/edit_homework_page": (_) => EditHomeworkPage(db: database),
         "/page_visualiser_matiere": (_) => PageVisualiserMatiere(),
-        "/homework_details_page": (_) => ViewHomeworkPage(db: database),
+        "/homework_details_page": (_) =>
+            RouteAwareViewHomeworkPage(db: database),
         "/done_homeworks_page": (_) => DoneHomeworksPage(db: database),
       },
       theme: ThemeData(
