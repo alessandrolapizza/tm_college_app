@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_localizations/flutter_localizations.dart";
-import "package:flutter/services.dart";
+
 import 'package:tm_college_app/widgets/edit_homework_page.dart';
 import 'package:tm_college_app/widgets/create_subject_page.dart';
 import 'package:tm_college_app/widgets/done_homeworks_page.dart';
@@ -40,11 +40,6 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations(
-      [
-        DeviceOrientation.portraitUp,
-      ],
-    );
     return MaterialApp(
       navigatorObservers: [routeObserver],
       localizationsDelegates: [
