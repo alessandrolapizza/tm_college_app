@@ -139,7 +139,7 @@ class _CreateSubjectPageState extends State<CreateSubjectPage> {
         appBar: ModularAppBar(
           hideSettingsButton: true,
           backArrow: true,
-          title: "Nouvelle matière",
+          title: Text("Nouvelle matière"),
           centerTitle: true,
         ),
         body: CreateSubjectBody(

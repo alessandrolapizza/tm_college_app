@@ -78,7 +78,7 @@ class _HomePageState extends State<HomePage> {
                 )
               ]
             : null,
-        title: _title,
+        title: Text(_title),
         centerTitle: false,
       ),
       body: _homePageBody,

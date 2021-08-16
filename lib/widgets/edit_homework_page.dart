@@ -207,7 +207,7 @@ class _EditHomeworkPageState extends State<EditHomeworkPage> {
         appBar: ModularAppBar(
           hideSettingsButton: true,
           backArrow: true,
-          title: newHomework ? "Nouveau devoir" : "Modifier devoir",
+          title: Text(newHomework ? "Nouveau devoir" : "Modifier devoir"),
           centerTitle: true,
         ),
         body: EditHomeworkBody(

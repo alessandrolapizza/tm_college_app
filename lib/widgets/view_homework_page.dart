@@ -172,7 +172,7 @@ class _RouteAwareViewHomeworkPageState extends State<ViewHomeworkPage>
                     icon: Icons.delete,
                   )
                 ],
-          title: "Détails du devoir",
+          title: Text("Détails du devoir"),
           centerTitle: true,
         ),
         body: ViewHomeworkBody(

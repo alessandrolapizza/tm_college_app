@@ -2,7 +2,7 @@ import "package:flutter/material.dart";
 import "./modular_icon_button.dart";
 
 class ModularAppBar extends StatelessWidget with PreferredSizeWidget {
-  final String title;
+  final Text title;
 
   final List<ModularIconButton> actions;
 
@@ -45,7 +45,7 @@ class ModularAppBar extends StatelessWidget with PreferredSizeWidget {
               onPressedFunction: () => Navigator.pop(context),
             )
           : null,
-      title: Text(title),
+      title: title,
       centerTitle: centerTitle,
       actions: actionsWithSettings,
     );
