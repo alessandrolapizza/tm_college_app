@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import "package:intl/intl.dart";
+import 'package:tm_college_app/models/notifications.dart';
 import "./app.dart";
 import '../models/base_de_donnees.dart';
 import "package:flutter/services.dart";
-
-BaseDeDonnees database;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,5 +20,14 @@ void main() async {
     ],
   );
 
-  runApp(App(database: database));
+  Notifications notifications = Notifications();
+
+  await notifications.configureLocalTimeZone();
+
+  await notifications.initializePlugin();
+
+  runApp(App(
+    database: database,
+    notifications: notifications,
+  ));
 }

@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:tm_college_app/models/notifications.dart';
 import 'package:tm_college_app/widgets/circle_avatar_with_border.dart';
 import 'package:tm_college_app/widgets/edit_homework_body.dart';
 import 'package:tm_college_app/widgets/fade_gradient.dart';
@@ -13,7 +14,12 @@ import "../models/base_de_donnees.dart";
 class EditHomeworkPage extends StatefulWidget {
   final BaseDeDonnees db;
 
-  EditHomeworkPage({@required this.db});
+  final Notifications notifications;
+
+  EditHomeworkPage({
+    @required this.db,
+    @required this.notifications,
+  });
 
   @override
   _EditHomeworkPageState createState() => _EditHomeworkPageState();
@@ -151,6 +157,11 @@ class _EditHomeworkPageState extends State<EditHomeworkPage> {
       done: false,
       subject: _selectedSubject,
       id: homework == null ? null : homework.id,
+      notificationsIds: await widget.notifications.scheduleNotifications(
+        homeworkDueDate: _selectedDate,
+        homeworkPriority: _selectedPriority,
+        homeworkSubjectName: _selectedSubject.nom,
+      ),
     );
     if (_createHomeworkFormKey.currentState.validate() &&
         _selectedDate != null) {

@@ -67,6 +67,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+     // backgroundColor: Color(0xFFEFEFF4),
       appBar: ModularAppBar(
         actions: _index == 0
             ? [

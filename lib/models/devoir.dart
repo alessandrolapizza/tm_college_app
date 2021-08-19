@@ -12,6 +12,7 @@ class Devoir {
   final DateTime dueDate;
   final int priority;
   final bool done;
+  final List<dynamic> notificationsIds;
 
   Devoir({
     @required this.subjectId,
@@ -19,9 +20,10 @@ class Devoir {
     @required this.dueDate,
     @required this.priority,
     @required this.done,
+    @required this.notificationsIds,
     this.subject,
     id,
-  }) : id = id == null ? Uuid().v4() : id;
+  }) : id = id == null ? Uuid().v1() : id;
 
   Map<String, dynamic> toMapDb() {
     return {
@@ -31,6 +33,7 @@ class Devoir {
       "dueDate": dueDate.toString(),
       "priority": priority,
       "done": done ? 1 : 0,
+      "notificationsIds": notificationsIds.toString(),
     };
   }
 
@@ -53,6 +56,7 @@ class Devoir {
       subjectId: homework.subjectId,
       subject: homework.subject,
       id: homework.id,
+      notificationsIds: homework.notificationsIds,
     );
 
     await db.updateHomework(checkedHomework);

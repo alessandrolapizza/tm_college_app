@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_localizations/flutter_localizations.dart";
+import 'package:tm_college_app/models/notifications.dart';
 
 import 'package:tm_college_app/widgets/edit_homework_page.dart';
 import 'package:tm_college_app/widgets/create_subject_page.dart';
@@ -14,7 +15,12 @@ import "./page_visualiser_matiere.dart";
 class App extends StatelessWidget {
   final BaseDeDonnees database;
 
-  App({@required this.database});
+  final Notifications notifications;
+
+  App({
+    @required this.database,
+    @required this.notifications,
+  });
 
   static final RouteObserver<ModalRoute<void>> routeObserver = RouteObserver();
 
@@ -53,7 +59,10 @@ class App extends StatelessWidget {
       routes: {
         "/": (_) => HomePage(database),
         "/create_subject_page": (_) => CreateSubjectPage(database),
-        "/edit_homework_page": (_) => EditHomeworkPage(db: database),
+        "/edit_homework_page": (_) => EditHomeworkPage(
+              db: database,
+              notifications: notifications,
+            ),
         "/page_visualiser_matiere": (_) => PageVisualiserMatiere(),
         "/view_homework_page": (_) => ViewHomeworkPage(db: database),
         "/done_homeworks_page": (_) => DoneHomeworksPage(db: database),

@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "dart:convert";
 
 import "package:sqflite/sqflite.dart";
 import "package:path/path.dart";
@@ -11,13 +12,13 @@ class BaseDeDonnees {
 
   Future<void> defCheminMatieres() async {
     database = openDatabase(
-      join(await getDatabasesPath(), "matieres_basededonnees.db"),
+      join(await getDatabasesPath(), "matieres_basededonnees.db"), // à changer
       onCreate: (db, version) {
         db.execute(
           "CREATE TABLE matieres(id TEXT, nom TEXT, salle TEXT, iconMatiereCode INTEGER, couleurMatiereValeur INTEGER)",
         );
         db.execute(
-          "CREATE TABLE homeworks(id TEXT, subjectId TEXT, content TEXT, dueDate TEXT, priority INTEGER, done INTEGER)",
+          "CREATE TABLE homeworks(id TEXT, subjectId TEXT, content TEXT, dueDate TEXT, priority INTEGER, done INTEGER, notificationsIds STRING)",
         );
       },
       version: 1,
@@ -81,14 +82,24 @@ class BaseDeDonnees {
     return List.generate(
       homeworksMaps.length,
       (i) {
+        print(
+          json.decode(
+            homeworksMaps[i]["notificationsIds"],
+          ),
+        );
         return Devoir(
           id: homeworksMaps[i]["id"],
           subjectId: homeworksMaps[i]["subjectId"],
           subject: subjectsIdMaps[homeworksMaps[i]["subjectId"]],
           content: homeworksMaps[i]["content"],
-          dueDate: DateTime.parse(homeworksMaps[i]["dueDate"]),
+          dueDate: DateTime.parse(
+            homeworksMaps[i]["dueDate"],
+          ),
           priority: homeworksMaps[i]["priority"],
           done: homeworksMaps[i]["done"] == 0 ? false : true,
+          notificationsIds: json.decode(
+            homeworksMaps[i]["notificationsIds"],
+          ),
         );
       },
     );
