@@ -98,8 +98,15 @@ class BaseDeDonnees {
           priority: homeworksMaps[i]["priority"],
           done: homeworksMaps[i]["done"] == 0 ? false : true,
           notificationsIds: json.decode(
-            homeworksMaps[i]["notificationsIds"],
-          ),
+                    homeworksMaps[i]["notificationsIds"],
+                  ) ==
+                  null
+              ? null
+              : json
+                  .decode(
+                    homeworksMaps[i]["notificationsIds"],
+                  )
+                  .cast<int>(),
         );
       },
     );

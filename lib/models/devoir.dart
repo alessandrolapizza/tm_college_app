@@ -12,7 +12,7 @@ class Devoir {
   final DateTime dueDate;
   final int priority;
   final bool done;
-  final List<dynamic> notificationsIds;
+  final List<int> notificationsIds;
 
   Devoir({
     @required this.subjectId,
@@ -20,7 +20,7 @@ class Devoir {
     @required this.dueDate,
     @required this.priority,
     @required this.done,
-    @required this.notificationsIds,
+    this.notificationsIds,
     this.subject,
     id,
   }) : id = id == null ? Uuid().v1() : id;

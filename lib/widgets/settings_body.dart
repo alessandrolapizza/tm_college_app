@@ -28,7 +28,7 @@ class _SettingsBodyState extends State<SettingsBody> {
               },
             ),
             SettingsTile(
-              title: "test",
+              title: "pending notifications",
               onPressed: (_) async {
                 final List<PendingNotificationRequest>
                     pendingNotificationRequests =
@@ -51,7 +51,12 @@ class _SettingsBodyState extends State<SettingsBody> {
                   ),
                 );
               },
-            )
+            ),
+            SettingsTile(
+                title: "suppr notifs",
+                onPressed: (_) async {
+                  await FlutterLocalNotificationsPlugin().cancelAll();
+                })
           ],
         ),
       ],

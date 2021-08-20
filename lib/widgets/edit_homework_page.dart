@@ -161,6 +161,7 @@ class _EditHomeworkPageState extends State<EditHomeworkPage> {
         homeworkDueDate: _selectedDate,
         homeworkPriority: _selectedPriority,
         homeworkSubjectName: _selectedSubject.nom,
+        oldNotifications: homework == null ? null : homework.notificationsIds,
       ),
     );
     if (_createHomeworkFormKey.currentState.validate() &&

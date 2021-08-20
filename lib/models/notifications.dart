@@ -42,12 +42,19 @@ class Notifications {
     tz.setLocalLocation(tz.getLocation(timeZoneName));
   }
 
-  Future<List<int>> scheduleNotifications(
-      {int homeworkPriority,
-      DateTime homeworkDueDate,
-      String homeworkSubjectName}) async {
-    final priorityNotificationsSettings = [1, 3, 5];
+  Future<List<int>> scheduleNotifications({
+    int homeworkPriority,
+    DateTime homeworkDueDate,
+    String homeworkSubjectName,
+    List<int> oldNotifications,
+  }) async {
+    final List<int> priorityNotificationsSettings = [1, 3, 5];
     List<int> notificationsIds = [];
+    if (oldNotifications != null) {
+      for (int i = 0; i == oldNotifications.length - 1; i++) {
+        await flutterLocalNotificationsPlugin.cancel(oldNotifications[i]);
+      }
+    }
     if (homeworkPriority != 0) {
       for (int i = 1;
           i != priorityNotificationsSettings[homeworkPriority - 1] + 1;
