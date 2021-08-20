@@ -3,10 +3,10 @@ import "package:flutter/material.dart";
 import "./carte_matiere.dart";
 import "../models/base_de_donnees.dart";
 
-class HomePageBodySubjects extends StatelessWidget {
+class HomeScreenBodySubjects extends StatelessWidget {
   final BaseDeDonnees db;
 
-  HomePageBodySubjects(this.db);
+  HomeScreenBodySubjects(this.db);
 
   @override
   Widget build(BuildContext context) {

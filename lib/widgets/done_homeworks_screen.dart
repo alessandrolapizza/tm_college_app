@@ -3,10 +3,10 @@ import 'package:tm_college_app/models/base_de_donnees.dart';
 import 'package:tm_college_app/widgets/homeworks_list.dart';
 import 'package:tm_college_app/widgets/modular_app_bar.dart';
 
-class DoneHomeworksPage extends StatelessWidget {
+class DoneHomeworksScreen extends StatelessWidget {
   final BaseDeDonnees db;
 
-  DoneHomeworksPage({@required this.db});
+  DoneHomeworksScreen({@required this.db});
 
   @override
   Widget build(BuildContext context) {

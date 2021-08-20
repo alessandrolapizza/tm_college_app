@@ -3,7 +3,7 @@ import 'package:tm_college_app/widgets/edit_homework_form.dart';
 import 'package:tm_college_app/widgets/edit_homework_select_date_button.dart';
 import 'package:tm_college_app/widgets/edit_homework_select_priority_button.dart';
 import 'package:tm_college_app/widgets/edit_homework_select_subject_button.dart';
-import 'package:tm_college_app/widgets/edit_pages_bottom_buttons.dart';
+import 'package:tm_college_app/widgets/edit_screens_bottom_buttons.dart';
 import "../models/matiere.dart";
 
 class EditHomeworkBody extends StatelessWidget {
@@ -89,7 +89,7 @@ class EditHomeworkBody extends StatelessWidget {
                   ),
                 ],
               ),
-              EditPagesBottomButton(editFunction: editHomeworkFunction),
+              EditScreensBottomButton(editFunction: editHomeworkFunction),
             ],
           ),
         ),

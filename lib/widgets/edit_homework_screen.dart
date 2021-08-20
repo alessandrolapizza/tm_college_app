@@ -11,21 +11,21 @@ import "../models/devoir.dart";
 import "../models/matiere.dart";
 import "../models/base_de_donnees.dart";
 
-class EditHomeworkPage extends StatefulWidget {
+class EditHomeworkScreen extends StatefulWidget {
   final BaseDeDonnees db;
 
   final Notifications notifications;
 
-  EditHomeworkPage({
+  EditHomeworkScreen({
     @required this.db,
     @required this.notifications,
   });
 
   @override
-  _EditHomeworkPageState createState() => _EditHomeworkPageState();
+  _EditHomeworkScreenState createState() => _EditHomeworkScreenState();
 }
 
-class _EditHomeworkPageState extends State<EditHomeworkPage> {
+class _EditHomeworkScreenState extends State<EditHomeworkScreen> {
   TextEditingController _homeworkContentController;
 
   final GlobalKey<FormState> _createHomeworkFormKey = GlobalKey();

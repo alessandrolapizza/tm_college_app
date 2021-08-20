@@ -26,7 +26,7 @@ class ModularAppBar extends StatelessWidget with PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     ModularIconButton settingAction = ModularIconButton(
-      onPressedFunction: () => Navigator.pushNamed(context, "/settings_page"),
+      onPressedFunction: () => Navigator.pushNamed(context, "/settings_screen"),
       icon: Icons.settings,
     );
     List<ModularIconButton> actionsWithSettings;

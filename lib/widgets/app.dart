@@ -2,12 +2,12 @@ import "package:flutter/material.dart";
 import "package:flutter_localizations/flutter_localizations.dart";
 import 'package:tm_college_app/models/notifications.dart';
 
-import 'package:tm_college_app/widgets/edit_homework_page.dart';
-import 'package:tm_college_app/widgets/create_subject_page.dart';
-import 'package:tm_college_app/widgets/done_homeworks_page.dart';
-import 'package:tm_college_app/widgets/view_homework_page.dart';
-import 'package:tm_college_app/widgets/settings_page.dart';
-import "./home_page.dart";
+import 'package:tm_college_app/widgets/edit_homework_screen.dart';
+import 'package:tm_college_app/widgets/create_subject_screen.dart';
+import 'package:tm_college_app/widgets/done_homeworks_screen.dart';
+import 'package:tm_college_app/widgets/view_homework_screen.dart';
+import 'package:tm_college_app/widgets/settings_screen.dart';
+import 'home_screen.dart';
 import "../models/base_de_donnees.dart";
 
 import "./page_visualiser_matiere.dart";
@@ -57,16 +57,16 @@ class App extends StatelessWidget {
       title: "TM_COLLEGE_APP", //Provisoire
       initialRoute: "/",
       routes: {
-        "/": (_) => HomePage(database),
-        "/create_subject_page": (_) => CreateSubjectPage(database),
-        "/edit_homework_page": (_) => EditHomeworkPage(
+        "/": (_) => HomeScreen(database),
+        "/create_subject_screen": (_) => CreateSubjectScreen(database),
+        "/edit_homework_screen": (_) => EditHomeworkScreen(
               db: database,
               notifications: notifications,
             ),
         "/page_visualiser_matiere": (_) => PageVisualiserMatiere(),
-        "/view_homework_page": (_) => ViewHomeworkPage(db: database),
-        "/done_homeworks_page": (_) => DoneHomeworksPage(db: database),
-        "/settings_page": (_) => SettingsPage(),
+        "/view_homework_screen": (_) => ViewHomeworkScreen(db: database),
+        "/done_homeworks_screen": (_) => DoneHomeworksScreen(db: database),
+        "/settings_screen": (_) => SettingsScreen(),
       },
       theme: ThemeData(
         primarySwatch: toMaterialColor(defaultColorThemeValue),

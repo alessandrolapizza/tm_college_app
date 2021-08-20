@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import 'package:tm_college_app/widgets/edit_pages_bottom_buttons.dart';
+import 'package:tm_college_app/widgets/edit_screens_bottom_buttons.dart';
 import 'package:tm_college_app/widgets/create_subject_form.dart';
 import 'package:tm_college_app/widgets/create_subject_select_icon_button.dart';
 import 'package:tm_college_app/widgets/create_subject_select_color_button.dart';
@@ -82,7 +82,7 @@ class CreateSubjectBody extends StatelessWidget {
                   ),
                 ],
               ),
-              EditPagesBottomButton(editFunction: createSubjectFunction),
+              EditScreensBottomButton(editFunction: createSubjectFunction),
             ],
           ),
         ),

@@ -26,8 +26,10 @@ void main() async {
 
   await notifications.initializePlugin();
 
-  runApp(App(
-    database: database,
-    notifications: notifications,
-  ));
+  runApp(
+    App(
+      database: database,
+      notifications: notifications,
+    ),
+  );
 }

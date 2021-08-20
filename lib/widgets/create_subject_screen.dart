@@ -11,19 +11,19 @@ import "./modular_app_bar.dart";
 import "../models/base_de_donnees.dart";
 import "../models/matiere.dart";
 
-class CreateSubjectPage extends StatefulWidget {
+class CreateSubjectScreen extends StatefulWidget {
   final BaseDeDonnees bD;
 
-  CreateSubjectPage(this.bD);
+  CreateSubjectScreen(this.bD);
 
   @override
-  _CreateSubjectPageState createState() => _CreateSubjectPageState(bD);
+  _CreateSubjectScreenState createState() => _CreateSubjectScreenState(bD);
 }
 
-class _CreateSubjectPageState extends State<CreateSubjectPage> {
+class _CreateSubjectScreenState extends State<CreateSubjectScreen> {
   final BaseDeDonnees _bD;
 
-  _CreateSubjectPageState(this._bD);
+  _CreateSubjectScreenState(this._bD);
 
   final TextEditingController _subjectNameController = TextEditingController();
 
