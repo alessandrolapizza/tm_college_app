@@ -76,7 +76,10 @@ class App extends StatelessWidget {
         "/page_visualiser_matiere": (_) => PageVisualiserMatiere(),
         "/view_homework_screen": (_) => ViewHomeworkScreen(db: database),
         "/done_homeworks_screen": (_) => DoneHomeworksScreen(db: database),
-        "/settings_screen": (_) => SettingsScreen(),
+        "/settings_screen": (_) => SettingsScreen(
+              sharedPreferences: sharedPreferences,
+              notifications: notifications,
+            ),
       },
       theme: ThemeData(
         primarySwatch: toMaterialColor(defaultColorThemeValue),

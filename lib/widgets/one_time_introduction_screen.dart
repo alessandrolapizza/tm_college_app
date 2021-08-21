@@ -2,7 +2,7 @@ import "package:flutter/material.dart";
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tm_college_app/models/notifications.dart';
-import 'package:tm_college_app/widgets/notifications_setting_tile.dart';
+import 'package:tm_college_app/widgets/one_time_introduction_notifications_setting_tile.dart';
 
 class OneTimeIntroductionScreen extends StatelessWidget {
   final Notifications notifications;
@@ -22,7 +22,10 @@ class OneTimeIntroductionScreen extends StatelessWidget {
         "Done",
         style: TextStyle(fontWeight: FontWeight.w600),
       ),
-      onDone: () {},
+      onDone: () async {
+        await sharedPreferences.setBool("introductionSeen", true);
+        Navigator.pushReplacementNamed(context, "/");
+      },
       showNextButton: true,
       next: Icon(Icons.arrow_forward),
       showSkipButton: true,
@@ -51,7 +54,7 @@ class OneTimeIntroductionScreen extends StatelessWidget {
           body:
               "Les notifications permettent à l'application de te rappeler tes devoirs aux heures qui te conviennent. Elles sont désactivables et customisables à tout moments dans les paramètres de l'application.",
           useScrollView: false,
-          footer: NotificationsSettingTile(
+          footer: OneTimeIntroductionNotificationsSettingTile(
             sharedPreferences: sharedPreferences,
             notifications: notifications,
           ),

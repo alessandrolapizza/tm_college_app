@@ -1,4 +1,5 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:notification_permissions/notification_permissions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import "package:timezone/timezone.dart" as tz;
 import "package:timezone/data/latest.dart" as tz;
@@ -13,6 +14,11 @@ class Notifications {
 
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
+
+  static const String permGranted = "granted";
+  static const String permDenied = "denied";
+  static const String permUnknown = "unknown";
+  static const String permProvisional = "provisional";
 
   Future<void> initializePlugin() async {
     const AndroidInitializationSettings initializationSettingsAndroid =
@@ -85,5 +91,41 @@ class Notifications {
     } else {
       return null;
     }
+  }
+
+  Future<void> toggleNotifications(toggleState) async {
+    if (toggleState) {
+      NotificationPermissions.requestNotificationPermissions(
+        iosSettings: const NotificationSettingsIos(
+          sound: true,
+          badge: true,
+          alert: true,
+        ),
+      );
+      await sharedPreferences.setBool("notificationsActivated", true);
+    } else {
+      await sharedPreferences.setBool("notificationsActivated", false);
+
+      //suppr toutes les notifs
+    }
+  }
+
+  Future<String> getCheckNotificationPermStatus() {
+    return NotificationPermissions.getNotificationPermissionStatus().then(
+      (status) {
+        switch (status) {
+          case PermissionStatus.denied:
+            return permDenied;
+          case PermissionStatus.granted:
+            return permGranted;
+          case PermissionStatus.unknown:
+            return permUnknown;
+          case PermissionStatus.provisional:
+            return permProvisional;
+          default:
+            return null;
+        }
+      },
+    );
   }
 }
