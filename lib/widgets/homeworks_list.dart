@@ -82,8 +82,6 @@ class _HomeworksList extends State<HomeworksList> {
             homeworksDateMapToDoSorted.addAll(homeworksDateMapToDo);
           }
 
-          debugPrint(homeworksDateMapDoneSorted.toString());
-
           SortedMap<Comparable<DateTime>, List<Devoir>> homeworks =
               widget.homePage
                   ? homeworksDateMapToDoSorted

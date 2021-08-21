@@ -23,7 +23,10 @@ void main() async {
 
   SharedPreferences prefs = await SharedPreferences.getInstance();
 
-  Notifications notifications = Notifications(sharedPreferences: prefs);
+  Notifications notifications = Notifications(
+    sharedPreferences: prefs,
+    database: database,
+  );
 
   await notifications.configureLocalTimeZone();
 

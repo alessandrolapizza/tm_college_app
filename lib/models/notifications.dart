@@ -6,11 +6,18 @@ import "package:timezone/data/latest.dart" as tz;
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 import "package:intl/intl.dart";
 import "package:flutter/foundation.dart";
+import 'package:tm_college_app/models/base_de_donnees.dart';
+import 'package:tm_college_app/models/devoir.dart';
 
 class Notifications {
   final SharedPreferences sharedPreferences;
 
-  Notifications({@required this.sharedPreferences});
+  final BaseDeDonnees database;
+
+  Notifications({
+    @required this.sharedPreferences,
+    @required this.database,
+  });
 
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
@@ -50,15 +57,15 @@ class Notifications {
   }
 
   Future<List<int>> scheduleNotifications({
-    int homeworkPriority,
-    DateTime homeworkDueDate,
-    String homeworkSubjectName,
+    @required int homeworkPriority,
+    @required DateTime homeworkDueDate,
+    @required String homeworkSubjectName,
     List<int> oldNotifications,
   }) async {
     final List<int> priorityNotificationsSettings = [1, 3, 5];
     List<int> notificationsIds = [];
     if (oldNotifications != null) {
-      for (int i = 0; i == oldNotifications.length - 1; i++) {
+      for (int i = 0; i != oldNotifications.length; i++) {
         await flutterLocalNotificationsPlugin.cancel(oldNotifications[i]);
       }
     }
@@ -67,24 +74,35 @@ class Notifications {
           i != priorityNotificationsSettings[homeworkPriority - 1] + 1;
           i++) {
         DateTime scheduleDate = homeworkDueDate.subtract(Duration(days: i));
-        int uniqueId = int.parse(
-          DateTime.now().millisecondsSinceEpoch.toString().substring(
-              DateTime.now().millisecondsSinceEpoch.toString().length - 9),
+        int uniqueId = await Future.delayed(
+          Duration(microseconds: 1),
+          () {
+            return int.parse(
+              DateTime.now().microsecondsSinceEpoch.toString().substring(
+                  DateTime.now().microsecondsSinceEpoch.toString().length - 9),
+            );
+          },
         );
-        await flutterLocalNotificationsPlugin.zonedSchedule(
-            uniqueId,
-            homeworkSubjectName,
-            "Devoir à faire pour le ${DateFormat("EEEE d MMMM").format(homeworkDueDate)}.",
-            tz.TZDateTime.local(scheduleDate.year, scheduleDate.month,
-                scheduleDate.day, 18, 45, 30),
-            const NotificationDetails(
-              android: AndroidNotificationDetails('0', 'Devoirs',
-                  'Envoie les notifications relatives au temps.'),
-            ),
-            androidAllowWhileIdle: true,
-            uiLocalNotificationDateInterpretation:
-                UILocalNotificationDateInterpretation.absoluteTime);
-        notificationsIds.add(uniqueId);
+        if (tz.TZDateTime.local(
+                scheduleDate.year, scheduleDate.month, scheduleDate.day)
+            .isAfter(
+          DateTime.now(),
+        )) {
+          await flutterLocalNotificationsPlugin.zonedSchedule(
+              uniqueId,
+              homeworkSubjectName,
+              "Devoir à faire pour le ${DateFormat("EEEE d MMMM").format(homeworkDueDate)}.",
+              tz.TZDateTime.local(
+                  scheduleDate.year, scheduleDate.month, scheduleDate.day),
+              const NotificationDetails(
+                android: AndroidNotificationDetails('0', 'Devoirs',
+                    'Envoie les notifications relatives au temps.'),
+              ),
+              androidAllowWhileIdle: true,
+              uiLocalNotificationDateInterpretation:
+                  UILocalNotificationDateInterpretation.absoluteTime);
+          notificationsIds.add(uniqueId);
+        }
       }
       print(notificationsIds);
       return notificationsIds;
@@ -94,6 +112,7 @@ class Notifications {
   }
 
   Future<void> toggleNotifications(toggleState) async {
+    List<Devoir> homeworksList = [];
     if (toggleState) {
       NotificationPermissions.requestNotificationPermissions(
         iosSettings: const NotificationSettingsIos(
@@ -102,11 +121,22 @@ class Notifications {
           alert: true,
         ),
       );
+      homeworksList = await database.homeworks();
+      homeworksList.forEach(
+        (homework) async {
+          if (!homework.done) {
+            await scheduleNotifications(
+              homeworkDueDate: homework.dueDate,
+              homeworkPriority: homework.priority,
+              homeworkSubjectName: homework.subject.nom,
+            );
+          }
+        },
+      );
       await sharedPreferences.setBool("notificationsActivated", true);
     } else {
       await sharedPreferences.setBool("notificationsActivated", false);
-
-      //suppr toutes les notifs
+      flutterLocalNotificationsPlugin.cancelAll();
     }
   }
 

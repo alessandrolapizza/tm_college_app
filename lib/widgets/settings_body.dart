@@ -42,60 +42,67 @@ class _SettingsBodyState extends State<SettingsBody>
 
   @override
   Widget build(BuildContext context) {
-    print(widget.sharedPreferences.getBool("notificationsActivated"));
     return FutureBuilder(
-      future: permissionStatusFuture,
-      builder: (_, snapshot) {
-        return SettingsList(
-          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-          sections: [
-            SettingsSection(
-              title: 'Notifications',
-              tiles: [
-                SettingsTile.switchTile(
-                  title: "Notifications",
-                  onToggle: (toggleState) async => await widget.notifications
-                      .toggleNotifications(toggleState)
-                      .then((_) => setState(() {})),
-                  switchValue: snapshot.data == Notifications.permGranted &&
-                      widget.sharedPreferences
-                          .getBool("notificationsActivated"),
-                  leading: Icon(Icons.notifications),
-                  enabled: snapshot.hasData,
-                ),
-                SettingsTile(
-                  title: "pending notifications",
-                  onPressed: (_) async {
-                    final List<PendingNotificationRequest>
-                        pendingNotificationRequests =
-                        await FlutterLocalNotificationsPlugin()
-                            .pendingNotificationRequests();
-                    return showDialog<void>(
-                      context: context,
-                      builder: (BuildContext context) => AlertDialog(
-                        content: Text(
-                            '${pendingNotificationRequests.length} pending notification '
-                            'requests'),
-                        actions: <Widget>[
-                          TextButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: const Text('OK'),
+      future: FlutterLocalNotificationsPlugin().pendingNotificationRequests(),
+      builder: (_, snapsht) {
+        return FutureBuilder(
+          future: permissionStatusFuture,
+          builder: (_, snapshot) {
+            return SettingsList(
+              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+              sections: [
+                SettingsSection(
+                  title: 'Notifications',
+                  tiles: [
+                    SettingsTile.switchTile(
+                      title: "Notifications",
+                      onToggle: (toggleState) async => await widget
+                          .notifications
+                          .toggleNotifications(toggleState)
+                          .then((_) => setState(() {})),
+                      switchValue: snapshot.data == Notifications.permGranted &&
+                              widget.sharedPreferences
+                                  .getBool("notificationsActivated") &&
+                          snapsht.data.length != 0,
+                      leading: Icon(Icons.notifications),
+                      enabled: snapshot.hasData && snapsht.hasData,
+                    ),
+                    SettingsTile(
+                      title: "pending notifications",
+                      onPressed: (_) async {
+                        final List<PendingNotificationRequest>
+                            pendingNotificationRequests =
+                            await FlutterLocalNotificationsPlugin()
+                                .pendingNotificationRequests();
+                        return showDialog<void>(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            content: Text(
+                                '${pendingNotificationRequests.length} pending notification '
+                                'requests'),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: const Text('OK'),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                    );
-                  },
+                        );
+                      },
+                    ),
+                    SettingsTile(
+                      title: "suppr notifs",
+                      onPressed: (_) async {
+                        await FlutterLocalNotificationsPlugin().cancelAll();
+                      },
+                    )
+                  ],
                 ),
-                SettingsTile(
-                    title: "suppr notifs",
-                    onPressed: (_) async {
-                      await FlutterLocalNotificationsPlugin().cancelAll();
-                    })
               ],
-            ),
-          ],
+            );
+          },
         );
       },
     );

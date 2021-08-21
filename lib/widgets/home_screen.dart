@@ -61,7 +61,6 @@ class _HomeScreenState extends State<HomeScreen> {
       Navigator.pushNamed(context, "/create_subject_screen")
           .then((_) => setState(() {}));
     }
-    print("test");
   }
 
   @override

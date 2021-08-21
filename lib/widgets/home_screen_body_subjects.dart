@@ -18,7 +18,6 @@ class HomeScreenBodySubjects extends StatelessWidget {
           children = ListView.builder(
             itemCount: snapshot.data.length,
             itemBuilder: (_, index) {
-              debugPrint(snapshot.data[index].id);
               return CarteMatiere(
                 matiere: snapshot.data[index],
                 onTapFunction: () => Navigator.pushNamed(

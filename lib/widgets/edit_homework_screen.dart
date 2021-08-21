@@ -55,8 +55,6 @@ class _EditHomeworkScreenState extends State<EditHomeworkScreen> {
                       itemCount: snapshot.data.length + 1,
                       shrinkWrap: true,
                       itemBuilder: (_, index) {
-                        print(index);
-                        print(snapshot.data.length);
                         return index != snapshot.data.length
                             ? ListTile(
                                 onTap: () => Navigator.pop(

@@ -82,11 +82,6 @@ class BaseDeDonnees {
     return List.generate(
       homeworksMaps.length,
       (i) {
-        print(
-          json.decode(
-            homeworksMaps[i]["notificationsIds"],
-          ),
-        );
         return Devoir(
           id: homeworksMaps[i]["id"],
           subjectId: homeworksMaps[i]["subjectId"],
