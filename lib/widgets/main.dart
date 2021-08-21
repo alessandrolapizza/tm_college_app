@@ -4,6 +4,7 @@ import 'package:tm_college_app/models/notifications.dart';
 import "./app.dart";
 import '../models/base_de_donnees.dart';
 import "package:flutter/services.dart";
+import "package:shared_preferences/shared_preferences.dart";
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +21,9 @@ void main() async {
     ],
   );
 
-  Notifications notifications = Notifications();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+
+  Notifications notifications = Notifications(sharedPreferences: prefs);
 
   await notifications.configureLocalTimeZone();
 
@@ -29,6 +32,7 @@ void main() async {
   runApp(
     App(
       database: database,
+      sharedPreferences: prefs,
       notifications: notifications,
     ),
   );

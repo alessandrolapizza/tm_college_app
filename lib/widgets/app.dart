@@ -1,10 +1,12 @@
 import "package:flutter/material.dart";
 import "package:flutter_localizations/flutter_localizations.dart";
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tm_college_app/models/notifications.dart';
 
 import 'package:tm_college_app/widgets/edit_homework_screen.dart';
 import 'package:tm_college_app/widgets/create_subject_screen.dart';
 import 'package:tm_college_app/widgets/done_homeworks_screen.dart';
+import 'package:tm_college_app/widgets/one_time_introduction_screen.dart';
 import 'package:tm_college_app/widgets/view_homework_screen.dart';
 import 'package:tm_college_app/widgets/settings_screen.dart';
 import 'home_screen.dart';
@@ -15,10 +17,13 @@ import "./page_visualiser_matiere.dart";
 class App extends StatelessWidget {
   final BaseDeDonnees database;
 
+  final SharedPreferences sharedPreferences;
+
   final Notifications notifications;
 
   App({
     @required this.database,
+    @required this.sharedPreferences,
     @required this.notifications,
   });
 
@@ -54,14 +59,19 @@ class App extends StatelessWidget {
       supportedLocales: [
         defaultLocale,
       ],
-      title: "TM_COLLEGE_APP", //Provisoire
+      title: "Mon année Scolaire", //Provisoire
       initialRoute: "/",
       routes: {
-        "/": (_) => HomeScreen(database),
+        "/": (_) => sharedPreferences.getBool("introductionSeen") ?? false
+            ? HomeScreen(database)
+            : OneTimeIntroductionScreen(
+                notifications: notifications,
+                sharedPreferences: sharedPreferences,
+              ),
         "/create_subject_screen": (_) => CreateSubjectScreen(database),
         "/edit_homework_screen": (_) => EditHomeworkScreen(
-              db: database,
               notifications: notifications,
+              db: database,
             ),
         "/page_visualiser_matiere": (_) => PageVisualiserMatiere(),
         "/view_homework_screen": (_) => ViewHomeworkScreen(db: database),

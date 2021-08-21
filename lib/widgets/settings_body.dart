@@ -1,6 +1,5 @@
 import "package:flutter/material.dart";
 import 'package:settings_ui/settings_ui.dart';
-import 'package:tm_college_app/models/notifications.dart';
 import "package:flutter_local_notifications/flutter_local_notifications.dart";
 
 class SettingsBody extends StatefulWidget {
@@ -22,7 +21,7 @@ class _SettingsBodyState extends State<SettingsBody> {
             SettingsTile.switchTile(
               title: 'Utiliser les notifications',
               leading: Icon(Icons.notifications),
-              switchValue: Notifications.notificationsPermissionGranted,
+              switchValue: true,
               onToggle: (bool value) {
                 setState(() => test = value);
               },

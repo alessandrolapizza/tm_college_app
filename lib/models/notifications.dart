@@ -1,24 +1,28 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import "package:timezone/timezone.dart" as tz;
 import "package:timezone/data/latest.dart" as tz;
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 import "package:intl/intl.dart";
+import "package:flutter/foundation.dart";
 
 class Notifications {
-  static bool notificationsPermissionGranted;
+  final SharedPreferences sharedPreferences;
 
-  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+  Notifications({@required this.sharedPreferences});
+
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
   Future<void> initializePlugin() async {
     const AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings("app.icon");
+        AndroidInitializationSettings("icon");
 
     final IOSInitializationSettings initializationSettingsIOS =
         IOSInitializationSettings(
-      requestAlertPermission: true,
-      requestBadgePermission: true,
-      requestSoundPermission: true,
+      requestAlertPermission: false,
+      requestBadgePermission: false,
+      requestSoundPermission: false,
       onDidReceiveLocalNotification: (test, test2, test3, test4) {
         return;
       },
@@ -30,10 +34,7 @@ class Notifications {
       iOS: initializationSettingsIOS,
     );
 
-    notificationsPermissionGranted = await flutterLocalNotificationsPlugin
-        .initialize(initializationSettings);
-
-    print(notificationsPermissionGranted.toString());
+    await flutterLocalNotificationsPlugin.initialize(initializationSettings);
   }
 
   Future<void> configureLocalTimeZone() async {
@@ -69,7 +70,7 @@ class Notifications {
             homeworkSubjectName,
             "Devoir à faire pour le ${DateFormat("EEEE d MMMM").format(homeworkDueDate)}.",
             tz.TZDateTime.local(scheduleDate.year, scheduleDate.month,
-                scheduleDate.day, 20, 14, 40),
+                scheduleDate.day, 18, 45, 30),
             const NotificationDetails(
               android: AndroidNotificationDetails('0', 'Devoirs',
                   'Envoie les notifications relatives au temps.'),
