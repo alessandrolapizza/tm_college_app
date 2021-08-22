@@ -2,6 +2,8 @@ import "package:flutter/material.dart";
 import 'package:settings_ui/settings_ui.dart';
 import "package:flutter_local_notifications/flutter_local_notifications.dart";
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tm_college_app/models/base_de_donnees.dart';
+import 'package:tm_college_app/models/devoir.dart';
 import 'package:tm_college_app/models/notifications.dart';
 
 class SettingsBody extends StatefulWidget {
@@ -9,7 +11,10 @@ class SettingsBody extends StatefulWidget {
 
   final Notifications notifications;
 
+  final BaseDeDonnees database;
+
   SettingsBody({
+    @required this.database,
     @required this.notifications,
     @required this.sharedPreferences,
   });
@@ -73,11 +78,55 @@ class _SettingsBodyState extends State<SettingsBody>
                   title: "Heure de rappel",
                   leading: Icon(Icons.access_time),
                   iosChevron: null,
-                  subtitle: "16:30", // à changer
+                  subtitle: widget.sharedPreferences
+                          .getString("notificationsReminderHour") ??
+                      "17:00", // à changer
                   enabled: snapshot.hasData &&
                           (widget.sharedPreferences.getBool("notifs") ?? false)
                       ? snapshot.data == Notifications.permGranted
                       : false,
+                  onPressed: (_) async {
+                    TimeOfDay selectedTime;
+                    List<Devoir> homeworks;
+                    selectedTime = await showTimePicker(
+                      context: context,
+                      initialTime: TimeOfDay.now(),
+                    );
+                    if (selectedTime != null) {
+                      await widget.sharedPreferences.setString(
+                        "notificationsReminderHour",
+                        selectedTime.format(context),
+                      );
+
+                      homeworks = await widget.database.homeworks();
+
+                      homeworks.forEach(
+                        (homework) async {
+                          if (!homework.done) {
+                            await widget.database.updateHomework(
+                              Devoir(
+                                content: homework.content,
+                                done: homework.done,
+                                id: homework.id,
+                                subject: homework.subject,
+                                dueDate: homework.dueDate,
+                                priority: homework.priority,
+                                subjectId: homework.subjectId,
+                                notificationsIds: await widget.notifications
+                                    .scheduleNotifications(
+                                  homeworkDueDate: homework.dueDate,
+                                  homeworkPriority: homework.priority,
+                                  homeworkSubjectName: homework.subject.nom,
+                                  oldNotifications: homework.notificationsIds,
+                                ),
+                              ),
+                            );
+                          }
+                        },
+                      );
+                      setState(() {});
+                    }
+                  },
                 ),
                 SettingsTile(
                   title: "Avancé",

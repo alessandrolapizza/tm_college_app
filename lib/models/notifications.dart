@@ -90,8 +90,20 @@ class Notifications {
           },
         );
         if (tz.TZDateTime.local(
-                scheduleDate.year, scheduleDate.month, scheduleDate.day)
-            .isAfter(
+          scheduleDate.year,
+          scheduleDate.month,
+          scheduleDate.day,
+          int.parse(
+            (sharedPreferences.getString("notificationsReminderHour") ??
+                    "17:00")
+                .substring(0, 2),
+          ),
+          int.parse(
+            (sharedPreferences.getString("notificationsReminderHour") ??
+                    "17:00")
+                .substring(3, 5),
+          ),
+        ).isAfter(
           DateTime.now(),
         )) {
           await flutterLocalNotificationsPlugin.zonedSchedule(
@@ -99,7 +111,20 @@ class Notifications {
               homeworkSubjectName,
               "Devoir à faire pour le ${DateFormat("EEEE d MMMM").format(homeworkDueDate)}.",
               tz.TZDateTime.local(
-                  scheduleDate.year, scheduleDate.month, scheduleDate.day),
+                scheduleDate.year,
+                scheduleDate.month,
+                scheduleDate.day,
+                int.parse(
+                  (sharedPreferences.getString("notificationsReminderHour") ??
+                          "17:00")
+                      .substring(0, 2),
+                ),
+                int.parse(
+                  (sharedPreferences.getString("notificationsReminderHour") ??
+                          "17:00")
+                      .substring(3, 5),
+                ),
+              ),
               const NotificationDetails(
                 android: AndroidNotificationDetails('0', 'Devoirs',
                     'Envoie les notifications relatives au temps.'),

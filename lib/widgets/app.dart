@@ -87,6 +87,7 @@ class App extends StatelessWidget {
               notifications: notifications,
             ),
         "/settings_screen": (_) => SettingsScreen(
+              database: database,
               sharedPreferences: sharedPreferences,
               notifications: notifications,
             ),
