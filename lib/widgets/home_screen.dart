@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:tm_college_app/models/notifications.dart';
 
 import 'package:tm_college_app/widgets/home_screen_bottom_app_bar.dart';
 import 'package:tm_college_app/widgets/modular_icon_button.dart';
@@ -11,7 +12,12 @@ import "../models/base_de_donnees.dart";
 class HomeScreen extends StatefulWidget {
   final BaseDeDonnees db;
 
-  HomeScreen(this.db);
+  final Notifications notifications;
+
+  HomeScreen({
+    @required this.db,
+    @required this.notifications,
+  });
 
   @override
   _HomeScreenState createState() => _HomeScreenState(db);
@@ -45,6 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body = HomeworksList(
         db: db,
         homePage: true,
+        notifications: widget.notifications,
       );
     } else {
       body = HomeScreenBodySubjects(db);

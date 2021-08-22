@@ -3,6 +3,7 @@ import "package:flutter/material.dart";
 import "package:sortedmap/sortedmap.dart";
 import 'package:sticky_headers/sticky_headers/widget.dart';
 import "package:intl/intl.dart";
+import 'package:tm_college_app/models/notifications.dart';
 import 'package:tm_college_app/widgets/modular_icon_button.dart';
 
 import "./carte_devoir.dart";
@@ -14,9 +15,12 @@ class HomeworksList extends StatefulWidget {
 
   final bool homePage;
 
+  final Notifications notifications;
+
   HomeworksList({
     @required this.db,
     @required this.homePage,
+    @required this.notifications,
   });
 
   @override
@@ -32,6 +36,7 @@ class _HomeworksList extends State<HomeworksList> {
     await Devoir.homeworkChecker(
       homework: homework,
       db: widget.db,
+      notifications: widget.notifications,
     );
     setState(() {});
     double offset = _scrollControllerHomeworks.offset;

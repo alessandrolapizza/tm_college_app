@@ -63,7 +63,10 @@ class App extends StatelessWidget {
       initialRoute: "/",
       routes: {
         "/": (_) => sharedPreferences.getBool("introductionSeen") ?? false
-            ? HomeScreen(database)
+            ? HomeScreen(
+                db: database,
+                notifications: notifications,
+              )
             : OneTimeIntroductionScreen(
                 notifications: notifications,
                 sharedPreferences: sharedPreferences,
@@ -74,8 +77,14 @@ class App extends StatelessWidget {
               db: database,
             ),
         "/page_visualiser_matiere": (_) => PageVisualiserMatiere(),
-        "/view_homework_screen": (_) => ViewHomeworkScreen(db: database),
-        "/done_homeworks_screen": (_) => DoneHomeworksScreen(db: database),
+        "/view_homework_screen": (_) => ViewHomeworkScreen(
+              db: database,
+              notifications: notifications,
+            ),
+        "/done_homeworks_screen": (_) => DoneHomeworksScreen(
+              db: database,
+              notifications: notifications,
+            ),
         "/settings_screen": (_) => SettingsScreen(
               sharedPreferences: sharedPreferences,
               notifications: notifications,

@@ -48,9 +48,7 @@ class _OneTimeIntroductionNotificationsSettingTileState
       builder: (_, snapshot) {
         return SettingsTile.switchTile(
           title: "Notifications",
-          onToggle: (toggleState) async => await widget.notifications
-              .toggleNotifications(toggleState)
-              .then((_) => setState(() {})),
+          onToggle: (toggleState) {},
           switchValue: snapshot.data == Notifications.permGranted &&
               widget.sharedPreferences.getBool("notificationsActivated"),
           leading: Icon(Icons.notifications),

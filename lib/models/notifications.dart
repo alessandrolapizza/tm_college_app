@@ -56,6 +56,14 @@ class Notifications {
     tz.setLocalLocation(tz.getLocation(timeZoneName));
   }
 
+  Future<void> cancelMultipleNotifications(List<int> notificationsList) async {
+    for (int i = 0; i != notificationsList.length; i++) {
+      await flutterLocalNotificationsPlugin.cancel(
+        notificationsList[i],
+      );
+    }
+  }
+
   Future<List<int>> scheduleNotifications({
     @required int homeworkPriority,
     @required DateTime homeworkDueDate,
@@ -65,9 +73,7 @@ class Notifications {
     final List<int> priorityNotificationsSettings = [1, 3, 5];
     List<int> notificationsIds = [];
     if (oldNotifications != null) {
-      for (int i = 0; i != oldNotifications.length; i++) {
-        await flutterLocalNotificationsPlugin.cancel(oldNotifications[i]);
-      }
+      await cancelMultipleNotifications(oldNotifications);
     }
     if (homeworkPriority != 0) {
       for (int i = 1;
@@ -104,45 +110,68 @@ class Notifications {
           notificationsIds.add(uniqueId);
         }
       }
-      print(notificationsIds);
       return notificationsIds;
     } else {
       return null;
     }
   }
 
-  Future<void> toggleNotifications(toggleState) async {
-    List<Devoir> homeworksList = [];
+  Future<void> toggleNotifications({
+    @required toggleState,
+    @required snapshotData,
+  }) async {
+    List<Devoir> homeworks = [];
+    homeworks = await database.homeworks();
     if (toggleState) {
-      NotificationPermissions.requestNotificationPermissions(
-        iosSettings: const NotificationSettingsIos(
-          sound: true,
-          badge: true,
-          alert: true,
-        ),
-      );
-      homeworksList = await database.homeworks();
-      homeworksList.forEach(
+      await sharedPreferences.setBool("notifs", true);
+      homeworks.forEach(
         (homework) async {
           if (!homework.done) {
-            await scheduleNotifications(
-              homeworkDueDate: homework.dueDate,
-              homeworkPriority: homework.priority,
-              homeworkSubjectName: homework.subject.nom,
+            database.updateHomework(
+              Devoir(
+                content: homework.content,
+                done: homework.done,
+                id: homework.id,
+                subject: homework.subject,
+                dueDate: homework.dueDate,
+                priority: homework.priority,
+                subjectId: homework.subjectId,
+                notificationsIds: await scheduleNotifications(
+                  homeworkDueDate: homework.dueDate,
+                  homeworkPriority: homework.priority,
+                  homeworkSubjectName: homework.subject.nom,
+                ),
+              ),
             );
           }
         },
       );
-      await sharedPreferences.setBool("notificationsActivated", true);
+      if (snapshotData != Notifications.permGranted) {
+        await NotificationPermissions.requestNotificationPermissions(
+          iosSettings: const NotificationSettingsIos(
+            sound: true,
+            badge: true,
+            alert: true,
+          ),
+        );
+      }
     } else {
-      await sharedPreferences.setBool("notificationsActivated", false);
-      flutterLocalNotificationsPlugin.cancelAll();
+      await sharedPreferences.setBool("notifs", false);
+      homeworks.forEach(
+        (homework) async {
+          if (!homework.done) {
+            print(homework.notificationsIds);
+            await cancelMultipleNotifications(homework.notificationsIds);
+          }
+        },
+      );
     }
   }
 
   Future<String> getCheckNotificationPermStatus() {
     return NotificationPermissions.getNotificationPermissionStatus().then(
       (status) {
+        print(status);
         switch (status) {
           case PermissionStatus.denied:
             return permDenied;

@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:tm_college_app/models/base_de_donnees.dart';
+import 'package:tm_college_app/models/notifications.dart';
 import 'package:tm_college_app/widgets/app.dart';
 import 'package:tm_college_app/widgets/modular_alert_dialog.dart';
 import 'package:tm_college_app/widgets/modular_icon_button.dart';
@@ -16,7 +17,12 @@ import "./modular_icon_button.dart";
 class ViewHomeworkScreen extends StatefulWidget {
   final BaseDeDonnees db;
 
-  ViewHomeworkScreen({@required this.db});
+  final Notifications notifications;
+
+  ViewHomeworkScreen({
+    @required this.db,
+    @required this.notifications,
+  });
 
   @override
   _RouteAwareViewHomeworkScreenState createState() =>
@@ -73,6 +79,7 @@ class _RouteAwareViewHomeworkScreenState extends State<ViewHomeworkScreen>
                   await Devoir.homeworkChecker(
                     homework: homework,
                     db: widget.db,
+                    notifications: widget.notifications,
                   );
                   Navigator.pop(context);
                 },
@@ -133,6 +140,7 @@ class _RouteAwareViewHomeworkScreenState extends State<ViewHomeworkScreen>
                       await Devoir.homeworkChecker(
                         homework: homework,
                         db: widget.db,
+                        notifications: widget.notifications,
                       );
                       Navigator.pop(context);
                     },

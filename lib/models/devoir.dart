@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:tm_college_app/models/notifications.dart';
 import "package:uuid/uuid.dart";
 import "../models/base_de_donnees.dart";
 
@@ -47,7 +48,12 @@ class Devoir {
   static Future<void> homeworkChecker({
     @required Devoir homework,
     @required BaseDeDonnees db,
+    @required Notifications notifications,
   }) async {
+    if (!homework.done && homework.notificationsIds != null) {
+      await notifications
+          .cancelMultipleNotifications(homework.notificationsIds);
+    }
     Devoir checkedHomework = Devoir(
       done: homework.done ? false : true,
       content: homework.content,
@@ -56,7 +62,13 @@ class Devoir {
       subjectId: homework.subjectId,
       subject: homework.subject,
       id: homework.id,
-      notificationsIds: homework.notificationsIds,
+      notificationsIds: homework.done
+          ? await notifications.scheduleNotifications(
+              homeworkPriority: homework.priority,
+              homeworkDueDate: homework.dueDate,
+              homeworkSubjectName: homework.subject.nom,
+            )
+          : [],
     );
 
     await db.updateHomework(checkedHomework);
