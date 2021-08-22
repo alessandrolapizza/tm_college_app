@@ -123,7 +123,10 @@ class _RouteAwareViewHomeworkScreenState extends State<ViewHomeworkScreen>
                                   style: TextStyle(color: Colors.red),
                                 ),
                                 onPressed: () async {
-                                  await widget.db.deleteHomework(homework);
+                                  await widget.db.deleteHomework(
+                                    homework: homework,
+                                    notifications: widget.notifications,
+                                  );
                                   Navigator.pop(context);
                                   Navigator.pop(context);
                                 },
@@ -167,7 +170,10 @@ class _RouteAwareViewHomeworkScreenState extends State<ViewHomeworkScreen>
                                   style: TextStyle(color: Colors.red),
                                 ),
                                 onPressed: () async {
-                                  await widget.db.deleteHomework(homework);
+                                  await widget.db.deleteHomework(
+                                    homework: homework,
+                                    notifications: widget.notifications,
+                                  );
                                   Navigator.pop(context);
                                   Navigator.pop(context);
                                 },

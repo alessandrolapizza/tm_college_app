@@ -33,33 +33,13 @@ class _SettingsBodyState extends State<SettingsBody>
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed && mounted) {
-      setState(() {
-        permissionStatusFuture =
-            widget.notifications.getCheckNotificationPermStatus();
-      });
+      setState(
+        () {
+          permissionStatusFuture =
+              widget.notifications.getCheckNotificationPermStatus();
+        },
+      );
     }
-  }
-
-  Future<bool> switchValue(String snapshotData) async {
-    if ((widget.sharedPreferences.getString("notificationsActivated") ==
-            "true") &&
-        snapshotData == Notifications.permGranted) {
-      return true;
-    } else if (widget.sharedPreferences.getString("notificationsActivated") ==
-        "true") {
-      await widget.sharedPreferences
-          .setString("notificationsActivated", "false");
-      return false;
-    } else {
-      return false;
-    }
-  }
-
-  Future<List> futureFunction() async {
-    List test = [];
-    test.add(await permissionStatusFuture);
-    test.add(await switchValue(test[0]));
-    return test;
   }
 
   @override
@@ -89,6 +69,37 @@ class _SettingsBodyState extends State<SettingsBody>
                   leading: Icon(Icons.notifications),
                   enabled: snapshot.hasData,
                 ),
+                SettingsTile(
+                  title: "Heure de rappel",
+                  leading: Icon(Icons.access_time),
+                  iosChevron: null,
+                  subtitle: "16:30", // à changer
+                  enabled: snapshot.hasData &&
+                          (widget.sharedPreferences.getBool("notifs") ?? false)
+                      ? snapshot.data == Notifications.permGranted
+                      : false,
+                ),
+                SettingsTile(
+                  title: "Avancé",
+                  enabled: snapshot.hasData &&
+                          (widget.sharedPreferences.getBool("notifs") ?? false)
+                      ? snapshot.data == Notifications.permGranted
+                      : false,
+                  onPressed: (_) {
+                    Navigator.pushNamed(
+                        context, "/advanced_notifications_settings_screen");
+                  },
+                ),
+              ],
+            ),
+            SettingsSection(
+              tiles: [],
+              maxLines: 10,
+              title:
+                  "L'heure de rappel correspond à l'heure à laquelle chaque jours les notifications seront distribuées, s'il y en a.",
+            ),
+            SettingsSection(
+              tiles: [
                 SettingsTile(
                   title: "pending notifications",
                   onPressed: (_) async {
@@ -121,6 +132,7 @@ class _SettingsBodyState extends State<SettingsBody>
                   },
                 )
               ],
+              title: "Super Secret Menu",
             ),
           ],
         );

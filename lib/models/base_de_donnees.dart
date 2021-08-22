@@ -1,8 +1,10 @@
 import "package:flutter/material.dart";
+import 'package:notification_permissions/notification_permissions.dart';
 import "dart:convert";
 
 import "package:sqflite/sqflite.dart";
 import "package:path/path.dart";
+import 'package:tm_college_app/models/notifications.dart';
 
 import "./matiere.dart";
 import "./devoir.dart";
@@ -92,16 +94,14 @@ class BaseDeDonnees {
           ),
           priority: homeworksMaps[i]["priority"],
           done: homeworksMaps[i]["done"] == 0 ? false : true,
-          notificationsIds: json.decode(
-                    homeworksMaps[i]["notificationsIds"],
-                  ) ==
-                  null
-              ? null
-              : json
-                  .decode(
-                    homeworksMaps[i]["notificationsIds"],
-                  )
-                  .cast<int>(),
+          notificationsIds:
+              json.decode(homeworksMaps[i]["notificationsIds"]) == null
+                  ? null
+                  : json
+                      .decode(
+                        homeworksMaps[i]["notificationsIds"],
+                      )
+                      .cast<int>(),
         );
       },
     );
@@ -139,10 +139,18 @@ class BaseDeDonnees {
     );
   }
 
-  Future<void> deleteHomework(Devoir homework) async {
+  Future<void> deleteHomework({
+    @required Devoir homework,
+    @required Notifications notifications,
+  }) async {
     final db = await database;
 
     final String id = homework.id;
+
+    if (homework.notificationsIds.length != 0) {
+      await notifications
+          .cancelMultipleNotifications(homework.notificationsIds);
+    }
 
     await db.delete(
       "homeworks",

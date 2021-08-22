@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter_localizations/flutter_localizations.dart";
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tm_college_app/models/notifications.dart';
+import 'package:tm_college_app/widgets/advanced_notifications_settings_screen.dart';
 
 import 'package:tm_college_app/widgets/edit_homework_screen.dart';
 import 'package:tm_college_app/widgets/create_subject_screen.dart';
@@ -89,6 +90,8 @@ class App extends StatelessWidget {
               sharedPreferences: sharedPreferences,
               notifications: notifications,
             ),
+        "/advanced_notifications_settings_screen": (_) =>
+            AdvancedNotificationsSettingsScreen(),
       },
       theme: ThemeData(
         primarySwatch: toMaterialColor(defaultColorThemeValue),
