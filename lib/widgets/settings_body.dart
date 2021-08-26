@@ -49,7 +49,7 @@ class _SettingsBodyState extends State<SettingsBody>
 
   @override
   Widget build(BuildContext context) {
-    print(widget.sharedPreferences.getBool("notifs"));
+    print(widget.sharedPreferences.getBool("notificationsActivated"));
     return FutureBuilder(
       future: permissionStatusFuture,
       builder: (_, snapshot) {
@@ -68,7 +68,9 @@ class _SettingsBodyState extends State<SettingsBody>
                       )
                       .then((_) => setState(() {})),
                   switchValue: snapshot.hasData &&
-                          (widget.sharedPreferences.getBool("notifs") ?? false)
+                          (widget.sharedPreferences
+                                  .getBool("notificationsActivated") ??
+                              false)
                       ? snapshot.data == Notifications.permGranted
                       : false,
                   leading: Icon(Icons.notifications),
@@ -80,58 +82,34 @@ class _SettingsBodyState extends State<SettingsBody>
                   iosChevron: null,
                   subtitle: widget.sharedPreferences
                           .getString("notificationsReminderHour") ??
-                      "17:00", // à changer
+                      "17:00",
                   enabled: snapshot.hasData &&
-                          (widget.sharedPreferences.getBool("notifs") ?? false)
+                          (widget.sharedPreferences
+                                  .getBool("notificationsActivated") ??
+                              false)
                       ? snapshot.data == Notifications.permGranted
                       : false,
                   onPressed: (_) async {
-                    TimeOfDay selectedTime;
-                    List<Devoir> homeworks;
-                    selectedTime = await showTimePicker(
+                    await showTimePicker(
                       context: context,
                       initialTime: TimeOfDay.now(),
+                    ).then(
+                      (selectedTime) async {
+                        if (selectedTime != null) {
+                          widget.notifications.changeNotificationsTime(
+                              selectedTime: selectedTime, context: context);
+                          setState(() {});
+                        }
+                      },
                     );
-                    if (selectedTime != null) {
-                      await widget.sharedPreferences.setString(
-                        "notificationsReminderHour",
-                        selectedTime.format(context),
-                      );
-
-                      homeworks = await widget.database.homeworks();
-
-                      homeworks.forEach(
-                        (homework) async {
-                          if (!homework.done) {
-                            await widget.database.updateHomework(
-                              Devoir(
-                                content: homework.content,
-                                done: homework.done,
-                                id: homework.id,
-                                subject: homework.subject,
-                                dueDate: homework.dueDate,
-                                priority: homework.priority,
-                                subjectId: homework.subjectId,
-                                notificationsIds: await widget.notifications
-                                    .scheduleNotifications(
-                                  homeworkDueDate: homework.dueDate,
-                                  homeworkPriority: homework.priority,
-                                  homeworkSubjectName: homework.subject.nom,
-                                  oldNotifications: homework.notificationsIds,
-                                ),
-                              ),
-                            );
-                          }
-                        },
-                      );
-                      setState(() {});
-                    }
                   },
                 ),
                 SettingsTile(
                   title: "Avancé",
                   enabled: snapshot.hasData &&
-                          (widget.sharedPreferences.getBool("notifs") ?? false)
+                          (widget.sharedPreferences
+                                  .getBool("notificationsActivated") ??
+                              false)
                       ? snapshot.data == Notifications.permGranted
                       : false,
                   onPressed: (_) {
@@ -175,7 +153,7 @@ class _SettingsBodyState extends State<SettingsBody>
                   },
                 ),
                 SettingsTile(
-                  title: "suppr notifs",
+                  title: "suppr notificationsActivated",
                   onPressed: (_) async {
                     await FlutterLocalNotificationsPlugin().cancelAll();
                   },

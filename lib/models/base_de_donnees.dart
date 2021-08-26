@@ -147,7 +147,7 @@ class BaseDeDonnees {
 
     final String id = homework.id;
 
-    if (homework.notificationsIds.length != 0) {
+    if (homework.notificationsIds != null) {
       await notifications
           .cancelMultipleNotifications(homework.notificationsIds);
     }

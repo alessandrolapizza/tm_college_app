@@ -92,7 +92,10 @@ class App extends StatelessWidget {
               notifications: notifications,
             ),
         "/advanced_notifications_settings_screen": (_) =>
-            AdvancedNotificationsSettingsScreen(),
+            AdvancedNotificationsSettingsScreen(
+              notifications: notifications,
+              sharedPreferences: sharedPreferences,
+            ),
       },
       theme: ThemeData(
         primarySwatch: toMaterialColor(defaultColorThemeValue),

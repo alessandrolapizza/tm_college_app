@@ -55,7 +55,7 @@ class _OneTimeIntroductionNotificationsSettingTileState
               )
               .then((_) => setState(() {})),
           switchValue: snapshot.hasData &&
-                  (widget.sharedPreferences.getBool("notifs") ?? false)
+                  (widget.sharedPreferences.getBool("notificationsActivated") ?? false)
               ? snapshot.data == Notifications.permGranted
               : false,
           leading: Icon(Icons.notifications),

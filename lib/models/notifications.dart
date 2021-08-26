@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:notification_permissions/notification_permissions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -70,75 +71,75 @@ class Notifications {
     @required String homeworkSubjectName,
     List<int> oldNotifications,
   }) async {
-    final List<int> priorityNotificationsSettings = [1, 3, 5];
+    final List<int> priorityNotificationsSettings = [
+      sharedPreferences.getInt("notificationsPriorityNumberWhite") ?? 0,
+      sharedPreferences.getInt("notificationsPriorityNumberGreen") ?? 1,
+      sharedPreferences.getInt("notificationsPriorityNumberOrange") ?? 3,
+      sharedPreferences.getInt("notificationsPriorityNumberRed") ?? 5,
+    ];
     List<int> notificationsIds = [];
     if (oldNotifications != null) {
       await cancelMultipleNotifications(oldNotifications);
     }
-    if (homeworkPriority != 0) {
-      for (int i = 1;
-          i != priorityNotificationsSettings[homeworkPriority - 1] + 1;
-          i++) {
-        DateTime scheduleDate = homeworkDueDate.subtract(Duration(days: i));
-        int uniqueId = await Future.delayed(
-          Duration(microseconds: 1),
-          () {
-            return int.parse(
-              DateTime.now().microsecondsSinceEpoch.toString().substring(
-                  DateTime.now().microsecondsSinceEpoch.toString().length - 9),
-            );
-          },
-        );
-        if (tz.TZDateTime.local(
-          scheduleDate.year,
-          scheduleDate.month,
-          scheduleDate.day,
-          int.parse(
-            (sharedPreferences.getString("notificationsReminderHour") ??
-                    "17:00")
-                .substring(0, 2),
-          ),
-          int.parse(
-            (sharedPreferences.getString("notificationsReminderHour") ??
-                    "17:00")
-                .substring(3, 5),
-          ),
-        ).isAfter(
-          DateTime.now(),
-        )) {
-          await flutterLocalNotificationsPlugin.zonedSchedule(
-              uniqueId,
-              homeworkSubjectName,
-              "Devoir à faire pour le ${DateFormat("EEEE d MMMM").format(homeworkDueDate)}.",
-              tz.TZDateTime.local(
-                scheduleDate.year,
-                scheduleDate.month,
-                scheduleDate.day,
-                int.parse(
-                  (sharedPreferences.getString("notificationsReminderHour") ??
-                          "17:00")
-                      .substring(0, 2),
-                ),
-                int.parse(
-                  (sharedPreferences.getString("notificationsReminderHour") ??
-                          "17:00")
-                      .substring(3, 5),
-                ),
+
+    for (int i = 1;
+        i != priorityNotificationsSettings[homeworkPriority] + 1;
+        i++) {
+      DateTime scheduleDate = homeworkDueDate.subtract(Duration(days: i));
+      int uniqueId = await Future.delayed(
+        Duration(microseconds: 1),
+        () {
+          return int.parse(
+            DateTime.now().microsecondsSinceEpoch.toString().substring(
+                DateTime.now().microsecondsSinceEpoch.toString().length - 9),
+          );
+        },
+      );
+      if (tz.TZDateTime.local(
+        scheduleDate.year,
+        scheduleDate.month,
+        scheduleDate.day,
+        int.parse(
+          (sharedPreferences.getString("notificationsReminderHour") ?? "17:00")
+              .substring(0, 2),
+        ),
+        int.parse(
+          (sharedPreferences.getString("notificationsReminderHour") ?? "17:00")
+              .substring(3, 5),
+        ),
+      ).isAfter(
+        DateTime.now(),
+      )) {
+        await flutterLocalNotificationsPlugin.zonedSchedule(
+            uniqueId,
+            homeworkSubjectName,
+            "Devoir à faire pour le ${DateFormat("EEEE d MMMM").format(homeworkDueDate)}.",
+            tz.TZDateTime.local(
+              scheduleDate.year,
+              scheduleDate.month,
+              scheduleDate.day,
+              int.parse(
+                (sharedPreferences.getString("notificationsReminderHour") ??
+                        "17:00")
+                    .substring(0, 2),
               ),
-              const NotificationDetails(
-                android: AndroidNotificationDetails('0', 'Devoirs',
-                    'Envoie les notifications relatives au temps.'),
+              int.parse(
+                (sharedPreferences.getString("notificationsReminderHour") ??
+                        "17:00")
+                    .substring(3, 5),
               ),
-              androidAllowWhileIdle: true,
-              uiLocalNotificationDateInterpretation:
-                  UILocalNotificationDateInterpretation.absoluteTime);
-          notificationsIds.add(uniqueId);
-        }
+            ),
+            const NotificationDetails(
+              android: AndroidNotificationDetails('0', 'Devoirs',
+                  'Envoie les notifications relatives au temps.'),
+            ),
+            androidAllowWhileIdle: true,
+            uiLocalNotificationDateInterpretation:
+                UILocalNotificationDateInterpretation.absoluteTime);
+        notificationsIds.add(uniqueId);
       }
-      return notificationsIds;
-    } else {
-      return null;
     }
+    return notificationsIds; //ici
   }
 
   Future<void> toggleNotifications({
@@ -148,7 +149,7 @@ class Notifications {
     List<Devoir> homeworks = [];
     homeworks = await database.homeworks();
     if (toggleState) {
-      await sharedPreferences.setBool("notifs", true);
+      await sharedPreferences.setBool("notificationsActivated", true);
       homeworks.forEach(
         (homework) async {
           if (!homework.done) {
@@ -165,6 +166,7 @@ class Notifications {
                   homeworkDueDate: homework.dueDate,
                   homeworkPriority: homework.priority,
                   homeworkSubjectName: homework.subject.nom,
+                  oldNotifications: homework.notificationsIds,
                 ),
               ),
             );
@@ -181,10 +183,10 @@ class Notifications {
         );
       }
     } else {
-      await sharedPreferences.setBool("notifs", false);
+      await sharedPreferences.setBool("notificationsActivated", false);
       homeworks.forEach(
         (homework) async {
-          if (!homework.done) {
+          if (!homework.done && homework.notificationsIds != null) {
             print(homework.notificationsIds);
             await cancelMultipleNotifications(homework.notificationsIds);
           }
@@ -208,6 +210,73 @@ class Notifications {
             return permProvisional;
           default:
             return null;
+        }
+      },
+    );
+  }
+
+  Future<void> changeNotificationsTime({
+    @required selectedTime,
+    @required context,
+  }) async {
+    List<Devoir> homeworks;
+
+    await sharedPreferences.setString(
+      "notificationsReminderHour",
+      selectedTime.format(context),
+    );
+
+    homeworks = await database.homeworks();
+
+    homeworks.forEach(
+      (homework) async {
+        if (!homework.done) {
+          database.updateHomework(
+            Devoir(
+              content: homework.content,
+              done: homework.done,
+              id: homework.id,
+              subject: homework.subject,
+              dueDate: homework.dueDate,
+              priority: homework.priority,
+              subjectId: homework.subjectId,
+              notificationsIds: await scheduleNotifications(
+                homeworkDueDate: homework.dueDate,
+                homeworkPriority: homework.priority,
+                homeworkSubjectName: homework.subject.nom,
+                oldNotifications: homework.notificationsIds,
+              ),
+            ),
+          );
+        }
+      },
+    );
+  }
+
+  rescheduleNotifications() async {
+    List<Devoir> homeworks;
+    homeworks = await database.homeworks();
+
+    homeworks.forEach(
+      (homework) async {
+        if (!homework.done) {
+          database.updateHomework(
+            Devoir(
+              content: homework.content,
+              done: homework.done,
+              id: homework.id,
+              subject: homework.subject,
+              dueDate: homework.dueDate,
+              priority: homework.priority,
+              subjectId: homework.subjectId,
+              notificationsIds: await scheduleNotifications(
+                homeworkDueDate: homework.dueDate,
+                homeworkPriority: homework.priority,
+                homeworkSubjectName: homework.subject.nom,
+                oldNotifications: homework.notificationsIds,
+              ),
+            ),
+          );
         }
       },
     );
