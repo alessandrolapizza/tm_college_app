@@ -51,13 +51,26 @@ class OneTimeIntroductionScreen extends StatelessWidget {
             Icons.notifications,
             size: 100,
           ),
-          body:
-              "Les notifications te permettent de te rappeler de tes devoirs aux heures qui te conviennent. Elles sont désactivables et customisables à tout moment dans les paramètres de l'application.",
-          useScrollView: false,
-          footer: OneTimeIntroductionNotificationsSettingTile(
-            sharedPreferences: sharedPreferences,
-            notifications: notifications,
+          bodyWidget: Column(
+            children: [
+              Text(
+                "Les notifications te permettent de te rappeler de tes devoirs aux heures qui te conviennent. Elles sont désactivables et customisables à tout moment dans les paramètres de l'application.",
+                style: TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.normal,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 10),
+              ),
+              OneTimeIntroductionNotificationsSettingTile(
+                sharedPreferences: sharedPreferences,
+                notifications: notifications,
+              )
+            ],
           ),
+          useScrollView: false,
         ),
       ],
     );

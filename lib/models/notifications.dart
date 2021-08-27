@@ -37,9 +37,6 @@ class Notifications {
       requestAlertPermission: false,
       requestBadgePermission: false,
       requestSoundPermission: false,
-      onDidReceiveLocalNotification: (test, test2, test3, test4) {
-        return;
-      },
     );
 
     final InitializationSettings initializationSettings =
@@ -48,7 +45,9 @@ class Notifications {
       iOS: initializationSettingsIOS,
     );
 
-    await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+    await flutterLocalNotificationsPlugin.initialize(
+      initializationSettings,
+    );
   }
 
   Future<void> configureLocalTimeZone() async {
@@ -111,31 +110,36 @@ class Notifications {
         DateTime.now(),
       )) {
         await flutterLocalNotificationsPlugin.zonedSchedule(
-            uniqueId,
-            homeworkSubjectName,
-            "Devoir à faire pour le ${DateFormat("EEEE d MMMM").format(homeworkDueDate)}.",
-            tz.TZDateTime.local(
-              scheduleDate.year,
-              scheduleDate.month,
-              scheduleDate.day,
-              int.parse(
-                (sharedPreferences.getString("notificationsReminderHour") ??
-                        "17:00")
-                    .substring(0, 2),
-              ),
-              int.parse(
-                (sharedPreferences.getString("notificationsReminderHour") ??
-                        "17:00")
-                    .substring(3, 5),
-              ),
+          uniqueId,
+          homeworkSubjectName,
+          "Devoir à faire pour le ${DateFormat("EEEE d MMMM").format(homeworkDueDate)}.",
+          tz.TZDateTime.local(
+            scheduleDate.year,
+            scheduleDate.month,
+            scheduleDate.day,
+            int.parse(
+              (sharedPreferences.getString("notificationsReminderHour") ??
+                      "17:00")
+                  .substring(0, 2),
             ),
-            const NotificationDetails(
-              android: AndroidNotificationDetails('0', 'Devoirs',
-                  'Envoie les notifications relatives au temps.'),
+            int.parse(
+              (sharedPreferences.getString("notificationsReminderHour") ??
+                      "17:00")
+                  .substring(3, 5),
             ),
-            androidAllowWhileIdle: true,
-            uiLocalNotificationDateInterpretation:
-                UILocalNotificationDateInterpretation.absoluteTime);
+          ),
+          const NotificationDetails(
+            android: AndroidNotificationDetails(
+              '0',
+              'Devoirs',
+              'Envoie les notifications relatives au temps.',
+            ),
+          ),
+          androidAllowWhileIdle: true,
+          uiLocalNotificationDateInterpretation:
+              UILocalNotificationDateInterpretation.absoluteTime,
+          payload: uniqueId.toString(),
+        );
         notificationsIds.add(uniqueId);
       }
     }
