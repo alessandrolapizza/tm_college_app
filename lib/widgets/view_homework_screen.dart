@@ -117,20 +117,26 @@ class _RouteAwareViewHomeworkScreenState extends State<ViewHomeworkScreen>
                               title: Text("Supprimer devoir ?"),
                               content: Text(
                                   "Es-tu sûr de vouloir supprimer ce devoir ?"),
-                              actionButton: TextButton(
-                                child: Text(
-                                  "Supprimer",
-                                  style: TextStyle(color: Colors.red),
+                              actionButtons: [
+                                TextButton(
+                                  onPressed: () => Navigator.pop(context),
+                                  child: Text("Annuler"),
                                 ),
-                                onPressed: () async {
-                                  await widget.db.deleteHomework(
-                                    homework: homework,
-                                    notifications: widget.notifications,
-                                  );
-                                  Navigator.pop(context);
-                                  Navigator.pop(context);
-                                },
-                              ),
+                                TextButton(
+                                  child: Text(
+                                    "Supprimer",
+                                    style: TextStyle(color: Colors.red),
+                                  ),
+                                  onPressed: () async {
+                                    await widget.db.deleteHomework(
+                                      homework: homework,
+                                      notifications: widget.notifications,
+                                    );
+                                    Navigator.pop(context);
+                                    Navigator.pop(context);
+                                  },
+                                )
+                              ],
                             ),
                           );
                         },
@@ -164,20 +170,26 @@ class _RouteAwareViewHomeworkScreenState extends State<ViewHomeworkScreen>
                               title: Text("Supprimer devoir ?"),
                               content: Text(
                                   "Es-tu sûr de vouloir supprimer ce devoir ?"),
-                              actionButton: TextButton(
-                                child: Text(
-                                  "Supprimer",
-                                  style: TextStyle(color: Colors.red),
+                              actionButtons: [
+                                TextButton(
+                                  onPressed: () => Navigator.pop(context),
+                                  child: Text("Annuler"),
                                 ),
-                                onPressed: () async {
-                                  await widget.db.deleteHomework(
-                                    homework: homework,
-                                    notifications: widget.notifications,
-                                  );
-                                  Navigator.pop(context);
-                                  Navigator.pop(context);
-                                },
-                              ),
+                                TextButton(
+                                  child: Text(
+                                    "Supprimer",
+                                    style: TextStyle(color: Colors.red),
+                                  ),
+                                  onPressed: () async {
+                                    await widget.db.deleteHomework(
+                                      homework: homework,
+                                      notifications: widget.notifications,
+                                    );
+                                    Navigator.pop(context);
+                                    Navigator.pop(context);
+                                  },
+                                )
+                              ],
                             ),
                           );
                         },

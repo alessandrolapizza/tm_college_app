@@ -1,5 +1,4 @@
 import "package:flutter/material.dart";
-import 'package:notification_permissions/notification_permissions.dart';
 import "dart:convert";
 
 import "package:sqflite/sqflite.dart";

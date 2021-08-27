@@ -30,7 +30,7 @@ class Notifications {
 
   Future<void> initializePlugin() async {
     const AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings("icon");
+        AndroidInitializationSettings("@mipmap/ic_launcher");
 
     final IOSInitializationSettings initializationSettingsIOS =
         IOSInitializationSettings(

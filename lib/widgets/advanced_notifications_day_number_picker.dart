@@ -22,6 +22,7 @@ class _AdvancedNotificationsSettingsDayNumberPickerState
   @override
   Widget build(BuildContext context) {
     return NumberPicker(
+      haptics: true,
       minValue: 0,
       maxValue: 5,
       value: widget.sharedPreferences

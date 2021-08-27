@@ -71,6 +71,12 @@ class _CreateSubjectScreenState extends State<CreateSubjectScreen> {
       context: context,
       builder: (_) {
         return ModularAlertDialog(
+          actionButtons: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text("Annuler"),
+            )
+          ],
           themeColor: _selectedColor == null
               ? Color(App.defaultColorThemeValue)
               : _selectedColor,

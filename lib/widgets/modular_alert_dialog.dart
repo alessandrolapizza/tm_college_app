@@ -2,7 +2,7 @@ import "package:flutter/material.dart";
 import 'package:tm_college_app/widgets/theme_controller.dart';
 
 class ModularAlertDialog extends StatelessWidget {
-  final Widget actionButton;
+  final List<Widget> actionButtons;
 
   final Color themeColor;
 
@@ -12,7 +12,7 @@ class ModularAlertDialog extends StatelessWidget {
 
   ModularAlertDialog({
     @required this.themeColor,
-    this.actionButton,
+    this.actionButtons,
     this.title,
     this.content,
   });
@@ -24,20 +24,14 @@ class ModularAlertDialog extends StatelessWidget {
       child: AlertDialog(
         title: title,
         content: content,
-        actions: actionButton == null
+        actions: actionButtons == null
             ? [
                 TextButton(
-                  child: Text("Annuler"),
+                  child: Text("OK"),
                   onPressed: () => Navigator.pop(context),
                 ),
               ]
-            : [
-                TextButton(
-                  child: Text("Annuler"),
-                  onPressed: () => Navigator.pop(context),
-                ),
-                actionButton,
-              ],
+            : actionButtons,
       ),
     );
   }

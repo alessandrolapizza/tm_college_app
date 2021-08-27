@@ -38,10 +38,6 @@ class _AdvancedNotificationsSettingsBodyState
               notificationsPriorityNumber: notificationsPriorityNumber,
             ),
           ),
-          actionButton: TextButton(
-            child: Text("OK"),
-            onPressed: () => Navigator.pop(context),
-          ),
         );
       },
     );
@@ -69,7 +65,7 @@ class _AdvancedNotificationsSettingsBodyState
                               .getInt("notificationsPriorityNumberWhite") ??
                           0) ==
                       0
-                  ? ""
+                  ? "Aucune"
                   : widget.sharedPreferences
                               .getInt("notificationsPriorityNumberWhite") ==
                           1
@@ -89,7 +85,7 @@ class _AdvancedNotificationsSettingsBodyState
                               .getInt("notificationsPriorityNumberGreen") ??
                           1) ==
                       0
-                  ? ""
+                  ? "Aucune"
                   : widget.sharedPreferences
                               .getInt("notificationsPriorityNumberGreen") ==
                           1
@@ -108,7 +104,7 @@ class _AdvancedNotificationsSettingsBodyState
                               .getInt("notificationsPriorityNumberOrange") ??
                           3) ==
                       0
-                  ? ""
+                  ? "Aucune"
                   : widget.sharedPreferences
                               .getInt("notificationsPriorityNumberOrange") ==
                           1
@@ -127,7 +123,7 @@ class _AdvancedNotificationsSettingsBodyState
                               .getInt("notificationsPriorityNumberRed") ??
                           5) ==
                       0
-                  ? ""
+                  ? "Aucune"
                   : widget.sharedPreferences
                               .getInt("notificationsPriorityNumberRed") ==
                           1
@@ -137,6 +133,7 @@ class _AdvancedNotificationsSettingsBodyState
           ],
         ),
         SettingsSection(
+          titleTextStyle: TextStyle(),
           title:
               "Ces paramètres permettent de changer individuellement pour chaque pastille d'importance le nombre de notifications à envoyer. \n\nExemple : J'ai règlé ma pastille Moyenne sur 2 jours. Je l'applique sur un devoir pour le 10 janvier. Je recevrai alors une notification le 9 et le 8 janvier à l'heure de distribution réglée.",
           tiles: [],

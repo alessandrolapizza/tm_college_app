@@ -3,7 +3,6 @@ import 'package:settings_ui/settings_ui.dart';
 import "package:flutter_local_notifications/flutter_local_notifications.dart";
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tm_college_app/models/base_de_donnees.dart';
-import 'package:tm_college_app/models/devoir.dart';
 import 'package:tm_college_app/models/notifications.dart';
 
 class SettingsBody extends StatefulWidget {
@@ -104,27 +103,31 @@ class _SettingsBodyState extends State<SettingsBody>
                     );
                   },
                 ),
-                SettingsTile(
-                  title: "Avancé",
-                  enabled: snapshot.hasData &&
-                          (widget.sharedPreferences
-                                  .getBool("notificationsActivated") ??
-                              false)
-                      ? snapshot.data == Notifications.permGranted
-                      : false,
-                  onPressed: (_) {
-                    Navigator.pushNamed(
-                        context, "/advanced_notifications_settings_screen");
-                  },
-                ),
               ],
             ),
             SettingsSection(
               tiles: [],
+              titleTextStyle: TextStyle(),
               maxLines: 10,
+              //   titleTextStyle: TextStyle(),
               title:
                   "L'heure de rappel correspond à l'heure à laquelle chaque jours les notifications seront distribuées, s'il y en a.",
             ),
+            SettingsSection(tiles: [
+              SettingsTile(
+                title: "Avancé",
+                enabled: snapshot.hasData &&
+                        (widget.sharedPreferences
+                                .getBool("notificationsActivated") ??
+                            false)
+                    ? snapshot.data == Notifications.permGranted
+                    : false,
+                onPressed: (_) {
+                  Navigator.pushNamed(
+                      context, "/advanced_notifications_settings_screen");
+                },
+              ),
+            ]),
             SettingsSection(
               tiles: [
                 SettingsTile(
