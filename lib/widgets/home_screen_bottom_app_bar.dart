@@ -18,6 +18,10 @@ class HomePageBottomAppBar extends StatelessWidget {
           label: "Devoirs",
         ),
         BottomNavigationBarItem(
+          icon: Icon(Icons.list_alt),
+          label: "Notes",
+        ),
+        BottomNavigationBarItem(
           icon: Icon(Icons.school_rounded),
           label: "Matières",
         ),

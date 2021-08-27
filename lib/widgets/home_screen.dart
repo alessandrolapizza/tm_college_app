@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:tm_college_app/models/notifications.dart';
+import 'package:tm_college_app/widgets/home_screen_body_grades.dart';
 
 import 'package:tm_college_app/widgets/home_screen_bottom_app_bar.dart';
 import 'package:tm_college_app/widgets/modular_icon_button.dart';
@@ -37,6 +38,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
     if (_index == 0) {
       text = "Devoirs";
+    } else if (_index == 1) {
+      text = "Notes";
     } else {
       text = "Matières";
     }
@@ -53,6 +56,8 @@ class _HomeScreenState extends State<HomeScreen> {
         homePage: true,
         notifications: widget.notifications,
       );
+    } else if (_index == 1) {
+      body = HomeScreenBodyGrades();
     } else {
       body = HomeScreenBodySubjects(db);
     }
@@ -73,7 +78,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Color(0xFFEFEFF4),
       appBar: ModularAppBar(
         actions: _index == 0
             ? [
