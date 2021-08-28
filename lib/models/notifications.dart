@@ -47,7 +47,14 @@ class Notifications {
 
     await flutterLocalNotificationsPlugin.initialize(
       initializationSettings,
+      onSelectNotification: (String payload) async {
+        await notificationFired(payload: payload);
+      },
     );
+  }
+
+  Future<void> notificationFired({@required String payload}) async {
+    await sharedPreferences.setString("notificationOpenedAppPayload", payload);
   }
 
   Future<void> configureLocalTimeZone() async {

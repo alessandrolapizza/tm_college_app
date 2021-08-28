@@ -32,8 +32,14 @@ class _OneTimeIntroductionNotificationsSettingTileState
   }
 
   @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed && mounted) {
+    if (state == AppLifecycleState.resumed) {
       setState(() {
         permissionStatusFuture =
             widget.notifications.getCheckNotificationPermStatus();
@@ -55,8 +61,7 @@ class _OneTimeIntroductionNotificationsSettingTileState
               )
               .then((_) => setState(() {})),
           switchValue: snapshot.hasData &&
-                  (widget.sharedPreferences
-                          .getBool("notificationsActivated") ??
+                  (widget.sharedPreferences.getBool("notificationsActivated") ??
                       false)
               ? snapshot.data == Notifications.permGranted
               : false,

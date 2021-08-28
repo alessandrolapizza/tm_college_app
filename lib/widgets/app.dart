@@ -65,7 +65,8 @@ class App extends StatelessWidget {
       routes: {
         "/": (_) => sharedPreferences.getBool("introductionSeen") ?? false
             ? HomeScreen(
-                db: database,
+                sharedPreferences: sharedPreferences,
+                database: database,
                 notifications: notifications,
               )
             : OneTimeIntroductionScreen(

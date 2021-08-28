@@ -35,8 +35,14 @@ class _SettingsBodyState extends State<SettingsBody>
   }
 
   @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed && mounted) {
+    if (state == AppLifecycleState.resumed) {
       setState(
         () {
           permissionStatusFuture =
