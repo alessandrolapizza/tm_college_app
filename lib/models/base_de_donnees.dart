@@ -3,6 +3,7 @@ import "dart:convert";
 
 import "package:sqflite/sqflite.dart";
 import "package:path/path.dart";
+import 'package:tm_college_app/models/grade.dart';
 import 'package:tm_college_app/models/notifications.dart';
 
 import "./matiere.dart";
@@ -20,6 +21,9 @@ class BaseDeDonnees {
         );
         db.execute(
           "CREATE TABLE homeworks(id TEXT, subjectId TEXT, content TEXT, dueDate TEXT, priority INTEGER, done INTEGER, notificationsIds STRING)",
+        );
+        db.execute(
+          "CREATE TABLE grades(id TEXT, subjectId TEXT, grade REAL, coefficient REAL, date TEXT)",
         );
       },
       version: 1,
@@ -40,6 +44,15 @@ class BaseDeDonnees {
     await bD.insert(
       "homeworks",
       homework.toMapDb(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
+  Future<void> insertGrade(Grade grade) async {
+    final db = await database;
+    await db.insert(
+      "grades",
+      grade.toMapDb(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
@@ -106,6 +119,32 @@ class BaseDeDonnees {
     );
   }
 
+  Future<List<Grade>> grades() async {
+    final db = await database;
+
+    Map<String, Matiere> subjectsIdMaps = {};
+
+    final List<Map<String, dynamic>> gradesMaps = await db.query("grades");
+
+    final List<Matiere> subjectsList = await matieres();
+
+    subjectsList.forEach((subject) => subjectsIdMaps[subject.id] = subject);
+
+    return List.generate(
+      gradesMaps.length,
+      (i) => Grade(
+        id: gradesMaps[i]["id"],
+        subjectId: gradesMaps[i]["subjectId"],
+        subject: subjectsIdMaps[gradesMaps[i]["subjectId"]],
+        coefficient: gradesMaps[i]["coefficient"],
+        date: DateTime.parse(
+          gradesMaps[i]["date"],
+        ),
+        grade: gradesMaps[i]["grade"],
+      ),
+    );
+  }
+
   Future<void> modifierMatiere(Matiere matiere) async {
     final db = await database;
 
@@ -128,11 +167,32 @@ class BaseDeDonnees {
     );
   }
 
+  Future<void> updateGrade(Grade grade) async {
+    final db = await database;
+
+    await db.update(
+      "grades",
+      grade.toMapDb(),
+      where: "id = ?",
+      whereArgs: [grade.id],
+    );
+  }
+
   Future<void> supprimerMatiere(int id) async {
     final bD = await database;
 
     await bD.delete(
       "matieres",
+      where: "id = ?",
+      whereArgs: [id],
+    );
+  }
+
+  Future<void> deleteGrade(int id) async {
+    final db = await database;
+
+    await db.delete(
+      "grades",
       where: "id = ?",
       whereArgs: [id],
     );
