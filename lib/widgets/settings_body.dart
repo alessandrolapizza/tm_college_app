@@ -1,6 +1,5 @@
 import "package:flutter/material.dart";
 import 'package:settings_ui/settings_ui.dart';
-import "package:flutter_local_notifications/flutter_local_notifications.dart";
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tm_college_app/models/base_de_donnees.dart';
 import 'package:tm_college_app/models/notifications.dart';
@@ -119,56 +118,37 @@ class _SettingsBodyState extends State<SettingsBody>
               title:
                   "L'heure de rappel correspond à l'heure à laquelle chaque jours les notifications seront distribuées, s'il y en a.",
             ),
-            SettingsSection(tiles: [
-              SettingsTile(
-                title: "Avancé",
-                enabled: snapshot.hasData &&
-                        (widget.sharedPreferences
-                                .getBool("notificationsActivated") ??
-                            false)
-                    ? snapshot.data == Notifications.permGranted
-                    : false,
-                onPressed: (_) {
-                  Navigator.pushNamed(
-                      context, "/advanced_notifications_settings_screen");
-                },
-              ),
-            ]),
             SettingsSection(
               tiles: [
                 SettingsTile(
-                  title: "pending notifications",
-                  onPressed: (_) async {
-                    final List<PendingNotificationRequest>
-                        pendingNotificationRequests =
-                        await FlutterLocalNotificationsPlugin()
-                            .pendingNotificationRequests();
-                    return showDialog<void>(
-                      context: context,
-                      builder: (BuildContext context) => AlertDialog(
-                        content: Text(
-                            '${pendingNotificationRequests.length} pending notification '
-                            'requests'),
-                        actions: <Widget>[
-                          TextButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: const Text('OK'),
-                          ),
-                        ],
-                      ),
-                    );
+                  title: "Avancé",
+                  enabled: snapshot.hasData &&
+                          (widget.sharedPreferences
+                                  .getBool("notificationsActivated") ??
+                              false)
+                      ? snapshot.data == Notifications.permGranted
+                      : false,
+                  onPressed: (_) {
+                    Navigator.pushNamed(
+                        context, "/advanced_notifications_settings_screen");
                   },
                 ),
-                SettingsTile(
-                  title: "suppr notificationsActivated",
-                  onPressed: (_) async {
-                    await FlutterLocalNotificationsPlugin().cancelAll();
-                  },
-                )
               ],
-              title: "Super Secret Menu",
+            ),
+            SettingsSection(
+              tiles: [
+                SettingsTile(
+                  title: "Licences",
+                  onPressed: (_) => showLicensePage(
+                    context: context,
+                    applicationIcon: Image.asset(
+                      "assets/images/transparent_icon.png",
+                      scale: 15,
+                    ),
+                  ),
+                ),
+              ],
+              title: "À propos",
             ),
           ],
         );

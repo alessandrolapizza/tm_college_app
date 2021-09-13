@@ -9,7 +9,7 @@ class ModularOutlinedButton extends StatelessWidget {
 
   ModularOutlinedButton({
     this.child,
-    this.onPressedFunction,
+    @required this.onPressedFunction,
     this.missingObject,
   });
 

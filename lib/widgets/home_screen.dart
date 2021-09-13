@@ -2,11 +2,13 @@ import "package:flutter/material.dart";
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tm_college_app/models/devoir.dart';
+import 'package:tm_college_app/models/matiere.dart';
 import 'package:tm_college_app/models/notifications.dart';
 import 'package:tm_college_app/widgets/home_screen_body_grades.dart';
 
 import 'package:tm_college_app/widgets/home_screen_bottom_app_bar.dart';
 import 'package:tm_college_app/widgets/modular_icon_button.dart';
+import 'package:tm_college_app/widgets/edit_grade_dialog.dart';
 import "./modular_app_bar.dart";
 import 'homeworks_list.dart';
 import "./modular_floating_action_button.dart";
@@ -69,11 +71,23 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     return body;
   }
 
-  void _routePointer() {
+  void _routePointer() async {
+    List<Matiere> subjects;
     if (_index == 0) {
       Navigator.pushNamed(context, "/edit_homework_screen",
           arguments: [null, true]).then((_) => setState(() {}));
     } else if (_index == 1) {
+      subjects = await widget.database.matieres();
+      showDialog(
+        context: context,
+        builder: (_) {
+          return EditGradeDialog(
+            sharedPreferences: widget.sharedPreferences,
+            subjects: subjects,
+          );
+        },
+      );
+    } else {
       Navigator.pushNamed(context, "/create_subject_screen")
           .then((_) => setState(() {}));
     }
@@ -110,7 +124,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                 homework,
                 true,
               ],
-            );
+            ).then((_) => setState(() {}));
             await widget.sharedPreferences
                 .setString("notificationOpenedAppPayload", "");
           }
