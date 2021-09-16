@@ -25,20 +25,30 @@ class EditGradeForm extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           DropdownButtonFormField(
+            validator: (value) {
+              if (value == "0") {
+                return "Une matière doit être sélectionnée";
+              } else {
+                return null;
+              }
+            },
             value: dropdownValue,
             onChanged: (value) => onChangedFunction(value),
-            items: List.from([
-              DropdownMenuItem(
-                  child: Text("Sélectionner une matière"), value: "0")
-            ])
-              ..addAll(subjects.map<DropdownMenuItem<String>>(
-                (Matiere value) {
-                  return DropdownMenuItem<String>(
-                    value: value.id,
-                    child: Text(value.nom),
-                  );
-                },
-              ).toList()),
+            items: List.from(
+              [
+                DropdownMenuItem(
+                    child: Text("Sélectionner une matière"), value: "0")
+              ],
+            )..addAll(
+                subjects.map<DropdownMenuItem<String>>(
+                  (Matiere value) {
+                    return DropdownMenuItem<String>(
+                      value: value.id,
+                      child: Text(value.nom),
+                    );
+                  },
+                ).toList(),
+              ),
           ),
           Padding(
             padding: EdgeInsets.only(bottom: 15),
@@ -49,7 +59,7 @@ class EditGradeForm extends StatelessWidget {
                 child: TextFormField(
                   selectionControls: materialTextSelectionControls,
                   validator: (value) {
-                    if (value == null) {
+                    if (value == null || value == "") {
                       return "Une note doit être fournie";
                     } else if (int.parse(value) >= 1 && int.parse(value) <= 6) {
                       return null;
@@ -73,6 +83,13 @@ class EditGradeForm extends StatelessWidget {
               ),
               Expanded(
                 child: TextFormField(
+                  validator: (value) {
+                    if (value == null || value == "") {
+                      return "Un coefficient doit être fourni";
+                    } else {
+                      return null;
+                    }
+                  },
                   selectionControls: materialTextSelectionControls,
                   controller: null, // changer
                   maxLength: 3,

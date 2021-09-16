@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tm_college_app/models/matiere.dart';
 import 'package:tm_college_app/widgets/edit_grade_form.dart';
@@ -26,6 +27,8 @@ class _EditGradeDialogState extends State<EditGradeDialog> {
   DateTime _selectedGradeDate;
 
   String _dropdownValue = "0";
+
+  bool _gradeDateMissing = false;
 
   void _onChangedFuntion(value) {
     if (value != "0") {
@@ -62,6 +65,14 @@ class _EditGradeDialogState extends State<EditGradeDialog> {
     }
   }
 
+  _addGrade() {
+    if (_editGradeFormKey.currentState.validate() &&
+        _selectedGradeDate != null) {
+    } else if (_selectedGradeDate == null) {
+      setState(() => _gradeDateMissing = true);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return ModularAlertDialog(
@@ -81,8 +92,12 @@ class _EditGradeDialogState extends State<EditGradeDialog> {
             ),
             ModularOutlinedButton(
               onPressedFunction: _selectGradeDate,
-              child: Text("Date"),
-              missingObject: _selectedGradeDate,
+              child: _selectedGradeDate == null
+                  ? Text("Date")
+                  : Text(
+                      DateFormat("EEE d MMMM").format(_selectedGradeDate),
+                    ),
+              missingObject: _gradeDateMissing,
             )
           ],
         ),
@@ -95,7 +110,7 @@ class _EditGradeDialogState extends State<EditGradeDialog> {
           child: Text("Annuler"),
         ),
         TextButton(
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => _addGrade(),
           child: Text("Enregistrer"),
         ),
       ],
