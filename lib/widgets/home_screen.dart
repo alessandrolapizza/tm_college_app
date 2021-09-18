@@ -82,6 +82,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
         context: context,
         builder: (_) {
           return EditGradeDialog(
+            database: widget.database,
             sharedPreferences: widget.sharedPreferences,
             subjects: subjects,
           );
