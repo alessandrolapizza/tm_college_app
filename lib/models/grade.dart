@@ -1,4 +1,5 @@
 import "package:flutter/foundation.dart";
+import 'package:flutter/material.dart';
 import 'package:tm_college_app/models/matiere.dart';
 import 'package:uuid/uuid.dart';
 
@@ -27,5 +28,17 @@ class Grade {
       "coefficient": coefficient,
       "date": date.toString(),
     };
+  }
+
+  static Color color({@required average}) {
+    if (average < 3) {
+      return Colors.red;
+    } else if (average < 4) {
+      return Colors.orange;
+    } else if (average < 5) {
+      return Colors.lightGreen;
+    } else {
+      return Colors.green;
+    }
   }
 }

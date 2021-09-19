@@ -33,7 +33,9 @@ class _EditGradeDialogState extends State<EditGradeDialog> {
   final TextEditingController _coefficientController =
       TextEditingController(text: "1");
 
-  DateTime _selectedGradeDate;
+  final TextEditingController _gradeController = TextEditingController();
+
+  DateTime _selectedGradeDate = DateTime.now();
 
   String _dropdownValue = "0";
 
@@ -77,15 +79,18 @@ class _EditGradeDialogState extends State<EditGradeDialog> {
   _addGrade() {
     if (_editGradeFormKey.currentState.validate() &&
         _selectedGradeDate != null) {
-      // widget.database.insertGrade(
-      // Grade(
-      //    coefficient: double.parse(_coefficientController.text),
-      //     ),
-      //    );
+      widget.database.insertGrade(
+        Grade(
+            coefficient: double.parse(_coefficientController.text),
+            date: _selectedGradeDate,
+            grade: double.parse(_gradeController.text),
+            subjectId: _dropdownValue),
+      );
+      Navigator.pop(context);
     } else if (_selectedGradeDate == null) {
-      //print(double.parse(_coefficientController.text));
-
       setState(() => _gradeDateMissing = true);
+    } else {
+      setState(() => _gradeDateMissing = false);
     }
   }
 
@@ -100,6 +105,7 @@ class _EditGradeDialogState extends State<EditGradeDialog> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 EditGradeForm(
+                  gradeController: _gradeController,
                   coefficientController: _coefficientController,
                   editGradeFormKey: _editGradeFormKey,
                   dropdownValue: _dropdownValue,
@@ -117,7 +123,8 @@ class _EditGradeDialogState extends State<EditGradeDialog> {
                           DateFormat("EEE d MMMM").format(_selectedGradeDate),
                         ),
                   missingObject: _gradeDateMissing,
-                ),Padding(
+                ),
+                Padding(
                   padding: EdgeInsets.only(bottom: 10),
                 ),
               ],

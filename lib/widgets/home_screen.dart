@@ -63,7 +63,10 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
         notifications: widget.notifications,
       );
     } else if (_index == 1) {
-      body = HomeScreenBodyGrades();
+      body = HomeScreenBodyGrades(
+        database: widget.database,
+        sharedPreferences: widget.sharedPreferences,
+      );
     } else {
       body = HomeScreenBodySubjects(widget.database);
     }
@@ -87,7 +90,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
             subjects: subjects,
           );
         },
-      );
+      ).then((_) => setState(() {}));
     } else {
       Navigator.pushNamed(context, "/create_subject_screen")
           .then((_) => setState(() {}));

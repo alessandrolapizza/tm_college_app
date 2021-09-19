@@ -13,12 +13,15 @@ class EditGradeForm extends StatelessWidget {
 
   final TextEditingController coefficientController;
 
+  final TextEditingController gradeController;
+
   EditGradeForm({
     @required this.dropdownValue,
     @required this.onChangedFunction,
     @required this.subjects,
     @required this.editGradeFormKey,
     @required this.coefficientController,
+    @required this.gradeController,
   });
 
   @override
@@ -81,7 +84,7 @@ class EditGradeForm extends StatelessWidget {
                       return "La note doit être comprise entre 1 et 6";
                     }
                   }, //changer
-                  controller: null, // changer
+                  controller: gradeController,
                   maxLength: 3,
                   keyboardType: TextInputType.numberWithOptions(decimal: true),
                   textInputAction: TextInputAction.next,
