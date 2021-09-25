@@ -28,12 +28,14 @@ class DatePickerOutlinedButton extends StatelessWidget {
               !enabled ? MaterialStateProperty.all(Colors.grey) : null,
         ),
         onPressed: () => enabled ? function() : null,
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(text + " "),
-            Icon(Icons.date_range),
-          ],
+        child: FittedBox(
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(text + " "),
+              Icon(Icons.date_range),
+            ],
+          ),
         ),
       ),
     );

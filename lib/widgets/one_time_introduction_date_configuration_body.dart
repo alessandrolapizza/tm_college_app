@@ -107,21 +107,21 @@ class _OneTimeIntroductionDateConfigurationBodyState
         DatePickerOutlinedButton(
           enabled: true,
           text: _selectedFirstTermBeginingDate != null
-              ? "Début du premier semestre ${DateFormat("d/MM/y").format(_selectedFirstTermBeginingDate)}"
+              ? "Début du premier semestre : ${DateFormat("d.MM.y").format(_selectedFirstTermBeginingDate)}"
               : "Début du premier semestre",
           function: _selectFirstTermBeginingDate,
         ),
         DatePickerOutlinedButton(
           enabled: _selectedFirstTermBeginingDate != null,
           text: _selectedSecondTermBeginingDate != null
-              ? "Début du deuxième semestre ${DateFormat("d/MM/y").format(_selectedSecondTermBeginingDate)}"
+              ? "Début du deuxième semestre : ${DateFormat("d.MM.y").format(_selectedSecondTermBeginingDate)}"
               : "Début du deuxième semestre",
           function: _selectSecondTermBeginingDate,
         ),
         DatePickerOutlinedButton(
           enabled: _selectedSecondTermBeginingDate != null,
           text: _selectedSecondTermEndDate != null
-              ? "Fin du deuxième semestre ${DateFormat("d/MM/y").format(_selectedSecondTermEndDate)}"
+              ? "Fin du deuxième semestre : ${DateFormat("d.MM.y").format(_selectedSecondTermEndDate)}"
               : "Fin du deuxième semestre",
           function: _selectSecondTermEndDate,
         ),
