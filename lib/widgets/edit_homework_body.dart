@@ -4,6 +4,7 @@ import 'package:tm_college_app/widgets/edit_homework_select_date_button.dart';
 import 'package:tm_college_app/widgets/edit_homework_select_priority_button.dart';
 import 'package:tm_college_app/widgets/edit_homework_select_subject_button.dart';
 import 'package:tm_college_app/widgets/edit_screens_bottom_buttons.dart';
+import 'package:tm_college_app/widgets/fade_gradient.dart';
 import "../models/matiere.dart";
 
 class EditHomeworkBody extends StatelessWidget {
@@ -43,51 +44,63 @@ class EditHomeworkBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Center(
+      child: Align(
+        alignment: Alignment.topCenter,
         child: SizedBox(
           width: MediaQuery.of(context).size.width / 1.05,
           child: Column(
             children: [
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 5),
-              ),
-              Column(
-                children: [
-                  EditHomeworkSelectSubjectButton(
-                    selectSubjectFunction: selectSubjectFunction,
-                    selectedSubject: selectedSubject,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(bottom: 15),
-                  ),
-                  EditHomeworkForm(
-                    homeworkContentController: homeworkContentController,
-                    createHomeworkFormKey: createHomeworkFormKey,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(bottom: 15),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width / 2.3,
-                        child: EditHomeworkSelectDateButton(
-                          selectDateFunction: selectDateFunction,
-                          selectedDate: selectedDate,
-                          dateMissing: dateMissing,
+              Expanded(
+                child: FadeGradient(
+                  child: SingleChildScrollView(
+                    keyboardDismissBehavior:
+                        ScrollViewKeyboardDismissBehavior.onDrag,
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 5),
                         ),
-                      ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width / 2.3,
-                        child: EditHomeworkSelectPriorityButton(
-                          selectPriorityFunction: selectPriorityFunction,
-                          selectedPriority: selectedPriority,
+                        EditHomeworkSelectSubjectButton(
+                          selectSubjectFunction: selectSubjectFunction,
+                          selectedSubject: selectedSubject,
                         ),
-                      ),
-                    ],
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 15),
+                        ),
+                        EditHomeworkForm(
+                          homeworkContentController: homeworkContentController,
+                          createHomeworkFormKey: createHomeworkFormKey,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 15),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 2.3,
+                              child: EditHomeworkSelectDateButton(
+                                selectDateFunction: selectDateFunction,
+                                selectedDate: selectedDate,
+                                dateMissing: dateMissing,
+                              ),
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 2.3,
+                              child: EditHomeworkSelectPriorityButton(
+                                selectPriorityFunction: selectPriorityFunction,
+                                selectedPriority: selectedPriority,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 5),
+                        ),
+                      ],
+                    ),
                   ),
-                ],
+                ),
               ),
               EditScreensBottomButton(editFunction: editHomeworkFunction),
             ],

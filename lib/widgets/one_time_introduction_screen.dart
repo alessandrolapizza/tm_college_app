@@ -30,6 +30,7 @@ class _OneTimeIntroductionScreenState extends State<OneTimeIntroductionScreen> {
   @override
   Widget build(BuildContext context) {
     return IntroductionScreen(
+      dotsFlex: 2,
       showDoneButton: _show,
       color: Colors.black,
       done: Text(
@@ -70,7 +71,7 @@ class _OneTimeIntroductionScreenState extends State<OneTimeIntroductionScreen> {
             color: Colors.orangeAccent,
           ),
           body:
-              "Cette application a été conçue dans la cadre d'un travail de maturité à Genève. Elle est donc pour l'instant restreinte au fonctionnement général des écoles qui font partie du secondaire 2. (Collège, ECG)",
+              "Cette application a été conçue dans la cadre d'un travail de maturité à Genève. Elle est donc pour l'instant restreinte au fonctionnement général de ses collèges.",
           useScrollView: true,
         ),
         PageViewModel(
@@ -81,11 +82,7 @@ class _OneTimeIntroductionScreenState extends State<OneTimeIntroductionScreen> {
             color: Theme.of(context).primaryColor,
           ),
           body:
-              "Les notifications te permettent de te rappeler de tes devoirs aux heures qui te conviennent. Elles sont désactivables et customisables à tout moment dans les paramètres de l'application.",
-          decoration: PageDecoration(
-            bodyFlex: 10,
-            imageFlex: 9,
-          ),
+              "Les notifications te permettent de te rappeler de tes devoirs aux heures qui te conviennent. Elles sont désactivables et customisables à tout moment dans les paramètres.",
           useScrollView: true,
           footer: OneTimeIntroductionNotificationsSettingTile(
             sharedPreferences: widget.sharedPreferences,

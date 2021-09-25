@@ -7,25 +7,23 @@ class EditScreensBottomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Align(
-        alignment: Alignment.bottomCenter,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: Text("Annuler"),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 5),
-            ),
-            ElevatedButton(
-              onPressed: () => editFunction(),
-              child: Text("Enregistrer"),
-            ),
-          ],
-        ),
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text("Annuler"),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 5),
+          ),
+          ElevatedButton(
+            onPressed: () => editFunction(),
+            child: Text("Enregistrer"),
+          ),
+        ],
       ),
     );
   }

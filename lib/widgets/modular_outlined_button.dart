@@ -34,7 +34,7 @@ class ModularOutlinedButton extends StatelessWidget {
               : null,
         ),
         onPressed: () => onPressedFunction(),
-        child: child,
+        child: FittedBox(child: child),
       ),
     );
   }

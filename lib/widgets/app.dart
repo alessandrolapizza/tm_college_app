@@ -14,8 +14,6 @@ import 'package:tm_college_app/widgets/settings_screen.dart';
 import 'home_screen.dart';
 import "../models/base_de_donnees.dart";
 
-import "./page_visualiser_matiere.dart";
-
 class App extends StatelessWidget {
   final BaseDeDonnees database;
 
@@ -54,6 +52,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       navigatorObservers: [routeObserver],
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
