@@ -1,10 +1,9 @@
 import "package:flutter/material.dart";
-
 import "package:sortedmap/sortedmap.dart";
-import 'package:sticky_headers/sticky_headers/widget.dart';
 import "package:intl/intl.dart";
 import 'package:tm_college_app/models/notifications.dart';
 import 'package:tm_college_app/widgets/modular_icon_button.dart';
+import 'package:tm_college_app/widgets/modular_sticky_header.dart';
 
 import "./carte_devoir.dart";
 import "../models/devoir.dart";
@@ -99,30 +98,7 @@ class _HomeworksList extends State<HomeworksList> {
                   controller: _scrollControllerHomeworks,
                   itemCount: homeworks.length,
                   itemBuilder: (_, index) {
-                    return StickyHeader(
-                      header: Container(
-                          height: 30,
-                          width: double.infinity,
-                          child: Material(
-                            elevation: 1.5,
-                            child: Container(
-                              color: Colors.grey[50],
-                              child: Center(
-                                child: Text(
-                                  DateFormat("EEEE d MMMM").format(
-                                    homeworks.keys.toList()[index],
-                                  ),
-                                  style: TextStyle(
-                                      color: DateTime.now().isAfter(
-                                        homeworks.keys.toList()[index],
-                                      )
-                                          ? Colors.red
-                                          : Colors.black,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                              ),
-                            ),
-                          )),
+                    return ModularStickyHeader(
                       content: ListView.builder(
                         physics: NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
@@ -155,6 +131,18 @@ class _HomeworksList extends State<HomeworksList> {
                                   ),
                           );
                         },
+                      ),
+                      header: Text(
+                        DateFormat("EEEE d MMMM").format(
+                          homeworks.keys.toList()[index],
+                        ),
+                        style: TextStyle(
+                            color: DateTime.now().isAfter(
+                              homeworks.keys.toList()[index],
+                            )
+                                ? Colors.red
+                                : Colors.black,
+                            fontWeight: FontWeight.w500),
                       ),
                     );
                   },
