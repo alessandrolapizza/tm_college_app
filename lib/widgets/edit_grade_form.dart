@@ -31,35 +31,44 @@ class EditGradeForm extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          DropdownButtonFormField(
-            validator: (value) {
-              if (value == "0") {
-                return "Une matière doit être sélectionnée";
-              } else {
-                return null;
-              }
-            },
-            value: dropdownValue,
-            onChanged: (value) => onChangedFunction(value),
-            items: List.from(
-              [
-                DropdownMenuItem(
-                    child: Text("Sélectionner une matière"), value: "0")
-              ],
-            )..addAll(
-                subjects.map<DropdownMenuItem<String>>(
-                  (Matiere value) {
-                    return DropdownMenuItem<String>(
-                      value: value.id,
-                      child: Text(value.nom),
-                    );
-                  },
-                ).toList(),
-              ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(bottom: 15),
-          ),
+          subjects == null || subjects.length == 1
+              ? Padding(
+                  padding: EdgeInsets.only(bottom: 15),
+                )
+              : Column(
+                  children: [
+                    DropdownButtonFormField(
+                      validator: (value) {
+                        if (value == "0") {
+                          return "Une matière doit être sélectionnée";
+                        } else {
+                          return null;
+                        }
+                      },
+                      value: dropdownValue,
+                      onChanged: (value) => onChangedFunction(value),
+                      items: List.from(
+                        [
+                          DropdownMenuItem(
+                              child: Text("Sélectionner une matière"),
+                              value: "0")
+                        ],
+                      )..addAll(
+                          subjects.map<DropdownMenuItem<String>>(
+                            (Matiere value) {
+                              return DropdownMenuItem<String>(
+                                value: value.id,
+                                child: Text(value.nom),
+                              );
+                            },
+                          ).toList(),
+                        ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 15),
+                    ),
+                  ],
+                ),
           Row(
             children: [
               Expanded(
@@ -68,7 +77,7 @@ class EditGradeForm extends StatelessWidget {
                   validator: (value) {
                     bool isDouble = false;
                     try {
-                      double.parse(value);
+                      double.parse(value.replaceAll(",", "."));
                       isDouble = true;
                     } on FormatException {
                       isDouble = false;
@@ -77,8 +86,8 @@ class EditGradeForm extends StatelessWidget {
                       return "Une note doit être fournie";
                     } else if (!isDouble) {
                       return "Une note valide doit être fournie";
-                    } else if (double.parse(value) >= 1 &&
-                        double.parse(value) <= 6) {
+                    } else if (double.parse(value.replaceAll(",", ".")) >= 1 &&
+                        double.parse(value.replaceAll(",", ".")) <= 6) {
                       return null;
                     } else {
                       return "La note doit être comprise entre 1 et 6";
@@ -103,7 +112,7 @@ class EditGradeForm extends StatelessWidget {
                   validator: (value) {
                     bool isDouble = false;
                     try {
-                      double.parse(value);
+                      double.parse(value.replaceAll(",", "."));
                       isDouble = true;
                     } on FormatException {
                       isDouble = false;

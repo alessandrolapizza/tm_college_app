@@ -17,10 +17,13 @@ class EditGradeDialog extends StatefulWidget {
 
   final BaseDeDonnees database;
 
+  final Grade grade;
+
   EditGradeDialog({
-    @required this.subjects,
     @required this.sharedPreferences,
     @required this.database,
+    this.grade,
+    this.subjects,
   });
 
   @override
@@ -40,6 +43,16 @@ class _EditGradeDialogState extends State<EditGradeDialog> {
   String _dropdownValue = "0";
 
   bool _gradeDateMissing = false;
+
+  void initState() {
+    super.initState();
+    if (widget.grade != null) {
+      _gradeController.text = widget.grade.grade.toString();
+      _selectedGradeDate = widget.grade.date;
+      _coefficientController.text =
+          widget.grade.coefficient.toString().substring(0, 3);
+    }
+  }
 
   void _onChangedFuntion(value) {
     if (value != "0") {
@@ -76,16 +89,29 @@ class _EditGradeDialogState extends State<EditGradeDialog> {
     }
   }
 
-  _addGrade() {
+  _editGrade() {
     if (_editGradeFormKey.currentState.validate() &&
         _selectedGradeDate != null) {
-      widget.database.insertGrade(
-        Grade(
-            coefficient: double.parse(_coefficientController.text),
+      if (widget.grade != null) {
+        widget.database.updateGrade(Grade(
+            coefficient:
+                double.parse(_coefficientController.text.replaceAll(",", ".")),
             date: _selectedGradeDate,
-            grade: double.parse(_gradeController.text),
-            subjectId: _dropdownValue),
-      );
+            grade: double.parse(_gradeController.text.replaceAll(",", ".")),
+            subjectId: widget.grade.subjectId,
+            id: widget.grade.id));
+      } else {
+        widget.database.insertGrade(
+          Grade(
+              coefficient: double.parse(
+                  _coefficientController.text.replaceAll(",", ".")),
+              date: _selectedGradeDate,
+              grade: double.parse(_gradeController.text.replaceAll(",", ".")),
+              subjectId: widget.subjects.length == 1
+                  ? widget.subjects[0].id
+                  : _dropdownValue),
+        );
+      }
       Navigator.pop(context);
     } else if (_selectedGradeDate == null) {
       setState(() => _gradeDateMissing = true);
@@ -133,14 +159,14 @@ class _EditGradeDialogState extends State<EditGradeDialog> {
         ),
       ),
       themeColor: Theme.of(context).primaryColor,
-      title: Text("Nouvelle note"),
+      title: Text(widget.subjects == null ? "Modifier note" : "Nouvelle note"),
       actionButtons: [
         TextButton(
           onPressed: () => Navigator.pop(context),
           child: Text("Annuler"),
         ),
         TextButton(
-          onPressed: () => _addGrade(),
+          onPressed: () => _editGrade(),
           child: Text("Enregistrer"),
         ),
       ],

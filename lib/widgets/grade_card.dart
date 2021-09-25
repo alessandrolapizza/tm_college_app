@@ -9,15 +9,18 @@ class GradeCard extends StatelessWidget {
 
   final List<Map<DateTime, double>> averages;
 
+  final Function onTapFunction;
+
   GradeCard({
     @required this.subject,
-    this.averages,
+    @required this.averages,
+    this.onTapFunction,
   });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: onTapFunction != null ? onTapFunction : null,
       child: Card(
           child: Container(
         height: 100,
@@ -54,13 +57,13 @@ class GradeCard extends StatelessWidget {
                     child: ModularChart(
                       averages: averages,
                       color: Grade.color(
-                        average: double.parse(
-                          averages[averages.length - 1]
-                              .values
-                              .toList()[0]
-                              .toStringAsFixed(1),
-                        ),
-                      ),
+                              average: double.parse(
+                                averages[averages.length - 1]
+                                    .values
+                                    .toList()[0]
+                                    .toStringAsFixed(1),
+                              ),
+                            ),
                     ),
                   ),
                 ],

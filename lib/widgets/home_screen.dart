@@ -66,6 +66,12 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
       body = HomeScreenBodyGrades(
         database: widget.database,
         sharedPreferences: widget.sharedPreferences,
+        onTapFunctionGradeCard: ({
+          @required int index,
+          @required Matiere subject,
+        }) =>
+            Navigator.pushNamed(context, "/view_grade_screen",
+                arguments: [subject, index]).then((_) => setState(() {})),
       );
     } else {
       body = HomeScreenBodySubjects(widget.database);

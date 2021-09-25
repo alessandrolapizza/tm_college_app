@@ -16,7 +16,7 @@ class CarteMatiere extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onTapFunction,
+      onTap: onTapFunction != null ? onTapFunction : null,
       child: Container(
         height: 90,
         width: double.infinity,

@@ -188,7 +188,7 @@ class BaseDeDonnees {
     );
   }
 
-  Future<void> deleteGrade(int id) async {
+  Future<void> deleteGrade(String id) async {
     final db = await database;
 
     await db.delete(
