@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tm_college_app/models/base_de_donnees.dart';
 import 'package:tm_college_app/models/grade.dart';
+import 'package:tm_college_app/widgets/empty_centered_text.dart';
 import 'package:tm_college_app/widgets/grade_card.dart';
 
 class HomeScreenBodyGrades extends StatelessWidget {
@@ -27,20 +28,26 @@ class HomeScreenBodyGrades extends StatelessWidget {
           final List maps = Grade.gradesMaps(
             grades: snapshot.data,
             sharedPreferences: sharedPreferences,
-          );  
+          );
           final gradesSorted = maps[0];
           final averages = maps[1];
-          child = ListView.builder(
-            itemCount: gradesSorted.length,
-            itemBuilder: (_, index) {
-              return GradeCard(
-                onTapFunction: () => onTapFunctionGradeCard(
-                    index: index, subject: averages.keys.toList()[index]),
-                subject: averages.keys.toList()[index],
-                averages: averages[averages.keys.toList()[index]],
-              );
-            },
-          );
+          if (gradesSorted.length == 0) {
+            child = EmptyCenteredText(
+                content:
+                    "Aucune moyennes pour le moment.\nPour ajouter une note, clique sur le +");
+          } else {
+            child = ListView.builder(
+              itemCount: gradesSorted.length,
+              itemBuilder: (_, index) {
+                return GradeCard(
+                  onTapFunction: () => onTapFunctionGradeCard(
+                      index: index, subject: averages.keys.toList()[index]),
+                  subject: averages.keys.toList()[index],
+                  averages: averages[averages.keys.toList()[index]],
+                );
+              },
+            );
+          }
         } else {
           child = Center(child: CircularProgressIndicator());
         }

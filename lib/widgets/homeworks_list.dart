@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:sortedmap/sortedmap.dart";
 import "package:intl/intl.dart";
 import 'package:tm_college_app/models/notifications.dart';
+import 'package:tm_college_app/widgets/empty_centered_text.dart';
 import 'package:tm_college_app/widgets/modular_icon_button.dart';
 import 'package:tm_college_app/widgets/modular_sticky_header.dart';
 
@@ -91,62 +92,66 @@ class _HomeworksList extends State<HomeworksList> {
                   ? homeworksDateMapToDoSorted
                   : homeworksDateMapDoneSorted;
 
-          child = homeworks.length == 0
-              ? Text("test")
-              : ListView.builder(
-                  physics: AlwaysScrollableScrollPhysics(),
-                  controller: _scrollControllerHomeworks,
-                  itemCount: homeworks.length,
-                  itemBuilder: (_, index) {
-                    return ModularStickyHeader(
-                      content: ListView.builder(
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: homeworks.values.toList()[index].length,
-                        itemBuilder: (_, idx) {
-                          return CarteDevoir(
-                            devoir: homeworks.values.toList()[index][idx],
-                            onTapFunction: () => Navigator.pushNamed(
-                              context,
-                              "/view_homework_screen",
-                              arguments: [
-                                homeworks.values.toList()[index][idx],
-                                widget.homePage,
-                              ],
-                            ).then((_) => setState(() {})),
-                            actionButton: widget.homePage
-                                ? ModularIconButton(
-                                    color: Colors.green,
-                                    onPressedFunction: () => checkHomework(
-                                      homeworks.values.toList()[index][idx],
-                                    ),
-                                    icon: Icons.check,
-                                  )
-                                : ModularIconButton(
-                                    color: Colors.orange,
-                                    onPressedFunction: () => checkHomework(
-                                      homeworks.values.toList()[index][idx],
-                                    ),
-                                    icon: Icons.settings_backup_restore,
-                                  ),
-                          );
-                        },
-                      ),
-                      header: Text(
-                        DateFormat("EEEE d MMMM").format(
+          if (homeworks.length == 0) {
+            child = EmptyCenteredText(
+                content:
+                    "Auncun devoirs pour le moment.\nPour créer un devoir, clique sur le +");
+          } else {
+            child = ListView.builder(
+              physics: AlwaysScrollableScrollPhysics(),
+              controller: _scrollControllerHomeworks,
+              itemCount: homeworks.length,
+              itemBuilder: (_, index) {
+                return ModularStickyHeader(
+                  content: ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: homeworks.values.toList()[index].length,
+                    itemBuilder: (_, idx) {
+                      return CarteDevoir(
+                        devoir: homeworks.values.toList()[index][idx],
+                        onTapFunction: () => Navigator.pushNamed(
+                          context,
+                          "/view_homework_screen",
+                          arguments: [
+                            homeworks.values.toList()[index][idx],
+                            widget.homePage,
+                          ],
+                        ).then((_) => setState(() {})),
+                        actionButton: widget.homePage
+                            ? ModularIconButton(
+                                color: Colors.green,
+                                onPressedFunction: () => checkHomework(
+                                  homeworks.values.toList()[index][idx],
+                                ),
+                                icon: Icons.check,
+                              )
+                            : ModularIconButton(
+                                color: Colors.orange,
+                                onPressedFunction: () => checkHomework(
+                                  homeworks.values.toList()[index][idx],
+                                ),
+                                icon: Icons.settings_backup_restore,
+                              ),
+                      );
+                    },
+                  ),
+                  header: Text(
+                    DateFormat("EEEE d MMMM").format(
+                      homeworks.keys.toList()[index],
+                    ),
+                    style: TextStyle(
+                        color: DateTime.now().isAfter(
                           homeworks.keys.toList()[index],
-                        ),
-                        style: TextStyle(
-                            color: DateTime.now().isAfter(
-                              homeworks.keys.toList()[index],
-                            )
-                                ? Colors.red
-                                : Colors.black,
-                            fontWeight: FontWeight.w500),
-                      ),
-                    );
-                  },
+                        )
+                            ? Colors.red
+                            : Colors.black,
+                        fontWeight: FontWeight.w500),
+                  ),
                 );
+              },
+            );
+          }
         } else {
           child = Center(child: CircularProgressIndicator());
         }

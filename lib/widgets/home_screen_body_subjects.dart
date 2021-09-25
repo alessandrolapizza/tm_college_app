@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:tm_college_app/widgets/empty_centered_text.dart';
 
 import "./carte_matiere.dart";
 import "../models/base_de_donnees.dart";
@@ -18,21 +19,28 @@ class HomeScreenBodySubjects extends StatelessWidget {
     return FutureBuilder(
       future: db.matieres(),
       builder: (_, snapshot) {
-        var children;
+        var child;
         if (snapshot.hasData) {
-          children = ListView.builder(
-            itemCount: snapshot.data.length,
-            itemBuilder: (_, index) {
-              return CarteMatiere(
-                matiere: snapshot.data[index],
-                onTapFunction: () => onTapSubjectCardFunction(subject: snapshot.data[index]),
-              );
-            },
-          );
+          if (snapshot.data.length == 0) {
+            child = EmptyCenteredText(
+                content:
+                    "Aucune matières pour le moment.\nPour créer une matière, clique sur le +");
+          } else {
+            child = ListView.builder(
+              itemCount: snapshot.data.length,
+              itemBuilder: (_, index) {
+                return CarteMatiere(
+                  matiere: snapshot.data[index],
+                  onTapFunction: () =>
+                      onTapSubjectCardFunction(subject: snapshot.data[index]),
+                );
+              },
+            );
+          }
         } else {
-          children = Center(child: CircularProgressIndicator());
+          child = Center(child: CircularProgressIndicator());
         }
-        return children;
+        return child;
       },
     );
   }
