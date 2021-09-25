@@ -45,6 +45,13 @@ class _HomeworksList extends State<HomeworksList> {
       duration: Duration(milliseconds: 1),
       curve: Curves.bounceIn,
     );
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(homework.done
+            ? "Devoir marqué comme \"non fait\"."
+            : "Devoir marqué comme \"complété\"."),
+      ),
+    );
   }
 
   @override
@@ -94,7 +101,8 @@ class _HomeworksList extends State<HomeworksList> {
 
           if (homeworks.length == 0) {
             if (!widget.homePage) {
-              child = EmptyCenteredText(content: "Aucun devoirs complétés pour le moment.");
+              child = EmptyCenteredText(
+                  content: "Aucun devoirs complétés pour le moment.");
             } else {
               child = EmptyCenteredText(
                   content:

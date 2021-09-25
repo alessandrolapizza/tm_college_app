@@ -87,6 +87,11 @@ class _RouteAwareViewHomeworkScreenState extends State<ViewHomeworkScreen>
                     notifications: widget.notifications,
                   );
                   Navigator.pop(context);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text("Devoir marqué comme \"non fait\"."),
+                    ),
+                  );
                 },
                 icon: Icons.settings_backup_restore_rounded,
               )
@@ -157,6 +162,11 @@ class _RouteAwareViewHomeworkScreenState extends State<ViewHomeworkScreen>
                         notifications: widget.notifications,
                       );
                       Navigator.pop(context);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text("Devoir marqué comme \"complété\"."),
+                        ),
+                      );
                     },
                     icon: Icons.check_rounded,
                   )
