@@ -3,6 +3,7 @@ import 'package:settings_ui/settings_ui.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tm_college_app/models/base_de_donnees.dart';
 import 'package:tm_college_app/models/notifications.dart';
+import 'package:tm_college_app/widgets/modular_alert_dialog.dart';
 
 class SettingsBody extends StatefulWidget {
   final SharedPreferences sharedPreferences;
@@ -54,6 +55,7 @@ class _SettingsBodyState extends State<SettingsBody>
   @override
   Widget build(BuildContext context) {
     print(widget.sharedPreferences.getBool("notificationsActivated"));
+    print(widget.sharedPreferences.getString("notificationsReminderHour"));
     return FutureBuilder(
       future: permissionStatusFuture,
       builder: (_, snapshot) {
@@ -77,12 +79,12 @@ class _SettingsBodyState extends State<SettingsBody>
                               false)
                       ? snapshot.data == Notifications.permGranted
                       : false,
-                  leading: Icon(Icons.notifications),
+                  leading: Icon(Icons.notifications_rounded),
                   enabled: snapshot.hasData,
                 ),
                 SettingsTile(
                   title: "Heure de rappel",
-                  leading: Icon(Icons.access_time),
+                  leading: Icon(Icons.access_time_rounded),
                   iosChevron: null,
                   subtitle: widget.sharedPreferences
                           .getString("notificationsReminderHour") ??
@@ -95,8 +97,28 @@ class _SettingsBodyState extends State<SettingsBody>
                       : false,
                   onPressed: (_) async {
                     await showTimePicker(
+                      cancelText: "Annuler",
+                      confirmText: "OK",
                       context: context,
-                      initialTime: TimeOfDay.now(),
+                      initialTime: TimeOfDay.fromDateTime(
+                        DateTime(
+                          0,
+                          0,
+                          0,
+                          int.parse(
+                            (widget.sharedPreferences.getString(
+                                        "notificationsReminderHour") ??
+                                    "17:00")
+                                .substring(0, 2),
+                          ),
+                          int.parse(
+                            (widget.sharedPreferences.getString(
+                                        "notificationsReminderHour") ??
+                                    "17:00")
+                                .substring(3, 5),
+                          ),
+                        ),
+                      ),
                     ).then(
                       (selectedTime) async {
                         if (selectedTime != null) {
@@ -137,6 +159,30 @@ class _SettingsBodyState extends State<SettingsBody>
             ),
             SettingsSection(
               tiles: [
+                SettingsTile(
+                  title: "Contact",
+                  onPressed: (_) {
+                    showDialog(
+                      context: context,
+                      builder: (_) {
+                        return ModularAlertDialog(
+                          themeColor: Theme.of(context).primaryColor,
+                          title: Text("Contact"),
+                          content: Row(
+                            children: [
+                              Text("Email : "),
+                              SelectableText(
+                                "data",
+                                selectionControls:
+                                    MaterialTextSelectionControls(),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    );
+                  },
+                ),
                 SettingsTile(
                   title: "Licences",
                   onPressed: (_) => showLicensePage(

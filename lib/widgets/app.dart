@@ -8,7 +8,7 @@ import 'package:tm_college_app/widgets/edit_homework_screen.dart';
 import 'package:tm_college_app/widgets/edit_subject_screen.dart';
 import 'package:tm_college_app/widgets/done_homeworks_screen.dart';
 import 'package:tm_college_app/widgets/one_time_introduction_screen.dart';
-import 'package:tm_college_app/widgets/view_grade_screen.dart';
+import 'package:tm_college_app/widgets/view_average_screen.dart';
 import 'package:tm_college_app/widgets/view_homework_screen.dart';
 import 'package:tm_college_app/widgets/settings_screen.dart';
 import 'home_screen.dart';
@@ -99,7 +99,7 @@ class App extends StatelessWidget {
               notifications: notifications,
               sharedPreferences: sharedPreferences,
             ),
-        "/view_grade_screen": (_) => ViewGradeScreen(
+        "/view_grade_screen": (_) => ViewAverageScreen(
               database: database,
               sharedPreferences: sharedPreferences,
             ),

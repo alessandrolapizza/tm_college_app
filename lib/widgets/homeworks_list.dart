@@ -93,9 +93,13 @@ class _HomeworksList extends State<HomeworksList> {
                   : homeworksDateMapDoneSorted;
 
           if (homeworks.length == 0) {
-            child = EmptyCenteredText(
-                content:
-                    "Auncun devoirs pour le moment.\nPour créer un devoir, clique sur le +");
+            if (!widget.homePage) {
+              child = EmptyCenteredText(content: "Aucun devoirs complétés pour le moment.");
+            } else {
+              child = EmptyCenteredText(
+                  content:
+                      "Auncun devoirs pour le moment.\nPour créer un devoir, clique sur le +");
+            }
           } else {
             child = ListView.builder(
               physics: AlwaysScrollableScrollPhysics(),
@@ -124,14 +128,14 @@ class _HomeworksList extends State<HomeworksList> {
                                 onPressedFunction: () => checkHomework(
                                   homeworks.values.toList()[index][idx],
                                 ),
-                                icon: Icons.check,
+                                icon: Icons.check_rounded,
                               )
                             : ModularIconButton(
-                                color: Colors.orange,
+                                color: Colors.orangeAccent,
                                 onPressedFunction: () => checkHomework(
                                   homeworks.values.toList()[index][idx],
                                 ),
-                                icon: Icons.settings_backup_restore,
+                                icon: Icons.settings_backup_restore_rounded,
                               ),
                       );
                     },

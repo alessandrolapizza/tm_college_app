@@ -23,7 +23,7 @@ class EditHomeworkSelectPriorityButton extends StatelessWidget {
           Text("Importance "),
           selectedPriority == 0
               ? Icon(
-                  Icons.format_list_numbered_rtl_rounded,
+                  Icons.low_priority_rounded,
                   size: 20,
                 )
               : CircleColor(

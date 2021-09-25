@@ -181,7 +181,7 @@ class _EditSubjectScreenState extends State<EditSubjectScreen> {
           actions: _subjectId != null
               ? [
                   ModularIconButton(
-                    icon: Icons.delete,
+                    icon: Icons.delete_rounded,
                     onPressedFunction: () {
                       showDialog(
                         context: context,

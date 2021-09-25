@@ -6,24 +6,23 @@ import 'package:tm_college_app/widgets/edit_grade_dialog.dart';
 import 'package:tm_college_app/widgets/modular_app_bar.dart';
 import 'package:tm_college_app/widgets/modular_floating_action_button.dart';
 import 'package:tm_college_app/widgets/theme_controller.dart';
-import 'package:tm_college_app/widgets/view_grade_body.dart';
+import 'package:tm_college_app/widgets/view_average_body.dart';
 
-class ViewGradeScreen extends StatefulWidget {
+class ViewAverageScreen extends StatefulWidget {
   final BaseDeDonnees database;
 
   final SharedPreferences sharedPreferences;
 
-  ViewGradeScreen({
+  ViewAverageScreen({
     @required this.database,
     @required this.sharedPreferences,
   });
 
   @override
-  State<ViewGradeScreen> createState() => _ViewGradeScreenState();
+  State<ViewAverageScreen> createState() => _ViewAverageScreenState();
 }
 
-class _ViewGradeScreenState extends State<ViewGradeScreen> {
-
+class _ViewAverageScreenState extends State<ViewAverageScreen> {
   @override
   Widget build(BuildContext context) {
     final List<dynamic> arguments = ModalRoute.of(context).settings.arguments;
@@ -33,27 +32,28 @@ class _ViewGradeScreenState extends State<ViewGradeScreen> {
       color: subject.couleurMatiere,
       child: Scaffold(
         floatingActionButton: ModularFloatingActionButton(
-            onPressedFunction: () => showDialog(
-                  context: context,
-                  builder: (_) {
-                    return ThemeController(
-                      color: subject.couleurMatiere,
-                      child: EditGradeDialog(
-                        sharedPreferences: widget.sharedPreferences,
-                        database: widget.database,
-                        subjects: [subject],
-                        singleSubject: true,
-                      ),
-                    );
-                  },
-                ).then((_) => setState(() {})),
-            icon: Icons.add),
+          onPressedFunction: () => showDialog(
+            context: context,
+            builder: (_) {
+              return ThemeController(
+                color: subject.couleurMatiere,
+                child: EditGradeDialog(
+                  sharedPreferences: widget.sharedPreferences,
+                  database: widget.database,
+                  subjects: [subject],
+                  singleSubject: true,
+                ),
+              );
+            },
+          ).then((_) => setState(() {})),
+          icon: Icons.add_rounded,
+        ),
         appBar: ModularAppBar(
           hideSettingsButton: true,
           backArrow: true,
           title: Text("Détails de la moyenne"),
         ),
-        body: ViewGradeBody(
+        body: ViewAverageBody(
           index: index,
           subject: subject,
           database: widget.database,

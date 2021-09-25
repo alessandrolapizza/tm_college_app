@@ -26,7 +26,7 @@ class EditSubjectSelectColorButton extends StatelessWidget {
           Text("Couleur "),
           selectedColor == null
               ? Icon(
-                  Icons.edit,
+                  Icons.edit_rounded,
                   size: 20,
                 )
               : CircleColor(

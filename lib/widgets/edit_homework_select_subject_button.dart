@@ -24,18 +24,12 @@ class EditHomeworkSelectSubjectButton extends StatelessWidget {
                 ? [
                     Text("Matière "),
                     Icon(
-                      Icons.school_rounded,
+                      Icons.table_rows_rounded,
                       size: 20,
                     ),
                   ]
                 : [
-                    FractionallySizedBox(
-                      heightFactor: 0.75,
-                      child: CircleAvatarWithBorder(
-                        color: selectedSubject.couleurMatiere,
-                        icon: selectedSubject.iconMatiere,
-                      ),
-                    ),
+                    Icon(selectedSubject.iconMatiere),
                     Text(" " + selectedSubject.nom),
                   ],
       ),

@@ -4,11 +4,11 @@ import 'package:tm_college_app/models/base_de_donnees.dart';
 import 'package:tm_college_app/models/grade.dart';
 import 'package:tm_college_app/models/matiere.dart';
 import 'package:tm_college_app/widgets/edit_grade_dialog.dart';
-import 'package:tm_college_app/widgets/grade_card.dart';
+import 'package:tm_college_app/widgets/average_card.dart';
 import 'package:tm_college_app/widgets/grades_list.dart';
 import 'package:tm_college_app/widgets/modular_alert_dialog.dart';
 
-class ViewGradeBody extends StatefulWidget {
+class ViewAverageBody extends StatefulWidget {
   final BaseDeDonnees database;
 
   final SharedPreferences sharedPreferences;
@@ -17,7 +17,7 @@ class ViewGradeBody extends StatefulWidget {
 
   final int index;
 
-  ViewGradeBody({
+  ViewAverageBody({
     @required this.database,
     @required this.sharedPreferences,
     @required this.subject,
@@ -25,10 +25,10 @@ class ViewGradeBody extends StatefulWidget {
   });
 
   @override
-  _ViewGradeBodyState createState() => _ViewGradeBodyState();
+  _ViewAverageBodyState createState() => _ViewAverageBodyState();
 }
 
-class _ViewGradeBodyState extends State<ViewGradeBody> {
+class _ViewAverageBodyState extends State<ViewAverageBody> {
   final ScrollController _gradesScrollController = ScrollController();
 
   _deleteGrade({
@@ -102,7 +102,7 @@ class _ViewGradeBodyState extends State<ViewGradeBody> {
           final Map<Matiere, List<Map<DateTime, double>>> averages = maps[1];
           child = Column(
             children: [
-              GradeCard(
+              AverageCard(
                 subject: widget.subject,
                 averages: averages[averages.keys.toList()[widget.index]],
               ),

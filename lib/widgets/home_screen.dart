@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tm_college_app/models/devoir.dart';
 import 'package:tm_college_app/models/matiere.dart';
 import 'package:tm_college_app/models/notifications.dart';
-import 'package:tm_college_app/widgets/home_screen_body_grades.dart';
+import 'package:tm_college_app/widgets/home_screen_body_averages.dart';
 
 import 'package:tm_college_app/widgets/home_screen_bottom_app_bar.dart';
 import 'package:tm_college_app/widgets/modular_icon_button.dart';
@@ -45,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     if (_index == 0) {
       text = "Devoirs";
     } else if (_index == 1) {
-      text = "Notes";
+      text = "Moyennes";
     } else {
       text = "Matières";
     }
@@ -63,7 +63,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
         notifications: widget.notifications,
       );
     } else if (_index == 1) {
-      body = HomeScreenBodyGrades(
+      body = HomeScreenBodyAverages(
         database: widget.database,
         sharedPreferences: widget.sharedPreferences,
         onTapFunctionGradeCard: ({
@@ -173,7 +173,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                   onPressedFunction: () =>
                       Navigator.pushNamed(context, "/done_homeworks_screen")
                           .then((_) => setState(() {})),
-                  icon: Icons.checklist,
+                  icon: Icons.checklist_rounded,
                 )
               ]
             : null,
@@ -183,7 +183,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
       body: _homePageBody,
       floatingActionButton: ModularFloatingActionButton(
         onPressedFunction: _routePointer,
-        icon: Icons.add,
+        icon: Icons.add_rounded,
       ),
       bottomNavigationBar: HomePageBottomAppBar(
         changerIndex: _changeIndex,

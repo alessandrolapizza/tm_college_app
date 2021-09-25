@@ -65,7 +65,7 @@ class _OneTimeIntroductionNotificationsSettingTileState
                       false)
               ? snapshot.data == Notifications.permGranted
               : false,
-          leading: Icon(Icons.notifications),
+          leading: Icon(Icons.notifications_rounded),
           enabled: snapshot.hasData,
         );
       },

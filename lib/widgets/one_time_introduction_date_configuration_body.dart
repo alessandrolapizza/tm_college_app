@@ -28,6 +28,8 @@ class _OneTimeIntroductionDateConfigurationBodyState
 
   void _selectFirstTermBeginingDate() async {
     DateTime date = await showDatePicker(
+      confirmText: "OK",
+      cancelText: "Annuler",
       context: context,
       initialDate: _selectedFirstTermBeginingDate == null
           ? DateTime.now()
@@ -48,6 +50,8 @@ class _OneTimeIntroductionDateConfigurationBodyState
 
   void _selectSecondTermBeginingDate() async {
     DateTime date = await showDatePicker(
+      confirmText: "OK",
+      cancelText: "Annuler",
       context: context,
       initialDate: _selectedSecondTermBeginingDate == null
           ? DateTime.parse(
@@ -76,6 +80,8 @@ class _OneTimeIntroductionDateConfigurationBodyState
 
   void _selectSecondTermEndDate() async {
     DateTime date = await showDatePicker(
+      confirmText: "OK",
+      cancelText: "Annuler",
       context: context,
       initialDate: _selectedSecondTermEndDate == null
           ? DateTime.parse(

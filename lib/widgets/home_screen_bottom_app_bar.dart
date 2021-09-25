@@ -14,15 +14,15 @@ class HomePageBottomAppBar extends StatelessWidget {
     return BottomNavigationBar(
       items: [
         BottomNavigationBarItem(
-          icon: Icon(Icons.library_books_rounded),
+          icon: Icon(Icons.fact_check_rounded),
           label: "Devoirs",
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.list_alt),
-          label: "Notes",
+          icon: Icon(Icons.assessment_rounded),
+          label: "Moyennes",
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.school_rounded),
+          icon: Icon(Icons.table_rows_rounded),
           label: "Matières",
         ),
       ],

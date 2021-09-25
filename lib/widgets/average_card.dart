@@ -4,14 +4,14 @@ import 'package:tm_college_app/models/matiere.dart';
 import 'package:tm_college_app/widgets/circle_avatar_with_border.dart';
 import 'package:tm_college_app/widgets/modular_chart.dart';
 
-class GradeCard extends StatelessWidget {
+class AverageCard extends StatelessWidget {
   final Matiere subject;
 
   final List<Map<DateTime, double>> averages;
 
   final Function onTapFunction;
 
-  GradeCard({
+  AverageCard({
     @required this.subject,
     @required this.averages,
     this.onTapFunction,

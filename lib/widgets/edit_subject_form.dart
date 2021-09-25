@@ -52,10 +52,10 @@ class EditSubjectForm extends StatelessWidget {
               return null;
             },
             controller: subjectRoomNumberController,
-            maxLength: 5,
+            maxLength: 11,
             keyboardType: TextInputType.text,
             decoration: InputDecoration(
-              icon: Icon(Icons.format_list_numbered_rtl_rounded),
+              icon: Icon(Icons.meeting_room_rounded),
               labelText: "Numéro de salle",
               border: OutlineInputBorder(),
             ),

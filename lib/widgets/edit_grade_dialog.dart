@@ -65,6 +65,8 @@ class _EditGradeDialogState extends State<EditGradeDialog> {
 
   Future<void> _selectGradeDate() async {
     DateTime date = await showDatePicker(
+      cancelText: "Annuler",
+      confirmText: "OK",
       context: context,
       initialDate: DateTime.now().isAfter(
                 DateTime.parse(

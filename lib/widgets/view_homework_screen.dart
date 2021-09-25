@@ -55,8 +55,13 @@ class _RouteAwareViewHomeworkScreenState extends State<ViewHomeworkScreen>
     _useUpdatedHomework = false;
   }
 
-  void didPopNext() async {
-    _useUpdatedHomework = true;
+  @override
+  void didPopNext() {
+    if (ModalRoute.of(context).settings.arguments != null) {
+      _useUpdatedHomework = false;
+    } else {
+      _useUpdatedHomework = true;
+    }
   }
 
   @override
@@ -83,7 +88,7 @@ class _RouteAwareViewHomeworkScreenState extends State<ViewHomeworkScreen>
                   );
                   Navigator.pop(context);
                 },
-                icon: Icons.settings_backup_restore_outlined,
+                icon: Icons.settings_backup_restore_rounded,
               )
             : ModularFloatingActionButton(
                 onPressedFunction: () async {
@@ -97,7 +102,7 @@ class _RouteAwareViewHomeworkScreenState extends State<ViewHomeworkScreen>
                   ) as List<Devoir>;
                   setState(() => _updatedHomework);
                 },
-                icon: Icons.edit,
+                icon: Icons.edit_rounded,
               ),
         appBar: ModularAppBar(
           hideSettingsButton: true,
@@ -142,7 +147,7 @@ class _RouteAwareViewHomeworkScreenState extends State<ViewHomeworkScreen>
                         },
                       );
                     },
-                    icon: Icons.delete,
+                    icon: Icons.delete_rounded,
                   ),
                   ModularIconButton(
                     onPressedFunction: () async {
@@ -153,7 +158,7 @@ class _RouteAwareViewHomeworkScreenState extends State<ViewHomeworkScreen>
                       );
                       Navigator.pop(context);
                     },
-                    icon: Icons.check,
+                    icon: Icons.check_rounded,
                   )
                 ]
               : [
@@ -195,7 +200,7 @@ class _RouteAwareViewHomeworkScreenState extends State<ViewHomeworkScreen>
                         },
                       );
                     },
-                    icon: Icons.delete,
+                    icon: Icons.delete_rounded,
                   )
                 ],
           title: Text("Détails du devoir"),

@@ -33,7 +33,7 @@ class DatePickerOutlinedButton extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(text + " "),
-              Icon(Icons.date_range),
+              Icon(Icons.date_range_rounded),
             ],
           ),
         ),

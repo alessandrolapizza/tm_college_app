@@ -41,7 +41,7 @@ class _OneTimeIntroductionScreenState extends State<OneTimeIntroductionScreen> {
         await widget.sharedPreferences.setBool("introductionSeen", true);
         Navigator.pushReplacementNamed(context, "/");
       },
-      next: Icon(Icons.arrow_forward),
+      next: Icon(Icons.arrow_forward_rounded),
       dotsDecorator: DotsDecorator(
         color: Colors.grey,
         activeColor: Theme.of(context).primaryColor,
@@ -92,7 +92,7 @@ class _OneTimeIntroductionScreenState extends State<OneTimeIntroductionScreen> {
         PageViewModel(
           title: "Un peu de configuration",
           image: Icon(
-            Icons.edit,
+            Icons.edit_rounded,
             size: 200,
             color: Theme.of(context).primaryColor,
           ),
@@ -103,7 +103,7 @@ class _OneTimeIntroductionScreenState extends State<OneTimeIntroductionScreen> {
         PageViewModel(
           title: "Dates",
           image: Icon(
-            Icons.date_range,
+            Icons.date_range_rounded,
             size: 200,
             color: Theme.of(context).primaryColor,
           ),

@@ -27,7 +27,7 @@ class ModularAppBar extends StatelessWidget with PreferredSizeWidget {
   Widget build(BuildContext context) {
     ModularIconButton settingAction = ModularIconButton(
       onPressedFunction: () => Navigator.pushNamed(context, "/settings_screen"),
-      icon: Icons.settings,
+      icon: Icons.settings_rounded,
     );
     List<ModularIconButton> actionsWithSettings;
     if (actions == null && !hideSettingsButton) {
@@ -41,7 +41,7 @@ class ModularAppBar extends StatelessWidget with PreferredSizeWidget {
     return AppBar(
       leading: backArrow
           ? ModularIconButton(
-              icon: Icons.arrow_back_ios_new,
+              icon: Icons.arrow_back_ios_new_rounded,
               onPressedFunction: () => Navigator.pop(context),
             )
           : null,

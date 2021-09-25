@@ -40,11 +40,11 @@ class GradeDetailsCard extends StatelessWidget {
             Row(
               children: [
                 ModularIconButton(
-                  icon: Icons.edit,
+                  icon: Icons.edit_rounded,
                   onPressedFunction: () => editGradeFunction(grade: grade),
                 ),
                 ModularIconButton(
-                  icon: Icons.delete,
+                  icon: Icons.delete_rounded,
                   onPressedFunction: deleteGradeFunction,
                 )
               ],

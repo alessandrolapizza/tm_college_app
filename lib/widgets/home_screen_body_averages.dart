@@ -3,16 +3,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tm_college_app/models/base_de_donnees.dart';
 import 'package:tm_college_app/models/grade.dart';
 import 'package:tm_college_app/widgets/empty_centered_text.dart';
-import 'package:tm_college_app/widgets/grade_card.dart';
+import 'package:tm_college_app/widgets/average_card.dart';
 
-class HomeScreenBodyGrades extends StatelessWidget {
+class HomeScreenBodyAverages extends StatelessWidget {
   final BaseDeDonnees database;
 
   final SharedPreferences sharedPreferences;
 
   final Function onTapFunctionGradeCard;
 
-  HomeScreenBodyGrades({
+  HomeScreenBodyAverages({
     @required this.database,
     @required this.sharedPreferences,
     @required this.onTapFunctionGradeCard,
@@ -39,7 +39,7 @@ class HomeScreenBodyGrades extends StatelessWidget {
             child = ListView.builder(
               itemCount: gradesSorted.length,
               itemBuilder: (_, index) {
-                return GradeCard(
+                return AverageCard(
                   onTapFunction: () => onTapFunctionGradeCard(
                       index: index, subject: averages.keys.toList()[index]),
                   subject: averages.keys.toList()[index],

@@ -24,7 +24,7 @@ class EditSubjectSelectIconButton extends StatelessWidget {
         children: [
           Text("Icon "),
           Icon(
-            selectedIcon == null ? Icons.edit : selectedIcon,
+            selectedIcon == null ? Icons.edit_rounded : selectedIcon,
             size: 20,
           ),
         ],

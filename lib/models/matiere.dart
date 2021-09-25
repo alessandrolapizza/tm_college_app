@@ -20,7 +20,7 @@ class Matiere {
   static final noSubject = Matiere(
       id: "0",
       nom: "Divers",
-      iconMatiere: Icons.more_horiz,
+      iconMatiere: Icons.more_horiz_rounded,
       couleurMatiere: App.toMaterialColor(App.defaultColorThemeValue),
       salle: "");
 

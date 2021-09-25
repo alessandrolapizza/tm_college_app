@@ -95,6 +95,7 @@ class _EditHomeworkScreenState extends State<EditHomeworkScreen> {
 
   Future<void> _selectDate() async {
     DateTime date = await showDatePicker(
+        confirmText: "OK",
         cancelText: "Annuler",
         context: context,
         initialDate: DateTime.now(),
