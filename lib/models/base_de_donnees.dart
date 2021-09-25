@@ -178,16 +178,6 @@ class BaseDeDonnees {
     );
   }
 
-  Future<void> supprimerMatiere(int id) async {
-    final bD = await database;
-
-    await bD.delete(
-      "matieres",
-      where: "id = ?",
-      whereArgs: [id],
-    );
-  }
-
   Future<void> deleteGrade(String id) async {
     final db = await database;
 
@@ -213,6 +203,42 @@ class BaseDeDonnees {
 
     await db.delete(
       "homeworks",
+      where: "id = ?",
+      whereArgs: [id],
+    );
+  }
+
+  Future<void> deleteSubject({
+    @required Matiere subject,
+    @required notifications,
+  }) async {
+    final db = await database;
+
+    final String id = subject.id;
+
+    final List<Grade> gradesList = await grades();
+
+    final List<Devoir> homeworksList = await homeworks();
+
+    gradesList.forEach(
+      (Grade grade) async {
+        if (grade.subjectId == subject.id) {
+          await deleteGrade(grade.id);
+        }
+      },
+    );
+
+    homeworksList.forEach((Devoir homework) async {
+      if (homework.subjectId == subject.id) {
+        await deleteHomework(
+          homework: homework,
+          notifications: notifications,
+        );
+      }
+    });
+
+    await db.delete(
+      "matieres",
       where: "id = ?",
       whereArgs: [id],
     );

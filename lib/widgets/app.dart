@@ -5,7 +5,7 @@ import 'package:tm_college_app/models/notifications.dart';
 import 'package:tm_college_app/widgets/advanced_notifications_settings_screen.dart';
 
 import 'package:tm_college_app/widgets/edit_homework_screen.dart';
-import 'package:tm_college_app/widgets/create_subject_screen.dart';
+import 'package:tm_college_app/widgets/edit_subject_screen.dart';
 import 'package:tm_college_app/widgets/done_homeworks_screen.dart';
 import 'package:tm_college_app/widgets/one_time_introduction_screen.dart';
 import 'package:tm_college_app/widgets/view_grade_screen.dart';
@@ -74,12 +74,14 @@ class App extends StatelessWidget {
                 notifications: notifications,
                 sharedPreferences: sharedPreferences,
               ),
-        "/create_subject_screen": (_) => CreateSubjectScreen(database),
+        "/edit_subject_screen": (_) => EditSubjectScreen(
+              bD: database,
+              notifications: notifications,
+            ),
         "/edit_homework_screen": (_) => EditHomeworkScreen(
               notifications: notifications,
               db: database,
             ),
-        "/page_visualiser_matiere": (_) => PageVisualiserMatiere(),
         "/view_homework_screen": (_) => ViewHomeworkScreen(
               db: database,
               notifications: notifications,

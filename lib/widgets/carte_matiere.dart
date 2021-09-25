@@ -21,11 +21,10 @@ class CarteMatiere extends StatelessWidget {
         height: 90,
         width: double.infinity,
         child: Card(
-          elevation: 0.5,
           child: Row(
             children: [
               Expanded(
-                flex: 1,
+                flex: 2,
                 child: Container(
                   margin: EdgeInsets.symmetric(vertical: 10),
                   child: CircleAvatarWithBorder(
@@ -35,7 +34,7 @@ class CarteMatiere extends StatelessWidget {
                 ),
               ),
               Expanded(
-                flex: 4,
+                flex: 7,
                 child: Container(
                   margin: EdgeInsets.only(top: 10, bottom: 10, left: 10),
                   child: Column(

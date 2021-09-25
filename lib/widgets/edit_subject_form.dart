@@ -1,14 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import "package:flutter/material.dart";
 
-class CreateSubjectForm extends StatelessWidget {
+class EditSubjectForm extends StatelessWidget {
   final TextEditingController subjectNameController;
 
   final TextEditingController subjectRoomNumberController;
 
   final GlobalKey<FormState> createSubjectFormKey;
 
-  CreateSubjectForm({
+  EditSubjectForm({
     @required this.subjectNameController,
     @required this.subjectRoomNumberController,
     @required this.createSubjectFormKey,

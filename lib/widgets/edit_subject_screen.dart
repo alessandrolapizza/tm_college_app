@@ -2,28 +2,35 @@ import "package:flutter/material.dart";
 
 import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
 import "package:flutter_iconpicker/flutter_iconpicker.dart";
+import 'package:tm_college_app/models/notifications.dart';
 import 'package:tm_college_app/widgets/app.dart';
-import 'package:tm_college_app/widgets/create_subject_body.dart';
+import 'package:tm_college_app/widgets/edit_subject_body.dart';
 import 'package:tm_college_app/widgets/modular_alert_dialog.dart';
+import 'package:tm_college_app/widgets/modular_icon_button.dart';
 import 'package:tm_college_app/widgets/theme_controller.dart';
 
 import "./modular_app_bar.dart";
 import "../models/base_de_donnees.dart";
 import "../models/matiere.dart";
 
-class CreateSubjectScreen extends StatefulWidget {
+class EditSubjectScreen extends StatefulWidget {
   final BaseDeDonnees bD;
 
-  CreateSubjectScreen(this.bD);
+  final Notifications notifications;
+
+  EditSubjectScreen({
+    @required this.bD,
+    @required this.notifications,
+  });
 
   @override
-  _CreateSubjectScreenState createState() => _CreateSubjectScreenState(bD);
+  _EditSubjectScreenState createState() => _EditSubjectScreenState(bD);
 }
 
-class _CreateSubjectScreenState extends State<CreateSubjectScreen> {
+class _EditSubjectScreenState extends State<EditSubjectScreen> {
   final BaseDeDonnees _bD;
 
-  _CreateSubjectScreenState(this._bD);
+  _EditSubjectScreenState(this._bD);
 
   final TextEditingController _subjectNameController = TextEditingController();
 
@@ -39,6 +46,8 @@ class _CreateSubjectScreenState extends State<CreateSubjectScreen> {
   bool _iconMissing = false;
 
   bool _colorMissing = false;
+
+  String _subjectId;
 
   void _selectIcon(BuildContext ctx) async {
     IconData _icon = await FlutterIconPicker.showIconPicker(
@@ -110,14 +119,26 @@ class _CreateSubjectScreenState extends State<CreateSubjectScreen> {
     if (_createSubjectFormKey.currentState.validate() &&
         _selectedIcon != null &&
         _selectedColor != null) {
-      await _bD.insererMatiere(
-        Matiere(
-          couleurMatiere: _selectedColor,
-          iconMatiere: _selectedIcon,
-          nom: _subjectNameController.text,
-          salle: _subjectRoomNumberController.text,
-        ),
-      );
+      if (_subjectId != null) {
+        _bD.modifierMatiere(
+          Matiere(
+            couleurMatiere: _selectedColor,
+            iconMatiere: _selectedIcon,
+            nom: _subjectNameController.text,
+            salle: _subjectRoomNumberController.text,
+            id: _subjectId,
+          ),
+        );
+      } else {
+        await _bD.insererMatiere(
+          Matiere(
+            couleurMatiere: _selectedColor,
+            iconMatiere: _selectedIcon,
+            nom: _subjectNameController.text,
+            salle: _subjectRoomNumberController.text,
+          ),
+        );
+      }
       Navigator.pop(context);
     } else {
       if (_selectedColor == null) {
@@ -137,6 +158,16 @@ class _CreateSubjectScreenState extends State<CreateSubjectScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final List<dynamic> arguments = ModalRoute.of(context).settings.arguments;
+    if (_subjectId == null && arguments != null) {
+      final Matiere subject = arguments[0];
+      _subjectNameController.text = subject.nom;
+      _subjectRoomNumberController.text = subject.salle;
+      _selectedColor = subject.couleurMatiere;
+      _selectedIcon = subject.iconMatiere;
+      setState(() => _subjectId = subject.id);
+    }
+
     return ThemeController(
       color: _selectedColor == null
           ? Color(App.defaultColorThemeValue)
@@ -147,8 +178,48 @@ class _CreateSubjectScreenState extends State<CreateSubjectScreen> {
           backArrow: true,
           title: Text("Nouvelle matière"),
           centerTitle: true,
+          actions: _subjectId != null
+              ? [
+                  ModularIconButton(
+                    icon: Icons.delete,
+                    onPressedFunction: () {
+                      showDialog(
+                        context: context,
+                        builder: (_) {
+                          return ModularAlertDialog(
+                            title: Text("Supprimer matière ?"),
+                            content: Text(
+                                "Es-tu sûr de vouloir supprimer cette matière ?"),
+                            themeColor: _selectedColor,
+                            actionButtons: [
+                              TextButton(
+                                child: Text("Annuler"),
+                                onPressed: () => Navigator.pop(context),
+                              ),
+                              TextButton(
+                                child: Text(
+                                  "Supprimer",
+                                  style: TextStyle(color: Colors.red),
+                                ),
+                                onPressed: () async {
+                                  await widget.bD.deleteSubject(
+                                    subject: arguments[0],
+                                    notifications: widget.notifications,
+                                  );
+                                  Navigator.pop(context);
+                                  Navigator.pop(context);
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                  )
+                ]
+              : null,
         ),
-        body: CreateSubjectBody(
+        body: EditSubjectBody(
           selectIconFunction: _selectIcon,
           selectedIcon: _selectedIcon,
           selectColor: _selectColor,

@@ -2,14 +2,14 @@ import "package:flutter/material.dart";
 import "package:flutter_material_color_picker/flutter_material_color_picker.dart";
 import 'package:tm_college_app/widgets/modular_outlined_button.dart';
 
-class CreateSubjectSelectColorButton extends StatelessWidget {
+class EditSubjectSelectColorButton extends StatelessWidget {
   final Function selectColor;
 
   final Color selectedColor;
 
   final bool colorMissing;
 
-  CreateSubjectSelectColorButton({
+  EditSubjectSelectColorButton({
     @required this.selectColor,
     @required this.selectedColor,
     @required this.colorMissing,

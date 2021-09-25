@@ -74,7 +74,14 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                 arguments: [subject, index]).then((_) => setState(() {})),
       );
     } else {
-      body = HomeScreenBodySubjects(widget.database);
+      body = HomeScreenBodySubjects(
+        db: widget.database,
+        onTapSubjectCardFunction: ({@required subject}) => Navigator.pushNamed(
+          context,
+          "/edit_subject_screen",
+          arguments: [subject],
+        ).then((_) => setState(() {})),
+      );
     }
 
     return body;
@@ -98,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
         },
       ).then((_) => setState(() {}));
     } else {
-      Navigator.pushNamed(context, "/create_subject_screen")
+      Navigator.pushNamed(context, "/edit_subject_screen")
           .then((_) => setState(() {}));
     }
   }

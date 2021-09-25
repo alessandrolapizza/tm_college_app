@@ -1,14 +1,14 @@
 import "package:flutter/material.dart";
 import 'package:tm_college_app/widgets/modular_outlined_button.dart';
 
-class CreateSubjectSelectIconButton extends StatelessWidget {
+class EditSubjectSelectIconButton extends StatelessWidget {
   final Function selectIconFunction;
 
   final IconData selectedIcon;
 
   final bool iconMissing;
 
-  CreateSubjectSelectIconButton({
+  EditSubjectSelectIconButton({
     @required this.selectIconFunction,
     @required this.selectedIcon,
     @required this.iconMissing,

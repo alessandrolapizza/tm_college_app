@@ -6,7 +6,12 @@ import "../models/base_de_donnees.dart";
 class HomeScreenBodySubjects extends StatelessWidget {
   final BaseDeDonnees db;
 
-  HomeScreenBodySubjects(this.db);
+  final Function onTapSubjectCardFunction;
+
+  HomeScreenBodySubjects({
+    @required this.db,
+    @required this.onTapSubjectCardFunction,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,11 +25,7 @@ class HomeScreenBodySubjects extends StatelessWidget {
             itemBuilder: (_, index) {
               return CarteMatiere(
                 matiere: snapshot.data[index],
-                onTapFunction: () => Navigator.pushNamed(
-                  context,
-                  "/page_visualiser_matiere",
-                  arguments: snapshot.data[index],
-                ),
+                onTapFunction: () => onTapSubjectCardFunction(subject: snapshot.data[index]),
               );
             },
           );
