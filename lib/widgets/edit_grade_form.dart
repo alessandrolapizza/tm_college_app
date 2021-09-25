@@ -15,6 +15,8 @@ class EditGradeForm extends StatelessWidget {
 
   final TextEditingController gradeController;
 
+  final bool singleSubject;
+
   EditGradeForm({
     @required this.dropdownValue,
     @required this.onChangedFunction,
@@ -22,6 +24,7 @@ class EditGradeForm extends StatelessWidget {
     @required this.editGradeFormKey,
     @required this.coefficientController,
     @required this.gradeController,
+    @required this.singleSubject,
   });
 
   @override
@@ -31,13 +34,14 @@ class EditGradeForm extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          subjects == null || subjects.length == 1
+          subjects == null || singleSubject
               ? Padding(
                   padding: EdgeInsets.only(bottom: 15),
                 )
               : Column(
                   children: [
                     DropdownButtonFormField(
+                      isExpanded: true,
                       validator: (value) {
                         if (value == "0") {
                           return "Une matière doit être sélectionnée";
@@ -50,7 +54,8 @@ class EditGradeForm extends StatelessWidget {
                       items: List.from(
                         [
                           DropdownMenuItem(
-                              child: Text("Sélectionner une matière"),
+                              child: FittedBox(
+                                  child: Text("Sélectionner une matière")),
                               value: "0")
                         ],
                       )..addAll(

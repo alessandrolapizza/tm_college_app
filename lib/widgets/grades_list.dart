@@ -13,11 +13,14 @@ class GradesList extends StatelessWidget {
 
   final Function deleteGradeFunction;
 
+  final ScrollController gradesScrollController;
+
   GradesList({
     @required this.gradesSortedSubjectSpecific,
     @required this.sharedPreferences,
     @required this.deleteGradeFunction,
     @required this.editGradeFunction,
+    @required this.gradesScrollController,
   });
 
   @override
@@ -39,6 +42,8 @@ class GradesList extends StatelessWidget {
     ];
     return ListView.builder(
       itemCount: secondSemester.keys.length == 0 ? 1 : 2,
+      controller: gradesScrollController,
+      physics: AlwaysScrollableScrollPhysics(),
       itemBuilder: (_, index) {
         return ModularStickyHeader(
           content: ListView.builder(

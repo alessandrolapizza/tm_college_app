@@ -29,7 +29,9 @@ class ViewGradeBody extends StatefulWidget {
 }
 
 class _ViewGradeBodyState extends State<ViewGradeBody> {
-  deleteGrade({
+  final ScrollController _gradesScrollController = ScrollController();
+
+  _deleteGrade({
     @required String gradeId,
     bool lastGrade = false,
   }) {
@@ -53,6 +55,12 @@ class _ViewGradeBodyState extends State<ViewGradeBody> {
                   Navigator.pop(context);
                 } else {
                   setState(() {});
+                  double offset = _gradesScrollController.offset;
+                  _gradesScrollController.animateTo(
+                    offset + 0.5,
+                    duration: Duration(milliseconds: 1),
+                    curve: Curves.bounceIn,
+                  );
                 }
               },
               child: Text(
@@ -66,7 +74,7 @@ class _ViewGradeBodyState extends State<ViewGradeBody> {
     );
   }
 
-  editGrade({@required Grade grade}) {
+  _editGrade({@required Grade grade}) {
     showDialog(
       context: context,
       builder: (_) {
@@ -100,8 +108,9 @@ class _ViewGradeBodyState extends State<ViewGradeBody> {
               ),
               Expanded(
                 child: GradesList(
-                  editGradeFunction: editGrade,
-                  deleteGradeFunction: deleteGrade,
+                  gradesScrollController: _gradesScrollController,
+                  editGradeFunction: _editGrade,
+                  deleteGradeFunction: _deleteGrade,
                   sharedPreferences: widget.sharedPreferences,
                   gradesSortedSubjectSpecific:
                       gradesSorted[averages.keys.toList()[widget.index]],

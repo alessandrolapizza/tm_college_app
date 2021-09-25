@@ -23,6 +23,7 @@ class ViewGradeScreen extends StatefulWidget {
 }
 
 class _ViewGradeScreenState extends State<ViewGradeScreen> {
+
   @override
   Widget build(BuildContext context) {
     final List<dynamic> arguments = ModalRoute.of(context).settings.arguments;
@@ -41,6 +42,7 @@ class _ViewGradeScreenState extends State<ViewGradeScreen> {
                         sharedPreferences: widget.sharedPreferences,
                         database: widget.database,
                         subjects: [subject],
+                        singleSubject: true,
                       ),
                     );
                   },

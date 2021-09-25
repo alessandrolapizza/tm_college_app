@@ -19,9 +19,12 @@ class EditGradeDialog extends StatefulWidget {
 
   final Grade grade;
 
+  final bool singleSubject;
+
   EditGradeDialog({
     @required this.sharedPreferences,
     @required this.database,
+    this.singleSubject = false,
     this.grade,
     this.subjects,
   });
@@ -131,6 +134,7 @@ class _EditGradeDialogState extends State<EditGradeDialog> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 EditGradeForm(
+                  singleSubject: widget.singleSubject,
                   gradeController: _gradeController,
                   coefficientController: _coefficientController,
                   editGradeFormKey: _editGradeFormKey,
