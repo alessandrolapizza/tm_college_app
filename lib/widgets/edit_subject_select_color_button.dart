@@ -1,6 +1,6 @@
-import "package:flutter/material.dart";
 import "package:flutter_material_color_picker/flutter_material_color_picker.dart";
-import 'package:tm_college_app/widgets/modular_outlined_button.dart';
+import "package:flutter/material.dart";
+import "./modular_outlined_button.dart";
 
 class EditSubjectSelectColorButton extends StatelessWidget {
   final Function selectColor;

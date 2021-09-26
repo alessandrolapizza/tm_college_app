@@ -1,9 +1,9 @@
 import "package:flutter/material.dart";
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tm_college_app/models/my_database.dart';
-import 'package:tm_college_app/models/notifications.dart';
-import 'package:tm_college_app/widgets/modular_app_bar.dart';
-import 'package:tm_college_app/widgets/settings_body.dart';
+import "package:shared_preferences/shared_preferences.dart";
+import "../models/my_database.dart";
+import "../models/notifications.dart";
+import "./modular_app_bar.dart";
+import "./settings_body.dart";
 
 class SettingsScreen extends StatelessWidget {
   final SharedPreferences sharedPreferences;

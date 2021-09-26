@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
-import 'package:numberpicker/numberpicker.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import "package:numberpicker/numberpicker.dart";
+import "package:shared_preferences/shared_preferences.dart";
 
 class AdvancedNotificationsSettingsDayNumberPicker extends StatefulWidget {
   final SharedPreferences sharedPreferences;

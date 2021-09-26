@@ -1,8 +1,8 @@
 import "package:flutter/material.dart";
-import 'package:tm_college_app/models/grade.dart';
-import 'package:tm_college_app/models/subject.dart';
-import 'package:tm_college_app/widgets/circle_avatar_with_border.dart';
-import 'package:tm_college_app/widgets/modular_chart.dart';
+import "../models/grade.dart";
+import "../models/subject.dart";
+import "./circle_avatar_with_border.dart";
+import "./modular_chart.dart";
 
 class AverageCard extends StatelessWidget {
   final Subject subject;

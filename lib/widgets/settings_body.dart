@@ -1,9 +1,9 @@
 import "package:flutter/material.dart";
-import 'package:settings_ui/settings_ui.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tm_college_app/models/my_database.dart';
-import 'package:tm_college_app/models/notifications.dart';
-import 'package:tm_college_app/widgets/modular_alert_dialog.dart';
+import "package:settings_ui/settings_ui.dart";
+import "package:shared_preferences/shared_preferences.dart";
+import "../models/my_database.dart";
+import "../models/notifications.dart";
+import "./modular_alert_dialog.dart";
 
 class SettingsBody extends StatefulWidget {
   final SharedPreferences sharedPreferences;
@@ -61,7 +61,7 @@ class _SettingsBodyState extends State<SettingsBody>
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           sections: [
             SettingsSection(
-              title: 'Notifications',
+              title: "Notifications",
               tiles: [
                 SettingsTile.switchTile(
                   title: "Notifications",

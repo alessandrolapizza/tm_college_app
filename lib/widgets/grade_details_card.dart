@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
-import 'package:intl/intl.dart';
-import 'package:tm_college_app/models/grade.dart';
-import 'package:tm_college_app/widgets/modular_icon_button.dart';
+import "package:intl/intl.dart";
+import "../models/grade.dart";
+import "./modular_icon_button.dart";
 
 class GradeDetailsCard extends StatelessWidget {
   final Grade grade;

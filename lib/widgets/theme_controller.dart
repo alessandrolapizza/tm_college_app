@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import 'package:tm_college_app/widgets/app.dart';
+import "./app.dart";
 
 class ThemeController extends StatelessWidget {
   final Color color;

@@ -1,12 +1,12 @@
+import "package:flutter_material_color_picker/flutter_material_color_picker.dart";
 import "package:flutter/material.dart";
-import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
-import 'package:settings_ui/settings_ui.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tm_college_app/models/homework.dart';
-import 'package:tm_college_app/models/notifications.dart';
-import 'package:tm_college_app/widgets/advanced_notifications_day_number_picker.dart';
-import 'package:tm_college_app/widgets/fade_gradient.dart';
-import 'package:tm_college_app/widgets/modular_alert_dialog.dart';
+import "package:settings_ui/settings_ui.dart";
+import "package:shared_preferences/shared_preferences.dart";
+import "../models/homework.dart";
+import "../models/notifications.dart";
+import "./advanced_notifications_day_number_picker.dart";
+import "./fade_gradient.dart";
+import "./modular_alert_dialog.dart";
 
 class AdvancedNotificationsSettingsBody extends StatefulWidget {
   final SharedPreferences sharedPreferences;

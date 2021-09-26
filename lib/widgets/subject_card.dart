@@ -1,7 +1,6 @@
 import "package:flutter/material.dart";
-import 'package:tm_college_app/widgets/circle_avatar_with_border.dart';
-
-import '../models/subject.dart';
+import "./circle_avatar_with_border.dart";
+import "../models/subject.dart";
 
 class SubjectCard extends StatelessWidget {
   final Subject subject;

@@ -1,9 +1,8 @@
 import "package:flutter/material.dart";
-import 'package:tm_college_app/models/notifications.dart';
+import "package:tm_college_app/models/notifications.dart";
 import "package:uuid/uuid.dart";
-import 'my_database.dart';
-
-import 'subject.dart';
+import "./my_database.dart";
+import "./subject.dart";
 
 class Homework {
   final String id;

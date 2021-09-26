@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 import "package:intl/intl.dart";
-import '../models/subject.dart';
-import '../models/homework.dart';
+import "../models/homework.dart";
+import "../models/subject.dart";
 
 class ViewHomeworkDetailsSentence extends StatelessWidget {
   final Homework homework;

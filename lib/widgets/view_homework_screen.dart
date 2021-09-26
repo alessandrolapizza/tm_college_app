@@ -1,18 +1,14 @@
 import "package:flutter/material.dart";
-import 'package:tm_college_app/models/my_database.dart';
-import 'package:tm_college_app/models/notifications.dart';
-import 'package:tm_college_app/widgets/app.dart';
-import 'package:tm_college_app/widgets/modular_alert_dialog.dart';
-import 'package:tm_college_app/widgets/modular_icon_button.dart';
-import 'package:tm_college_app/widgets/theme_controller.dart';
-
-import 'package:tm_college_app/widgets/view_homework_body.dart';
-
-import '../models/homework.dart';
-import "./modular_floating_action_button.dart";
-
+import "../models/homework.dart";
+import "../models/my_database.dart";
+import "../models/notifications.dart";
+import "./app.dart";
+import "./modular_alert_dialog.dart";
 import "./modular_app_bar.dart";
+import "./modular_floating_action_button.dart";
 import "./modular_icon_button.dart";
+import "./theme_controller.dart";
+import "./view_homework_body.dart";
 
 class ViewHomeworkScreen extends StatefulWidget {
   final MyDatabase database;

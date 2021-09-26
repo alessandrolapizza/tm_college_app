@@ -1,8 +1,7 @@
 import "package:flutter/material.dart";
-import 'package:tm_college_app/widgets/empty_centered_text.dart';
-
-import 'subject_card.dart';
-import '../models/my_database.dart';
+import "../models/my_database.dart";
+import "./empty_centered_text.dart";
+import "./subject_card.dart";
 
 class HomeScreenBodySubjects extends StatelessWidget {
   final MyDatabase database;

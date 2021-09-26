@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import '../models/homework.dart';
+import "../models/homework.dart";
 
 class ViewHomeworkPriorityBanner extends StatelessWidget {
   final Homework homework;

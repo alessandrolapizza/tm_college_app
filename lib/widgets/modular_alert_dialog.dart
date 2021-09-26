@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import 'package:tm_college_app/widgets/theme_controller.dart';
+import "./theme_controller.dart";
 
 class ModularAlertDialog extends StatelessWidget {
   final List<Widget> actionButtons;

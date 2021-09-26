@@ -1,13 +1,11 @@
-import "package:flutter/material.dart";
 import "dart:convert";
-
-import "package:sqflite/sqflite.dart";
+import "package:flutter/material.dart";
 import "package:path/path.dart";
-import 'package:tm_college_app/models/grade.dart';
-import 'package:tm_college_app/models/notifications.dart';
-
-import 'subject.dart';
-import 'homework.dart';
+import "package:sqflite/sqflite.dart";
+import "./grade.dart";
+import "./homework.dart";
+import "./notifications.dart";
+import "./subject.dart";
 
 class MyDatabase {
   Future<Database> database;

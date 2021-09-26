@@ -1,11 +1,11 @@
 import "package:flutter/material.dart";
-import 'package:tm_college_app/widgets/edit_homework_form.dart';
-import 'package:tm_college_app/widgets/edit_homework_select_date_button.dart';
-import 'package:tm_college_app/widgets/edit_homework_select_priority_button.dart';
-import 'package:tm_college_app/widgets/edit_homework_select_subject_button.dart';
-import 'package:tm_college_app/widgets/edit_screens_bottom_buttons.dart';
-import 'package:tm_college_app/widgets/fade_gradient.dart';
-import '../models/subject.dart';
+import "../models/subject.dart";
+import "./edit_screens_bottom_buttons.dart";
+import "./edit_homework_form.dart";
+import "./edit_homework_select_date_button.dart";
+import "./edit_homework_select_priority_button.dart";
+import "./edit_homework_select_subject_button.dart";
+import "./fade_gradient.dart";
 
 class EditHomeworkBody extends StatelessWidget {
   final Function selectSubjectFunction;

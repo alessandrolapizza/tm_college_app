@@ -1,19 +1,18 @@
 import "package:flutter/material.dart";
 import "package:flutter_localizations/flutter_localizations.dart";
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tm_college_app/models/notifications.dart';
-import 'package:tm_college_app/widgets/advanced_notifications_settings_screen.dart';
-
-import 'package:tm_college_app/widgets/edit_homework_screen.dart';
-import 'package:tm_college_app/widgets/edit_subject_screen.dart';
-import 'package:tm_college_app/widgets/done_homeworks_screen.dart';
-import 'package:tm_college_app/widgets/one_time_introduction_screen.dart';
-import 'package:tm_college_app/widgets/start_new_school_year_settings_screen.dart';
-import 'package:tm_college_app/widgets/view_average_screen.dart';
-import 'package:tm_college_app/widgets/view_homework_screen.dart';
-import 'package:tm_college_app/widgets/settings_screen.dart';
-import 'home_screen.dart';
-import '../models/my_database.dart';
+import "package:shared_preferences/shared_preferences.dart";
+import "../models/my_database.dart";
+import "../models/notifications.dart";
+import "./advanced_notifications_settings_screen.dart";
+import "./done_homeworks_screen.dart";
+import "./edit_homework_screen.dart";
+import "./edit_subject_screen.dart";
+import "./home_screen.dart";
+import "./one_time_introduction_screen.dart";
+import "./settings_screen.dart";
+import "./start_new_school_year_settings_screen.dart";
+import "./view_average_screen.dart";
+import "./view_homework_screen.dart";
 
 class App extends StatelessWidget {
   final MyDatabase database;
@@ -62,7 +61,7 @@ class App extends StatelessWidget {
       supportedLocales: [
         defaultLocale,
       ],
-      title: "Mon année Scolaire", //Provisoire
+      title: "Mon année Scolaire",
       initialRoute: "/",
       routes: {
         "/": (_) => sharedPreferences.getBool("introductionSeen") ?? false

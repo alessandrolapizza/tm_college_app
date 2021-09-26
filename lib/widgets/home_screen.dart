@@ -1,19 +1,18 @@
+import "package:flutter_local_notifications/flutter_local_notifications.dart";
 import "package:flutter/material.dart";
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tm_college_app/models/homework.dart';
-import 'package:tm_college_app/models/subject.dart';
-import 'package:tm_college_app/models/notifications.dart';
-import 'package:tm_college_app/widgets/home_screen_body_averages.dart';
-
-import 'package:tm_college_app/widgets/home_screen_bottom_app_bar.dart';
-import 'package:tm_college_app/widgets/modular_icon_button.dart';
-import 'package:tm_college_app/widgets/edit_grade_dialog.dart';
+import "package:shared_preferences/shared_preferences.dart";
+import "../models/homework.dart";
+import "../models/my_database.dart";
+import "../models/notifications.dart";
+import "../models/subject.dart";
+import "./edit_grade_dialog.dart";
+import "./homeworks_list.dart";
+import "./home_screen_body_averages.dart";
+import "./home_screen_body_subjects.dart";
+import "./home_screen_bottom_app_bar.dart";
 import "./modular_app_bar.dart";
-import 'homeworks_list.dart';
+import "./modular_icon_button.dart";
 import "./modular_floating_action_button.dart";
-import 'home_screen_body_subjects.dart';
-import '../models/my_database.dart';
 
 class HomeScreen extends StatefulWidget {
   final MyDatabase database;

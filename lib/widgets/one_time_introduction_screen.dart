@@ -1,9 +1,9 @@
 import "package:flutter/material.dart";
-import 'package:introduction_screen/introduction_screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tm_college_app/models/notifications.dart';
-import 'package:tm_college_app/widgets/one_time_introduction_date_configuration_body.dart';
-import 'package:tm_college_app/widgets/one_time_introduction_notifications_setting_tile.dart';
+import "package:introduction_screen/introduction_screen.dart";
+import "package:shared_preferences/shared_preferences.dart";
+import "../models/notifications.dart";
+import "./one_time_introduction_date_configuration_body.dart";
+import "./one_time_introduction_notifications_setting_tile.dart";
 
 class OneTimeIntroductionScreen extends StatefulWidget {
   final Notifications notifications;
@@ -52,7 +52,7 @@ class _OneTimeIntroductionScreenState extends State<OneTimeIntroductionScreen> {
           image: Padding(
             padding: EdgeInsets.only(top: 50),
             child: Image.asset(
-              'assets/images/transparent_icon.png',
+              "assets/images/transparent_icon.png",
             ),
           ),
           decoration: PageDecoration(

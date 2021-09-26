@@ -1,14 +1,13 @@
 import "package:flutter/material.dart";
-import "package:sortedmap/sortedmap.dart";
 import "package:intl/intl.dart";
-import 'package:tm_college_app/models/notifications.dart';
-import 'package:tm_college_app/widgets/empty_centered_text.dart';
-import 'package:tm_college_app/widgets/modular_icon_button.dart';
-import 'package:tm_college_app/widgets/modular_sticky_header.dart';
-
-import 'homework_card.dart';
-import '../models/homework.dart';
-import '../models/my_database.dart';
+import "package:sortedmap/sortedmap.dart";
+import "../models/homework.dart";
+import "../models/my_database.dart";
+import "../models/notifications.dart";
+import "./empty_centered_text.dart";
+import "./homework_card.dart";
+import "./modular_icon_button.dart";
+import "./modular_sticky_header.dart";
 
 class HomeworksList extends StatefulWidget {
   final MyDatabase database;

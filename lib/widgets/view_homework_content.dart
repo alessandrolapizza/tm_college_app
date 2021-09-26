@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
-import 'package:tm_college_app/widgets/fade_gradient.dart';
-import '../models/homework.dart';
+import "../models/homework.dart";
+import "./fade_gradient.dart";
 
 class ViewHomeworkContent extends StatelessWidget {
   final Homework homework;

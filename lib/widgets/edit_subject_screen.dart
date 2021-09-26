@@ -1,17 +1,15 @@
-import "package:flutter/material.dart";
-
-import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
 import "package:flutter_iconpicker/flutter_iconpicker.dart";
-import 'package:tm_college_app/models/notifications.dart';
-import 'package:tm_college_app/widgets/app.dart';
-import 'package:tm_college_app/widgets/edit_subject_body.dart';
-import 'package:tm_college_app/widgets/modular_alert_dialog.dart';
-import 'package:tm_college_app/widgets/modular_icon_button.dart';
-import 'package:tm_college_app/widgets/theme_controller.dart';
-
+import "package:flutter_material_color_picker/flutter_material_color_picker.dart";
+import "package:flutter/material.dart";
+import "../models/my_database.dart";
+import "../models/notifications.dart";
+import "../models/subject.dart";
+import "./app.dart";
+import "./edit_subject_body.dart";
+import "./modular_alert_dialog.dart";
 import "./modular_app_bar.dart";
-import '../models/my_database.dart';
-import '../models/subject.dart';
+import "./modular_icon_button.dart";
+import "./theme_controller.dart";
 
 class EditSubjectScreen extends StatefulWidget {
   final MyDatabase database;

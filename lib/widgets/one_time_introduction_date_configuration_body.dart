@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
-import 'package:intl/intl.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tm_college_app/widgets/date_picker_outlined_button.dart';
+import "package:intl/intl.dart";
+import "package:shared_preferences/shared_preferences.dart";
+import "./date_picker_outlined_button.dart";
 
 class OneTimeIntroductionDateConfigurationBody extends StatefulWidget {
   final SharedPreferences sharedPreferences;

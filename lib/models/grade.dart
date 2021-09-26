@@ -1,9 +1,9 @@
 import "package:flutter/foundation.dart";
-import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sortedmap/sortedmap.dart';
-import 'package:tm_college_app/models/subject.dart';
-import 'package:uuid/uuid.dart';
+import "package:flutter/material.dart";
+import "package:shared_preferences/shared_preferences.dart";
+import "package:sortedmap/sortedmap.dart";
+import "package:uuid/uuid.dart";
+import "./subject.dart";
 
 class Grade {
   final String id;

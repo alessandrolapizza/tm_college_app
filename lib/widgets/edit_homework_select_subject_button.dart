@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
-import 'package:tm_college_app/widgets/modular_outlined_button.dart';
-import '../models/subject.dart';
+import "./modular_outlined_button.dart";
+import "../models/subject.dart";
 
 class EditHomeworkSelectSubjectButton extends StatelessWidget {
   final Function selectSubjectFunction;

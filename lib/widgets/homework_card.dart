@@ -1,7 +1,6 @@
 import "package:flutter/material.dart";
-import 'package:tm_college_app/widgets/circle_avatar_with_border.dart';
-
-import '../models/homework.dart';
+import "../models/homework.dart";
+import "./circle_avatar_with_border.dart";
 
 class HomeworkCard extends StatelessWidget {
   final Homework homework;

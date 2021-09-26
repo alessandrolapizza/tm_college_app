@@ -1,11 +1,11 @@
 import "package:flutter/material.dart";
-import 'package:settings_ui/settings_ui.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tm_college_app/models/my_database.dart';
-import 'package:tm_college_app/models/homework.dart';
-import 'package:tm_college_app/models/subject.dart';
-import 'package:tm_college_app/models/notifications.dart';
-import 'package:tm_college_app/widgets/modular_alert_dialog.dart';
+import "package:settings_ui/settings_ui.dart";
+import "package:shared_preferences/shared_preferences.dart";
+import "../models/homework.dart";
+import "../models/my_database.dart";
+import "../models/notifications.dart";
+import "../models/subject.dart";
+import "./modular_alert_dialog.dart";
 
 class StartNewSchoolYearSettingsBody extends StatelessWidget {
   final SharedPreferences sharedPreferences;

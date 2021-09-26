@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import 'package:tm_college_app/widgets/modular_outlined_button.dart';
+import "./modular_outlined_button.dart";
 
 class EditSubjectSelectIconButton extends StatelessWidget {
   final Function selectIconFunction;

@@ -1,12 +1,12 @@
 import "package:flutter/material.dart";
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tm_college_app/models/my_database.dart';
-import 'package:tm_college_app/models/grade.dart';
-import 'package:tm_college_app/models/subject.dart';
-import 'package:tm_college_app/widgets/edit_grade_dialog.dart';
-import 'package:tm_college_app/widgets/average_card.dart';
-import 'package:tm_college_app/widgets/grades_list.dart';
-import 'package:tm_college_app/widgets/modular_alert_dialog.dart';
+import "package:shared_preferences/shared_preferences.dart";
+import "../models/grade.dart";
+import "../models/my_database.dart";
+import "../models/subject.dart";
+import "./average_card.dart";
+import "./edit_grade_dialog.dart";
+import "./grades_list.dart";
+import "./modular_alert_dialog.dart";
 
 class ViewAverageBody extends StatefulWidget {
   final MyDatabase database;

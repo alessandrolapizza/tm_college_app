@@ -1,8 +1,8 @@
 import "package:flutter/material.dart";
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tm_college_app/models/notifications.dart';
-import 'package:tm_college_app/widgets/advanced_notifications_settings_body.dart';
-import 'package:tm_college_app/widgets/modular_app_bar.dart';
+import "package:shared_preferences/shared_preferences.dart";
+import "../models/notifications.dart";
+import "./advanced_notifications_settings_body.dart";
+import "./modular_app_bar.dart";
 
 class AdvancedNotificationsSettingsScreen extends StatelessWidget {
   final SharedPreferences sharedPreferences;

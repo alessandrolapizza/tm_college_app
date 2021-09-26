@@ -1,14 +1,13 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:notification_permissions/notification_permissions.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import "package:timezone/timezone.dart" as tz;
-import "package:timezone/data/latest.dart" as tz;
-import 'package:flutter_native_timezone/flutter_native_timezone.dart';
-import "package:intl/intl.dart";
+import "package:flutter_local_notifications/flutter_local_notifications.dart";
+import "package:flutter_native_timezone/flutter_native_timezone.dart";
 import "package:flutter/foundation.dart";
-import 'package:tm_college_app/models/homework.dart';
-import 'package:tm_college_app/models/my_database.dart';
+import "package:intl/intl.dart";
+import "package:notification_permissions/notification_permissions.dart";
+import "package:shared_preferences/shared_preferences.dart";
+import "package:timezone/data/latest.dart" as tz;
+import "package:timezone/timezone.dart" as tz;
+import "./homework.dart";
+import "./my_database.dart";
 
 class Notifications {
   final SharedPreferences sharedPreferences;
@@ -137,9 +136,9 @@ class Notifications {
           ),
           const NotificationDetails(
             android: AndroidNotificationDetails(
-              '0',
-              'Devoirs',
-              'Envoie les notifications relatives au temps.',
+              "0",
+              "Devoirs",
+              "Envoie les notifications relatives au temps.",
             ),
           ),
           androidAllowWhileIdle: true,

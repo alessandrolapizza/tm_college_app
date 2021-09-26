@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
-import 'package:flutter/services.dart';
-import 'package:tm_college_app/models/subject.dart';
+import "package:flutter/services.dart";
+import "../models/subject.dart";
 
 class EditGradeForm extends StatelessWidget {
   final Function onChangedFunction;

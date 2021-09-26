@@ -1,8 +1,8 @@
 import "package:flutter/material.dart";
-import 'package:tm_college_app/models/my_database.dart';
-import 'package:tm_college_app/models/notifications.dart';
-import 'package:tm_college_app/widgets/homeworks_list.dart';
-import 'package:tm_college_app/widgets/modular_app_bar.dart';
+import "../models/my_database.dart";
+import "../models/notifications.dart";
+import "../widgets/homeworks_list.dart";
+import "../widgets/modular_app_bar.dart";
 
 class DoneHomeworksScreen extends StatelessWidget {
   final MyDatabase database;

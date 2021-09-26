@@ -1,7 +1,6 @@
 import "package:flutter/material.dart";
-
 import "package:intl/intl.dart";
-import 'package:tm_college_app/widgets/modular_outlined_button.dart';
+import "./modular_outlined_button.dart";
 
 class EditHomeworkSelectDateButton extends StatelessWidget {
   final Function selectDateFunction;

@@ -1,14 +1,14 @@
 import "package:flutter/material.dart";
-import 'package:intl/intl.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tm_college_app/models/my_database.dart';
-import 'package:tm_college_app/models/grade.dart';
-import 'package:tm_college_app/models/subject.dart';
-import 'package:tm_college_app/widgets/edit_grade_form.dart';
-import 'package:tm_college_app/widgets/fade_gradient.dart';
-import 'package:tm_college_app/widgets/modular_alert_dialog.dart';
-import 'package:tm_college_app/widgets/modular_outlined_button.dart';
-import 'package:tm_college_app/widgets/theme_controller.dart';
+import "package:intl/intl.dart";
+import "package:shared_preferences/shared_preferences.dart";
+import "../models/grade.dart";
+import "../models/my_database.dart";
+import "../models/subject.dart";
+import "./edit_grade_form.dart";
+import "./fade_gradient.dart";
+import "./modular_alert_dialog.dart";
+import "./modular_outlined_button.dart";
+import "./theme_controller.dart";
 
 class EditGradeDialog extends StatefulWidget {
   final List<Subject> subjects;

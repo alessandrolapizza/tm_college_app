@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
-import "package:intl/intl.dart";
-import 'package:tm_college_app/models/notifications.dart';
-import "./app.dart";
-import '../models/my_database.dart';
+import "package:flutter/material.dart";
 import "package:flutter/services.dart";
+import "package:intl/intl.dart";
 import "package:shared_preferences/shared_preferences.dart";
+import "../models/my_database.dart";
+import "../models/notifications.dart";
+import "./app.dart";
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

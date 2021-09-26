@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import 'package:sticky_headers/sticky_headers.dart';
+import "package:sticky_headers/sticky_headers.dart";
 
 class ModularStickyHeader extends StatelessWidget {
   final Widget header;

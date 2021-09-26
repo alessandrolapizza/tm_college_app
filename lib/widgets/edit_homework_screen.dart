@@ -1,16 +1,15 @@
-import "package:flutter/material.dart";
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tm_college_app/models/notifications.dart';
-import 'package:tm_college_app/widgets/circle_avatar_with_border.dart';
-import 'package:tm_college_app/widgets/edit_homework_body.dart';
-import 'package:tm_college_app/widgets/fade_gradient.dart';
-import 'package:tm_college_app/widgets/modular_app_bar.dart';
 import "package:flutter_material_color_picker/flutter_material_color_picker.dart";
-import 'package:tm_college_app/widgets/theme_controller.dart';
-
-import '../models/homework.dart';
-import '../models/subject.dart';
-import '../models/my_database.dart';
+import "package:flutter/material.dart";
+import "package:shared_preferences/shared_preferences.dart";
+import "../models/homework.dart";
+import "../models/my_database.dart";
+import "../models/notifications.dart";
+import "../models/subject.dart";
+import "./circle_avatar_with_border.dart";
+import "./edit_homework_body.dart";
+import "./fade_gradient.dart";
+import "./modular_app_bar.dart";
+import "./theme_controller.dart";
 
 class EditHomeworkScreen extends StatefulWidget {
   final MyDatabase database;
@@ -99,41 +98,41 @@ class _EditHomeworkScreenState extends State<EditHomeworkScreen> {
 
   Future<void> _selectDate() async {
     DateTime date = await showDatePicker(
-        confirmText: "OK",
-        cancelText: "Annuler",
-        context: context,
-        initialDate: _selectedDate == null
-            ? DateTime.now().isAfter(
-                DateTime.parse(
-                  widget.sharedPreferences.getString("firstTermBeginingDate"),
-                ),
-              )
-                ? DateTime.now().isBefore(
-                    DateTime.parse(
+      confirmText: "OK",
+      cancelText: "Annuler",
+      context: context,
+      initialDate: _selectedDate == null
+          ? DateTime.now().isAfter(
+              DateTime.parse(
+                widget.sharedPreferences.getString("firstTermBeginingDate"),
+              ),
+            )
+              ? DateTime.now().isBefore(
+                  DateTime.parse(
+                    widget.sharedPreferences.getString("secondTermEndDate"),
+                  ),
+                )
+                  ? DateTime.now()
+                  : DateTime.parse(
                       widget.sharedPreferences.getString("secondTermEndDate"),
-                    ),
-                  )
-                    ? DateTime.now()
-                    : DateTime.parse(
-                        widget.sharedPreferences.getString("secondTermEndDate"),
-                      )
-                : DateTime.parse(
-                    widget.sharedPreferences.getString("firstTermBeginingDate"),
-                  )
-            : _selectedDate,
-        firstDate: DateTime.parse(
-          widget.sharedPreferences.getString("firstTermBeginingDate"),
-        ),
-        lastDate: DateTime.parse(
-          widget.sharedPreferences.getString("secondTermEndDate"),
-        ),
-        builder: (BuildContext context, Widget child) {
-          return ThemeController(
-            child: child,
-            color: _selectedSubject.color,
-          );
-        } //à construire plus tard.
+                    )
+              : DateTime.parse(
+                  widget.sharedPreferences.getString("firstTermBeginingDate"),
+                )
+          : _selectedDate,
+      firstDate: DateTime.parse(
+        widget.sharedPreferences.getString("firstTermBeginingDate"),
+      ),
+      lastDate: DateTime.parse(
+        widget.sharedPreferences.getString("secondTermEndDate"),
+      ),
+      builder: (BuildContext context, Widget child) {
+        return ThemeController(
+          child: child,
+          color: _selectedSubject.color,
         );
+      },
+    );
 
     if (date != null) {
       setState(() => _selectedDate = date);

@@ -1,9 +1,9 @@
 import "package:flutter/material.dart";
-import 'package:tm_college_app/widgets/edit_screens_bottom_buttons.dart';
-import 'package:tm_college_app/widgets/edit_subject_form.dart';
-import 'package:tm_college_app/widgets/edit_subject_select_icon_button.dart';
-import 'package:tm_college_app/widgets/edit_subject_select_color_button.dart';
-import 'package:tm_college_app/widgets/fade_gradient.dart';
+import "./edit_screens_bottom_buttons.dart";
+import "./edit_subject_form.dart";
+import "./edit_subject_select_color_button.dart";
+import "./edit_subject_select_icon_button.dart";
+import "./fade_gradient.dart";
 
 class EditSubjectBody extends StatelessWidget {
   final Function selectIconFunction;

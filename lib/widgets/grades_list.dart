@@ -1,8 +1,8 @@
 import "package:flutter/material.dart";
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tm_college_app/models/grade.dart';
-import 'package:tm_college_app/widgets/grade_details_card.dart';
-import 'package:tm_college_app/widgets/modular_sticky_header.dart';
+import "package:shared_preferences/shared_preferences.dart";
+import "../models/grade.dart";
+import "./grade_details_card.dart";
+import "./modular_sticky_header.dart";
 
 class GradesList extends StatelessWidget {
   final Map<DateTime, List<Grade>> gradesSortedSubjectSpecific;

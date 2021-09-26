@@ -1,9 +1,9 @@
 import "package:flutter/material.dart";
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tm_college_app/models/my_database.dart';
-import 'package:tm_college_app/models/grade.dart';
-import 'package:tm_college_app/widgets/empty_centered_text.dart';
-import 'package:tm_college_app/widgets/average_card.dart';
+import "package:shared_preferences/shared_preferences.dart";
+import "../models/my_database.dart";
+import "../models/grade.dart";
+import "./empty_centered_text.dart";
+import "./average_card.dart";
 
 class HomeScreenBodyAverages extends StatelessWidget {
   final MyDatabase database;

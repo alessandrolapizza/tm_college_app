@@ -1,9 +1,9 @@
 import "package:flutter/material.dart";
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tm_college_app/models/my_database.dart';
-import 'package:tm_college_app/models/notifications.dart';
-import 'package:tm_college_app/widgets/modular_app_bar.dart';
-import 'package:tm_college_app/widgets/start_new_school_year_settings_body.dart';
+import "package:shared_preferences/shared_preferences.dart";
+import "../models/my_database.dart";
+import "../models/notifications.dart";
+import "./modular_app_bar.dart";
+import "./start_new_school_year_settings_body.dart";
 
 class StartNewSchoolYearSettingsScreen extends StatelessWidget {
   final SharedPreferences sharedPreferences;

@@ -1,8 +1,8 @@
 import "package:flutter/material.dart";
-import 'package:tm_college_app/widgets/view_homework_content.dart';
-import 'package:tm_college_app/widgets/view_homework_details_sentence.dart';
-import 'package:tm_college_app/widgets/view_homework_priority_banner.dart';
-import '../models/homework.dart';
+import "./view_homework_content.dart";
+import "./view_homework_details_sentence.dart";
+import "./view_homework_priority_banner.dart";
+import "../models/homework.dart";
 
 class ViewHomeworkBody extends StatelessWidget {
   final Homework homework;
