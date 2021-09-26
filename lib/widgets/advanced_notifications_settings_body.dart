@@ -86,8 +86,9 @@ class _AdvancedNotificationsSettingsBodyState
                           1) ==
                       0
                   ? "Aucune"
-                  : widget.sharedPreferences
-                              .getInt("notificationsPriorityNumberGreen") ==
+                  : (widget.sharedPreferences
+                                  .getInt("notificationsPriorityNumberGreen") ??
+                              1) ==
                           1
                       ? "1 jour avant"
                       : "${widget.sharedPreferences.getInt("notificationsPriorityNumberGreen") ?? 1} jours avant",

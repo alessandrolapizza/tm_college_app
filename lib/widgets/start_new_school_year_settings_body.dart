@@ -23,6 +23,7 @@ class StartNewSchoolYearSettingsBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SettingsList(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       sections: [
         SettingsSection(
           titleTextStyle: TextStyle(),

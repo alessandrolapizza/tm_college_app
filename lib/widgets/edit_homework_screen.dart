@@ -64,10 +64,10 @@ class _EditHomeworkScreenState extends State<EditHomeworkScreen> {
                                 onTap: () => Navigator.pop(
                                     context, snapshot.data[index]),
                                 leading: CircleAvatarWithBorder(
-                                  color: snapshot.data[index].couleurMatiere,
-                                  icon: snapshot.data[index].iconMatiere,
+                                  color: snapshot.data[index].color,
+                                  icon: snapshot.data[index].icon,
                                 ),
-                                title: Text(snapshot.data[index].nom),
+                                title: Text(snapshot.data[index].name),
                               )
                             : ListTile(
                                 title: Text(Subject.noSubject.name),
@@ -102,20 +102,25 @@ class _EditHomeworkScreenState extends State<EditHomeworkScreen> {
         confirmText: "OK",
         cancelText: "Annuler",
         context: context,
-        initialDate: DateTime.now().isAfter(
-                  DateTime.parse(
+        initialDate: _selectedDate == null
+            ? DateTime.now().isAfter(
+                DateTime.parse(
+                  widget.sharedPreferences.getString("firstTermBeginingDate"),
+                ),
+              )
+                ? DateTime.now().isBefore(
+                    DateTime.parse(
+                      widget.sharedPreferences.getString("secondTermEndDate"),
+                    ),
+                  )
+                    ? DateTime.now()
+                    : DateTime.parse(
+                        widget.sharedPreferences.getString("secondTermEndDate"),
+                      )
+                : DateTime.parse(
                     widget.sharedPreferences.getString("firstTermBeginingDate"),
-                  ),
-                ) &&
-                DateTime.now().isBefore(
-                  DateTime.parse(
-                    widget.sharedPreferences.getString("secondTermEndDate"),
-                  ),
-                )
-            ? DateTime.now()
-            : DateTime.parse(
-                widget.sharedPreferences.getString("firstTermBeginingDate"),
-              ),
+                  )
+            : _selectedDate,
         firstDate: DateTime.parse(
           widget.sharedPreferences.getString("firstTermBeginingDate"),
         ),

@@ -41,12 +41,13 @@ class _EditGradeDialogState extends State<EditGradeDialog> {
 
   final TextEditingController _gradeController = TextEditingController();
 
-  DateTime _selectedGradeDate = DateTime.now();
+  DateTime _selectedGradeDate;
 
   String _dropdownValue = "0";
 
   bool _gradeDateMissing = false;
 
+  @override
   void initState() {
     super.initState();
     if (widget.grade != null) {
@@ -55,6 +56,23 @@ class _EditGradeDialogState extends State<EditGradeDialog> {
       _coefficientController.text =
           widget.grade.coefficient.toString().substring(0, 3);
     }
+    _selectedGradeDate = DateTime.now().isAfter(
+      DateTime.parse(
+        widget.sharedPreferences.getString("firstTermBeginingDate"),
+      ),
+    )
+        ? DateTime.now().isBefore(
+            DateTime.parse(
+              widget.sharedPreferences.getString("secondTermEndDate"),
+            ),
+          )
+            ? DateTime.now()
+            : DateTime.parse(
+                widget.sharedPreferences.getString("secondTermEndDate"),
+              )
+        : DateTime.parse(
+            widget.sharedPreferences.getString("firstTermBeginingDate"),
+          );
   }
 
   void _onChangedFuntion(value) {
@@ -68,20 +86,7 @@ class _EditGradeDialogState extends State<EditGradeDialog> {
       cancelText: "Annuler",
       confirmText: "OK",
       context: context,
-      initialDate: DateTime.now().isAfter(
-                DateTime.parse(
-                  widget.sharedPreferences.getString("firstTermBeginingDate"),
-                ),
-              ) &&
-              DateTime.now().isBefore(
-                DateTime.parse(
-                  widget.sharedPreferences.getString("secondTermEndDate"),
-                ),
-              )
-          ? DateTime.now()
-          : DateTime.parse(
-              widget.sharedPreferences.getString("firstTermBeginingDate"),
-            ),
+      initialDate: _selectedGradeDate,
       firstDate: DateTime.parse(
         widget.sharedPreferences.getString("firstTermBeginingDate"),
       ),
