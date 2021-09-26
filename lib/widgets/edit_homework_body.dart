@@ -5,12 +5,12 @@ import 'package:tm_college_app/widgets/edit_homework_select_priority_button.dart
 import 'package:tm_college_app/widgets/edit_homework_select_subject_button.dart';
 import 'package:tm_college_app/widgets/edit_screens_bottom_buttons.dart';
 import 'package:tm_college_app/widgets/fade_gradient.dart';
-import "../models/matiere.dart";
+import '../models/subject.dart';
 
 class EditHomeworkBody extends StatelessWidget {
   final Function selectSubjectFunction;
 
-  final Matiere selectedSubject;
+  final Subject selectedSubject;
 
   final TextEditingController homeworkContentController;
 

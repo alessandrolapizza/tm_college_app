@@ -1,8 +1,8 @@
 import "package:flutter/material.dart";
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tm_college_app/models/devoir.dart';
-import 'package:tm_college_app/models/matiere.dart';
+import 'package:tm_college_app/models/homework.dart';
+import 'package:tm_college_app/models/subject.dart';
 import 'package:tm_college_app/models/notifications.dart';
 import 'package:tm_college_app/widgets/home_screen_body_averages.dart';
 
@@ -13,10 +13,10 @@ import "./modular_app_bar.dart";
 import 'homeworks_list.dart';
 import "./modular_floating_action_button.dart";
 import 'home_screen_body_subjects.dart';
-import "../models/base_de_donnees.dart";
+import '../models/my_database.dart';
 
 class HomeScreen extends StatefulWidget {
-  final BaseDeDonnees database;
+  final MyDatabase database;
 
   final Notifications notifications;
 
@@ -58,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
 
     if (_index == 0) {
       body = HomeworksList(
-        db: widget.database,
+        database: widget.database,
         homePage: true,
         notifications: widget.notifications,
       );
@@ -68,14 +68,14 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
         sharedPreferences: widget.sharedPreferences,
         onTapFunctionGradeCard: ({
           @required int index,
-          @required Matiere subject,
+          @required Subject subject,
         }) =>
             Navigator.pushNamed(context, "/view_grade_screen",
                 arguments: [subject, index]).then((_) => setState(() {})),
       );
     } else {
       body = HomeScreenBodySubjects(
-        db: widget.database,
+        database: widget.database,
         onTapSubjectCardFunction: ({@required subject}) => Navigator.pushNamed(
           context,
           "/edit_subject_screen",
@@ -88,12 +88,12 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   }
 
   void _routePointer() async {
-    List<Matiere> subjects;
+    List<Subject> subjects;
     if (_index == 0) {
       Navigator.pushNamed(context, "/edit_homework_screen",
           arguments: [null, true]).then((_) => setState(() {}));
     } else if (_index == 1) {
-      subjects = await widget.database.matieres();
+      subjects = await widget.database.subjects();
       showDialog(
         context: context,
         builder: (_) {
@@ -128,7 +128,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     }
 
     if (payload != null && payload != "") {
-      List<Devoir> homeworks;
+      List<Homework> homeworks;
       homeworks = await widget.database.homeworks();
       homeworks.forEach(
         (homework) async {
@@ -186,7 +186,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
         icon: Icons.add_rounded,
       ),
       bottomNavigationBar: HomePageBottomAppBar(
-        changerIndex: _changeIndex,
+        changeIndexFunction: _changeIndex,
         indexSelectionne: _index,
       ),
     );

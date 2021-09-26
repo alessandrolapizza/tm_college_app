@@ -1,13 +1,13 @@
 import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
-import 'package:tm_college_app/models/matiere.dart';
+import 'package:tm_college_app/models/subject.dart';
 
 class EditGradeForm extends StatelessWidget {
   final Function onChangedFunction;
 
   final String dropdownValue;
 
-  final List<Matiere> subjects;
+  final List<Subject> subjects;
 
   final GlobalKey<FormState> editGradeFormKey;
 
@@ -60,10 +60,10 @@ class EditGradeForm extends StatelessWidget {
                         ],
                       )..addAll(
                           subjects.map<DropdownMenuItem<String>>(
-                            (Matiere value) {
+                            (Subject subject) {
                               return DropdownMenuItem<String>(
-                                value: value.id,
-                                child: Text(value.nom),
+                                value: subject.id,
+                                child: Text(subject.name),
                               );
                             },
                           ).toList(),

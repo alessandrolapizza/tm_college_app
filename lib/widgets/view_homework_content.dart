@@ -1,9 +1,9 @@
 import "package:flutter/material.dart";
 import 'package:tm_college_app/widgets/fade_gradient.dart';
-import "../models/devoir.dart";
+import '../models/homework.dart';
 
 class ViewHomeworkContent extends StatelessWidget {
-  final Devoir homework;
+  final Homework homework;
 
   ViewHomeworkContent({@required this.homework});
 

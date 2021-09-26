@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import 'package:tm_college_app/models/base_de_donnees.dart';
+import 'package:tm_college_app/models/my_database.dart';
 import 'package:tm_college_app/models/notifications.dart';
 import 'package:tm_college_app/widgets/app.dart';
 import 'package:tm_college_app/widgets/modular_alert_dialog.dart';
@@ -8,19 +8,19 @@ import 'package:tm_college_app/widgets/theme_controller.dart';
 
 import 'package:tm_college_app/widgets/view_homework_body.dart';
 
-import "../models/devoir.dart";
+import '../models/homework.dart';
 import "./modular_floating_action_button.dart";
 
 import "./modular_app_bar.dart";
 import "./modular_icon_button.dart";
 
 class ViewHomeworkScreen extends StatefulWidget {
-  final BaseDeDonnees db;
+  final MyDatabase database;
 
   final Notifications notifications;
 
   ViewHomeworkScreen({
-    @required this.db,
+    @required this.database,
     @required this.notifications,
   });
 
@@ -31,7 +31,7 @@ class ViewHomeworkScreen extends StatefulWidget {
 
 class _RouteAwareViewHomeworkScreenState extends State<ViewHomeworkScreen>
     with RouteAware {
-  List<Devoir> _updatedHomework;
+  List<Homework> _updatedHomework;
 
   bool _useUpdatedHomework = false;
 
@@ -67,7 +67,7 @@ class _RouteAwareViewHomeworkScreenState extends State<ViewHomeworkScreen>
   @override
   Widget build(BuildContext context) {
     final List<dynamic> arguments = ModalRoute.of(context).settings.arguments;
-    final Devoir homework = arguments[0];
+    final Homework homework = arguments[0];
     final bool homePage = arguments[1];
     _useUpdatedHomework = true && _updatedHomework == null
         ? _useUpdatedHomework = false
@@ -75,15 +75,15 @@ class _RouteAwareViewHomeworkScreenState extends State<ViewHomeworkScreen>
 
     return ThemeController(
       color: _useUpdatedHomework
-          ? _updatedHomework[0].subject.couleurMatiere
-          : homework.subject.couleurMatiere,
+          ? _updatedHomework[0].subject.color
+          : homework.subject.color,
       child: Scaffold(
         floatingActionButton: !homePage
             ? ModularFloatingActionButton(
                 onPressedFunction: () async {
-                  await Devoir.homeworkChecker(
+                  await Homework.homeworkChecker(
                     homework: homework,
-                    db: widget.db,
+                    database: widget.database,
                     notifications: widget.notifications,
                   );
                   Navigator.pop(context);
@@ -104,7 +104,7 @@ class _RouteAwareViewHomeworkScreenState extends State<ViewHomeworkScreen>
                       _useUpdatedHomework ? _updatedHomework[0] : homework,
                       false
                     ],
-                  ) as List<Devoir>;
+                  ) as List<Homework>;
                   setState(() => _updatedHomework);
                 },
                 icon: Icons.edit_rounded,
@@ -121,9 +121,9 @@ class _RouteAwareViewHomeworkScreenState extends State<ViewHomeworkScreen>
                         context: context,
                         builder: (_) {
                           return ThemeController(
-                            color: homework.subject.couleurMatiere,
+                            color: homework.subject.color,
                             child: ModularAlertDialog(
-                              themeColor: homework.subject.couleurMatiere,
+                              themeColor: homework.subject.color,
                               title: Text("Supprimer devoir ?"),
                               content: Text(
                                   "Es-tu sûr de vouloir supprimer ce devoir ?"),
@@ -138,7 +138,7 @@ class _RouteAwareViewHomeworkScreenState extends State<ViewHomeworkScreen>
                                     style: TextStyle(color: Colors.red),
                                   ),
                                   onPressed: () async {
-                                    await widget.db.deleteHomework(
+                                    await widget.database.deleteHomework(
                                       homework: homework,
                                       notifications: widget.notifications,
                                     );
@@ -156,9 +156,9 @@ class _RouteAwareViewHomeworkScreenState extends State<ViewHomeworkScreen>
                   ),
                   ModularIconButton(
                     onPressedFunction: () async {
-                      await Devoir.homeworkChecker(
+                      await Homework.homeworkChecker(
                         homework: homework,
-                        db: widget.db,
+                        database: widget.database,
                         notifications: widget.notifications,
                       );
                       Navigator.pop(context);
@@ -179,9 +179,9 @@ class _RouteAwareViewHomeworkScreenState extends State<ViewHomeworkScreen>
                         context: context,
                         builder: (_) {
                           return ThemeController(
-                            color: homework.subject.couleurMatiere,
+                            color: homework.subject.color,
                             child: ModularAlertDialog(
-                              themeColor: homework.subject.couleurMatiere,
+                              themeColor: homework.subject.color,
                               title: Text("Supprimer devoir ?"),
                               content: Text(
                                   "Es-tu sûr de vouloir supprimer ce devoir ?"),
@@ -196,7 +196,7 @@ class _RouteAwareViewHomeworkScreenState extends State<ViewHomeworkScreen>
                                     style: TextStyle(color: Colors.red),
                                   ),
                                   onPressed: () async {
-                                    await widget.db.deleteHomework(
+                                    await widget.database.deleteHomework(
                                       homework: homework,
                                       notifications: widget.notifications,
                                     );

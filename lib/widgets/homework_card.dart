@@ -1,17 +1,17 @@
 import "package:flutter/material.dart";
 import 'package:tm_college_app/widgets/circle_avatar_with_border.dart';
 
-import "../models/devoir.dart";
+import '../models/homework.dart';
 
-class CarteDevoir extends StatelessWidget {
-  final Devoir devoir;
+class HomeworkCard extends StatelessWidget {
+  final Homework homework;
 
   final Function onTapFunction;
 
   final Widget actionButton;
 
-  CarteDevoir({
-    @required this.devoir,
+  HomeworkCard({
+    @required this.homework,
     this.onTapFunction,
     this.actionButton,
   });
@@ -30,8 +30,8 @@ class CarteDevoir extends StatelessWidget {
               Expanded(
                 flex: 1,
                 child: Card(
-                  color: Devoir.priorityColorMap.values.toList()[
-                      devoir.priority], // à construire (couleur de priorité)
+                  color: Homework.priorityColorMap.values
+                      .toList()[homework.priority],
                 ),
               ),
               Expanded(
@@ -39,8 +39,8 @@ class CarteDevoir extends StatelessWidget {
                 child: Container(
                   margin: EdgeInsets.symmetric(vertical: 10),
                   child: CircleAvatarWithBorder(
-                    color: devoir.subject.couleurMatiere,
-                    icon: devoir.subject.iconMatiere,
+                    color: homework.subject.color,
+                    icon: homework.subject.icon,
                   ),
                 ),
               ),
@@ -51,13 +51,13 @@ class CarteDevoir extends StatelessWidget {
                   child: Column(
                     children: [
                       Text(
-                        devoir.subject.nom, // à construire (Nom de la matière)
+                        homework.subject.name,
                         style: TextStyle(fontWeight: FontWeight.w600),
                       ),
                       Container(
                         margin: EdgeInsets.only(top: 3),
                         child: Text(
-                          devoir.content, // à construire (Contenu du devoir)
+                          homework.content,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,
                         ),

@@ -2,13 +2,13 @@ import "package:flutter/foundation.dart";
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sortedmap/sortedmap.dart';
-import 'package:tm_college_app/models/matiere.dart';
+import 'package:tm_college_app/models/subject.dart';
 import 'package:uuid/uuid.dart';
 
 class Grade {
   final String id;
   final String subjectId;
-  final Matiere subject;
+  final Subject subject;
   final double grade;
   final double coefficient;
   final DateTime date;
@@ -48,9 +48,9 @@ class Grade {
     @required List<Grade> grades,
     @required SharedPreferences sharedPreferences,
   }) {
-    Map<Matiere, List<Grade>> gradesSubjectsMap = {};
-    Map<Matiere, Map<DateTime, List<Grade>>> gradesSorted = {};
-    Map<Matiere, List<Map<DateTime, double>>> averages = {};
+    Map<Subject, List<Grade>> gradesSubjectsMap = {};
+    Map<Subject, Map<DateTime, List<Grade>>> gradesSorted = {};
+    Map<Subject, List<Map<DateTime, double>>> averages = {};
 
     grades.forEach(
       (Grade grade) {

@@ -1,10 +1,10 @@
 import "package:flutter/material.dart";
 import "package:intl/intl.dart";
-import "../models/matiere.dart";
-import "../models/devoir.dart";
+import '../models/subject.dart';
+import '../models/homework.dart';
 
 class ViewHomeworkDetailsSentence extends StatelessWidget {
-  final Devoir homework;
+  final Homework homework;
 
   final bool homePage;
 
@@ -17,13 +17,13 @@ class ViewHomeworkDetailsSentence extends StatelessWidget {
   Widget build(BuildContext context) {
     return Wrap(
       runSpacing: 15,
-      children: homework.subject != Matiere.noSubject
+      children: homework.subject != Subject.noSubject
           ? [
               Text(
                 "Contenu du devoir en ",
               ),
               Text(
-                homework.subject.nom,
+                homework.subject.name,
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
                 ),

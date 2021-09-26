@@ -1,11 +1,11 @@
 import "package:flutter/material.dart";
 import 'package:tm_college_app/models/grade.dart';
-import 'package:tm_college_app/models/matiere.dart';
+import 'package:tm_college_app/models/subject.dart';
 import 'package:tm_college_app/widgets/circle_avatar_with_border.dart';
 import 'package:tm_college_app/widgets/modular_chart.dart';
 
 class AverageCard extends StatelessWidget {
-  final Matiere subject;
+  final Subject subject;
 
   final List<Map<DateTime, double>> averages;
 
@@ -39,10 +39,9 @@ class AverageCard extends StatelessWidget {
                         child: Row(
                           children: [
                             CircleAvatarWithBorder(
-                                color: subject.couleurMatiere,
-                                icon: subject.iconMatiere),
+                                color: subject.color, icon: subject.icon),
                             Text(
-                              subject.nom,
+                              subject.name,
                               style: TextStyle(
                                   fontWeight: FontWeight.w600, fontSize: 15),
                             ),
@@ -57,13 +56,13 @@ class AverageCard extends StatelessWidget {
                     child: ModularChart(
                       averages: averages,
                       color: Grade.color(
-                              average: double.parse(
-                                averages[averages.length - 1]
-                                    .values
-                                    .toList()[0]
-                                    .toStringAsFixed(1),
-                              ),
-                            ),
+                        average: double.parse(
+                          averages[averages.length - 1]
+                              .values
+                              .toList()[0]
+                              .toStringAsFixed(1),
+                        ),
+                      ),
                     ),
                   ),
                 ],

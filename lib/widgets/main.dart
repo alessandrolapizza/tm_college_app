@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import "package:intl/intl.dart";
 import 'package:tm_college_app/models/notifications.dart';
 import "./app.dart";
-import '../models/base_de_donnees.dart';
+import '../models/my_database.dart';
 import "package:flutter/services.dart";
 import "package:shared_preferences/shared_preferences.dart";
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  BaseDeDonnees database = BaseDeDonnees();
+  MyDatabase database = MyDatabase();
 
-  await database.defCheminMatieres();
+  await database.defineDatabasePath();
 
   Intl.defaultLocale = "fr";
 
@@ -21,10 +21,10 @@ void main() async {
     ],
   );
 
-  SharedPreferences prefs = await SharedPreferences.getInstance();
+  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
 
   Notifications notifications = Notifications(
-    sharedPreferences: prefs,
+    sharedPreferences: sharedPreferences,
     database: database,
   );
 
@@ -35,7 +35,7 @@ void main() async {
   runApp(
     App(
       database: database,
-      sharedPreferences: prefs,
+      sharedPreferences: sharedPreferences,
       notifications: notifications,
     ),
   );

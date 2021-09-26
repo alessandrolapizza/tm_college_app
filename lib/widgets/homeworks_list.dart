@@ -6,19 +6,19 @@ import 'package:tm_college_app/widgets/empty_centered_text.dart';
 import 'package:tm_college_app/widgets/modular_icon_button.dart';
 import 'package:tm_college_app/widgets/modular_sticky_header.dart';
 
-import "./carte_devoir.dart";
-import "../models/devoir.dart";
-import "../models/base_de_donnees.dart";
+import 'homework_card.dart';
+import '../models/homework.dart';
+import '../models/my_database.dart';
 
 class HomeworksList extends StatefulWidget {
-  final BaseDeDonnees db;
+  final MyDatabase database;
 
   final bool homePage;
 
   final Notifications notifications;
 
   HomeworksList({
-    @required this.db,
+    @required this.database,
     @required this.homePage,
     @required this.notifications,
   });
@@ -30,12 +30,12 @@ class HomeworksList extends StatefulWidget {
 class _HomeworksList extends State<HomeworksList> {
   final ScrollController _scrollControllerHomeworks = ScrollController();
 
-  void checkHomework(
-    Devoir homework,
+  void _checkHomework(
+    Homework homework,
   ) async {
-    await Devoir.homeworkChecker(
+    await Homework.homeworkChecker(
       homework: homework,
-      db: widget.db,
+      database: widget.database,
       notifications: widget.notifications,
     );
     setState(() {});
@@ -57,19 +57,19 @@ class _HomeworksList extends State<HomeworksList> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: widget.db.homeworks(),
+      future: widget.database.homeworks(),
       builder: (_, snapshot) {
         var child;
         if (snapshot.hasData) {
-          Map<DateTime, List<Devoir>> homeworksDateMapDone = {};
-          Map<DateTime, List<Devoir>> homeworksDateMapToDo = {};
-          SortedMap<Comparable<DateTime>, List<Devoir>>
+          Map<DateTime, List<Homework>> homeworksDateMapDone = {};
+          Map<DateTime, List<Homework>> homeworksDateMapToDo = {};
+          SortedMap<Comparable<DateTime>, List<Homework>>
               homeworksDateMapDoneSorted = SortedMap(Ordering.byKey());
-          SortedMap<Comparable<DateTime>, List<Devoir>>
+          SortedMap<Comparable<DateTime>, List<Homework>>
               homeworksDateMapToDoSorted = SortedMap(Ordering.byKey());
 
           snapshot.data.forEach(
-            (Devoir homework) {
+            (Homework homework) {
               if (!homework.done) {
                 if (homeworksDateMapToDo.containsKey(homework.dueDate)) {
                   homeworksDateMapToDo[homework.dueDate].add(homework);
@@ -94,7 +94,7 @@ class _HomeworksList extends State<HomeworksList> {
             homeworksDateMapToDoSorted.addAll(homeworksDateMapToDo);
           }
 
-          SortedMap<Comparable<DateTime>, List<Devoir>> homeworks =
+          SortedMap<Comparable<DateTime>, List<Homework>> homeworks =
               widget.homePage
                   ? homeworksDateMapToDoSorted
                   : homeworksDateMapDoneSorted;
@@ -120,8 +120,8 @@ class _HomeworksList extends State<HomeworksList> {
                     shrinkWrap: true,
                     itemCount: homeworks.values.toList()[index].length,
                     itemBuilder: (_, idx) {
-                      return CarteDevoir(
-                        devoir: homeworks.values.toList()[index][idx],
+                      return HomeworkCard(
+                        homework: homeworks.values.toList()[index][idx],
                         onTapFunction: () => Navigator.pushNamed(
                           context,
                           "/view_homework_screen",
@@ -133,14 +133,14 @@ class _HomeworksList extends State<HomeworksList> {
                         actionButton: widget.homePage
                             ? ModularIconButton(
                                 color: Colors.green,
-                                onPressedFunction: () => checkHomework(
+                                onPressedFunction: () => _checkHomework(
                                   homeworks.values.toList()[index][idx],
                                 ),
                                 icon: Icons.check_rounded,
                               )
                             : ModularIconButton(
                                 color: Colors.orangeAccent,
-                                onPressedFunction: () => checkHomework(
+                                onPressedFunction: () => _checkHomework(
                                   homeworks.values.toList()[index][idx],
                                 ),
                                 icon: Icons.settings_backup_restore_rounded,

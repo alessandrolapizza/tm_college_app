@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tm_college_app/models/base_de_donnees.dart';
+import 'package:tm_college_app/models/my_database.dart';
 import 'package:tm_college_app/models/notifications.dart';
 import 'package:tm_college_app/widgets/modular_app_bar.dart';
 import 'package:tm_college_app/widgets/settings_body.dart';
@@ -10,7 +10,7 @@ class SettingsScreen extends StatelessWidget {
 
   final Notifications notifications;
 
-  final BaseDeDonnees database;
+  final MyDatabase database;
 
   SettingsScreen({
     @required this.database,

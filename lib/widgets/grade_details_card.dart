@@ -28,7 +28,9 @@ class GradeDetailsCard extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Text(DateFormat("d.MM.y").format(grade.date)),
+                  Text(
+                    DateFormat("d.MM.y").format(grade.date),
+                  ),
                   Text(
                     grade.grade.toString(),
                     style: TextStyle(color: Grade.color(average: grade.grade)),

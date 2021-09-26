@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 import 'package:settings_ui/settings_ui.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tm_college_app/models/base_de_donnees.dart';
+import 'package:tm_college_app/models/my_database.dart';
 import 'package:tm_college_app/models/notifications.dart';
 import 'package:tm_college_app/widgets/modular_alert_dialog.dart';
 
@@ -10,7 +10,7 @@ class SettingsBody extends StatefulWidget {
 
   final Notifications notifications;
 
-  final BaseDeDonnees database;
+  final MyDatabase database;
 
   SettingsBody({
     @required this.database,
@@ -24,12 +24,12 @@ class SettingsBody extends StatefulWidget {
 
 class _SettingsBodyState extends State<SettingsBody>
     with WidgetsBindingObserver {
-  Future<String> permissionStatusFuture;
+  Future<String> _permissionStatusFuture;
 
   @override
   void initState() {
     super.initState();
-    permissionStatusFuture =
+    _permissionStatusFuture =
         widget.notifications.getCheckNotificationPermStatus();
     WidgetsBinding.instance.addObserver(this);
   }
@@ -45,7 +45,7 @@ class _SettingsBodyState extends State<SettingsBody>
     if (state == AppLifecycleState.resumed) {
       setState(
         () {
-          permissionStatusFuture =
+          _permissionStatusFuture =
               widget.notifications.getCheckNotificationPermStatus();
         },
       );
@@ -55,7 +55,7 @@ class _SettingsBodyState extends State<SettingsBody>
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: permissionStatusFuture,
+      future: _permissionStatusFuture,
       builder: (_, snapshot) {
         return SettingsList(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,

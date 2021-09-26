@@ -13,10 +13,10 @@ import 'package:tm_college_app/widgets/view_average_screen.dart';
 import 'package:tm_college_app/widgets/view_homework_screen.dart';
 import 'package:tm_college_app/widgets/settings_screen.dart';
 import 'home_screen.dart';
-import "../models/base_de_donnees.dart";
+import '../models/my_database.dart';
 
 class App extends StatelessWidget {
-  final BaseDeDonnees database;
+  final MyDatabase database;
 
   final SharedPreferences sharedPreferences;
 
@@ -76,20 +76,20 @@ class App extends StatelessWidget {
                 sharedPreferences: sharedPreferences,
               ),
         "/edit_subject_screen": (_) => EditSubjectScreen(
-              bD: database,
+              database: database,
               notifications: notifications,
             ),
         "/edit_homework_screen": (_) => EditHomeworkScreen(
               sharedPreferences: sharedPreferences,
               notifications: notifications,
-              db: database,
+              database: database,
             ),
         "/view_homework_screen": (_) => ViewHomeworkScreen(
-              db: database,
+              database: database,
               notifications: notifications,
             ),
         "/done_homeworks_screen": (_) => DoneHomeworksScreen(
-              db: database,
+              database: database,
               notifications: notifications,
             ),
         "/settings_screen": (_) => SettingsScreen(

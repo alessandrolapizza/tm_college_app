@@ -11,8 +11,6 @@ class ModularChart extends StatelessWidget {
     @required this.color,
   });
 
-  final int i = 0;
-
   @override
   Widget build(BuildContext context) {
     return LineChart(

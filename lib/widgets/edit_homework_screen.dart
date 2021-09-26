@@ -8,19 +8,19 @@ import 'package:tm_college_app/widgets/modular_app_bar.dart';
 import "package:flutter_material_color_picker/flutter_material_color_picker.dart";
 import 'package:tm_college_app/widgets/theme_controller.dart';
 
-import "../models/devoir.dart";
-import "../models/matiere.dart";
-import "../models/base_de_donnees.dart";
+import '../models/homework.dart';
+import '../models/subject.dart';
+import '../models/my_database.dart';
 
 class EditHomeworkScreen extends StatefulWidget {
-  final BaseDeDonnees db;
+  final MyDatabase database;
 
   final Notifications notifications;
 
   final SharedPreferences sharedPreferences;
 
   EditHomeworkScreen({
-    @required this.db,
+    @required this.database,
     @required this.notifications,
     @required this.sharedPreferences,
   });
@@ -36,20 +36,20 @@ class _EditHomeworkScreenState extends State<EditHomeworkScreen> {
 
   int _selectedPriority;
 
-  Matiere _selectedSubject;
+  Subject _selectedSubject;
 
   DateTime _selectedDate;
 
   bool _dateMissing = false;
 
   Future<void> _selectSubject() async {
-    Matiere subject = await showModalBottomSheet(
+    Subject subject = await showModalBottomSheet(
       context: context,
       builder: (_) {
         return SafeArea(
           child: FadeGradient(
             child: FutureBuilder(
-              future: widget.db.matieres(),
+              future: widget.database.subjects(),
               builder: (_, snapshot) {
                 var children;
                 if (snapshot.hasData) {
@@ -70,12 +70,12 @@ class _EditHomeworkScreenState extends State<EditHomeworkScreen> {
                                 title: Text(snapshot.data[index].nom),
                               )
                             : ListTile(
-                                title: Text(Matiere.noSubject.nom),
+                                title: Text(Subject.noSubject.name),
                                 onTap: () =>
-                                    Navigator.pop(context, Matiere.noSubject),
+                                    Navigator.pop(context, Subject.noSubject),
                                 leading: CircleAvatarWithBorder(
-                                  color: Matiere.noSubject.couleurMatiere,
-                                  icon: Matiere.noSubject.iconMatiere,
+                                  color: Subject.noSubject.color,
+                                  icon: Subject.noSubject.icon,
                                 ),
                               );
                       },
@@ -125,7 +125,7 @@ class _EditHomeworkScreenState extends State<EditHomeworkScreen> {
         builder: (BuildContext context, Widget child) {
           return ThemeController(
             child: child,
-            color: _selectedSubject.couleurMatiere,
+            color: _selectedSubject.color,
           );
         } //à construire plus tard.
         );
@@ -149,11 +149,11 @@ class _EditHomeworkScreenState extends State<EditHomeworkScreen> {
                 return ListTile(
                   onTap: () => Navigator.pop(context, index),
                   leading: CircleColor(
-                    color: Devoir.priorityColorMap.values.toList()[index],
+                    color: Homework.priorityColorMap.values.toList()[index],
                     circleSize: 40,
                   ),
                   title: Text(
-                    Devoir.priorityColorMap.keys.toList()[index],
+                    Homework.priorityColorMap.keys.toList()[index],
                   ),
                 );
               },
@@ -167,9 +167,9 @@ class _EditHomeworkScreenState extends State<EditHomeworkScreen> {
     }
   }
 
-  Future<void> _editHomework(Devoir homework) async {
+  Future<void> _editHomework(Homework homework) async {
     bool created = false;
-    final Devoir newHomework = Devoir(
+    final Homework newHomework = Homework(
       content: _homeworkContentController.text,
       dueDate: _selectedDate,
       subjectId: _selectedSubject.id,
@@ -180,17 +180,17 @@ class _EditHomeworkScreenState extends State<EditHomeworkScreen> {
       notificationsIds: await widget.notifications.scheduleNotifications(
         homeworkDueDate: _selectedDate,
         homeworkPriority: _selectedPriority,
-        homeworkSubjectName: _selectedSubject.nom,
+        homeworkSubjectName: _selectedSubject.name,
         oldNotifications: homework == null ? null : homework.notificationsIds,
       ),
     );
     if (_createHomeworkFormKey.currentState.validate() &&
         _selectedDate != null) {
       homework == null
-          ? await widget.db.insertHomework(
+          ? await widget.database.insertHomework(
               newHomework,
             )
-          : await widget.db.updateHomework(
+          : await widget.database.updateHomework(
               newHomework,
             );
       created = true;
@@ -211,7 +211,7 @@ class _EditHomeworkScreenState extends State<EditHomeworkScreen> {
   @override
   Widget build(BuildContext context) {
     final List<dynamic> arguments = ModalRoute.of(context).settings.arguments;
-    final Devoir homework = arguments[0];
+    final Homework homework = arguments[0];
     final bool newHomework = arguments[1];
     _selectedPriority = _selectedPriority != null
         ? _selectedPriority
@@ -226,7 +226,7 @@ class _EditHomeworkScreenState extends State<EditHomeworkScreen> {
     _selectedSubject = _selectedSubject != null
         ? _selectedSubject
         : homework == null
-            ? Matiere.noSubject
+            ? Subject.noSubject
             : homework.subject;
     _selectedDate = _selectedDate != null
         ? _selectedDate
@@ -234,7 +234,7 @@ class _EditHomeworkScreenState extends State<EditHomeworkScreen> {
             ? null
             : homework.dueDate;
     return ThemeController(
-      color: _selectedSubject.couleurMatiere,
+      color: _selectedSubject.color,
       child: Scaffold(
         appBar: ModularAppBar(
           hideSettingsButton: true,

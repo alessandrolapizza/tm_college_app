@@ -1,16 +1,16 @@
 import "package:flutter/material.dart";
-import 'package:tm_college_app/models/base_de_donnees.dart';
+import 'package:tm_college_app/models/my_database.dart';
 import 'package:tm_college_app/models/notifications.dart';
 import 'package:tm_college_app/widgets/homeworks_list.dart';
 import 'package:tm_college_app/widgets/modular_app_bar.dart';
 
 class DoneHomeworksScreen extends StatelessWidget {
-  final BaseDeDonnees db;
+  final MyDatabase database;
 
   final Notifications notifications;
 
   DoneHomeworksScreen({
-    @required this.db,
+    @required this.database,
     @required this.notifications,
   });
 
@@ -23,7 +23,7 @@ class DoneHomeworksScreen extends StatelessWidget {
         title: Text("Devoirs complétés"),
       ),
       body: HomeworksList(
-        db: db,
+        database: database,
         homePage: false,
         notifications: notifications,
       ),

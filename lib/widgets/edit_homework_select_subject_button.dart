@@ -1,11 +1,11 @@
 import "package:flutter/material.dart";
 import 'package:tm_college_app/widgets/modular_outlined_button.dart';
-import "../models/matiere.dart";
+import '../models/subject.dart';
 
 class EditHomeworkSelectSubjectButton extends StatelessWidget {
   final Function selectSubjectFunction;
 
-  final Matiere selectedSubject;
+  final Subject selectedSubject;
 
   EditHomeworkSelectSubjectButton({
     @required this.selectSubjectFunction,
@@ -19,7 +19,7 @@ class EditHomeworkSelectSubjectButton extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children:
-            selectedSubject == null || selectedSubject == Matiere.noSubject
+            selectedSubject == null || selectedSubject == Subject.noSubject
                 ? [
                     Text("Matière "),
                     Icon(
@@ -28,8 +28,8 @@ class EditHomeworkSelectSubjectButton extends StatelessWidget {
                     ),
                   ]
                 : [
-                    Icon(selectedSubject.iconMatiere),
-                    Text(" " + selectedSubject.nom),
+                    Icon(selectedSubject.icon),
+                    Text(" " + selectedSubject.name),
                   ],
       ),
     );

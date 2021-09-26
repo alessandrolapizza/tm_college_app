@@ -29,8 +29,11 @@ class GradesList extends StatelessWidget {
     Map<DateTime, List<Grade>> secondSemester = {};
     gradesSortedSubjectSpecific.forEach((date, grades) {
       print(date);
-      if (date.isBefore(DateTime.parse(
-          sharedPreferences.getString("secondTermBeginingDate")))) {
+      if (date.isBefore(
+        DateTime.parse(
+          sharedPreferences.getString("secondTermBeginingDate"),
+        ),
+      )) {
         firstSemester[date] = grades;
       } else {
         secondSemester[date] = grades;
@@ -59,19 +62,20 @@ class GradesList extends StatelessWidget {
                     .length,
                 itemBuilder: (_, i) {
                   return GradeDetailsCard(
-                      editGradeFunction: editGradeFunction,
-                      deleteGradeFunction: () => deleteGradeFunction(
-                          gradeId: semesterGrades[index]
-                                  [semesterGrades[index].keys.toList()[idx]][i]
-                              .id,
-                          lastGrade: gradesSortedSubjectSpecific[
-                                          gradesSortedSubjectSpecific.keys
-                                              .toList()[0]]
-                                      .length ==
-                                  1 &&
-                              gradesSortedSubjectSpecific.keys.length == 1),
-                      grade: semesterGrades[index]
-                          [semesterGrades[index].keys.toList()[idx]][i]);
+                    editGradeFunction: editGradeFunction,
+                    deleteGradeFunction: () => deleteGradeFunction(
+                        gradeId: semesterGrades[index]
+                                [semesterGrades[index].keys.toList()[idx]][i]
+                            .id,
+                        lastGrade: gradesSortedSubjectSpecific[
+                                        gradesSortedSubjectSpecific.keys
+                                            .toList()[0]]
+                                    .length ==
+                                1 &&
+                            gradesSortedSubjectSpecific.keys.length == 1),
+                    grade: semesterGrades[index]
+                        [semesterGrades[index].keys.toList()[idx]][i],
+                  );
                 },
               );
             },

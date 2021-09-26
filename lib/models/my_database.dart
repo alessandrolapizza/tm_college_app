@@ -6,18 +6,18 @@ import "package:path/path.dart";
 import 'package:tm_college_app/models/grade.dart';
 import 'package:tm_college_app/models/notifications.dart';
 
-import "./matiere.dart";
-import "./devoir.dart";
+import 'subject.dart';
+import 'homework.dart';
 
-class BaseDeDonnees {
+class MyDatabase {
   Future<Database> database;
 
-  Future<void> defCheminMatieres() async {
+  Future<void> defineDatabasePath() async {
     database = openDatabase(
-      join(await getDatabasesPath(), "matieres_basededonnees.db"), // à changer
+      join(await getDatabasesPath(), "mon_annee_scolaire_database.db"),
       onCreate: (db, version) {
         db.execute(
-          "CREATE TABLE matieres(id TEXT, nom TEXT, salle TEXT, iconMatiereCode INTEGER, couleurMatiereValeur INTEGER)",
+          "CREATE TABLE subjects(id TEXT, name TEXT, room TEXT, iconCode INTEGER, colorValue INTEGER)",
         );
         db.execute(
           "CREATE TABLE homeworks(id TEXT, subjectId TEXT, content TEXT, dueDate TEXT, priority INTEGER, done INTEGER, notificationsIds STRING)",
@@ -30,18 +30,18 @@ class BaseDeDonnees {
     );
   }
 
-  Future<void> insererMatiere(Matiere matiere) async {
+  Future<void> inserertSubject(Subject matiere) async {
     final db = await database;
     await db.insert(
-      "matieres",
+      "subjects",
       matiere.toMapDb(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
 
-  Future<void> insertHomework(Devoir homework) async {
-    final bD = await database;
-    await bD.insert(
+  Future<void> insertHomework(Homework homework) async {
+    final db = await database;
+    await db.insert(
       "homeworks",
       homework.toMapDb(),
       conflictAlgorithm: ConflictAlgorithm.replace,
@@ -57,46 +57,46 @@ class BaseDeDonnees {
     );
   }
 
-  Future<List<Matiere>> matieres() async {
-    final Database bD = await database;
+  Future<List<Subject>> subjects() async {
+    final Database db = await database;
 
-    final List<Map<String, dynamic>> maps = await bD.query("matieres");
+    final List<Map<String, dynamic>> maps = await db.query("subjects");
 
     return List.generate(
       maps.length,
       (i) {
-        return Matiere(
+        return Subject(
           id: maps[i]["id"],
-          nom: maps[i]["nom"],
-          salle: maps[i]["salle"],
-          iconMatiere: IconData(
-            maps[i]["iconMatiereCode"],
+          name: maps[i]["name"],
+          room: maps[i]["room"],
+          icon: IconData(
+            maps[i]["iconCode"],
             fontFamily: "MaterialIcons",
           ),
-          couleurMatiere: Color(maps[i]["couleurMatiereValeur"]),
+          color: Color(maps[i]["colorValue"]),
         );
       },
     );
   }
 
-  Future<List<Devoir>> homeworks() async {
+  Future<List<Homework>> homeworks() async {
     final db = await database;
 
-    Map<String, Matiere> subjectsIdMaps = {
-      Matiere.noSubject.id: Matiere.noSubject
+    Map<String, Subject> subjectsIdMaps = {
+      Subject.noSubject.id: Subject.noSubject
     };
 
     final List<Map<String, dynamic>> homeworksMaps =
         await db.query("homeworks");
 
-    final List<Matiere> subjectsList = await matieres();
+    final List<Subject> subjectsList = await subjects();
 
     subjectsList.forEach((subject) => subjectsIdMaps[subject.id] = subject);
 
     return List.generate(
       homeworksMaps.length,
       (i) {
-        return Devoir(
+        return Homework(
           id: homeworksMaps[i]["id"],
           subjectId: homeworksMaps[i]["subjectId"],
           subject: subjectsIdMaps[homeworksMaps[i]["subjectId"]],
@@ -122,11 +122,11 @@ class BaseDeDonnees {
   Future<List<Grade>> grades() async {
     final db = await database;
 
-    Map<String, Matiere> subjectsIdMaps = {};
+    Map<String, Subject> subjectsIdMaps = {};
 
     final List<Map<String, dynamic>> gradesMaps = await db.query("grades");
 
-    final List<Matiere> subjectsList = await matieres();
+    final List<Subject> subjectsList = await subjects();
 
     subjectsList.forEach((subject) => subjectsIdMaps[subject.id] = subject);
 
@@ -145,20 +145,18 @@ class BaseDeDonnees {
     );
   }
 
-  Future<void> modifierMatiere(Matiere matiere) async {
+  Future<void> updateSubject(Subject subject) async {
     final db = await database;
-
     await db.update(
-      "matieres",
-      matiere.toMapDb(),
+      "subjects",
+      subject.toMapDb(),
       where: "id = ?",
-      whereArgs: [matiere.id],
+      whereArgs: [subject.id],
     );
   }
 
-  Future<void> updateHomework(Devoir homework) async {
+  Future<void> updateHomework(Homework homework) async {
     final db = await database;
-
     await db.update(
       "homeworks",
       homework.toMapDb(),
@@ -169,7 +167,6 @@ class BaseDeDonnees {
 
   Future<void> updateGrade(Grade grade) async {
     final db = await database;
-
     await db.update(
       "grades",
       grade.toMapDb(),
@@ -180,7 +177,6 @@ class BaseDeDonnees {
 
   Future<void> deleteGrade(String id) async {
     final db = await database;
-
     await db.delete(
       "grades",
       where: "id = ?",
@@ -189,18 +185,15 @@ class BaseDeDonnees {
   }
 
   Future<void> deleteHomework({
-    @required Devoir homework,
+    @required Homework homework,
     @required Notifications notifications,
   }) async {
     final db = await database;
-
     final String id = homework.id;
-
     if (homework.notificationsIds != null) {
       await notifications
           .cancelMultipleNotifications(homework.notificationsIds);
     }
-
     await db.delete(
       "homeworks",
       where: "id = ?",
@@ -209,7 +202,7 @@ class BaseDeDonnees {
   }
 
   Future<void> deleteSubject({
-    @required Matiere subject,
+    @required Subject subject,
     @required Notifications notifications,
   }) async {
     final db = await database;
@@ -218,7 +211,7 @@ class BaseDeDonnees {
 
     final List<Grade> gradesList = await grades();
 
-    final List<Devoir> homeworksList = await homeworks();
+    final List<Homework> homeworksList = await homeworks();
 
     gradesList.forEach(
       (Grade grade) async {
@@ -228,17 +221,19 @@ class BaseDeDonnees {
       },
     );
 
-    homeworksList.forEach((Devoir homework) async {
-      if (homework.subjectId == subject.id) {
-        await deleteHomework(
-          homework: homework,
-          notifications: notifications,
-        );
-      }
-    });
+    homeworksList.forEach(
+      (Homework homework) async {
+        if (homework.subjectId == subject.id) {
+          await deleteHomework(
+            homework: homework,
+            notifications: notifications,
+          );
+        }
+      },
+    );
 
     await db.delete(
-      "matieres",
+      "subjects",
       where: "id = ?",
       whereArgs: [id],
     );

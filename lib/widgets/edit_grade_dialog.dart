@@ -1,9 +1,9 @@
 import "package:flutter/material.dart";
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tm_college_app/models/base_de_donnees.dart';
+import 'package:tm_college_app/models/my_database.dart';
 import 'package:tm_college_app/models/grade.dart';
-import 'package:tm_college_app/models/matiere.dart';
+import 'package:tm_college_app/models/subject.dart';
 import 'package:tm_college_app/widgets/edit_grade_form.dart';
 import 'package:tm_college_app/widgets/fade_gradient.dart';
 import 'package:tm_college_app/widgets/modular_alert_dialog.dart';
@@ -11,11 +11,11 @@ import 'package:tm_college_app/widgets/modular_outlined_button.dart';
 import 'package:tm_college_app/widgets/theme_controller.dart';
 
 class EditGradeDialog extends StatefulWidget {
-  final List<Matiere> subjects;
+  final List<Subject> subjects;
 
   final SharedPreferences sharedPreferences;
 
-  final BaseDeDonnees database;
+  final MyDatabase database;
 
   final Grade grade;
 

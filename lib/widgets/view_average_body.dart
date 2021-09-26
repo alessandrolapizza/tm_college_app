@@ -1,19 +1,19 @@
 import "package:flutter/material.dart";
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tm_college_app/models/base_de_donnees.dart';
+import 'package:tm_college_app/models/my_database.dart';
 import 'package:tm_college_app/models/grade.dart';
-import 'package:tm_college_app/models/matiere.dart';
+import 'package:tm_college_app/models/subject.dart';
 import 'package:tm_college_app/widgets/edit_grade_dialog.dart';
 import 'package:tm_college_app/widgets/average_card.dart';
 import 'package:tm_college_app/widgets/grades_list.dart';
 import 'package:tm_college_app/widgets/modular_alert_dialog.dart';
 
 class ViewAverageBody extends StatefulWidget {
-  final BaseDeDonnees database;
+  final MyDatabase database;
 
   final SharedPreferences sharedPreferences;
 
-  final Matiere subject;
+  final Subject subject;
 
   final int index;
 
@@ -39,7 +39,7 @@ class _ViewAverageBodyState extends State<ViewAverageBody> {
       context: context,
       builder: (_) {
         return ModularAlertDialog(
-          themeColor: widget.subject.couleurMatiere,
+          themeColor: widget.subject.color,
           title: Text("Supprimer note ?"),
           content: Text("Es-tu sûr de vouloir supprimer cette note ?"),
           actionButtons: [
@@ -98,8 +98,8 @@ class _ViewAverageBodyState extends State<ViewAverageBody> {
             grades: snapshot.data,
             sharedPreferences: widget.sharedPreferences,
           );
-          final Map<Matiere, Map<DateTime, List<Grade>>> gradesSorted = maps[0];
-          final Map<Matiere, List<Map<DateTime, double>>> averages = maps[1];
+          final Map<Subject, Map<DateTime, List<Grade>>> gradesSorted = maps[0];
+          final Map<Subject, List<Map<DateTime, double>>> averages = maps[1];
           child = Column(
             children: [
               AverageCard(

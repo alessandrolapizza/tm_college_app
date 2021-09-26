@@ -2,10 +2,10 @@ import "package:flutter/material.dart";
 import 'package:tm_college_app/widgets/view_homework_content.dart';
 import 'package:tm_college_app/widgets/view_homework_details_sentence.dart';
 import 'package:tm_college_app/widgets/view_homework_priority_banner.dart';
-import "../models/devoir.dart";
+import '../models/homework.dart';
 
 class ViewHomeworkBody extends StatelessWidget {
-  final Devoir homework;
+  final Homework homework;
 
   final bool homePage;
 

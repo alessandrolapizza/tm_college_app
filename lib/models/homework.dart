@@ -1,21 +1,21 @@
 import "package:flutter/material.dart";
 import 'package:tm_college_app/models/notifications.dart';
 import "package:uuid/uuid.dart";
-import "../models/base_de_donnees.dart";
+import 'my_database.dart';
 
-import "./matiere.dart";
+import 'subject.dart';
 
-class Devoir {
+class Homework {
   final String id;
   final String subjectId;
-  final Matiere subject;
+  final Subject subject;
   final String content;
   final DateTime dueDate;
   final int priority;
   final bool done;
   final List<int> notificationsIds;
 
-  Devoir({
+  Homework({
     @required this.subjectId,
     @required this.content,
     @required this.dueDate,
@@ -46,15 +46,15 @@ class Devoir {
   };
 
   static Future<void> homeworkChecker({
-    @required Devoir homework,
-    @required BaseDeDonnees db,
+    @required Homework homework,
+    @required MyDatabase database,
     @required Notifications notifications,
   }) async {
     if (!homework.done && homework.notificationsIds != null) {
       await notifications
           .cancelMultipleNotifications(homework.notificationsIds);
     }
-    Devoir checkedHomework = Devoir(
+    Homework checkedHomework = Homework(
       done: homework.done ? false : true,
       content: homework.content,
       dueDate: homework.dueDate,
@@ -66,11 +66,11 @@ class Devoir {
           ? await notifications.scheduleNotifications(
               homeworkPriority: homework.priority,
               homeworkDueDate: homework.dueDate,
-              homeworkSubjectName: homework.subject.nom,
+              homeworkSubjectName: homework.subject.name,
             )
           : [],
     );
 
-    await db.updateHomework(checkedHomework);
+    await database.updateHomework(checkedHomework);
   }
 }

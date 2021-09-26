@@ -1,15 +1,15 @@
 import "package:flutter/material.dart";
 import 'package:tm_college_app/widgets/circle_avatar_with_border.dart';
 
-import "../models/matiere.dart";
+import '../models/subject.dart';
 
-class CarteMatiere extends StatelessWidget {
-  final Matiere matiere;
+class SubjectCard extends StatelessWidget {
+  final Subject subject;
 
   final Function onTapFunction;
 
-  CarteMatiere({
-    @required this.matiere,
+  SubjectCard({
+    @required this.subject,
     this.onTapFunction,
   });
 
@@ -28,8 +28,8 @@ class CarteMatiere extends StatelessWidget {
                 child: Container(
                   margin: EdgeInsets.symmetric(vertical: 10),
                   child: CircleAvatarWithBorder(
-                    color: matiere.couleurMatiere,
-                    icon: matiere.iconMatiere,
+                    color: subject.color,
+                    icon: subject.icon,
                   ),
                 ),
               ),
@@ -40,14 +40,14 @@ class CarteMatiere extends StatelessWidget {
                   child: Column(
                     children: [
                       Text(
-                        matiere.nom, // à construire (Nom de la matière)
+                        subject.name,
                         style: TextStyle(fontWeight: FontWeight.w600),
                       ),
                       Container(
                         margin: EdgeInsets.only(top: 3),
                         child: Text(
                           "Salle : " +
-                              matiere.salle, // à construire (Contenu du devoir)
+                              subject.room, // à construire (Contenu du devoir)
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,
                         ),

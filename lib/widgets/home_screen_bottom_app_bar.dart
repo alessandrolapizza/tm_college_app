@@ -1,11 +1,12 @@
 import "package:flutter/material.dart";
 
 class HomePageBottomAppBar extends StatelessWidget {
-  final Function changerIndex;
+  final Function changeIndexFunction;
+
   final int indexSelectionne;
 
   HomePageBottomAppBar({
-    @required this.changerIndex,
+    @required this.changeIndexFunction,
     @required this.indexSelectionne,
   });
 
@@ -27,7 +28,7 @@ class HomePageBottomAppBar extends StatelessWidget {
         ),
       ],
       currentIndex: indexSelectionne,
-      onTap: (int index) => changerIndex(index),
+      onTap: (int index) => changeIndexFunction(index),
     );
   }
 }

@@ -10,28 +10,24 @@ import 'package:tm_college_app/widgets/modular_icon_button.dart';
 import 'package:tm_college_app/widgets/theme_controller.dart';
 
 import "./modular_app_bar.dart";
-import "../models/base_de_donnees.dart";
-import "../models/matiere.dart";
+import '../models/my_database.dart';
+import '../models/subject.dart';
 
 class EditSubjectScreen extends StatefulWidget {
-  final BaseDeDonnees bD;
+  final MyDatabase database;
 
   final Notifications notifications;
 
   EditSubjectScreen({
-    @required this.bD,
+    @required this.database,
     @required this.notifications,
   });
 
   @override
-  _EditSubjectScreenState createState() => _EditSubjectScreenState(bD);
+  _EditSubjectScreenState createState() => _EditSubjectScreenState();
 }
 
 class _EditSubjectScreenState extends State<EditSubjectScreen> {
-  final BaseDeDonnees _bD;
-
-  _EditSubjectScreenState(this._bD);
-
   final TextEditingController _subjectNameController = TextEditingController();
 
   final TextEditingController _subjectRoomNumberController =
@@ -73,9 +69,9 @@ class _EditSubjectScreenState extends State<EditSubjectScreen> {
   }
 
   void _selectColor() async {
-    int _couleurValide = 0;
+    int validColor = 0;
 
-    Color _couleur = await showDialog(
+    Color color = await showDialog(
       barrierDismissible: true,
       context: context,
       builder: (_) {
@@ -96,13 +92,13 @@ class _EditSubjectScreenState extends State<EditSubjectScreen> {
           content: MaterialColorPicker(
             shrinkWrap: true,
             onColorChange: (Color couleur) {
-              if (_couleurValide == 0) {
-                _couleurValide++;
+              if (validColor == 0) {
+                validColor++;
               } else {
                 Navigator.pop(context, couleur);
               }
             },
-            onBack: () => _couleurValide--,
+            onBack: () => validColor--,
             physics: ScrollPhysics(
               parent: NeverScrollableScrollPhysics(),
             ),
@@ -110,8 +106,8 @@ class _EditSubjectScreenState extends State<EditSubjectScreen> {
         );
       },
     );
-    if (_couleur != null) {
-      setState(() => _selectedColor = _couleur);
+    if (color != null) {
+      setState(() => _selectedColor = color);
     }
   }
 
@@ -120,22 +116,22 @@ class _EditSubjectScreenState extends State<EditSubjectScreen> {
         _selectedIcon != null &&
         _selectedColor != null) {
       if (_subjectId != null) {
-        _bD.modifierMatiere(
-          Matiere(
-            couleurMatiere: _selectedColor,
-            iconMatiere: _selectedIcon,
-            nom: _subjectNameController.text,
-            salle: _subjectRoomNumberController.text,
+        widget.database.updateSubject(
+          Subject(
+            color: _selectedColor,
+            icon: _selectedIcon,
+            name: _subjectNameController.text,
+            room: _subjectRoomNumberController.text,
             id: _subjectId,
           ),
         );
       } else {
-        await _bD.insererMatiere(
-          Matiere(
-            couleurMatiere: _selectedColor,
-            iconMatiere: _selectedIcon,
-            nom: _subjectNameController.text,
-            salle: _subjectRoomNumberController.text,
+        await widget.database.inserertSubject(
+          Subject(
+            color: _selectedColor,
+            icon: _selectedIcon,
+            name: _subjectNameController.text,
+            room: _subjectRoomNumberController.text,
           ),
         );
       }
@@ -160,11 +156,11 @@ class _EditSubjectScreenState extends State<EditSubjectScreen> {
   Widget build(BuildContext context) {
     final List<dynamic> arguments = ModalRoute.of(context).settings.arguments;
     if (_subjectId == null && arguments != null) {
-      final Matiere subject = arguments[0];
-      _subjectNameController.text = subject.nom;
-      _subjectRoomNumberController.text = subject.salle;
-      _selectedColor = subject.couleurMatiere;
-      _selectedIcon = subject.iconMatiere;
+      final Subject subject = arguments[0];
+      _subjectNameController.text = subject.name;
+      _subjectRoomNumberController.text = subject.room;
+      _selectedColor = subject.color;
+      _selectedIcon = subject.icon;
       setState(() => _subjectId = subject.id);
     }
 
@@ -202,7 +198,7 @@ class _EditSubjectScreenState extends State<EditSubjectScreen> {
                                   style: TextStyle(color: Colors.red),
                                 ),
                                 onPressed: () async {
-                                  await widget.bD.deleteSubject(
+                                  await widget.database.deleteSubject(
                                     subject: arguments[0],
                                     notifications: widget.notifications,
                                   );

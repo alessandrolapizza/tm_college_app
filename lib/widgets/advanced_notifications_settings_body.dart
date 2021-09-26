@@ -2,7 +2,7 @@ import "package:flutter/material.dart";
 import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tm_college_app/models/devoir.dart';
+import 'package:tm_college_app/models/homework.dart';
 import 'package:tm_college_app/models/notifications.dart';
 import 'package:tm_college_app/widgets/advanced_notifications_day_number_picker.dart';
 import 'package:tm_college_app/widgets/fade_gradient.dart';
@@ -56,10 +56,10 @@ class _AdvancedNotificationsSettingsBodyState
             SettingsTile(
               enabled: true,
               leading: CircleColor(
-                color: Devoir.priorityColorMap.values.toList()[0],
+                color: Homework.priorityColorMap.values.toList()[0],
                 circleSize: 20,
               ),
-              title: Devoir.priorityColorMap.keys.toList()[0],
+              title: Homework.priorityColorMap.keys.toList()[0],
               iosChevron: null,
               subtitle: (widget.sharedPreferences
                               .getInt("notificationsPriorityNumberWhite") ??

@@ -7,13 +7,13 @@ import "package:timezone/data/latest.dart" as tz;
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 import "package:intl/intl.dart";
 import "package:flutter/foundation.dart";
-import 'package:tm_college_app/models/base_de_donnees.dart';
-import 'package:tm_college_app/models/devoir.dart';
+import 'package:tm_college_app/models/homework.dart';
+import 'package:tm_college_app/models/my_database.dart';
 
 class Notifications {
   final SharedPreferences sharedPreferences;
 
-  final BaseDeDonnees database;
+  final MyDatabase database;
 
   Notifications({
     @required this.sharedPreferences,
@@ -150,14 +150,14 @@ class Notifications {
         notificationsIds.add(uniqueId);
       }
     }
-    return notificationsIds; //ici
+    return notificationsIds;
   }
 
   Future<void> toggleNotifications({
     @required toggleState,
     @required snapshotData,
   }) async {
-    List<Devoir> homeworks = [];
+    List<Homework> homeworks = [];
     homeworks = await database.homeworks();
     if (toggleState) {
       await sharedPreferences.setBool("notificationsActivated", true);
@@ -165,7 +165,7 @@ class Notifications {
         (homework) async {
           if (!homework.done) {
             database.updateHomework(
-              Devoir(
+              Homework(
                 content: homework.content,
                 done: homework.done,
                 id: homework.id,
@@ -176,7 +176,7 @@ class Notifications {
                 notificationsIds: await scheduleNotifications(
                   homeworkDueDate: homework.dueDate,
                   homeworkPriority: homework.priority,
-                  homeworkSubjectName: homework.subject.nom,
+                  homeworkSubjectName: homework.subject.name,
                   oldNotifications: homework.notificationsIds,
                 ),
               ),
@@ -198,7 +198,6 @@ class Notifications {
       homeworks.forEach(
         (homework) async {
           if (!homework.done && homework.notificationsIds != null) {
-            print(homework.notificationsIds);
             await cancelMultipleNotifications(homework.notificationsIds);
           }
         },
@@ -230,7 +229,7 @@ class Notifications {
     @required selectedTime,
     @required context,
   }) async {
-    List<Devoir> homeworks;
+    List<Homework> homeworks;
 
     await sharedPreferences.setString(
       "notificationsReminderHour",
@@ -243,7 +242,7 @@ class Notifications {
       (homework) async {
         if (!homework.done) {
           database.updateHomework(
-            Devoir(
+            Homework(
               content: homework.content,
               done: homework.done,
               id: homework.id,
@@ -254,7 +253,7 @@ class Notifications {
               notificationsIds: await scheduleNotifications(
                 homeworkDueDate: homework.dueDate,
                 homeworkPriority: homework.priority,
-                homeworkSubjectName: homework.subject.nom,
+                homeworkSubjectName: homework.subject.name,
                 oldNotifications: homework.notificationsIds,
               ),
             ),
@@ -265,14 +264,14 @@ class Notifications {
   }
 
   rescheduleNotifications() async {
-    List<Devoir> homeworks;
+    List<Homework> homeworks;
     homeworks = await database.homeworks();
 
     homeworks.forEach(
       (homework) async {
         if (!homework.done) {
           database.updateHomework(
-            Devoir(
+            Homework(
               content: homework.content,
               done: homework.done,
               id: homework.id,
@@ -283,7 +282,7 @@ class Notifications {
               notificationsIds: await scheduleNotifications(
                 homeworkDueDate: homework.dueDate,
                 homeworkPriority: homework.priority,
-                homeworkSubjectName: homework.subject.nom,
+                homeworkSubjectName: homework.subject.name,
                 oldNotifications: homework.notificationsIds,
               ),
             ),

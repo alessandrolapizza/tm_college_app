@@ -1,16 +1,16 @@
 import "package:flutter/material.dart";
 import 'package:settings_ui/settings_ui.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tm_college_app/models/base_de_donnees.dart';
-import 'package:tm_college_app/models/devoir.dart';
-import 'package:tm_college_app/models/matiere.dart';
+import 'package:tm_college_app/models/my_database.dart';
+import 'package:tm_college_app/models/homework.dart';
+import 'package:tm_college_app/models/subject.dart';
 import 'package:tm_college_app/models/notifications.dart';
 import 'package:tm_college_app/widgets/modular_alert_dialog.dart';
 
 class StartNewSchoolYearSettingsBody extends StatelessWidget {
   final SharedPreferences sharedPreferences;
 
-  final BaseDeDonnees database;
+  final MyDatabase database;
 
   final Notifications notifications;
 
@@ -47,7 +47,7 @@ class StartNewSchoolYearSettingsBody extends StatelessWidget {
                         ),
                         TextButton(
                           onPressed: () async {
-                            List<Matiere> subjects = await database.matieres();
+                            List<Subject> subjects = await database.subjects();
                             subjects.forEach(
                               (subject) async {
                                 await database.deleteSubject(
@@ -56,9 +56,10 @@ class StartNewSchoolYearSettingsBody extends StatelessWidget {
                                 );
                               },
                             );
-                            List<Devoir> homeworks = await database.homeworks();
+                            List<Homework> homeworks =
+                                await database.homeworks();
                             homeworks.forEach(
-                              (homework) async {
+                              (Homework homework) async {
                                 await database.deleteHomework(
                                     homework: homework,
                                     notifications: notifications);
@@ -66,7 +67,9 @@ class StartNewSchoolYearSettingsBody extends StatelessWidget {
                             );
                             await sharedPreferences.remove("introductionSeen");
                             Navigator.popUntil(
-                                context, ModalRoute.withName("/"));
+                              context,
+                              ModalRoute.withName("/"),
+                            );
                             Navigator.pushReplacementNamed(context, "/");
                           },
                           child: Text(
