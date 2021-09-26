@@ -27,7 +27,6 @@ flutter_native_splash:
 
 dev_dependencies:
   flutter_native_splash: ^1.2.4
-  lint: ^1.0.0
 
 dependencies:
   flutter:
