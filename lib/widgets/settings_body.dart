@@ -54,8 +54,6 @@ class _SettingsBodyState extends State<SettingsBody>
 
   @override
   Widget build(BuildContext context) {
-    print(widget.sharedPreferences.getBool("notificationsActivated"));
-    print(widget.sharedPreferences.getString("notificationsReminderHour"));
     return FutureBuilder(
       future: permissionStatusFuture,
       builder: (_, snapshot) {
@@ -158,6 +156,18 @@ class _SettingsBodyState extends State<SettingsBody>
               ],
             ),
             SettingsSection(
+              title: "Nouvelle Année Scolaire",
+              tiles: [
+                SettingsTile(
+                  title: "Commencer une nouvelle Année Scolaire",
+                  onPressed: (_) {
+                    Navigator.pushNamed(
+                        context, "start_new_school_year_settings_screen");
+                  },
+                ),
+              ],
+            ),
+            SettingsSection(
               tiles: [
                 SettingsTile(
                   title: "Contact",
@@ -168,15 +178,17 @@ class _SettingsBodyState extends State<SettingsBody>
                         return ModularAlertDialog(
                           themeColor: Theme.of(context).primaryColor,
                           title: Text("Contact"),
-                          content: Row(
-                            children: [
-                              Text("Email : "),
-                              SelectableText(
-                                "data",
-                                selectionControls:
-                                    MaterialTextSelectionControls(),
-                              ),
-                            ],
+                          content: FittedBox(
+                            child: Row(
+                              children: [
+                                Text("Email : "),
+                                SelectableText(
+                                  "monanneescolaire.app@gmail.com",
+                                  selectionControls:
+                                      MaterialTextSelectionControls(),
+                                ),
+                              ],
+                            ),
                           ),
                         );
                       },
@@ -186,6 +198,8 @@ class _SettingsBodyState extends State<SettingsBody>
                 SettingsTile(
                   title: "Licences",
                   onPressed: (_) => showLicensePage(
+                    applicationVersion: "v.1.0.0",
+                    applicationLegalese: "Made with <3 🍕",
                     context: context,
                     applicationIcon: Image.asset(
                       "assets/images/transparent_icon.png",

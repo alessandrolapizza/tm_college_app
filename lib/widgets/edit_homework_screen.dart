@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tm_college_app/models/notifications.dart';
 import 'package:tm_college_app/widgets/circle_avatar_with_border.dart';
 import 'package:tm_college_app/widgets/edit_homework_body.dart';
@@ -16,9 +17,12 @@ class EditHomeworkScreen extends StatefulWidget {
 
   final Notifications notifications;
 
+  final SharedPreferences sharedPreferences;
+
   EditHomeworkScreen({
     @required this.db,
     @required this.notifications,
+    @required this.sharedPreferences,
   });
 
   @override
@@ -98,9 +102,26 @@ class _EditHomeworkScreenState extends State<EditHomeworkScreen> {
         confirmText: "OK",
         cancelText: "Annuler",
         context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime(2019), //à construire plus tard.
-        lastDate: DateTime(2050),
+        initialDate: DateTime.now().isAfter(
+                  DateTime.parse(
+                    widget.sharedPreferences.getString("firstTermBeginingDate"),
+                  ),
+                ) &&
+                DateTime.now().isBefore(
+                  DateTime.parse(
+                    widget.sharedPreferences.getString("secondTermEndDate"),
+                  ),
+                )
+            ? DateTime.now()
+            : DateTime.parse(
+                widget.sharedPreferences.getString("firstTermBeginingDate"),
+              ),
+        firstDate: DateTime.parse(
+          widget.sharedPreferences.getString("firstTermBeginingDate"),
+        ),
+        lastDate: DateTime.parse(
+          widget.sharedPreferences.getString("secondTermEndDate"),
+        ),
         builder: (BuildContext context, Widget child) {
           return ThemeController(
             child: child,

@@ -8,6 +8,7 @@ import 'package:tm_college_app/widgets/edit_homework_screen.dart';
 import 'package:tm_college_app/widgets/edit_subject_screen.dart';
 import 'package:tm_college_app/widgets/done_homeworks_screen.dart';
 import 'package:tm_college_app/widgets/one_time_introduction_screen.dart';
+import 'package:tm_college_app/widgets/start_new_school_year_settings_screen.dart';
 import 'package:tm_college_app/widgets/view_average_screen.dart';
 import 'package:tm_college_app/widgets/view_homework_screen.dart';
 import 'package:tm_college_app/widgets/settings_screen.dart';
@@ -32,6 +33,7 @@ class App extends StatelessWidget {
   static const int defaultColorThemeValue = 4283522728;
 
   static MaterialColor toMaterialColor(int colorValue) {
+    print(Color(colorValue).red);
     Map<int, Color> colorMap = {
       50: Color(colorValue),
       100: Color(colorValue),
@@ -78,6 +80,7 @@ class App extends StatelessWidget {
               notifications: notifications,
             ),
         "/edit_homework_screen": (_) => EditHomeworkScreen(
+              sharedPreferences: sharedPreferences,
               notifications: notifications,
               db: database,
             ),
@@ -102,6 +105,12 @@ class App extends StatelessWidget {
         "/view_grade_screen": (_) => ViewAverageScreen(
               database: database,
               sharedPreferences: sharedPreferences,
+            ),
+        "start_new_school_year_settings_screen": (_) =>
+            StartNewSchoolYearSettingsScreen(
+              sharedPreferences: sharedPreferences,
+              database: database,
+              notifications: notifications,
             ),
       },
       theme: ThemeData(

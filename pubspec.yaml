@@ -20,6 +20,14 @@ version: 1.0.0+1
 environment:
   sdk: ">=2.7.0 <3.0.0"
 
+flutter_native_splash:
+  color: "#fafafa"
+  image: assets/images/splash_screen_icon.png
+  fullscreen: true
+
+dev_dependencies:
+  flutter_native_splash: ^1.2.4
+
 dependencies:
   flutter:
     sdk: flutter

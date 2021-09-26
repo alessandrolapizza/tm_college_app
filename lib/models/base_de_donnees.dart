@@ -210,7 +210,7 @@ class BaseDeDonnees {
 
   Future<void> deleteSubject({
     @required Matiere subject,
-    @required notifications,
+    @required Notifications notifications,
   }) async {
     final db = await database;
 

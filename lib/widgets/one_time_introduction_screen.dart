@@ -34,7 +34,7 @@ class _OneTimeIntroductionScreenState extends State<OneTimeIntroductionScreen> {
       showDoneButton: _show,
       color: Colors.black,
       done: Text(
-        "Done",
+        "Terminé",
         style: TextStyle(fontWeight: FontWeight.w600),
       ),
       onDone: () async {

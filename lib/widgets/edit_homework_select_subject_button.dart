@@ -1,5 +1,4 @@
 import "package:flutter/material.dart";
-import 'package:tm_college_app/widgets/circle_avatar_with_border.dart';
 import 'package:tm_college_app/widgets/modular_outlined_button.dart';
 import "../models/matiere.dart";
 
