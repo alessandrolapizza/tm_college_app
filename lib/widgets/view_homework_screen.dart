@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:shared_preferences/shared_preferences.dart';
 import "../models/homework.dart";
 import "../models/my_database.dart";
 import "../models/notifications.dart";
@@ -15,9 +16,12 @@ class ViewHomeworkScreen extends StatefulWidget {
 
   final Notifications notifications;
 
+  final SharedPreferences sharedPreferences;
+
   ViewHomeworkScreen({
     @required this.database,
     @required this.notifications,
+    @required this.sharedPreferences,
   });
 
   @override
@@ -52,12 +56,18 @@ class _RouteAwareViewHomeworkScreenState extends State<ViewHomeworkScreen>
   }
 
   @override
-  void didPopNext() {
-    if (ModalRoute.of(context).settings.arguments != null) {
+  void didPopNext() async {
+    if (widget.sharedPreferences.getBool("unwantedRoute") ?? false) {
       _useUpdatedHomework = false;
+      await widget.sharedPreferences.setBool("unwantedRoute", false);
     } else {
       _useUpdatedHomework = true;
     }
+  }
+
+  @override
+  void didPop() async {
+    await widget.sharedPreferences.setBool("unwantedRoute", false);
   }
 
   @override
@@ -68,6 +78,8 @@ class _RouteAwareViewHomeworkScreenState extends State<ViewHomeworkScreen>
     _useUpdatedHomework = true && _updatedHomework == null
         ? _useUpdatedHomework = false
         : _useUpdatedHomework;
+
+    print(_useUpdatedHomework);
 
     return ThemeController(
       color: _useUpdatedHomework
@@ -111,7 +123,9 @@ class _RouteAwareViewHomeworkScreenState extends State<ViewHomeworkScreen>
           actions: homePage
               ? [
                   ModularIconButton(
-                    onPressedFunction: () {
+                    onPressedFunction: () async {
+                      await widget.sharedPreferences
+                          .setBool("unwantedRoute", true);
                       showDialog(
                         barrierDismissible: true,
                         context: context,
@@ -169,7 +183,9 @@ class _RouteAwareViewHomeworkScreenState extends State<ViewHomeworkScreen>
                 ]
               : [
                   ModularIconButton(
-                    onPressedFunction: () {
+                    onPressedFunction: () async {
+                      await widget.sharedPreferences
+                          .setBool("unwantedRoute", true);
                       showDialog(
                         barrierDismissible: true,
                         context: context,

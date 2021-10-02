@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.tm_college_app">
+    package="com.alessandrolapizza.tm_college_app">
    <application
         android:label="Mon Année Scolaire"
         android:icon="@mipmap/ic_launcher">

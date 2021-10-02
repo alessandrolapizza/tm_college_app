@@ -4,7 +4,7 @@ import "package:intl/intl.dart";
 import "package:shared_preferences/shared_preferences.dart";
 import "../models/my_database.dart";
 import "../models/notifications.dart";
-import "./app.dart";
+import "../widgets/app.dart";
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

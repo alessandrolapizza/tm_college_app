@@ -84,6 +84,7 @@ class App extends StatelessWidget {
               database: database,
             ),
         "/view_homework_screen": (_) => ViewHomeworkScreen(
+              sharedPreferences: sharedPreferences,
               database: database,
               notifications: notifications,
             ),
