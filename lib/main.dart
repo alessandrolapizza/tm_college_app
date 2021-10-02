@@ -1,5 +1,4 @@
 import "package:flutter/material.dart";
-import "package:flutter/services.dart";
 import "package:intl/intl.dart";
 import "package:shared_preferences/shared_preferences.dart";
 import "../models/my_database.dart";
@@ -14,12 +13,6 @@ void main() async {
   await database.defineDatabasePath();
 
   Intl.defaultLocale = "fr";
-
-  SystemChrome.setPreferredOrientations(
-    [
-      DeviceOrientation.portraitUp,
-    ],
-  );
 
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
 

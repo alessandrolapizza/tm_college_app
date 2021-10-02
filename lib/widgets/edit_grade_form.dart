@@ -78,7 +78,6 @@ class EditGradeForm extends StatelessWidget {
             children: [
               Expanded(
                 child: TextFormField(
-                  selectionControls: materialTextSelectionControls,
                   validator: (value) {
                     bool isDouble = false;
                     try {
@@ -130,7 +129,6 @@ class EditGradeForm extends StatelessWidget {
                       return null;
                     }
                   },
-                  selectionControls: materialTextSelectionControls,
                   controller: coefficientController, // changer
                   maxLength: 3,
                   keyboardType: TextInputType.numberWithOptions(decimal: true),

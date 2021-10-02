@@ -27,12 +27,9 @@ class App extends StatelessWidget {
     @required this.notifications,
   });
 
-  static final RouteObserver<ModalRoute<void>> routeObserver = RouteObserver();
-
   static const int defaultColorThemeValue = 4283522728;
 
   static MaterialColor toMaterialColor(int colorValue) {
-    print(Color(colorValue).red);
     Map<int, Color> colorMap = {
       50: Color(colorValue),
       100: Color(colorValue),
@@ -54,9 +51,9 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      navigatorObservers: [routeObserver],
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: [
         defaultLocale,
@@ -89,6 +86,7 @@ class App extends StatelessWidget {
               notifications: notifications,
             ),
         "/done_homeworks_screen": (_) => DoneHomeworksScreen(
+              sharedPreferences: sharedPreferences,
               database: database,
               notifications: notifications,
             ),

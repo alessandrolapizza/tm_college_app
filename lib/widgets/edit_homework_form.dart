@@ -15,7 +15,6 @@ class EditHomeworkForm extends StatelessWidget {
     return Form(
       key: createHomeworkFormKey,
       child: TextFormField(
-        selectionControls: materialTextSelectionControls,
         validator: (value) {
           if (value == null || value.trim() == "") {
             return "Un contenu doit être fourni";

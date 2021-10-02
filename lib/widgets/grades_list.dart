@@ -28,7 +28,6 @@ class GradesList extends StatelessWidget {
     Map<DateTime, List<Grade>> firstSemester = {};
     Map<DateTime, List<Grade>> secondSemester = {};
     gradesSortedSubjectSpecific.forEach((date, grades) {
-      print(date);
       if (date.isBefore(
         DateTime.parse(
           sharedPreferences.getString("secondTermBeginingDate"),

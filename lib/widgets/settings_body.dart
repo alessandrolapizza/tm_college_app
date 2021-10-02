@@ -184,8 +184,6 @@ class _SettingsBodyState extends State<SettingsBody>
                                 Text("Email : "),
                                 SelectableText(
                                   "monanneescolaire.app@gmail.com",
-                                  selectionControls:
-                                      MaterialTextSelectionControls(),
                                 ),
                               ],
                             ),

@@ -42,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     String text;
 
     if (_index == 0) {
-      text = "Devoirs";
+      text = "Devoirs à faire";
     } else if (_index == 1) {
       text = "Moyennes";
     } else {
@@ -57,6 +57,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
 
     if (_index == 0) {
       body = HomeworksList(
+        sharedPreferences:  widget.sharedPreferences,
         database: widget.database,
         homePage: true,
         notifications: widget.notifications,
@@ -132,14 +133,11 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
       homeworks.forEach(
         (homework) async {
           if (homework.notificationsIds.contains(int.parse(payload))) {
+            await widget.sharedPreferences.setString("homeworkId", homework.id);
             Navigator.popUntil(context, ModalRoute.withName("/"));
             Navigator.pushNamed(
               context,
               "/view_homework_screen",
-              arguments: [
-                homework,
-                true,
-              ],
             ).then((_) => setState(() {}));
             await widget.sharedPreferences
                 .setString("notificationOpenedAppPayload", "");
@@ -150,7 +148,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
 
     Future.delayed(
       Duration(milliseconds: 1000),
-      () async {
+      () {
         checkNotificationOpenedApp();
       },
     );

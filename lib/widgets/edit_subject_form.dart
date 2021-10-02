@@ -20,7 +20,6 @@ class EditSubjectForm extends StatelessWidget {
       child: Column(
         children: [
           TextFormField(
-            selectionControls: materialTextSelectionControls,
             validator: (value) {
               if (value == null || value.trim() == "") {
                 return "Un nom de matière doit être fourni";
@@ -43,7 +42,6 @@ class EditSubjectForm extends StatelessWidget {
             padding: EdgeInsets.only(bottom: 15),
           ),
           TextFormField(
-            selectionControls: materialTextSelectionControls,
             validator: (value) {
               if (value == null || value.trim() == "") {
                 return "Un numéro de salle doit être fourni";

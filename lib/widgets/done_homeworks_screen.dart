@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:shared_preferences/shared_preferences.dart';
 import "../models/my_database.dart";
 import "../models/notifications.dart";
 import "../widgets/homeworks_list.dart";
@@ -9,9 +10,12 @@ class DoneHomeworksScreen extends StatelessWidget {
 
   final Notifications notifications;
 
+  final SharedPreferences sharedPreferences;
+
   DoneHomeworksScreen({
     @required this.database,
     @required this.notifications,
+    @required this.sharedPreferences,
   });
 
   @override
@@ -23,6 +27,7 @@ class DoneHomeworksScreen extends StatelessWidget {
         title: Text("Devoirs complétés"),
       ),
       body: HomeworksList(
+        sharedPreferences: sharedPreferences,
         database: database,
         homePage: false,
         notifications: notifications,

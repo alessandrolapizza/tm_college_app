@@ -1,12 +1,12 @@
 import "package:flutter/material.dart";
 import "package:intl/intl.dart";
+import 'package:shared_preferences/shared_preferences.dart';
 import "package:sortedmap/sortedmap.dart";
 import "../models/homework.dart";
 import "../models/my_database.dart";
 import "../models/notifications.dart";
 import "./empty_centered_text.dart";
 import "./homework_card.dart";
-import "./modular_icon_button.dart";
 import "./modular_sticky_header.dart";
 
 class HomeworksList extends StatefulWidget {
@@ -16,10 +16,13 @@ class HomeworksList extends StatefulWidget {
 
   final Notifications notifications;
 
+  final SharedPreferences sharedPreferences;
+
   HomeworksList({
     @required this.database,
     @required this.homePage,
     @required this.notifications,
+    @required this.sharedPreferences,
   });
 
   @override
@@ -120,6 +123,7 @@ class _HomeworksList extends State<HomeworksList> {
                     itemCount: homeworks.values.toList()[index].length,
                     itemBuilder: (_, idx) {
                       return HomeworkCard(
+                        sharedPreferences: widget.sharedPreferences,
                         homework: homeworks.values.toList()[index][idx],
                         onTapFunction: () => Navigator.pushNamed(
                           context,
@@ -130,19 +134,44 @@ class _HomeworksList extends State<HomeworksList> {
                           ],
                         ).then((_) => setState(() {})),
                         actionButton: widget.homePage
-                            ? ModularIconButton(
-                                color: Colors.green,
-                                onPressedFunction: () => _checkHomework(
-                                  homeworks.values.toList()[index][idx],
+                            ? FittedBox(
+                                child: TextButton(
+                                  child: Column(
+                                    children: [
+                                      Icon(
+                                        Icons.check,
+                                        color: Colors.green,
+                                      ),
+                                      Text(
+                                        "Valider",
+                                        style: TextStyle(color: Colors.green),
+                                      ),
+                                    ],
+                                  ),
+                                  onPressed: () => _checkHomework(
+                                    homeworks.values.toList()[index][idx],
+                                  ),
                                 ),
-                                icon: Icons.check_rounded,
                               )
-                            : ModularIconButton(
-                                color: Colors.orangeAccent,
-                                onPressedFunction: () => _checkHomework(
-                                  homeworks.values.toList()[index][idx],
+                            : FittedBox(
+                                child: TextButton(
+                                  child: Column(
+                                    children: [
+                                      Icon(
+                                        Icons.settings_backup_restore_rounded,
+                                        color: Colors.orangeAccent,
+                                      ),
+                                      Text(
+                                        "Invalider",
+                                        style: TextStyle(
+                                            color: Colors.orangeAccent),
+                                      ),
+                                    ],
+                                  ),
+                                  onPressed: () => _checkHomework(
+                                    homeworks.values.toList()[index][idx],
+                                  ),
                                 ),
-                                icon: Icons.settings_backup_restore_rounded,
                               ),
                       );
                     },

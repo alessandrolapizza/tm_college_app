@@ -57,7 +57,6 @@ class _EditSubjectScreenState extends State<EditSubjectScreen> {
                   ),
         ),
       ),
-      barrierDismissible: true,
       title: Text("Choisir un icon"),
     );
 
@@ -114,7 +113,7 @@ class _EditSubjectScreenState extends State<EditSubjectScreen> {
         _selectedIcon != null &&
         _selectedColor != null) {
       if (_subjectId != null) {
-        widget.database.updateSubject(
+        await widget.database.updateSubject(
           Subject(
             color: _selectedColor,
             icon: _selectedIcon,
@@ -123,6 +122,7 @@ class _EditSubjectScreenState extends State<EditSubjectScreen> {
             id: _subjectId,
           ),
         );
+        await widget.notifications.rescheduleNotifications();
       } else {
         await widget.database.inserertSubject(
           Subject(

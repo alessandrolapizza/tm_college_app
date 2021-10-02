@@ -207,7 +207,6 @@ class Notifications {
   Future<String> getCheckNotificationPermStatus() {
     return NotificationPermissions.getNotificationPermissionStatus().then(
       (status) {
-        print(status);
         switch (status) {
           case PermissionStatus.denied:
             return permDenied;
@@ -269,6 +268,9 @@ class Notifications {
     homeworks.forEach(
       (homework) async {
         if (!homework.done) {
+          if (homework.notificationsIds.length != 0) {
+            await cancelMultipleNotifications(homework.notificationsIds);
+          }
           database.updateHomework(
             Homework(
               content: homework.content,

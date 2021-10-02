@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:shared_preferences/shared_preferences.dart';
 import "../models/homework.dart";
 import "./circle_avatar_with_border.dart";
 
@@ -9,16 +10,24 @@ class HomeworkCard extends StatelessWidget {
 
   final Widget actionButton;
 
+  final SharedPreferences sharedPreferences;
+
   HomeworkCard({
     @required this.homework,
-    this.onTapFunction,
+    @required this.onTapFunction,
+    @required this.sharedPreferences,
     this.actionButton,
   });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onTapFunction != null ? onTapFunction : null,
+      onTap: () async {
+        if (onTapFunction != null) {
+          await sharedPreferences.setString("homeworkId", homework.id);
+          onTapFunction();
+        }
+      },
       child: Container(
         height: 90,
         width: double.infinity,

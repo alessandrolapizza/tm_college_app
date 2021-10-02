@@ -120,7 +120,6 @@ class Grade {
                         grades += (subGrade.grade * subGrade.coefficient);
                         coefficients += subGrade.coefficient;
                       } else {
-                        print("test");
                         secondSemesterGrades +=
                             (subGrade.grade * subGrade.coefficient);
                         secondSemesterCoefficients += subGrade.coefficient;

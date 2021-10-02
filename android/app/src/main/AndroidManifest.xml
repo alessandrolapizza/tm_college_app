@@ -4,6 +4,7 @@
         android:label="Mon Année Scolaire"
         android:icon="@mipmap/ic_launcher">
         <activity
+            android:screenOrientation="portrait"
             android:name=".MainActivity"
             android:launchMode="singleTop"
             android:theme="@style/LaunchTheme"
