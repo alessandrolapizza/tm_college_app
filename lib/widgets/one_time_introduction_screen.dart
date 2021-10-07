@@ -82,7 +82,7 @@ class _OneTimeIntroductionScreenState extends State<OneTimeIntroductionScreen> {
             color: Theme.of(context).primaryColor,
           ),
           body:
-              "Les notifications te permettent de te rappeler tes devoirs aux heures qui te conviennent.\n\nElles sont désactivables et customisables dans les paramètres.",
+              "Les notifications t'avertissent de devoirs à venir aux heures qui te conviennent.\n\nElles sont désactivables et customisables dans les paramètres.",
           useScrollView: true,
           footer: OneTimeIntroductionNotificationsSettingTile(
             sharedPreferences: widget.sharedPreferences,
