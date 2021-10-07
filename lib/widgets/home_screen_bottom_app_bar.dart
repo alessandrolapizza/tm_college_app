@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import './app.dart';
 
 class HomePageBottomAppBar extends StatelessWidget {
   final Function changeIndexFunction;
@@ -13,18 +14,24 @@ class HomePageBottomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+      type: BottomNavigationBarType.shifting,
+      selectedItemColor: App.toMaterialColor(App.defaultColorThemeValue),
+      unselectedItemColor: Colors.grey[700],
       items: [
         BottomNavigationBarItem(
           icon: Icon(Icons.fact_check_rounded),
           label: "Devoirs",
+          tooltip: "",
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.assessment_rounded),
           label: "Moyennes",
+          tooltip: "",
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.table_rows_rounded),
           label: "Matières",
+          tooltip: "",
         ),
       ],
       currentIndex: indexSelectionne,
