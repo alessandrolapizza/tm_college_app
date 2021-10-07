@@ -28,7 +28,7 @@ class EditSubjectForm extends StatelessWidget {
             },
             controller: subjectNameController,
             autofocus: true,
-            maxLength: 20,
+            maxLength: 30,
             keyboardType: TextInputType.text,
             textInputAction: TextInputAction.next,
             onEditingComplete: () => FocusScope.of(context).nextFocus(),
@@ -49,7 +49,7 @@ class EditSubjectForm extends StatelessWidget {
               return null;
             },
             controller: subjectRoomNumberController,
-            maxLength: 11,
+            maxLength: 16,
             keyboardType: TextInputType.text,
             decoration: InputDecoration(
               icon: Icon(Icons.meeting_room_rounded),

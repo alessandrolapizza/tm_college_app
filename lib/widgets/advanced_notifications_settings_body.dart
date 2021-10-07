@@ -136,7 +136,7 @@ class _AdvancedNotificationsSettingsBodyState
         SettingsSection(
           titleTextStyle: TextStyle(),
           title:
-              "Ces paramètres permettent de changer individuellement pour chaque pastille d'importance le nombre de notifications à envoyer. \n\nExemple : J'ai règlé ma pastille Moyenne sur 2 jours. Je l'applique sur un devoir pour le 10 janvier. Je recevrai alors une notification le 9 et le 8 janvier à l'heure de distribution réglée.",
+              "Ces paramètres permettent de changer individuellement pour chaque pastille d'importance le nombre de notifications à envoyer. \n\nExemple : J'ai règlé ma pastille Moyenne sur 2 jours. Je l'applique sur un devoir pour le 10 janvier. Je recevrai alors une notification le 9 et le 8 janvier à l'heure de rappel réglée.",
           tiles: [],
           maxLines: 20,
         )

@@ -34,13 +34,13 @@ class Grade {
 
   static Color color({@required average}) {
     if (average < 3) {
-      return Colors.red;
+      return Colors.red[400];
     } else if (average < 4) {
-      return Colors.orange;
+      return Colors.orange[400];
     } else if (average < 5) {
-      return Colors.lightGreen;
+      return Colors.lightGreen[400];
     } else {
-      return Colors.green;
+      return Colors.green[400];
     }
   }
 
