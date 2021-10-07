@@ -71,7 +71,7 @@ class _OneTimeIntroductionScreenState extends State<OneTimeIntroductionScreen> {
             color: Colors.orangeAccent,
           ),
           body:
-              "Cette application a été conçue dans la cadre d'un travail de maturité à Genève. Elle est donc pour l'instant restreinte au fonctionnement général de ses collèges.",
+              "Cette application a été conçue dans la cadre d'un travail de maturité à Genève. Certaines fonctionnalités sont donc restreintes au fonctionnement suisse.\n\nExemple : Les notes rentrées doivent être comprises entre 1,5 et 6. Les moyennes sont calculées selon le système des collèges de Genève, à savoir : Moyenne premier semestre / Moyenne deuxième semestre.",
           useScrollView: true,
         ),
         PageViewModel(
@@ -82,7 +82,7 @@ class _OneTimeIntroductionScreenState extends State<OneTimeIntroductionScreen> {
             color: Theme.of(context).primaryColor,
           ),
           body:
-              "Les notifications te permettent de te rappeler de tes devoirs aux heures qui te conviennent. Elles sont désactivables et customisables à tout moment dans les paramètres.",
+              "Les notifications te permettent de te rappeler tes devoirs aux heures qui te conviennent.\n\nElles sont désactivables et customisables dans les paramètres.",
           useScrollView: true,
           footer: OneTimeIntroductionNotificationsSettingTile(
             sharedPreferences: widget.sharedPreferences,
@@ -97,11 +97,11 @@ class _OneTimeIntroductionScreenState extends State<OneTimeIntroductionScreen> {
             color: Theme.of(context).primaryColor,
           ),
           body:
-              "Attention ! Les dates fournies ne sont plus modifiables après validation. Pour les changers il faudra \"Commencer une nouvelle Année Scolaire\" dans les paramètres.",
+              "Attention ! Les dates fournies ne sont plus modifiables après validation.\n\nPour les changers il faudra \"Commencer une nouvelle Année Scolaire\" dans les paramètres.\n\nLes dates rentrées servent, entre autres, à calculer les moyennes correctement.",
           useScrollView: true,
         ),
         PageViewModel(
-          title: "Dates",
+          title: "Entrer les dates",
           image: Icon(
             Icons.date_range_rounded,
             size: 200,
