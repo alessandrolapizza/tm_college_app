@@ -25,7 +25,29 @@ class EditSubjectScreen extends StatefulWidget {
   _EditSubjectScreenState createState() => _EditSubjectScreenState();
 }
 
-class _EditSubjectScreenState extends State<EditSubjectScreen> {
+class _EditSubjectScreenState extends State<EditSubjectScreen> with RouteAware {
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    App.routeObserver.subscribe(this, ModalRoute.of(context));
+  }
+
+  @override
+  void dispose() {
+    App.routeObserver.unsubscribe(this);
+    super.dispose();
+  }
+
+  @override
+  void didPopNext() {
+    if (_colorSelectorOpenend) {
+      setState(() => _color == null
+          ? _selectedColor = Colors.red
+          : _selectedColor = _color);
+      _colorSelectorOpenend = false;
+    }
+  }
+
   final TextEditingController _subjectNameController = TextEditingController();
 
   final TextEditingController _subjectRoomNumberController =
@@ -36,6 +58,10 @@ class _EditSubjectScreenState extends State<EditSubjectScreen> {
   IconData _selectedIcon;
 
   Color _selectedColor;
+
+  Color _color;
+
+  bool _colorSelectorOpenend = false;
 
   bool _iconMissing = false;
 
@@ -49,7 +75,7 @@ class _EditSubjectScreenState extends State<EditSubjectScreen> {
       noResultsText: "Aucun résultats pour :",
       searchHintText: "Rechercher (anglais)",
       closeChild: Text(
-        "Annuler",
+        "Fermer",
         style: TextStyle(
           color:
               Theme.of(ctx).outlinedButtonTheme.style.foregroundColor.resolve(
@@ -68,7 +94,11 @@ class _EditSubjectScreenState extends State<EditSubjectScreen> {
   void _selectColor() async {
     int validColor = 0;
 
-    Color color = await showDialog(
+    _colorSelectorOpenend = true;
+
+    Color waitingColor;
+
+    waitingColor = await showDialog(
       barrierDismissible: true,
       context: context,
       builder: (_) {
@@ -76,7 +106,7 @@ class _EditSubjectScreenState extends State<EditSubjectScreen> {
           actionButtons: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text("Annuler"),
+              child: Text("Fermer"),
             )
           ],
           themeColor: _selectedColor == null
@@ -87,12 +117,14 @@ class _EditSubjectScreenState extends State<EditSubjectScreen> {
             style: TextStyle(color: Colors.black),
           ),
           content: MaterialColorPicker(
+            selectedColor: _selectedColor == null ? null : _selectedColor,
             shrinkWrap: true,
-            onColorChange: (Color couleur) {
+            onColorChange: (Color changeColor) {
+              _color = changeColor;
               if (validColor == 0) {
                 validColor++;
               } else {
-                Navigator.pop(context, couleur);
+                Navigator.pop(context, changeColor);
               }
             },
             onBack: () => validColor--,
@@ -103,8 +135,13 @@ class _EditSubjectScreenState extends State<EditSubjectScreen> {
         );
       },
     );
-    if (color != null) {
-      setState(() => _selectedColor = color);
+
+    if (waitingColor != null) {
+      _color = waitingColor;
+    }
+
+    if (_color != null) {
+      setState(() => _selectedColor = _color);
     }
   }
 
@@ -159,6 +196,7 @@ class _EditSubjectScreenState extends State<EditSubjectScreen> {
       _subjectRoomNumberController.text = subject.room;
       _selectedColor = subject.color;
       _selectedIcon = subject.icon;
+      _color = subject.color;
       setState(() => _subjectId = subject.id);
     }
 
@@ -170,7 +208,8 @@ class _EditSubjectScreenState extends State<EditSubjectScreen> {
         appBar: ModularAppBar(
           hideSettingsButton: true,
           backArrow: true,
-          title: Text("Nouvelle matière"),
+          title: Text(
+              _subjectId == null ? "Nouvelle matière" : "Modifier matière"),
           centerTitle: true,
           actions: _subjectId != null
               ? [

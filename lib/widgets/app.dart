@@ -47,9 +47,13 @@ class App extends StatelessWidget {
 
   static const Locale defaultLocale = Locale("fr", "FR");
 
+  static RouteObserver<ModalRoute<void>> routeObserver =
+      RouteObserver<ModalRoute<void>>();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorObservers: [routeObserver],
       debugShowCheckedModeBanner: false,
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
