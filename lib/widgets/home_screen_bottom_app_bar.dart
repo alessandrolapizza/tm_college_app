@@ -14,9 +14,7 @@ class HomePageBottomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      type: BottomNavigationBarType.shifting,
-      selectedItemColor: App.toMaterialColor(App.defaultColorThemeValue),
-      unselectedItemColor: Colors.grey[700],
+      showUnselectedLabels: false,
       items: [
         BottomNavigationBarItem(
           icon: Icon(Icons.fact_check_rounded),
