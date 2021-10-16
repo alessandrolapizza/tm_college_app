@@ -28,7 +28,7 @@ class StartNewSchoolYearSettingsBody extends StatelessWidget {
         SettingsSection(
           titleTextStyle: TextStyle(),
           title:
-              "Qu'est-ce que l'action \"Commencer une nouvelle Année Scolaire\" fait-elle ?\n\nCette action remet à zéro toutes les données de l'application. Ainsi, tu pourras rentrer les nouvelles dates de ton année scolaire.\n\nCe qui est supprimé :\n    - Les devoirs\n    - Les notes et moyennes\n    - Les matières\n    - Les dates délimitants ton année scolaire\n\nCe qui est conservé :\n    - Les paramètres de notifications",
+              "Qu'est-ce que l'action \"Commencer une nouvelle Année Scolaire\" fait-elle ?\n\nCette action remet à zéro toutes les données de l'application. Ainsi, tu pourras rentrer les nouvelles dates de ton année scolaire.\n\nCe qui est supprimé :\n    - Les devoirs\n    - Les notes et moyennes\n    - Les matières\n    - Les dates de ton année scolaire\n\nCe qui est conservé :\n    - Les paramètres de notifications",
           maxLines: 100,
           tiles: [
             SettingsTile(
