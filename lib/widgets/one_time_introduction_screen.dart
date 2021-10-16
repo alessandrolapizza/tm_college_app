@@ -71,7 +71,7 @@ class _OneTimeIntroductionScreenState extends State<OneTimeIntroductionScreen> {
             color: Colors.orangeAccent,
           ),
           body:
-              "Cette application a été conçue dans la cadre d'un travail de maturité à Genève. Certaines fonctionnalités sont donc restreintes au fonctionnement suisse.\n\nExemple : Les notes rentrées doivent être comprises entre 1,5 et 6. Les moyennes sont calculées selon le système des collèges de Genève, à savoir : Moyenne premier semestre / Moyenne deuxième semestre.",
+              "Cette application a été conçue dans la cadre d'un travail de maturité à Genève. Certaines fonctionnalités sont donc restreintes au fonctionnement suisse.\n\nExemple : Les notes rentrées doivent être comprises entre 1,5 et 6. Les moyennes sont calculées selon le système des collèges de Genève, à savoir : Moyenne premier semestre / Moyenne deuxième semestre.\n\n L'expérience de l'application sur toutes autres appareils qu'un smartphone peut être détérirorée.",
           useScrollView: true,
         ),
         PageViewModel(
