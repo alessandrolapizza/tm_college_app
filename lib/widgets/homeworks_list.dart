@@ -104,11 +104,11 @@ class _HomeworksList extends State<HomeworksList> {
           if (homeworks.length == 0) {
             if (!widget.homePage) {
               child = EmptyCenteredText(
-                  content: "Aucun devoirs complétés pour le moment.");
+                  content: "Aucun devoir complété pour le moment.");
             } else {
               child = EmptyCenteredText(
                   content:
-                      "Auncun devoirs pour le moment.\nPour créer un devoir, clique sur le +");
+                      "Aucun devoir pour le moment.\nPour créer un devoir, clique sur le +");
             }
           } else {
             child = ListView.builder(

@@ -23,7 +23,7 @@ class HomeScreenBodySubjects extends StatelessWidget {
           if (snapshot.data.length == 0) {
             child = EmptyCenteredText(
                 content:
-                    "Aucune matières pour le moment.\nPour créer une matière, clique sur le +");
+                    "Aucune matière pour le moment.\nPour créer une matière, clique sur le +");
           } else {
             child = ListView.builder(
               itemCount: snapshot.data.length,

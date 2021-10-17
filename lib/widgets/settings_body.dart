@@ -136,7 +136,7 @@ class _SettingsBodyState extends State<SettingsBody>
               maxLines: 10,
               //   titleTextStyle: TextStyle(),
               title:
-                  "L'heure de rappel correspond à l'heure à laquelle chaque jours les notifications seront distribuées, s'il y en a.",
+                  "L'heure de rappel correspond à l'heure à laquelle chaque jour les notifications seront distribuées, s'il y en a.",
             ),
             SettingsSection(
               tiles: [
@@ -196,7 +196,7 @@ class _SettingsBodyState extends State<SettingsBody>
                 SettingsTile(
                   title: "Licences",
                   onPressed: (_) => showLicensePage(
-                    applicationVersion: "v.1.0.7",
+                    applicationVersion: "v.1.0.8",
                     applicationLegalese: "Made with <3 🍕",
                     context: context,
                     applicationIcon: Image.asset(

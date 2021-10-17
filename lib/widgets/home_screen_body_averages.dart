@@ -34,7 +34,7 @@ class HomeScreenBodyAverages extends StatelessWidget {
           if (gradesSorted.length == 0) {
             child = EmptyCenteredText(
                 content:
-                    "Aucune moyennes pour le moment.\nPour ajouter une note, clique sur le +");
+                    "Aucune moyenne pour le moment.\nPour ajouter une note, clique sur le +");
           } else {
             child = ListView.builder(
               itemCount: gradesSorted.length,

@@ -72,7 +72,7 @@ class _EditSubjectScreenState extends State<EditSubjectScreen> with RouteAware {
   void _selectIcon(BuildContext ctx) async {
     IconData _icon = await FlutterIconPicker.showIconPicker(
       context,
-      noResultsText: "Aucun résultats pour :",
+      noResultsText: "Aucun résultat pour :",
       searchHintText: "Rechercher (anglais)",
       closeChild: Text(
         "Fermer",
