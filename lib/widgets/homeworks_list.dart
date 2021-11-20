@@ -116,6 +116,8 @@ class _HomeworksList extends State<HomeworksList> {
               controller: _scrollControllerHomeworks,
               itemCount: homeworks.length,
               itemBuilder: (_, index) {
+                index =
+                    widget.homePage ? index : homeworks.length - (index + 1);
                 return ModularStickyHeader(
                   content: ListView.builder(
                     physics: NeverScrollableScrollPhysics(),
@@ -177,13 +179,41 @@ class _HomeworksList extends State<HomeworksList> {
                     },
                   ),
                   header: Text(
-                    DateFormat("EEEE d MMMM").format(
-                      homeworks.keys.toList()[index],
-                    ),
+                    (homeworks.keys.toList()[index] as DateTime) ==
+                            DateTime(DateTime.now().year, DateTime.now().month,
+                                DateTime.now().day - 2)
+                        ? "Avant-hier (${DateFormat("EEEE d MMMM").format(homeworks.keys.toList()[index])})"
+                        : (homeworks.keys.toList()[index] as DateTime) ==
+                                DateTime(
+                                    DateTime.now().year,
+                                    DateTime.now().month,
+                                    DateTime.now().day - 1)
+                            ? "Hier (${DateFormat("EEEE d MMMM").format(homeworks.keys.toList()[index])})"
+                            : (homeworks.keys.toList()[index] as DateTime) ==
+                                    DateTime(
+                                        DateTime.now().year,
+                                        DateTime.now().month,
+                                        DateTime.now().day)
+                                ? "Aujourd'hui (${DateFormat("EEEE d MMMM").format(homeworks.keys.toList()[index])})"
+                                : (homeworks.keys.toList()[index]
+                                            as DateTime) ==
+                                        DateTime(
+                                            DateTime.now().year,
+                                            DateTime.now().month,
+                                            DateTime.now().day + 1)
+                                    ? "Demain (${DateFormat("EEEE d MMMM").format(homeworks.keys.toList()[index])})"
+                                    : (homeworks.keys.toList()[index]
+                                                as DateTime) ==
+                                            DateTime(
+                                                DateTime.now().year,
+                                                DateTime.now().month,
+                                                DateTime.now().day + 2)
+                                        ? "Après-demain (${DateFormat("EEEE d MMMM").format(homeworks.keys.toList()[index])})"
+                                        : DateFormat("EEEE d MMMM").format(
+                                            homeworks.keys.toList()[index]),
                     style: TextStyle(
-                        color: DateTime.now().isAfter(
-                          homeworks.keys.toList()[index],
-                        )
+                        color: DateTime.now()
+                                .isAfter(homeworks.keys.toList()[index])
                             ? Colors.red
                             : Colors.black,
                         fontWeight: FontWeight.w500),

@@ -44,7 +44,7 @@ class Grade {
     }
   }
 
-  static List gradesMaps({
+  static List<dynamic> gradesMaps({
     @required List<Grade> grades,
     @required SharedPreferences sharedPreferences,
   }) {

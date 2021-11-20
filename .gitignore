@@ -48,4 +48,4 @@ app.*.map.json
 # My changes
 ios/build/XCBuildData
 .vscode
-**/dgph
+**/dgph*

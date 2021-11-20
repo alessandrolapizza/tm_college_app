@@ -130,7 +130,7 @@ class EditGradeForm extends StatelessWidget {
                     }
                   },
                   controller: coefficientController, // changer
-                  maxLength: 3,
+                  maxLength: 4,
                   keyboardType: TextInputType.numberWithOptions(decimal: true),
                   textInputAction: TextInputAction.next,
                   onEditingComplete: () => FocusScope.of(context).nextFocus(),
