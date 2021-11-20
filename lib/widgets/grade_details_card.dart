@@ -29,7 +29,7 @@ class GradeDetailsCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Text(
-                    DateFormat("d.MM.y").format(grade.date),
+                    DateFormat("dd.MM.yyyy").format(grade.date),
                   ),
                   Text(
                     grade.grade.toString(),
