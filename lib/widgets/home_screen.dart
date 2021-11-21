@@ -1,3 +1,4 @@
+import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import "package:flutter_local_notifications/flutter_local_notifications.dart";
 import "package:flutter/material.dart";
 import "package:shared_preferences/shared_preferences.dart";
@@ -102,6 +103,12 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   }
 
   @override
+  void initState() {
+    super.initState();
+    checkNotificationOpenedApp();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 3,
@@ -164,11 +171,15 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
             ),
             bottomNavigationBar: BottomAppBar(
               child: TabBar(
-                labelColor: Color(App.defaultColorThemeValue),
-                unselectedLabelStyle: TextStyle(fontSize: 0),
-                unselectedLabelColor: Colors.grey[600],
-                indicator: UnderlineTabIndicator(),
+                overlayColor: MaterialStateProperty.all(Colors.transparent),
+                labelColor: Colors.grey[800],
                 labelPadding: EdgeInsets.symmetric(vertical: 4),
+                unselectedLabelColor: Colors.grey[500],
+                indicator: BubbleTabIndicator(
+                  indicatorColor: Color(App.defaultColorThemeValue).withOpacity(0.1),
+                  indicatorHeight: 47,
+                  padding: EdgeInsets.symmetric(horizontal: -7),
+                ),
                 tabs: [
                   Tab(
                     child: Center(

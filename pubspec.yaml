@@ -15,7 +15,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.8+10
+version: 1.0.10+13
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -50,6 +50,7 @@ dependencies:
   notification_permissions: ^0.6.1
   numberpicker: ^2.1.1
   fl_chart: ^0.40.0
+  bubble_tab_indicator: "^0.1.5"
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

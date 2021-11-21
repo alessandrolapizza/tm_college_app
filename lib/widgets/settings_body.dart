@@ -196,7 +196,7 @@ class _SettingsBodyState extends State<SettingsBody>
                 SettingsTile(
                   title: "Licences",
                   onPressed: (_) => showLicensePage(
-                    applicationVersion: "v.1.0.8",
+                    applicationVersion: "v.1.0.10",
                     applicationLegalese: "Made with <3 🍕",
                     context: context,
                     applicationIcon: Image.asset(
