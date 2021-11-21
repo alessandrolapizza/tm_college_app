@@ -24,6 +24,7 @@ class DoneHomeworksScreen extends StatelessWidget {
       appBar: ModularAppBar(
         hideSettingsButton: true,
         backArrow: true,
+        centerTitle: true,
         title: Text("Devoirs complétés"),
       ),
       body: HomeworksList(

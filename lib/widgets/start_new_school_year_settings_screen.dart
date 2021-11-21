@@ -25,6 +25,7 @@ class StartNewSchoolYearSettingsScreen extends StatelessWidget {
         title: Text("Nouvelle Année Scolaire"),
         hideSettingsButton: true,
         backArrow: true,
+        centerTitle: true,
       ),
       body: StartNewSchoolYearSettingsBody(
         sharedPreferences: sharedPreferences,
