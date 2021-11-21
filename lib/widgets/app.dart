@@ -116,6 +116,7 @@ class App extends StatelessWidget {
             ),
       },
       theme: ThemeData(
+        highlightColor: Colors.transparent,
         primarySwatch: toMaterialColor(defaultColorThemeValue),
         inputDecorationTheme: InputDecorationTheme(
           focusedBorder: UnderlineInputBorder(

@@ -176,7 +176,8 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                 labelPadding: EdgeInsets.symmetric(vertical: 4),
                 unselectedLabelColor: Colors.grey[500],
                 indicator: BubbleTabIndicator(
-                  indicatorColor: Color(App.defaultColorThemeValue).withOpacity(0.1),
+                  indicatorColor:
+                      Color(App.defaultColorThemeValue).withOpacity(0.1),
                   indicatorHeight: 47,
                   padding: EdgeInsets.symmetric(horizontal: -7),
                 ),
