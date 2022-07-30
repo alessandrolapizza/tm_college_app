@@ -54,7 +54,7 @@ class _EditGradeDialogState extends State<EditGradeDialog> {
       _gradeController.text = widget.grade.grade.toString();
       _selectedGradeDate = widget.grade.date;
       _coefficientController.text =
-          widget.grade.coefficient.toString().substring(0, 3);
+          widget.grade.coefficient.toString().substring(0, 4);
     } else {
       _selectedGradeDate = DateTime.now().isAfter(
         DateTime.parse(
