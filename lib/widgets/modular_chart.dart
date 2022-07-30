@@ -43,7 +43,7 @@ class ModularChart extends StatelessWidget {
             isStrokeCapRound: true, // à regarder plus tard
             belowBarData: BarAreaData(
               show: true,
-              colors: [color.withOpacity(0.8)],
+              color: color.withOpacity(0.8),
             ),
             dotData: FlDotData(
               show: true,
@@ -51,7 +51,7 @@ class ModularChart extends StatelessWidget {
                 return FlDotCirclePainter(strokeWidth: 0, color: color);
               },
             ),
-            colors: [color],
+            color: color,
             spots: averages.length == 1
                 ? [
                     FlSpot(1, averages[0].values.toList()[0]),

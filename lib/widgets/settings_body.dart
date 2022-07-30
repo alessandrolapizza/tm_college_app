@@ -58,20 +58,23 @@ class _SettingsBodyState extends State<SettingsBody>
       future: _permissionStatusFuture,
       builder: (_, snapshot) {
         return SettingsList(
-          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          lightTheme: SettingsThemeData(
+            settingsListBackground: Theme.of(context).scaffoldBackgroundColor,
+          ),
           sections: [
             SettingsSection(
-              title: "Notifications",
+              title: Text("Notifications"),
               tiles: [
                 SettingsTile.switchTile(
-                  title: "Notifications",
+                  activeSwitchColor: Theme.of(context).primaryColor,
+                  title: Text("Notifications"),
                   onToggle: (toggleState) async => await widget.notifications
                       .toggleNotifications(
                         toggleState: toggleState,
                         snapshotData: snapshot.data,
                       )
                       .then((_) => setState(() {})),
-                  switchValue: snapshot.hasData &&
+                  initialValue: snapshot.hasData &&
                           (widget.sharedPreferences
                                   .getBool("notificationsActivated") ??
                               false)
@@ -81,12 +84,18 @@ class _SettingsBodyState extends State<SettingsBody>
                   enabled: snapshot.hasData,
                 ),
                 SettingsTile(
-                  title: "Heure de rappel",
+                  description: Text(
+                      "L'heure de rappel correspond à l'heure à laquelle chaque jour les notifications seront distribuées, s'il y en a."),
+                  title: Row(
+                    children: [
+                      Text("Heure de rappel"),
+                      Text(widget.sharedPreferences
+                              .getString("notificationsReminderHour") ??
+                          "17:00")
+                    ],
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  ),
                   leading: Icon(Icons.access_time_rounded),
-                  iosChevron: null,
-                  subtitle: widget.sharedPreferences
-                          .getString("notificationsReminderHour") ??
-                      "17:00",
                   enabled: snapshot.hasData &&
                           (widget.sharedPreferences
                                   .getBool("notificationsActivated") ??
@@ -128,20 +137,9 @@ class _SettingsBodyState extends State<SettingsBody>
                     );
                   },
                 ),
-              ],
-            ),
-            SettingsSection(
-              tiles: [],
-              titleTextStyle: TextStyle(),
-              maxLines: 10,
-              //   titleTextStyle: TextStyle(),
-              title:
-                  "L'heure de rappel correspond à l'heure à laquelle chaque jour les notifications seront distribuées, s'il y en a.",
-            ),
-            SettingsSection(
-              tiles: [
                 SettingsTile(
-                  title: "Avancé",
+                  leading: Icon(Icons.edit_notifications_rounded),
+                  title: Text("Avancé"),
                   enabled: snapshot.hasData &&
                           (widget.sharedPreferences
                                   .getBool("notificationsActivated") ??
@@ -156,10 +154,13 @@ class _SettingsBodyState extends State<SettingsBody>
               ],
             ),
             SettingsSection(
-              title: "Nouvelle Année Scolaire",
+              title: Text("Nouvelle Année Scolaire"),
               tiles: [
                 SettingsTile(
-                  title: "Commencer une nouvelle Année Scolaire",
+                  leading: Icon(Icons.restart_alt_rounded),
+                  description: Text(
+                      "Permet de rénitialiser l'application pour une nouvelle année scolaire."),
+                  title: Text("Commencer une nouvelle Année Scolaire"),
                   onPressed: (_) {
                     Navigator.pushNamed(
                         context, "start_new_school_year_settings_screen");
@@ -170,7 +171,8 @@ class _SettingsBodyState extends State<SettingsBody>
             SettingsSection(
               tiles: [
                 SettingsTile(
-                  title: "Contact",
+                  leading: Icon(Icons.contact_mail_rounded),
+                  title: Text("Contact"),
                   onPressed: (_) {
                     showDialog(
                       context: context,
@@ -194,7 +196,8 @@ class _SettingsBodyState extends State<SettingsBody>
                   },
                 ),
                 SettingsTile(
-                  title: "Licences",
+                  leading: Icon(Icons.balance_rounded),
+                  title: Text("Licences"),
                   onPressed: (_) => showLicensePage(
                     applicationVersion: "v.1.0.11",
                     applicationLegalese: "Made with <3 🍕",
@@ -206,7 +209,7 @@ class _SettingsBodyState extends State<SettingsBody>
                   ),
                 ),
               ],
-              title: "À propos",
+              title: Text("À propos"),
             ),
           ],
         );

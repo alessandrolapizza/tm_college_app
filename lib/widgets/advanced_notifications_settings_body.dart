@@ -48,10 +48,11 @@ class _AdvancedNotificationsSettingsBodyState
   @override
   Widget build(BuildContext context) {
     return SettingsList(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      lightTheme: SettingsThemeData(
+          settingsListBackground: Theme.of(context).scaffoldBackgroundColor),
       sections: [
         SettingsSection(
-          title: "Pastilles d'importances",
+          title: Text("Pastilles d'importances"),
           tiles: [
             SettingsTile(
               enabled: true,
@@ -59,18 +60,22 @@ class _AdvancedNotificationsSettingsBodyState
                 color: Homework.priorityColorMap.values.toList()[0],
                 circleSize: 20,
               ),
-              title: Homework.priorityColorMap.keys.toList()[0],
-              iosChevron: null,
-              subtitle: (widget.sharedPreferences
-                              .getInt("notificationsPriorityNumberWhite") ??
-                          0) ==
-                      0
-                  ? "Aucune"
-                  : widget.sharedPreferences
-                              .getInt("notificationsPriorityNumberWhite") ==
-                          1
-                      ? "1 jour avant"
-                      : "${widget.sharedPreferences.getInt("notificationsPriorityNumberWhite")} jours avant",
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(Homework.priorityColorMap.keys.toList()[0]),
+                  Text((widget.sharedPreferences
+                                  .getInt("notificationsPriorityNumberWhite") ??
+                              0) ==
+                          0
+                      ? "Aucune"
+                      : widget.sharedPreferences
+                                  .getInt("notificationsPriorityNumberWhite") ==
+                              1
+                          ? "1 jour avant"
+                          : "${widget.sharedPreferences.getInt("notificationsPriorityNumberWhite")} jours avant"),
+                ],
+              ),
               onPressed: (_) async => _changeNotificationsPriorityNumber(0),
             ),
             SettingsTile(
@@ -79,19 +84,23 @@ class _AdvancedNotificationsSettingsBodyState
                 color: Colors.green,
                 circleSize: 20,
               ),
-              title: "Normale",
-              iosChevron: null,
-              subtitle: (widget.sharedPreferences
-                              .getInt("notificationsPriorityNumberGreen") ??
-                          1) ==
-                      0
-                  ? "Aucune"
-                  : (widget.sharedPreferences
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("Normale"),
+                  Text((widget.sharedPreferences
                                   .getInt("notificationsPriorityNumberGreen") ??
                               1) ==
-                          1
-                      ? "1 jour avant"
-                      : "${widget.sharedPreferences.getInt("notificationsPriorityNumberGreen") ?? 1} jours avant",
+                          0
+                      ? "Aucune"
+                      : (widget.sharedPreferences.getInt(
+                                      "notificationsPriorityNumberGreen") ??
+                                  1) ==
+                              1
+                          ? "1 jour avant"
+                          : "${widget.sharedPreferences.getInt("notificationsPriorityNumberGreen") ?? 1} jours avant"),
+                ],
+              ),
             ),
             SettingsTile(
               onPressed: (_) async => _changeNotificationsPriorityNumber(2),
@@ -99,18 +108,22 @@ class _AdvancedNotificationsSettingsBodyState
                 color: Colors.orange,
                 circleSize: 20,
               ),
-              title: "Moyenne",
-              iosChevron: null,
-              subtitle: (widget.sharedPreferences
-                              .getInt("notificationsPriorityNumberOrange") ??
-                          3) ==
-                      0
-                  ? "Aucune"
-                  : widget.sharedPreferences
-                              .getInt("notificationsPriorityNumberOrange") ==
-                          1
-                      ? "1 jour avant"
-                      : "${widget.sharedPreferences.getInt("notificationsPriorityNumberOrange") ?? 3} jours avant",
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("Moyenne"),
+                  Text((widget.sharedPreferences.getInt(
+                                  "notificationsPriorityNumberOrange") ??
+                              3) ==
+                          0
+                      ? "Aucune"
+                      : widget.sharedPreferences.getInt(
+                                  "notificationsPriorityNumberOrange") ==
+                              1
+                          ? "1 jour avant"
+                          : "${widget.sharedPreferences.getInt("notificationsPriorityNumberOrange") ?? 3} jours avant"),
+                ],
+              ),
             ),
             SettingsTile(
               onPressed: (_) async => _changeNotificationsPriorityNumber(3),
@@ -118,27 +131,33 @@ class _AdvancedNotificationsSettingsBodyState
                 color: Colors.red,
                 circleSize: 20,
               ),
-              title: "Urgente",
-              iosChevron: null,
-              subtitle: (widget.sharedPreferences
-                              .getInt("notificationsPriorityNumberRed") ??
-                          5) ==
-                      0
-                  ? "Aucune"
-                  : widget.sharedPreferences
-                              .getInt("notificationsPriorityNumberRed") ==
-                          1
-                      ? "1 jour avant"
-                      : "${widget.sharedPreferences.getInt("notificationsPriorityNumberRed") ?? 5} jours avant",
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("Urgente"),
+                  Text((widget.sharedPreferences
+                                  .getInt("notificationsPriorityNumberRed") ??
+                              5) ==
+                          0
+                      ? "Aucune"
+                      : widget.sharedPreferences
+                                  .getInt("notificationsPriorityNumberRed") ==
+                              1
+                          ? "1 jour avant"
+                          : "${widget.sharedPreferences.getInt("notificationsPriorityNumberRed") ?? 5} jours avant"),
+                ],
+              ),
             ),
           ],
         ),
-        SettingsSection(
-          titleTextStyle: TextStyle(),
-          title:
+        CustomSettingsSection(
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            child: Text(
               "Ces paramètres permettent de changer individuellement pour chaque pastille d'importance le nombre de notifications à envoyer. \n\nExemple : J'ai règlé ma pastille Moyenne sur 2 jours. Je l'applique sur un devoir pour le 10 janvier. Je recevrai alors une notification le 9 et le 8 janvier à l'heure de rappel réglée.",
-          tiles: [],
-          maxLines: 20,
+              style: TextStyle(color: Colors.grey[600]),
+            ),
+          ),
         )
       ],
     );

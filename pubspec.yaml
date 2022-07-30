@@ -35,21 +35,21 @@ dependencies:
     sdk: flutter
   intl: ^0.17.0
   flutter_material_color_picker: ^1.0.5
-  flutter_iconpicker: ^3.0.4
+  flutter_iconpicker: ^3.1.4+1
   sqflite: ^2.0.0+3
   path: ^1.8.0
   uuid: ^3.0.4
-  sticky_headers: ^0.2.0
+  sticky_headers: ^0.3.0+2
   sortedmap: ^0.5.1
   flutter_local_notifications: ^8.1.1+1
-  settings_ui: ^1.0.0
+  settings_ui: ^2.0.2
   timezone: ^0.7.0
   flutter_native_timezone: ^2.0.0
   introduction_screen: ^2.1.0
   shared_preferences: ^2.0.6
   notification_permissions: ^0.6.1
   numberpicker: ^2.1.1
-  fl_chart: ^0.40.0
+  fl_chart: ^0.55.0
   bubble_tab_indicator: "^0.1.5"
 
   # The following adds the Cupertino Icons font to your application.

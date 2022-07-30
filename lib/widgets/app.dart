@@ -116,6 +116,7 @@ class App extends StatelessWidget {
             ),
       },
       theme: ThemeData(
+        scaffoldBackgroundColor: Colors.grey[100],
         highlightColor: Colors.transparent,
         primarySwatch: toMaterialColor(defaultColorThemeValue),
         inputDecorationTheme: InputDecorationTheme(

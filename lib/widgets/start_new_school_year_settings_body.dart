@@ -23,13 +23,11 @@ class StartNewSchoolYearSettingsBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SettingsList(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      lightTheme: SettingsThemeData(
+          settingsListBackground: Theme.of(context).scaffoldBackgroundColor),
       sections: [
         SettingsSection(
-          titleTextStyle: TextStyle(),
-          title:
-              "Qu'est-ce que l'action \"Commencer une nouvelle Année Scolaire\" fait-elle ?\n\nCette action remet à zéro toutes les données de l'application. Ainsi, tu pourras rentrer les nouvelles dates de ton année scolaire.\n\nCe qui est supprimé :\n    - Les devoirs\n    - Les notes et moyennes\n    - Les matières\n    - Les dates de ton année scolaire\n\nCe qui est conservé :\n    - Les paramètres de notifications",
-          maxLines: 100,
+          title: Text("Commencer une nouvelle Année Scolaire"),
           tiles: [
             SettingsTile(
               onPressed: (_) {
@@ -83,14 +81,21 @@ class StartNewSchoolYearSettingsBody extends StatelessWidget {
                   },
                 );
               },
-              iosChevron: null,
-              title: "Confirmer",
-              titleTextStyle: TextStyle(
-                color: Colors.red,
-                fontSize: 16,
+              title: Text(
+                "Confirmer",
+                style: TextStyle(color: Colors.red),
               ),
-            )
+            ),
           ],
+        ),
+        CustomSettingsSection(
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            child: Text(
+              "Cette action remet à zéro toutes les données de l'application. C'est l'option parfaite si tu commences une nouvelles année scolaire !\n\nCe qui est supprimé :\n    - Les devoirs\n    - Les notes et moyennes\n    - Les matières\n    - Les dates de ton année scolaire\n\nCe qui est conservé :\n    - Les paramètres de notifications",
+              style: TextStyle(color: Colors.grey[600]),
+            ),
+          ),
         )
       ],
     );
