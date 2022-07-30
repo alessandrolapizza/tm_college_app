@@ -64,16 +64,21 @@ class _AdvancedNotificationsSettingsBodyState
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(Homework.priorityColorMap.keys.toList()[0]),
-                  Text((widget.sharedPreferences
-                                  .getInt("notificationsPriorityNumberWhite") ??
-                              0) ==
-                          0
-                      ? "Aucune"
-                      : widget.sharedPreferences
-                                  .getInt("notificationsPriorityNumberWhite") ==
-                              1
-                          ? "1 jour avant"
-                          : "${widget.sharedPreferences.getInt("notificationsPriorityNumberWhite")} jours avant"),
+                  Text(
+                    (widget.sharedPreferences.getInt(
+                                    "notificationsPriorityNumberWhite") ??
+                                0) ==
+                            0
+                        ? "Aucune"
+                        : widget.sharedPreferences.getInt(
+                                    "notificationsPriorityNumberWhite") ==
+                                1
+                            ? "1 jour avant"
+                            : "${widget.sharedPreferences.getInt("notificationsPriorityNumberWhite")} jours avant",
+                    style: TextStyle(
+                      color: Colors.grey[600],
+                    ),
+                  ),
                 ],
               ),
               onPressed: (_) async => _changeNotificationsPriorityNumber(0),
@@ -88,17 +93,21 @@ class _AdvancedNotificationsSettingsBodyState
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("Normale"),
-                  Text((widget.sharedPreferences
-                                  .getInt("notificationsPriorityNumberGreen") ??
-                              1) ==
-                          0
-                      ? "Aucune"
-                      : (widget.sharedPreferences.getInt(
+                  Text(
+                      (widget.sharedPreferences.getInt(
                                       "notificationsPriorityNumberGreen") ??
                                   1) ==
-                              1
-                          ? "1 jour avant"
-                          : "${widget.sharedPreferences.getInt("notificationsPriorityNumberGreen") ?? 1} jours avant"),
+                              0
+                          ? "Aucune"
+                          : (widget.sharedPreferences.getInt(
+                                          "notificationsPriorityNumberGreen") ??
+                                      1) ==
+                                  1
+                              ? "1 jour avant"
+                              : "${widget.sharedPreferences.getInt("notificationsPriorityNumberGreen") ?? 1} jours avant",
+                      style: TextStyle(
+                        color: Colors.grey[600],
+                      )),
                 ],
               ),
             ),
@@ -112,16 +121,19 @@ class _AdvancedNotificationsSettingsBodyState
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("Moyenne"),
-                  Text((widget.sharedPreferences.getInt(
-                                  "notificationsPriorityNumberOrange") ??
-                              3) ==
-                          0
-                      ? "Aucune"
-                      : widget.sharedPreferences.getInt(
-                                  "notificationsPriorityNumberOrange") ==
-                              1
-                          ? "1 jour avant"
-                          : "${widget.sharedPreferences.getInt("notificationsPriorityNumberOrange") ?? 3} jours avant"),
+                  Text(
+                    (widget.sharedPreferences.getInt(
+                                    "notificationsPriorityNumberOrange") ??
+                                3) ==
+                            0
+                        ? "Aucune"
+                        : widget.sharedPreferences.getInt(
+                                    "notificationsPriorityNumberOrange") ==
+                                1
+                            ? "1 jour avant"
+                            : "${widget.sharedPreferences.getInt("notificationsPriorityNumberOrange") ?? 3} jours avant",
+                    style: TextStyle(color: Colors.grey[600]),
+                  )
                 ],
               ),
             ),
@@ -135,16 +147,21 @@ class _AdvancedNotificationsSettingsBodyState
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("Urgente"),
-                  Text((widget.sharedPreferences
-                                  .getInt("notificationsPriorityNumberRed") ??
-                              5) ==
-                          0
-                      ? "Aucune"
-                      : widget.sharedPreferences
-                                  .getInt("notificationsPriorityNumberRed") ==
-                              1
-                          ? "1 jour avant"
-                          : "${widget.sharedPreferences.getInt("notificationsPriorityNumberRed") ?? 5} jours avant"),
+                  Text(
+                    (widget.sharedPreferences
+                                    .getInt("notificationsPriorityNumberRed") ??
+                                5) ==
+                            0
+                        ? "Aucune"
+                        : widget.sharedPreferences
+                                    .getInt("notificationsPriorityNumberRed") ==
+                                1
+                            ? "1 jour avant"
+                            : "${widget.sharedPreferences.getInt("notificationsPriorityNumberRed") ?? 5} jours avant",
+                    style: TextStyle(
+                      color: Colors.grey[600],
+                    ),
+                  ),
                 ],
               ),
             ),
