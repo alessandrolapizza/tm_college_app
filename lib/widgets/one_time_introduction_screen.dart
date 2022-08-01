@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:introduction_screen/introduction_screen.dart";
 import "package:shared_preferences/shared_preferences.dart";
+import 'package:tm_college_app/widgets/fade_gradient.dart';
 import "../models/notifications.dart";
 import "./one_time_introduction_date_configuration_body.dart";
 import "./one_time_introduction_notifications_setting_tile.dart";
@@ -48,21 +49,29 @@ class _OneTimeIntroductionScreenState extends State<OneTimeIntroductionScreen> {
       ),
       pages: [
         PageViewModel(
-          title: "Bienvenue dans Mon Année Scolaire !",
-          image: Padding(
-            padding: EdgeInsets.only(top: 50),
-            child: Image.asset(
-              "assets/images/transparent_icon.png",
+            title: "Bienvenue dans Mon Année Scolaire !",
+            image: Padding(
+              padding: EdgeInsets.only(top: 50),
+              child: Image.asset(
+                "assets/images/transparent_icon.png",
+              ),
             ),
-          ),
-          decoration: PageDecoration(
-            bodyFlex: 1,
-            imageFlex: 2,
-          ),
-          useScrollView: true,
-          body:
-              "Une application simple et efficace pour gérer tes notes et devoirs.",
-        ),
+            decoration: PageDecoration(
+              bodyFlex: 1,
+              imageFlex: 2,
+            ),
+            bodyWidget: Container(
+              width: double.infinity,
+              height: MediaQuery.of(context).size.height / 12,
+              child: FadeGradient(
+                child: SingleChildScrollView(
+                  child: Text(
+                      "Une application simple et efficace pour gérer tes notes et devoirs.",
+                      style: TextStyle(fontSize: 16),
+                      textAlign: TextAlign.center),
+                ),
+              ),
+            )),
         PageViewModel(
           title: "Avant de continuer",
           image: Icon(
@@ -70,25 +79,67 @@ class _OneTimeIntroductionScreenState extends State<OneTimeIntroductionScreen> {
             size: 200,
             color: Colors.orangeAccent,
           ),
-          body:
-              "Cette application a été conçue dans la cadre d'un travail de maturité à Genève. Certaines fonctionnalités sont donc restreintes au fonctionnement suisse.\n\nExemple : Les notes rentrées doivent être comprises entre 1,5 et 6. Les moyennes sont calculées selon le système des collèges de Genève, à savoir : Moyenne premier semestre / Moyenne deuxième semestre.\n\n L'expérience de l'application sur un autre appareil qu'un smartphone peut être détérirorée.",
-          useScrollView: true,
+          bodyWidget: Container(
+            width: double.infinity,
+            height: MediaQuery.of(context).size.height / 3.5,
+            child: FadeGradient(
+              child: SingleChildScrollView(
+                child: Text(
+                    "Cette application a été conçue dans la cadre d'un travail de maturité à Genève. Certaines fonctionnalités sont donc restreintes au fonctionnement suisse.\n\nExemple : Les notes rentrées doivent être comprises entre 1,5 et 6. Les moyennes sont calculées selon le système des collèges de Genève, à savoir : Moyenne premier semestre / Moyenne deuxième semestre.\n\nL'expérience de l'application sur un autre appareil qu'un smartphone peut être détérirorée.",
+                    style: TextStyle(fontSize: 16),
+                    textAlign: TextAlign.center),
+              ),
+            ),
+          ),
         ),
         PageViewModel(
-          title: "Activer les notifications ?",
+          title: "Ding Dong, qui est là ?",
           image: Icon(
             Icons.edit_notifications_rounded,
             size: 200,
             color: Theme.of(context).primaryColor,
           ),
-          body:
-              "Les notifications t'avertissent de devoirs à venir aux heures qui te conviennent.\n\nElles sont désactivables et customisables dans les paramètres.",
-          useScrollView: true,
-          footer: OneTimeIntroductionNotificationsSettingTile(
-            sharedPreferences: widget.sharedPreferences,
-            notifications: widget.notifications,
+          bodyWidget: Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height / 3.5,
+
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                OneTimeIntroductionNotificationsSettingTile(
+                  sharedPreferences: widget.sharedPreferences,
+                  notifications: widget.notifications,
+                ),
+                Expanded(
+                  child: FadeGradient(
+                    child: SingleChildScrollView(
+                      child: Text(
+                          "Les notifications t'avertissent de devoirs à venir aux heures qui te conviennent.\n\nElles sont désactivables et personnalisables dans les paramètres.",
+                          style: TextStyle(fontSize: 16),
+                          textAlign: TextAlign.center),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+
+            // FadeGradient(
+            //   child: SingleChildScrollView(
+            //     child: Text(
+            //         "Cette application a été conçue dans la cadre d'un travail de maturité à Genève. Certaines fonctionnalités sont donc restreintes au fonctionnement suisse.\n\nExemple : Les notes rentrées doivent être comprises entre 1,5 et 6. Les moyennes sont calculées selon le système des collèges de Genève, à savoir : Moyenne premier semestre / Moyenne deuxième semestre.\n\nL'expérience de l'application sur un autre appareil qu'un smartphone peut être détérirorée.",
+            //         style: TextStyle(fontSize: 16),
+            //         textAlign: TextAlign.center),
+            //   ),
+            // ),
           ),
         ),
+        // body:
+        //     "Les notifications t'avertissent de devoirs à venir aux heures qui te conviennent.\n\nElles sont désactivables et customisables dans les paramètres.",
+        // footer: OneTimeIntroductionNotificationsSettingTile(
+        //   sharedPreferences: widget.sharedPreferences,
+        //   notifications: widget.notifications,
+        // ),
+
         PageViewModel(
           title: "Un peu de configuration",
           image: Icon(
@@ -98,7 +149,6 @@ class _OneTimeIntroductionScreenState extends State<OneTimeIntroductionScreen> {
           ),
           body:
               "Attention ! Les dates fournies ne sont plus modifiables après validation.\n\nPour les changer il faudra \"Commencer une nouvelle Année Scolaire\" dans les paramètres.\n\nLes dates rentrées servent, entre autres, à calculer les moyennes correctement.",
-          useScrollView: true,
         ),
         PageViewModel(
           title: "Entrer les dates",
@@ -111,7 +161,6 @@ class _OneTimeIntroductionScreenState extends State<OneTimeIntroductionScreen> {
             sharedPreferences: widget.sharedPreferences,
             confirmDateConfigurationFunction: _showDoneButton,
           ),
-          useScrollView: true,
         ),
       ],
     );

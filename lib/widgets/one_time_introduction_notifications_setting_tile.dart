@@ -58,8 +58,9 @@ class _OneTimeIntroductionNotificationsSettingTileState
           child: SettingsList(
               physics: NeverScrollableScrollPhysics(),
               lightTheme: SettingsThemeData(
-                  settingsListBackground:
-                      Theme.of(context).scaffoldBackgroundColor),
+                settingsListBackground:
+                    Theme.of(context).scaffoldBackgroundColor,
+              ),
               sections: [
                 SettingsSection(tiles: [
                   SettingsTile.switchTile(
