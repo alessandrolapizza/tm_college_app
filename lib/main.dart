@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:intl/intl.dart";
+import 'package:package_info_plus/package_info_plus.dart';
 import "package:shared_preferences/shared_preferences.dart";
 import "../models/my_database.dart";
 import "../models/notifications.dart";
@@ -9,6 +10,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   MyDatabase database = MyDatabase();
+
+  PackageInfo packageInfo = await PackageInfo.fromPlatform();
 
   await database.defineDatabasePath();
 
@@ -27,6 +30,7 @@ void main() async {
 
   runApp(
     App(
+      packageInfo: packageInfo,
       database: database,
       sharedPreferences: sharedPreferences,
       notifications: notifications,

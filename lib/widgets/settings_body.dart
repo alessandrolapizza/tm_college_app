@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:package_info_plus/package_info_plus.dart';
 import "package:settings_ui/settings_ui.dart";
 import "package:shared_preferences/shared_preferences.dart";
 import "../models/my_database.dart";
@@ -12,10 +13,13 @@ class SettingsBody extends StatefulWidget {
 
   final MyDatabase database;
 
+  final PackageInfo packageInfo;
+
   SettingsBody({
     @required this.database,
     @required this.notifications,
     @required this.sharedPreferences,
+    @required this.packageInfo,
   });
 
   @override
@@ -166,6 +170,32 @@ class _SettingsBodyState extends State<SettingsBody>
               ],
             ),
             SettingsSection(
+              title: Text("Dates"),
+              tiles: [
+                SettingsTile(
+                  trailing: Icon(
+                    Icons.arrow_forward_ios_rounded,
+                    size: 15,
+                    color: Colors.grey,
+                  ),
+                  leading: Icon(Icons.date_range_rounded),
+                  description: Text(
+                    "Permet de changer les dates qui délimitent ton année scolaire.",
+                    style: TextStyle(
+                      color: Colors.grey[600],
+                    ),
+                  ),
+                  title: Text(
+                    "Changer les dates",
+                  ),
+                  onPressed: (_) {
+                    Navigator.pushNamed(
+                        context, "change_dates_settings_screen");
+                  },
+                ),
+              ],
+            ),
+            SettingsSection(
               title: Text("Nouvelle Année Scolaire"),
               tiles: [
                 SettingsTile(
@@ -227,7 +257,7 @@ class _SettingsBodyState extends State<SettingsBody>
                     color: Colors.grey,
                   ),
                   onPressed: (_) => showLicensePage(
-                    applicationVersion: "v.1.0.11",
+                    applicationVersion: "v.${widget.packageInfo.version}",
                     applicationLegalese: "Made with <3 🍕",
                     context: context,
                     applicationIcon: Image.asset(

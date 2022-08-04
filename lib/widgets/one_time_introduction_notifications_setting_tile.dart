@@ -52,37 +52,34 @@ class _OneTimeIntroductionNotificationsSettingTileState
     return FutureBuilder(
       future: permissionStatusFuture,
       builder: (_, snapshot) {
-        return Container(
-          width: 1000,
-          height: 100,
-          child: SettingsList(
-              physics: NeverScrollableScrollPhysics(),
-              lightTheme: SettingsThemeData(
-                settingsListBackground:
-                    Theme.of(context).scaffoldBackgroundColor,
-              ),
-              sections: [
-                SettingsSection(tiles: [
-                  SettingsTile.switchTile(
-                    activeSwitchColor: Theme.of(context).primaryColor,
-                    title: Text("Notifications"),
-                    onToggle: (toggleState) async => await widget.notifications
-                        .toggleNotifications(
-                          toggleState: toggleState,
-                          snapshotData: snapshot.data,
-                        )
-                        .then((_) => setState(() {})),
-                    initialValue: snapshot.hasData &&
-                            (widget.sharedPreferences
-                                    .getBool("notificationsActivated") ??
-                                false)
-                        ? snapshot.data == Notifications.permGranted
-                        : false,
-                    leading: Icon(Icons.notifications_rounded),
-                    enabled: snapshot.hasData,
-                  )
-                ])
-              ]),
+        return SettingsList(
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          lightTheme: SettingsThemeData(
+            settingsListBackground: Theme.of(context).scaffoldBackgroundColor,
+          ),
+          sections: [
+            SettingsSection(tiles: [
+              SettingsTile.switchTile(
+                activeSwitchColor: Theme.of(context).primaryColor,
+                title: Text("Notifications"),
+                onToggle: (toggleState) async => await widget.notifications
+                    .toggleNotifications(
+                      toggleState: toggleState,
+                      snapshotData: snapshot.data,
+                    )
+                    .then((_) => setState(() {})),
+                initialValue: snapshot.hasData &&
+                        (widget.sharedPreferences
+                                .getBool("notificationsActivated") ??
+                            false)
+                    ? snapshot.data == Notifications.permGranted
+                    : false,
+                leading: Icon(Icons.notifications_rounded),
+                enabled: snapshot.hasData,
+              )
+            ])
+          ],
         );
       },
     );

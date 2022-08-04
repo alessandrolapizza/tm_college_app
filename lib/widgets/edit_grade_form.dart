@@ -54,7 +54,8 @@ class EditGradeForm extends StatelessWidget {
                         [
                           DropdownMenuItem(
                               child: FittedBox(
-                                  child: Text("Sélectionner une matière")),
+                                child: Text("Sélectionner une matière"),
+                              ),
                               value: "0")
                         ],
                       )..addAll(
@@ -122,7 +123,7 @@ class EditGradeForm extends StatelessWidget {
                     }
                     if (value == null || value == "") {
                       return "Un coefficient doit être fourni";
-                    } else if (!isDouble) {
+                    } else if (!isDouble || value.startsWith(".")) {
                       return "Un coefficient valide doit être fourni";
                     } else {
                       return null;

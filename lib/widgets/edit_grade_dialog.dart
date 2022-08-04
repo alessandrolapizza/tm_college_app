@@ -54,7 +54,7 @@ class _EditGradeDialogState extends State<EditGradeDialog> {
       _gradeController.text = widget.grade.grade.toString();
       _selectedGradeDate = widget.grade.date;
       _coefficientController.text =
-          widget.grade.coefficient.toString().substring(0, 4);
+          widget.grade.coefficient.toString();//.substring(0, 4);
     } else {
       _selectedGradeDate = DateTime.now().isAfter(
         DateTime.parse(
@@ -63,12 +63,12 @@ class _EditGradeDialogState extends State<EditGradeDialog> {
       )
           ? DateTime.now().isBefore(
               DateTime.parse(
-                widget.sharedPreferences.getString("secondTermEndDate"),
+                widget.sharedPreferences.getString("secondTermEndingDate"),
               ),
             )
               ? DateTime.now()
               : DateTime.parse(
-                  widget.sharedPreferences.getString("secondTermEndDate"),
+                  widget.sharedPreferences.getString("secondTermEndingDate"),
                 )
           : DateTime.parse(
               widget.sharedPreferences.getString("firstTermBeginingDate"),
@@ -92,7 +92,7 @@ class _EditGradeDialogState extends State<EditGradeDialog> {
         widget.sharedPreferences.getString("firstTermBeginingDate"),
       ),
       lastDate: DateTime.parse(
-        widget.sharedPreferences.getString("secondTermEndDate"),
+        widget.sharedPreferences.getString("secondTermEndingDate"),
       ),
     );
     if (date != null) {

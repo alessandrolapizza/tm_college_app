@@ -1,6 +1,8 @@
 import "package:flutter/material.dart";
 import "package:flutter_localizations/flutter_localizations.dart";
 import "package:shared_preferences/shared_preferences.dart";
+import 'package:package_info_plus/package_info_plus.dart';
+import 'package:tm_college_app/widgets/change_dates_settings_screen.dart';
 import "../models/my_database.dart";
 import "../models/notifications.dart";
 import "./advanced_notifications_settings_screen.dart";
@@ -21,10 +23,13 @@ class App extends StatelessWidget {
 
   final Notifications notifications;
 
+  final PackageInfo packageInfo;
+
   App({
     @required this.database,
     @required this.sharedPreferences,
     @required this.notifications,
+    @required this.packageInfo,
   });
 
   static const int defaultColorThemeValue = 4283522728;
@@ -50,8 +55,20 @@ class App extends StatelessWidget {
   static RouteObserver<ModalRoute<void>> routeObserver =
       RouteObserver<ModalRoute<void>>();
 
+  upgrader() async {
+    //String currentVersionAndBuild =
+    //    "${packageInfo.version}+${packageInfo.buildNumber}";
+    if (sharedPreferences.getString("secondTermEndDate") != null) {
+      await sharedPreferences.setString("secondTermEndingDate",
+          sharedPreferences.getString("secondTermEndDate"));
+      await sharedPreferences.remove("secondTermEndDate");
+      await sharedPreferences.setString("upgraderVersion", "2.0.0+15");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    upgrader();
     return MaterialApp(
       navigatorObservers: [routeObserver],
       debugShowCheckedModeBanner: false,
@@ -95,6 +112,7 @@ class App extends StatelessWidget {
               notifications: notifications,
             ),
         "/settings_screen": (_) => SettingsScreen(
+              packageInfo: packageInfo,
               database: database,
               sharedPreferences: sharedPreferences,
               notifications: notifications,
@@ -113,6 +131,11 @@ class App extends StatelessWidget {
               sharedPreferences: sharedPreferences,
               database: database,
               notifications: notifications,
+            ),
+        "change_dates_settings_screen": (_) => ChangeDatesSettingsScreen(
+          notifications: notifications,
+              sharedPreferences: sharedPreferences,
+              database: database,
             ),
       },
       theme: ThemeData(

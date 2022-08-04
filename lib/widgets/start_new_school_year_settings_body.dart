@@ -64,6 +64,12 @@ class StartNewSchoolYearSettingsBody extends StatelessWidget {
                                     notifications: notifications);
                               },
                             );
+                            await sharedPreferences
+                                .remove("firstTermBeginingDate");
+                            await sharedPreferences
+                                .remove("secondTermBeginingDate");
+                            await sharedPreferences
+                                .remove("secondTermEndingDate");
                             await sharedPreferences.remove("introductionSeen");
                             Navigator.popUntil(
                               context,

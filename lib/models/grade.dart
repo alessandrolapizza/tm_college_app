@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:shared_preferences/shared_preferences.dart";
 import "package:sortedmap/sortedmap.dart";
+import 'package:tm_college_app/models/my_database.dart';
 import "package:uuid/uuid.dart";
 import "./subject.dart";
 
@@ -162,5 +163,38 @@ class Grade {
       },
     );
     return [gradesSorted, averages];
+  }
+
+  static Future<List<Grade>> outGrades({
+    @required MyDatabase database,
+    @required SharedPreferences sharedPreferences,
+    DateTime firstTermBeginingDate,
+    DateTime secondTermEndingDate,
+  }) async {
+    List<Grade> outGrades = [];
+    List<Grade> grades = await database.grades();
+    grades.forEach(
+      (grade) async {
+        if (grade.date.isBefore(firstTermBeginingDate == null
+                ? DateTime.parse(
+                    sharedPreferences.getString(
+                      "firstTermBeginingDate",
+                    ),
+                  )
+                : firstTermBeginingDate) ||
+            grade.date.isAfter(
+              secondTermEndingDate == null
+                  ? DateTime.parse(
+                      sharedPreferences.getString(
+                        "secondTermEndingDate",
+                      ),
+                    )
+                  : secondTermEndingDate,
+            )) {
+          outGrades.add(grade);
+        }
+      },
+    );
+    return outGrades;
   }
 }

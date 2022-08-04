@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:shared_preferences/shared_preferences.dart';
 import "package:tm_college_app/models/notifications.dart";
 import "package:uuid/uuid.dart";
 import "./my_database.dart";
@@ -69,7 +70,51 @@ class Homework {
             )
           : [],
     );
-
     await database.updateHomework(checkedHomework);
+  }
+
+  static Future<List<Homework>> outHomeworks({
+    @required MyDatabase database,
+    @required SharedPreferences sharedPreferences,
+    DateTime firstTermBeginingDate,
+    DateTime secondTermEndingDate,
+  }) async {
+    List<Homework> outHomeworks = [];
+    List<Homework> homeworks = await database.homeworks();
+    homeworks.forEach(
+      (homework) async {
+        print(firstTermBeginingDate.toString() +
+            "  " +
+            homework.dueDate.toString());
+        print(homework.dueDate.isAfter(
+          secondTermEndingDate == null
+              ? DateTime.parse(
+                  sharedPreferences.getString(
+                    "secondTermEndingDate",
+                  ),
+                )
+              : secondTermEndingDate,
+        ));
+        if (homework.dueDate.isBefore(firstTermBeginingDate == null
+                ? DateTime.parse(
+                    sharedPreferences.getString(
+                      "firstTermBeginingDate",
+                    ),
+                  )
+                : firstTermBeginingDate) ||
+            homework.dueDate.isAfter(
+              secondTermEndingDate == null
+                  ? DateTime.parse(
+                      sharedPreferences.getString(
+                        "secondTermEndingDate",
+                      ),
+                    )
+                  : secondTermEndingDate,
+            )) {
+          outHomeworks.add(homework);
+        }
+      },
+    );
+    return outHomeworks;
   }
 }

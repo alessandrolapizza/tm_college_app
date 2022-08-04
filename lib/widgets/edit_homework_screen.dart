@@ -109,12 +109,12 @@ class _EditHomeworkScreenState extends State<EditHomeworkScreen> {
             )
               ? DateTime.now().isBefore(
                   DateTime.parse(
-                    widget.sharedPreferences.getString("secondTermEndDate"),
+                    widget.sharedPreferences.getString("secondTermEndingDate"),
                   ),
                 )
                   ? DateTime.now()
                   : DateTime.parse(
-                      widget.sharedPreferences.getString("secondTermEndDate"),
+                      widget.sharedPreferences.getString("secondTermEndingDate"),
                     )
               : DateTime.parse(
                   widget.sharedPreferences.getString("firstTermBeginingDate"),
@@ -124,7 +124,7 @@ class _EditHomeworkScreenState extends State<EditHomeworkScreen> {
         widget.sharedPreferences.getString("firstTermBeginingDate"),
       ),
       lastDate: DateTime.parse(
-        widget.sharedPreferences.getString("secondTermEndDate"),
+        widget.sharedPreferences.getString("secondTermEndingDate"),
       ),
       builder: (BuildContext context, Widget child) {
         return ThemeController(
