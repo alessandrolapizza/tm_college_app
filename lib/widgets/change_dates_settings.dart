@@ -255,12 +255,13 @@ class _ChangeDatesSettingsState extends State<ChangeDatesSettings> {
           title: widget.database == null ? null : Text("Dates des semestres"),
           tiles: [
             ModularSettingsTile(
+              hideArrow: true,
               onPressedFunction: selectFirstTermBeginingDate,
               title: "Début du premier semestre",
               value:
                   widget.sharedPreferences.getString("firstTermBeginingDate") ==
                           null
-                      ? "(À configurer)"
+                      ? null
                       : DateFormat("dd.MM.y").format(
                           DateTime.parse(
                             widget.sharedPreferences
@@ -270,6 +271,7 @@ class _ChangeDatesSettingsState extends State<ChangeDatesSettings> {
               icon: Icons.date_range_rounded,
             ),
             ModularSettingsTile(
+              hideArrow: true,
               enabled:
                   widget.sharedPreferences.getString("firstTermBeginingDate") !=
                       null,
@@ -279,7 +281,7 @@ class _ChangeDatesSettingsState extends State<ChangeDatesSettings> {
               value: widget.sharedPreferences
                           .getString("secondTermBeginingDate") ==
                       null
-                  ? "(À configurer)"
+                  ? null
                   : DateFormat("dd.MM.y").format(
                       DateTime.parse(
                         widget.sharedPreferences
@@ -288,6 +290,7 @@ class _ChangeDatesSettingsState extends State<ChangeDatesSettings> {
                     ),
             ),
             ModularSettingsTile(
+              hideArrow: true,
               enabled: widget.sharedPreferences
                       .getString("secondTermBeginingDate") !=
                   null,
@@ -297,7 +300,7 @@ class _ChangeDatesSettingsState extends State<ChangeDatesSettings> {
               value:
                   widget.sharedPreferences.getString("secondTermEndingDate") ==
                           null
-                      ? "(À configurer)"
+                      ? null
                       : DateFormat("dd.MM.y").format(
                           DateTime.parse(
                             widget.sharedPreferences

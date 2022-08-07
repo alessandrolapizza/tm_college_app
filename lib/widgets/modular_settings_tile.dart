@@ -57,13 +57,14 @@ class ModularSettingsTile extends AbstractSettingsTile {
             ),
       title: value == null
           ? Text(title)
-          : FittedBox(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          : Container(
+              width: double.infinity,
+              child: Wrap(
+                alignment: WrapAlignment.spaceBetween,
                 children: [
                   Text(title),
                   Text(
-                    " $value",
+                    "$value",
                     style: TextStyle(
                       color: Colors.grey[600],
                     ),

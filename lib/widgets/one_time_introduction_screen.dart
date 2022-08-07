@@ -74,18 +74,18 @@ class _OneTimeIntroductionScreenState extends State<OneTimeIntroductionScreen> {
             )),
         PageViewModel(
           decoration: PageDecoration(
-            bodyFlex: 6,
-            imageFlex: 5,
+            bodyFlex: 3,
+            imageFlex: 2,
           ),
           title: "Avant de continuer",
           image: Icon(
             Icons.emoji_people_rounded,
-            size: 200,
+            size: 170,
             color: Colors.orangeAccent,
           ),
           bodyWidget: Container(
             width: double.infinity,
-            height: MediaQuery.of(context).size.height / 3,
+            height: MediaQuery.of(context).size.height / 2.6,
             child: FadeGradient(
               child: SingleChildScrollView(
                 child: Text(
@@ -98,18 +98,18 @@ class _OneTimeIntroductionScreenState extends State<OneTimeIntroductionScreen> {
         ),
         PageViewModel(
           decoration: PageDecoration(
-            bodyFlex: 6,
-            imageFlex: 5,
+            bodyFlex: 3,
+            imageFlex: 2,
           ),
           title: "Activer les notifications ?",
           image: Icon(
             Icons.edit_notifications_rounded,
-            size: 200,
+            size: 170,
             color: Theme.of(context).primaryColor,
           ),
           bodyWidget: Container(
             width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height / 3,
+            height: MediaQuery.of(context).size.height / 2.6,
             child: Column(
               children: [
                 OneTimeIntroductionNotificationsSettingTile(
@@ -132,34 +132,34 @@ class _OneTimeIntroductionScreenState extends State<OneTimeIntroductionScreen> {
         ),
         PageViewModel(
           decoration: PageDecoration(
-            bodyFlex: 6,
-            imageFlex: 5,
+            bodyFlex: 3,
+            imageFlex: 2,
           ),
           title: "Un peu de configuration",
           image: Icon(
             Icons.date_range_rounded,
-            size: 200,
+            size: 170,
             color: Theme.of(context).primaryColor,
           ),
           bodyWidget: Container(
             width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height / 3,
+            height: MediaQuery.of(context).size.height / 2.6,
             child: Column(
               children: [
-                ChangeDatesSettings(
-                  sharedPreferences: widget.sharedPreferences,
-                  showDoneButtonFunction: _showDoneButton,
-                ),
                 Expanded(
                   child: FadeGradient(
                     child: SingleChildScrollView(
-                      child: Text(
-                          "Entre les dates qui délimitent ton semestre pour terminer la configuration.\n\nSi tu n'es pas sûr, tu pourras toujours modifier ces dates dans les paramètres.",
-                          style: TextStyle(fontSize: 16),
-                          textAlign: TextAlign.center),
+                      child: ChangeDatesSettings(
+                        sharedPreferences: widget.sharedPreferences,
+                        showDoneButtonFunction: _showDoneButton,
+                      ),
                     ),
                   ),
-                )
+                ),
+                Text(
+                    "Entre les dates qui délimitent ton semestre pour terminer la configuration.\n\nSi tu n'es pas sûr, tu pourras toujours modifier ces dates dans les paramètres.",
+                    style: TextStyle(fontSize: 16),
+                    textAlign: TextAlign.center)
               ],
             ),
           ),
