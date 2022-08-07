@@ -1,7 +1,9 @@
+import 'package:confetti/confetti.dart';
 import "package:flutter/material.dart";
 import 'package:package_info_plus/package_info_plus.dart';
 import "package:settings_ui/settings_ui.dart";
 import "package:shared_preferences/shared_preferences.dart";
+import 'package:tm_college_app/widgets/modular_settings_tile.dart';
 import "../models/my_database.dart";
 import "../models/notifications.dart";
 import "./modular_alert_dialog.dart";
@@ -15,11 +17,14 @@ class SettingsBody extends StatefulWidget {
 
   final PackageInfo packageInfo;
 
+  final ConfettiController confettiController;
+
   SettingsBody({
     @required this.database,
     @required this.notifications,
     @required this.sharedPreferences,
     @required this.packageInfo,
+    @required this.confettiController,
   });
 
   @override
@@ -258,13 +263,19 @@ class _SettingsBodyState extends State<SettingsBody>
                   ),
                   onPressed: (_) => showLicensePage(
                     applicationVersion: "v.${widget.packageInfo.version}",
-                    applicationLegalese: "Made with <3 🍕",
+                    applicationLegalese: "alessandrolapizza",
                     context: context,
                     applicationIcon: Image.asset(
                       "assets/images/transparent_icon.png",
                       scale: 15,
                     ),
                   ),
+                ),
+                ModularSettingsTile(
+                  icon: Icons.local_pizza_rounded,
+                  value: "Made with <3",
+                  title: "Version ${widget.packageInfo.version}",
+                  onPressedFunction: () => widget.confettiController.play(),
                 ),
               ],
               title: Text("À propos"),
