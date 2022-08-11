@@ -160,7 +160,7 @@ class _HomeworksList extends State<HomeworksList> {
                                   child: Column(
                                     children: [
                                       Icon(
-                                        Icons.settings_backup_restore_rounded,
+                                        Icons.published_with_changes_rounded,
                                         color: Colors.orangeAccent,
                                       ),
                                       Text(
