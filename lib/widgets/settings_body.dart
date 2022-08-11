@@ -3,6 +3,7 @@ import "package:flutter/material.dart";
 import 'package:package_info_plus/package_info_plus.dart';
 import "package:settings_ui/settings_ui.dart";
 import "package:shared_preferences/shared_preferences.dart";
+import 'package:tm_college_app/widgets/changelog_screen.dart';
 import 'package:tm_college_app/widgets/modular_settings_tile.dart';
 import "../models/my_database.dart";
 import "../models/notifications.dart";
@@ -224,6 +225,27 @@ class _SettingsBodyState extends State<SettingsBody>
                         context, "start_new_school_year_settings_screen");
                   },
                 ),
+              ],
+            ),
+            SettingsSection(
+              title: Text("Notes de mises à jour"),
+              tiles: [
+                ModularSettingsTile(
+                  description:
+                      "Permet de voir les changements effectués au fil des mises à jour.",
+                  icon: Icons.notes_rounded,
+                  title: "Voir les notes de mises à jour",
+                  onPressedFunction: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => ChangelogScreen(
+                        packageInfo: widget.packageInfo,
+                        sharedPreferences: widget.sharedPreferences,
+                        fromSettings: true,
+                      ),
+                    ),
+                  ),
+                )
               ],
             ),
             SettingsSection(

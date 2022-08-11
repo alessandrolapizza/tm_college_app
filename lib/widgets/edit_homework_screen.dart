@@ -114,7 +114,8 @@ class _EditHomeworkScreenState extends State<EditHomeworkScreen> {
                 )
                   ? DateTime.now()
                   : DateTime.parse(
-                      widget.sharedPreferences.getString("secondTermEndingDate"),
+                      widget.sharedPreferences
+                          .getString("secondTermEndingDate"),
                     )
               : DateTime.parse(
                   widget.sharedPreferences.getString("firstTermBeginingDate"),

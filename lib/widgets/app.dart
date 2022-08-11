@@ -3,6 +3,7 @@ import "package:flutter_localizations/flutter_localizations.dart";
 import "package:shared_preferences/shared_preferences.dart";
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:tm_college_app/widgets/change_dates_settings_screen.dart';
+import 'package:tm_college_app/widgets/changelog_screen.dart';
 import "../models/my_database.dart";
 import "../models/notifications.dart";
 import "./advanced_notifications_settings_screen.dart";
@@ -56,13 +57,14 @@ class App extends StatelessWidget {
       RouteObserver<ModalRoute<void>>();
 
   upgrader() async {
-    //String currentVersionAndBuild =
-    //    "${packageInfo.version}+${packageInfo.buildNumber}";
+    // String currentVersion =
+    //    "${packageInfo.version}";
     if (sharedPreferences.getString("secondTermEndDate") != null) {
       await sharedPreferences.setString("secondTermEndingDate",
           sharedPreferences.getString("secondTermEndDate"));
       await sharedPreferences.remove("secondTermEndDate");
-      await sharedPreferences.setString("upgraderVersion", "2.0.0+15");
+      await sharedPreferences.setString("upgraderVersion", packageInfo.version);
+      await sharedPreferences.setBool("changelogSeen", false);
     }
   }
 
@@ -83,11 +85,16 @@ class App extends StatelessWidget {
       initialRoute: "/",
       routes: {
         "/": (_) => sharedPreferences.getBool("introductionSeen") ?? false
-            ? HomeScreen(
-                sharedPreferences: sharedPreferences,
-                database: database,
-                notifications: notifications,
-              )
+            ? sharedPreferences.getBool("changelogSeen") ?? false
+                ? HomeScreen(
+                    sharedPreferences: sharedPreferences,
+                    database: database,
+                    notifications: notifications,
+                  )
+                : ChangelogScreen(
+                    sharedPreferences: sharedPreferences,
+                    packageInfo: packageInfo,
+                  )
             : OneTimeIntroductionScreen(
                 notifications: notifications,
                 sharedPreferences: sharedPreferences,
@@ -133,7 +140,7 @@ class App extends StatelessWidget {
               notifications: notifications,
             ),
         "change_dates_settings_screen": (_) => ChangeDatesSettingsScreen(
-          notifications: notifications,
+              notifications: notifications,
               sharedPreferences: sharedPreferences,
               database: database,
             ),
