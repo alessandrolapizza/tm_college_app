@@ -19,16 +19,13 @@ class ModularStickyHeader extends StatelessWidget {
     return StickyHeader(
       header: !show
           ? Container()
-          : Container(
-              height: 30,
-              width: double.infinity,
-              child: Material(
-                elevation: 1.5,
+          : Center(
+              child: Card(
+                margin: EdgeInsets.all(0),
+                color: Colors.grey[50],
                 child: Container(
-                  color: Colors.grey[50],
-                  child: Center(
-                    child: header,
-                  ),
+                  child: Center(child: header),
+                  height: 30,
                 ),
               ),
             ),
