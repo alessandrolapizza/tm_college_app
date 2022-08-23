@@ -184,7 +184,7 @@ class _SettingsBodyState extends State<SettingsBody>
                     size: 15,
                     color: Colors.grey,
                   ),
-                  leading: Icon(Icons.date_range_rounded),
+                  leading: Icon(Icons.edit_calendar_rounded),
                   description: Text(
                     "Permet de changer les dates qui délimitent ton année scolaire.",
                     style: TextStyle(

@@ -73,7 +73,7 @@ class _ChangeDatesSettingsState extends State<ChangeDatesSettings> {
                 themeColor: Theme.of(context).primaryColor,
                 title: Text("Changer date de début du premier semestre ?"),
                 content: Text(
-                    "Tu as des${outHomeworks.isNotEmpty ? " devoirs" : ""}${outGrades.isNotEmpty ? " et notes" : null} en dehors de la période que tu viens de régler. En continuant, ${outGrades.isNotEmpty && outHomeworks.isNotEmpty ? "ils" : outGrades.isNotEmpty ? "elles" : "ils"} seront supprimé${outGrades.isNotEmpty && outHomeworks.isNotEmpty ? "" : outGrades.isNotEmpty ? "e" : ""}s."),
+                    "Tu as des${outHomeworks.isNotEmpty ? " devoirs" : ""}${outGrades.isNotEmpty ? " et notes" : ""} en dehors de la période que tu viens de régler. En continuant, ${outGrades.isNotEmpty && outHomeworks.isNotEmpty ? "ils" : outGrades.isNotEmpty ? "elles" : "ils"} seront supprimé${outGrades.isNotEmpty && outHomeworks.isNotEmpty ? "" : outGrades.isNotEmpty ? "e" : ""}s."),
                 actionButtons: <Widget>[
                   TextButton(
                     onPressed: () => Navigator.pop(context),
@@ -192,7 +192,7 @@ class _ChangeDatesSettingsState extends State<ChangeDatesSettings> {
                 themeColor: Theme.of(context).primaryColor,
                 title: Text("Changer date de fin du deuxième semestre ?"),
                 content: Text(
-                    "Tu as des${outHomeworks.isNotEmpty ? " devoirs" : ""}${outGrades.isNotEmpty ? " et notes" : null} en dehors de la période que tu viens de régler. En continuant, ${outGrades.isNotEmpty && outHomeworks.isNotEmpty ? "ils" : outGrades.isNotEmpty ? "elles" : "ils"} seront supprimé${outGrades.isNotEmpty && outHomeworks.isNotEmpty ? "" : outGrades.isNotEmpty ? "e" : ""}s."),
+                    "Tu as des${outHomeworks.isNotEmpty ? " devoirs" : ""}${outGrades.isNotEmpty ? " et notes" : ""} en dehors de la période que tu viens de régler. En continuant, ${outGrades.isNotEmpty && outHomeworks.isNotEmpty ? "ils" : outGrades.isNotEmpty ? "elles" : "ils"} seront supprimé${outGrades.isNotEmpty && outHomeworks.isNotEmpty ? "" : outGrades.isNotEmpty ? "e" : ""}s."),
                 actionButtons: <Widget>[
                   TextButton(
                     onPressed: () => Navigator.pop(context),
@@ -268,7 +268,7 @@ class _ChangeDatesSettingsState extends State<ChangeDatesSettings> {
                                 .getString("firstTermBeginingDate"),
                           ),
                         ),
-              icon: Icons.date_range_rounded,
+              icon: Icons.edit_calendar_rounded,
             ),
             ModularSettingsTile(
               hideArrow: true,
@@ -277,7 +277,7 @@ class _ChangeDatesSettingsState extends State<ChangeDatesSettings> {
                       null,
               onPressedFunction: selectSecondTermBeginingDate,
               title: "Début du deuxième semestre",
-              icon: Icons.date_range_rounded,
+              icon: Icons.edit_calendar_rounded,
               value: widget.sharedPreferences
                           .getString("secondTermBeginingDate") ==
                       null
@@ -296,7 +296,7 @@ class _ChangeDatesSettingsState extends State<ChangeDatesSettings> {
                   null,
               onPressedFunction: selectSecondTermEndingDate,
               title: "Fin du deuxième semestre",
-              icon: Icons.date_range_rounded,
+              icon: Icons.edit_calendar_rounded,
               value:
                   widget.sharedPreferences.getString("secondTermEndingDate") ==
                           null
