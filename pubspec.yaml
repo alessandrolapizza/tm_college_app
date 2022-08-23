@@ -21,12 +21,19 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 flutter_native_splash:
-  color: "#fafafa"
+  color: "#ffffff"
   image: assets/images/splash_screen_icon.png
   fullscreen: true
 
+flutter_icons:
+  image_path: "assets/images/icon.png"
+  android: true
+  ios: true
+  adaptive_icon_background: "#C7CDEC"
+
 dev_dependencies:
-  flutter_native_splash: ^1.2.4
+  flutter_native_splash: ^2.2.8
+  flutter_launcher_icons: ^0.10.0
 
 dependencies:
   flutter:
