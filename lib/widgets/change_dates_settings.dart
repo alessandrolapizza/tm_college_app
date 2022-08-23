@@ -46,7 +46,7 @@ class _ChangeDatesSettingsState extends State<ChangeDatesSettings> {
       initialDate: getDateTime(date: "firstTermBeginingDate") == null
           ? DateTime.now()
           : getDateTime(date: "firstTermBeginingDate"),
-      firstDate: DateTime(DateTime.now().year),
+      firstDate: DateTime(DateTime.now().year - 1),
       lastDate: getDateTime(date: "secondTermBeginingDate") != null
           ? getDateTime(date: "secondTermBeginingDate").subtract(
               Duration(days: 1),
