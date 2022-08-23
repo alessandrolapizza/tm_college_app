@@ -271,20 +271,25 @@ class _HomeScreenBodyHomeworksCalendarState
                     return Center(
                       child: Text(
                         DateFormat("E").format(day),
-                        style: (day.isAfter(DateTime.parse(widget.sharedPreferences
-                                    .getString("firstTermBeginingDate"))) ||
-                                isSameDay(
-                                    day,
-                                    DateTime.parse(widget.sharedPreferences
-                                        .getString(
-                                            "firstTermBeginingDate")))) &&
-                            (day.isBefore(DateTime.parse(widget
-                                    .sharedPreferences
-                                    .getString("secondTermEndingDate"))) ||
-                                isSameDay(
-                                    day, DateTime.parse(widget.sharedPreferences.getString("secondTermEndingDate"))))
-                        ? TextStyle(color: Colors.black)
-                        : TextStyle(color: Colors.grey),
+                        style: (day.isAfter(DateTime.now()))
+                            ? (day.isAfter(DateTime.parse(widget.sharedPreferences.getString("firstTermBeginingDate"))) ||
+                                        isSameDay(
+                                            day,
+                                            DateTime.parse(widget.sharedPreferences
+                                                .getString(
+                                                    "firstTermBeginingDate")))) &&
+                                    (day.isBefore(DateTime.parse(
+                                            widget.sharedPreferences.getString(
+                                                "secondTermEndingDate"))) ||
+                                        isSameDay(
+                                            day,
+                                            DateTime.parse(widget
+                                                .sharedPreferences
+                                                .getString(
+                                                    "secondTermEndingDate"))))
+                                ? TextStyle(color: Colors.black)
+                                : TextStyle(color: Colors.grey)
+                            : TextStyle(color: Colors.red),
                       ),
                     );
                   },

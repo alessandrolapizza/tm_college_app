@@ -65,18 +65,25 @@ class CalendarDayColumn extends StatelessWidget {
                 : today
                     ? CircleAvatar(
                         radius: 15,
-                        backgroundColor: Theme.of(context).primaryColor,
+                        backgroundColor: Colors.red,
                         child: CircleAvatar(
                           backgroundColor:
                               Theme.of(context).scaffoldBackgroundColor,
                           radius: 14,
                           child: Text(day.day.toString(),
-                              style: TextStyle(fontSize: 15)),
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: Colors.red,
+                              )),
                         ),
                       )
                     : Text(
                         day.day.toString(),
-                        style: TextStyle(fontSize: 15),
+                        style: TextStyle(
+                          fontSize: 15,
+                          color:
+                              day.isAfter(DateTime.now()) ? null : Colors.red,
+                        ),
                       ),
           ),
         ),
