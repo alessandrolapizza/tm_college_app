@@ -249,17 +249,45 @@ class _HomeScreenBodyHomeworksCalendarState
                     );
                   },
                   disabledBuilder: (context, day, focusedDay) {
-                    return Align(
-                      alignment: Alignment.topCenter,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          day.day.toString(),
-                          style: TextStyle(
-                            color: Colors.grey,
+                    return Column(
+                      children: [
+                        Expanded(
+                          child: Center(
+                            child: Text(
+                              day.day.toString(),
+                              style:
+                                  TextStyle(color: Colors.grey, fontSize: 15),
+                            ),
                           ),
                         ),
-                      ),
+                        Expanded(
+                          child: Container(),
+                          flex: 5,
+                        )
+                      ],
+                    );
+                  },
+                  dowBuilder: (_, day) {
+                    return Expanded(
+                      child: Center(
+                          child: Text(
+                        DateFormat("E").format(day),
+                        style: (day.isAfter(DateTime.parse(widget.sharedPreferences.getString("firstTermBeginingDate"))) ||
+                                    isSameDay(
+                                        day,
+                                        DateTime.parse(widget.sharedPreferences
+                                            .getString(
+                                                "firstTermBeginingDate")))) &&
+                                (day.isBefore(DateTime.parse(widget
+                                        .sharedPreferences
+                                        .getString("secondTermEndingDate"))) ||
+                                    isSameDay(
+                                        day,
+                                        DateTime.parse(widget.sharedPreferences
+                                            .getString("secondTermEndingDate"))))
+                            ? TextStyle(color: Colors.black)
+                            : TextStyle(color: Colors.grey),
+                      )),
                     );
                   },
                   defaultBuilder: (context, day, focusedDay) {
