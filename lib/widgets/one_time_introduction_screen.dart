@@ -79,7 +79,7 @@ class _OneTimeIntroductionScreenState extends State<OneTimeIntroductionScreen> {
           ),
           title: "Avant de continuer",
           image: Icon(
-            Icons.emoji_people_rounded,
+            Icons.emoji_people_outlined,
             size: 170,
             color: Colors.orangeAccent,
           ),
@@ -103,7 +103,7 @@ class _OneTimeIntroductionScreenState extends State<OneTimeIntroductionScreen> {
           ),
           title: "Activer les notifications ?",
           image: Icon(
-            Icons.edit_notifications_rounded,
+            Icons.edit_notifications_outlined,
             size: 170,
             color: Theme.of(context).primaryColor,
           ),
@@ -137,7 +137,7 @@ class _OneTimeIntroductionScreenState extends State<OneTimeIntroductionScreen> {
           ),
           title: "Un peu de configuration",
           image: Icon(
-            Icons.date_range_rounded,
+            Icons.edit_calendar_outlined,
             size: 170,
             color: Theme.of(context).primaryColor,
           ),

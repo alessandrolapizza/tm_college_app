@@ -185,7 +185,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                         },
                         icon: MediaQuery.of(context).orientation ==
                                 Orientation.portrait
-                            ? Icons.calendar_month
+                            ? Icons.calendar_month_rounded
                             : Icons.list_alt_rounded,
                       ),
                       ModularIconButton(
