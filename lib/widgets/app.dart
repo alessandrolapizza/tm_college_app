@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:flutter/services.dart';
 import "package:flutter_localizations/flutter_localizations.dart";
 import "package:shared_preferences/shared_preferences.dart";
 import 'package:package_info_plus/package_info_plus.dart';
@@ -70,6 +71,9 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
     upgrader();
     return MaterialApp(
       navigatorObservers: [routeObserver],
@@ -146,6 +150,7 @@ class App extends StatelessWidget {
             ),
       },
       theme: ThemeData(
+        dialogBackgroundColor: Colors.grey[100],
         scaffoldBackgroundColor: Colors.grey[100],
         highlightColor: Colors.transparent,
         primarySwatch: toMaterialColor(defaultColorThemeValue),

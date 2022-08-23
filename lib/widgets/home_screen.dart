@@ -1,14 +1,15 @@
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
+import 'package:flutter/services.dart';
 import "package:flutter_local_notifications/flutter_local_notifications.dart";
 import "package:flutter/material.dart";
 import "package:shared_preferences/shared_preferences.dart";
 import 'package:tm_college_app/widgets/app.dart';
+import 'package:tm_college_app/widgets/home_screen_body_homeworks.dart';
 import "../models/homework.dart";
 import "../models/my_database.dart";
 import "../models/notifications.dart";
 import "../models/subject.dart";
 import "./edit_grade_dialog.dart";
-import "./homeworks_list.dart";
 import "./home_screen_body_averages.dart";
 import "./home_screen_body_subjects.dart";
 import "./modular_app_bar.dart";
@@ -39,7 +40,15 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     List<Subject> subjects;
     if (index == 0) {
       Navigator.pushNamed(context, "/edit_homework_screen",
-          arguments: [null, true]).then((_) => setState(() {}));
+              arguments: [null, true])
+          //     .then((_) {
+          //   SystemChrome.setPreferredOrientations([
+          //     DeviceOrientation.portraitUp,
+          //     DeviceOrientation.landscapeRight,
+          //     DeviceOrientation.landscapeLeft,
+          //   ]);
+          // })
+          ; //.then((_) => {setState(() {})});
     } else if (index == 1) {
       subjects = await widget.database.subjects();
       showDialog(
@@ -53,8 +62,8 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
         },
       ).then((_) => setState(() {}));
     } else {
-      Navigator.pushNamed(context, "/edit_subject_screen")
-          .then((_) => setState(() {}));
+      Navigator.pushNamed(context, "/edit_subject_screen");
+      // .then((_) => setState(() {}));
     }
   }
 
@@ -83,6 +92,9 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
           if (homework.notificationsIds.contains(int.parse(payload))) {
             await widget.sharedPreferences.setString("homeworkId", homework.id);
             Navigator.popUntil(context, ModalRoute.withName("/"));
+            SystemChrome.setPreferredOrientations(
+              [DeviceOrientation.portraitUp],
+            );
             Navigator.pushNamed(
               context,
               "/view_homework_screen",
@@ -117,14 +129,87 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
           DefaultTabController.of(context).addListener(() => setState(() {}));
           return Scaffold(
             appBar: ModularAppBar(
+              hideSettingsButton:
+                  DefaultTabController.of(context).index == 0 ? true : false,
               actions: DefaultTabController.of(context).index == 0
                   ? [
                       ModularIconButton(
-                        onPressedFunction: () => Navigator.pushNamed(
-                                context, "/done_homeworks_screen")
-                            .then((_) => setState(() {})),
+                        onPressedFunction: () {
+                          SystemChrome.setPreferredOrientations(
+                            [
+                              DeviceOrientation.portraitUp,
+                            ],
+                          );
+                          Navigator.pushNamed(context, "/done_homeworks_screen")
+                              //     .then((_) {
+                              //   SystemChrome.setPreferredOrientations(
+                              //     [
+                              //       DeviceOrientation.portraitUp,
+                              //       DeviceOrientation.landscapeLeft,
+                              //       DeviceOrientation.landscapeRight,
+                              //     ],
+                              //   );
+                              //   //setState(() {});
+                              // })
+                              ;
+                        },
                         icon: Icons.checklist_rounded,
-                      )
+                      ),
+                      ModularIconButton(
+                        onPressedFunction: () async {
+                          if (MediaQuery.of(context).orientation ==
+                              Orientation.portrait) {
+                            SystemChrome.setPreferredOrientations(
+                              [
+                                DeviceOrientation.landscapeRight,
+                                // DeviceOrientation.landscapeLeft,
+                              ],
+                            );
+                          } else {
+                            SystemChrome.setPreferredOrientations(
+                              [
+                                DeviceOrientation.portraitUp,
+                              ],
+                            );
+                            // await Future.delayed(Duration(
+                            //     seconds:
+                            //         1)); //...... Je sais pas comment faire autrement pour l'instant.
+                            // SystemChrome.setPreferredOrientations(
+                            //   [
+                            //     DeviceOrientation.landscapeLeft,
+                            //     DeviceOrientation.landscapeRight,
+                            //     DeviceOrientation.portraitUp,
+                            //   ],
+                            // );
+                          }
+                        },
+                        icon: MediaQuery.of(context).orientation ==
+                                Orientation.portrait
+                            ? Icons.calendar_month
+                            : Icons.list_alt_rounded,
+                      ),
+                      ModularIconButton(
+                        onPressedFunction: () {
+                          SystemChrome.setPreferredOrientations(
+                            [
+                              DeviceOrientation.portraitUp,
+                            ],
+                          );
+                          Navigator.pushNamed(context, "/settings_screen")
+                              //     .then((_) {
+                              //   SystemChrome.setPreferredOrientations(
+                              //     [
+                              //       DeviceOrientation.portraitUp,
+                              //       DeviceOrientation.landscapeLeft,
+                              //       DeviceOrientation.landscapeRight,
+                              //     ],
+                              //   );
+                              //   // setState(() {});
+                              // })
+                              ;
+                        },
+                        icon: Icons.settings_rounded,
+                      ),
                     ]
                   : null,
               title: DefaultTabController.of(context).index == 0
@@ -136,32 +221,32 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
             ),
             body: TabBarView(
               children: [
-                HomeworksList(
-                  sharedPreferences: widget.sharedPreferences,
+                HomeScreenBodyHomeworks(
                   database: widget.database,
+                  sharedPreferences: widget.sharedPreferences,
                   homePage: true,
                   notifications: widget.notifications,
                 ),
                 HomeScreenBodyAverages(
-                  database: widget.database,
-                  sharedPreferences: widget.sharedPreferences,
-                  onTapFunctionGradeCard: ({
-                    @required int index,
-                    @required Subject subject,
-                  }) =>
-                      Navigator.pushNamed(context, "/view_grade_screen",
-                              arguments: [subject, index])
-                          .then((_) => setState(() {})),
-                ),
+                    database: widget.database,
+                    sharedPreferences: widget.sharedPreferences,
+                    onTapFunctionGradeCard: ({
+                      @required int index,
+                      @required Subject subject,
+                    }) =>
+                        Navigator.pushNamed(context, "/view_grade_screen",
+                            arguments: [subject, index])
+                    //.then((_) => {setState(() {})}),
+                    ),
                 HomeScreenBodySubjects(
-                  database: widget.database,
-                  onTapSubjectCardFunction: ({@required subject}) =>
-                      Navigator.pushNamed(
-                    context,
-                    "/edit_subject_screen",
-                    arguments: [subject],
-                  ).then((_) => setState(() {})),
-                ),
+                    database: widget.database,
+                    onTapSubjectCardFunction: ({@required subject}) =>
+                        Navigator.pushNamed(
+                          context,
+                          "/edit_subject_screen",
+                          arguments: [subject],
+                        ) //.then((_) => {setState(() {})}),
+                    ),
               ],
             ),
             floatingActionButton: ModularFloatingActionButton(

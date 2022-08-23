@@ -145,23 +145,25 @@ class _EditHomeworkScreenState extends State<EditHomeworkScreen> {
       context: context,
       builder: (_) {
         return SafeArea(
-          child: SingleChildScrollView(
-            child: ListView.builder(
-              physics: NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: 4,
-              itemBuilder: (_, index) {
-                return ListTile(
-                  onTap: () => Navigator.pop(context, index),
-                  leading: CircleColor(
-                    color: Homework.priorityColorMap.values.toList()[index],
-                    circleSize: 40,
-                  ),
-                  title: Text(
-                    Homework.priorityColorMap.keys.toList()[index],
-                  ),
-                );
-              },
+          child: FadeGradient(
+            child: SingleChildScrollView(
+              child: ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: 4,
+                itemBuilder: (_, index) {
+                  return ListTile(
+                    onTap: () => Navigator.pop(context, index),
+                    leading: CircleColor(
+                      color: Homework.priorityColorMap.values.toList()[index],
+                      circleSize: 40,
+                    ),
+                    title: Text(
+                      Homework.priorityColorMap.keys.toList()[index],
+                    ),
+                  );
+                },
+              ),
             ),
           ),
         );
@@ -174,23 +176,24 @@ class _EditHomeworkScreenState extends State<EditHomeworkScreen> {
 
   Future<void> _editHomework(Homework homework) async {
     bool created = false;
-    final Homework newHomework = Homework(
-      content: _homeworkContentController.text,
-      dueDate: _selectedDate,
-      subjectId: _selectedSubject.id,
-      priority: _selectedPriority,
-      done: false,
-      subject: _selectedSubject,
-      id: homework == null ? null : homework.id,
-      notificationsIds: await widget.notifications.scheduleNotifications(
-        homeworkDueDate: _selectedDate,
-        homeworkPriority: _selectedPriority,
-        homeworkSubjectName: _selectedSubject.name,
-        oldNotifications: homework == null ? null : homework.notificationsIds,
-      ),
-    );
+    Homework newHomework;
     if (_createHomeworkFormKey.currentState.validate() &&
         _selectedDate != null) {
+      newHomework = Homework(
+        content: _homeworkContentController.text,
+        dueDate: _selectedDate,
+        subjectId: _selectedSubject.id,
+        priority: _selectedPriority,
+        done: false,
+        subject: _selectedSubject,
+        id: homework == null ? null : homework.id,
+        notificationsIds: await widget.notifications.scheduleNotifications(
+          homeworkDueDate: _selectedDate,
+          homeworkPriority: _selectedPriority,
+          homeworkSubjectName: _selectedSubject.name,
+          oldNotifications: homework == null ? null : homework.notificationsIds,
+        ),
+      );
       homework == null
           ? await widget.database.insertHomework(
               newHomework,

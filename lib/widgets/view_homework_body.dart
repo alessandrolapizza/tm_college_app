@@ -17,32 +17,35 @@ class ViewHomeworkBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Center(
+      child: Align(
+        alignment: Alignment.topCenter,
         child: SizedBox(
           width: MediaQuery.of(context).size.width / 1.05,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 5),
-              ),
-              SizedBox(
-                width: double.infinity,
-                height: 17,
-                child: ViewHomeworkPriorityBanner(homework: homework),
-              ),
-              Padding(
-                padding: EdgeInsets.only(bottom: 15),
-              ),
-              ViewHomeworkDetailsSentence(
-                homework: homework,
-                homePage: homePage,
-              ),
-              Padding(
-                padding: EdgeInsets.only(bottom: 15),
-              ),
-              ViewHomeworkContent(homework: homework),
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 5),
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  height: 17,
+                  child: ViewHomeworkPriorityBanner(homework: homework),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(bottom: 15),
+                ),
+                ViewHomeworkDetailsSentence(
+                  homework: homework,
+                  homePage: homePage,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(bottom: 15),
+                ),
+                ViewHomeworkContent(homework: homework),
+              ],
+            ),
           ),
         ),
       ),
