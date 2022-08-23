@@ -104,30 +104,19 @@ class CalendarDayColumn extends StatelessWidget {
                                 child: Icon(Icons.delete_rounded),
                               ),
                               TextButton(
-                                onPressed: () async {
+                                onPressed: () {
                                   Navigator.pop(context);
                                   // SystemChrome.setPreferredOrientations([
                                   //   DeviceOrientation.portraitUp,
                                   // ]);
-                                  await Navigator.pushNamed(
+                                  Navigator.pushNamed(
                                     context,
                                     "/edit_homework_screen",
                                     arguments: [
                                       homeworks[index],
                                       false,
                                     ],
-                                  ).then((_) {
-                                    // await SystemChrome.setPreferredOrientations(
-                                    //   [
-                                    //     DeviceOrientation.landscapeRight,
-                                    //   ],
-                                    // );
-                                    // await sharedPreferences.setString(
-                                    //   "selectedCalendarDay",
-                                    //   day.toString(),
-                                    // );
-                                  //  selectDayFunction(day);
-                                  });
+                                  );
                                 },
                                 child: Icon(Icons.edit_rounded),
                               ),
