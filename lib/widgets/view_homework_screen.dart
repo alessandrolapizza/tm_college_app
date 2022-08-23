@@ -62,7 +62,7 @@ class _ViewHomeworkScreenState extends State<ViewHomeworkScreen> {
                           ),
                         );
                       },
-                      icon: Icons.settings_backup_restore_rounded,
+                      icon: Icons.published_with_changes_rounded,
                     )
                   : ModularFloatingActionButton(
                       onPressedFunction: () {
