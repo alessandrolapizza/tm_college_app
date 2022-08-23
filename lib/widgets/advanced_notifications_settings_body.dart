@@ -32,6 +32,10 @@ class _AdvancedNotificationsSettingsBodyState
         return ModularAlertDialog(
           themeColor: Theme.of(context).primaryColor,
           title: Text("Sélectionner un nombre de jours"),
+          actionButtons: [
+            TextButton(
+                child: Text("Fermer"), onPressed: () => Navigator.pop(context))
+          ],
           content: FadeGradient(
             child: AdvancedNotificationsSettingsDayNumberPicker(
               sharedPreferences: widget.sharedPreferences,
