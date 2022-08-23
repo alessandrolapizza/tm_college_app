@@ -253,6 +253,7 @@ class _SettingsBodyState extends State<SettingsBody>
                 SettingsTile(
                   leading: Icon(Icons.contact_mail_rounded),
                   title: Text("Contact"),
+                  description: Text("Une suggestion, un bug ou autre chose ? Fais-le savoir ! :)"),
                   onPressed: (_) {
                     showDialog(
                       context: context,
