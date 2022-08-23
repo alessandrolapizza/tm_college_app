@@ -34,7 +34,7 @@ class EditSubjectForm extends StatelessWidget {
             onEditingComplete: () => FocusScope.of(context).nextFocus(),
             decoration: InputDecoration(
               icon: Icon(Icons.text_fields_rounded),
-              labelText: "Nom de la matière",
+              labelText: "Nom",
               border: OutlineInputBorder(),
             ),
           ),
@@ -42,18 +42,12 @@ class EditSubjectForm extends StatelessWidget {
             padding: EdgeInsets.only(bottom: 15),
           ),
           TextFormField(
-            validator: (value) {
-              if (value == null || value.trim() == "") {
-                return "Un numéro de salle doit être fourni";
-              }
-              return null;
-            },
             controller: subjectRoomNumberController,
             maxLength: 16,
             keyboardType: TextInputType.text,
             decoration: InputDecoration(
               icon: Icon(Icons.meeting_room_rounded),
-              labelText: "Numéro de salle",
+              labelText: "Numéro de salle (facultatif)",
               border: OutlineInputBorder(),
             ),
           ),

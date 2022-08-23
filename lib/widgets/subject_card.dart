@@ -36,24 +36,34 @@ class SubjectCard extends StatelessWidget {
                 flex: 7,
                 child: Container(
                   margin: EdgeInsets.only(top: 10, bottom: 10, left: 10),
-                  child: Column(
-                    children: [
-                      Text(
-                        subject.name,
-                        style: TextStyle(fontWeight: FontWeight.w600),
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(top: 3),
-                        child: Text(
-                          "Salle : " +
-                              subject.room, // à construire (Contenu du devoir)
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 2,
+                  child: subject.room == ""
+                      ? Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            subject.name,
+                            style: TextStyle(fontWeight: FontWeight.w600),
+                          ),
+                        )
+                      : Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text(
+                              subject.name,
+                              style: TextStyle(fontWeight: FontWeight.w600),
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(top: 3),
+                              child: Text(
+                                "Salle : " +
+                                    subject
+                                        .room, // à construire (Contenu du devoir)
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 2,
+                              ),
+                            ),
+                          ],
+                          crossAxisAlignment: CrossAxisAlignment.start,
                         ),
-                      ),
-                    ],
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                  ),
                 ),
               ),
             ],
