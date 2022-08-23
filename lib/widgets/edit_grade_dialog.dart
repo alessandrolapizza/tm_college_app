@@ -141,6 +141,9 @@ class _EditGradeDialogState extends State<EditGradeDialog> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
+                 Padding(
+                  padding: EdgeInsets.only(bottom: 3),
+                ),
                 EditGradeForm(
                   singleSubject: widget.singleSubject,
                   gradeController: _gradeController,
