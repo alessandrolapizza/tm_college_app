@@ -81,6 +81,7 @@ class HomeworkCard extends StatelessWidget {
                   child: actionButton,
                 ),
               ),
+              SizedBox(width: 5,)
             ],
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.stretch,
