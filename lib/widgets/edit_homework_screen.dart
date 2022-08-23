@@ -41,6 +41,18 @@ class _EditHomeworkScreenState extends State<EditHomeworkScreen> {
 
   bool _dateMissing = false;
 
+  setSelectedDate(Homework homework) {
+    if (widget.sharedPreferences.getString("selectedDayCalendar") != null) {
+      _selectedDate = DateTime.parse(
+          widget.sharedPreferences.getString("selectedDayCalendar"));
+    }
+    _selectedDate = _selectedDate != null
+        ? _selectedDate
+        : homework == null
+            ? null
+            : homework.dueDate;
+  }
+
   Future<void> _selectSubject() async {
     Subject subject = await showModalBottomSheet(
       context: context,
@@ -236,11 +248,7 @@ class _EditHomeworkScreenState extends State<EditHomeworkScreen> {
         : homework == null
             ? Subject.noSubject
             : homework.subject;
-    _selectedDate = _selectedDate != null
-        ? _selectedDate
-        : homework == null
-            ? null
-            : homework.dueDate;
+    setSelectedDate(homework);
     return ThemeController(
       color: _selectedSubject.color,
       child: Scaffold(

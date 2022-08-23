@@ -83,7 +83,9 @@ class _HomeScreenBodyHomeworksCalendarState
     );
   }
 
-  void selectDay(DateTime day) {
+  void selectDay(DateTime day) async {
+    await widget.sharedPreferences
+        .setString("selectedDayCalendar", day.toString());
     setState(() {
       selectedDayVar = day;
       focusedDayVar = day;
@@ -118,6 +120,12 @@ class _HomeScreenBodyHomeworksCalendarState
   // }
 
   @override
+  dispose() {
+    widget.sharedPreferences.remove("selectedDayCalendar");
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return FutureBuilder(
         future: widget.database.homeworks(),
@@ -132,10 +140,7 @@ class _HomeScreenBodyHomeworksCalendarState
                   return isSameDay(selectedDayVar, day);
                 },
                 onDaySelected: (selectedDay, focusedDay) {
-                  setState(() {
-                    selectedDayVar = selectedDay;
-                    focusedDayVar = focusedDay;
-                  });
+                  selectDay(selectedDay);
                 },
                 calendarBuilders: CalendarBuilders(
                   outsideBuilder: (context, day, focusedDay) {
