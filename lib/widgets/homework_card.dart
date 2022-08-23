@@ -32,12 +32,12 @@ class HomeworkCard extends StatelessWidget {
         height: 90,
         width: double.infinity,
         child: Card(
-          elevation: 0.5,
           child: Row(
             children: [
               Expanded(
                 flex: 1,
                 child: Card(
+                  elevation: 3,
                   color: Homework.priorityColorMap.values
                       .toList()[homework.priority],
                 ),
