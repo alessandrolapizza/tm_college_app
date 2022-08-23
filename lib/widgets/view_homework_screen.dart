@@ -65,7 +65,7 @@ class _ViewHomeworkScreenState extends State<ViewHomeworkScreen> {
                       icon: Icons.settings_backup_restore_rounded,
                     )
                   : ModularFloatingActionButton(
-                      onPressedFunction: () async {
+                      onPressedFunction: () {
                         Navigator.pushNamed(
                           context,
                           "/edit_homework_screen",

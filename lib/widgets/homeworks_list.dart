@@ -134,7 +134,7 @@ class _HomeworksList extends State<HomeworksList> {
                             homeworks.values.toList()[index][idx],
                             widget.homePage,
                           ],
-                        ).then((_) => setState(() {})),
+                        ), //.then((_) => setState(() {})),
                         actionButton: widget.homePage
                             ? FittedBox(
                                 child: TextButton(
