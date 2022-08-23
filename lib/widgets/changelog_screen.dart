@@ -35,7 +35,8 @@ class ChangelogScreen extends StatelessWidget {
       appBar: ModularAppBar(
         hideSettingsButton: true,
         title: Text("Notes de mises à jour"),
-        centerTitle: fromSettings ? null : false,
+        centerTitle: fromSettings ? true : false,
+        backArrow: fromSettings ? true : false,
       ),
       body: SafeArea(
         child: FadeGradient(
