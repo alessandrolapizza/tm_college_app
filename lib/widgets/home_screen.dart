@@ -34,13 +34,27 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
+  final ScrollController scrollControllerHomeworks = ScrollController();
+
   bool _checkNotificationAppLaunchDetails = false;
 
   void _routePointer(index) async {
     List<Subject> subjects;
     if (index == 0) {
       Navigator.pushNamed(context, "/edit_homework_screen",
-              arguments: [null, true])
+              arguments: [null, true]).then(
+        (_) {
+          if (MediaQuery.of(context).orientation == Orientation.portrait &&
+              scrollControllerHomeworks.hasClients) {
+            double offset = scrollControllerHomeworks.offset;
+            scrollControllerHomeworks.animateTo(
+              offset + 0.5,
+              duration: Duration(milliseconds: 1),
+              curve: Curves.bounceIn,
+            );
+          }
+        },
+      )
           //     .then((_) {
           //   SystemChrome.setPreferredOrientations([
           //     DeviceOrientation.portraitUp,
@@ -98,7 +112,18 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
             Navigator.pushNamed(
               context,
               "/view_homework_screen",
-            ).then((_) => setState(() {}));
+            ).then(
+              (_) {
+                if (scrollControllerHomeworks.hasClients) {
+                  double offset = scrollControllerHomeworks.offset;
+                  scrollControllerHomeworks.animateTo(
+                    offset + 0.5,
+                    duration: Duration(milliseconds: 1),
+                    curve: Curves.bounceIn,
+                  );
+                }
+              },
+            );
             await widget.sharedPreferences
                 .setString("notificationOpenedAppPayload", "");
           }
@@ -141,6 +166,16 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                             ],
                           );
                           Navigator.pushNamed(context, "/done_homeworks_screen")
+                                  .then((_) {
+                            if (scrollControllerHomeworks.hasClients) {
+                              double offset = scrollControllerHomeworks.offset;
+                              scrollControllerHomeworks.animateTo(
+                                offset + 0.5,
+                                duration: Duration(milliseconds: 1),
+                                curve: Curves.bounceIn,
+                              );
+                            }
+                          })
                               //     .then((_) {
                               //   SystemChrome.setPreferredOrientations(
                               //     [
@@ -196,6 +231,16 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                             ],
                           );
                           Navigator.pushNamed(context, "/settings_screen")
+                                  .then((_) {
+                            if (scrollControllerHomeworks.hasClients) {
+                              double offset = scrollControllerHomeworks.offset;
+                              scrollControllerHomeworks.animateTo(
+                                offset + 0.5,
+                                duration: Duration(milliseconds: 1),
+                                curve: Curves.bounceIn,
+                              );
+                            }
+                          })
                               //     .then((_) {
                               //   SystemChrome.setPreferredOrientations(
                               //     [
@@ -222,6 +267,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
             body: TabBarView(
               children: [
                 HomeScreenBodyHomeworks(
+                  scrollControllerHomeworks: scrollControllerHomeworks,
                   database: widget.database,
                   sharedPreferences: widget.sharedPreferences,
                   homePage: true,

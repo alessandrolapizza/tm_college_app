@@ -18,11 +18,14 @@ class HomeworksList extends StatefulWidget {
 
   final SharedPreferences sharedPreferences;
 
+  final ScrollController scrollControllerHomeworks;
+
   HomeworksList({
     @required this.database,
     @required this.homePage,
     @required this.notifications,
     @required this.sharedPreferences,
+    @required this.scrollControllerHomeworks,
   });
 
   @override
@@ -30,8 +33,6 @@ class HomeworksList extends StatefulWidget {
 }
 
 class _HomeworksList extends State<HomeworksList> {
-  final ScrollController _scrollControllerHomeworks = ScrollController();
-
   void _checkHomework(
     Homework homework,
   ) async {
@@ -41,8 +42,8 @@ class _HomeworksList extends State<HomeworksList> {
       notifications: widget.notifications,
     );
     setState(() {});
-    double offset = _scrollControllerHomeworks.offset;
-    _scrollControllerHomeworks.animateTo(
+    double offset = widget.scrollControllerHomeworks.offset;
+    widget.scrollControllerHomeworks.animateTo(
       offset + 0.5,
       duration: Duration(milliseconds: 1),
       curve: Curves.bounceIn,
@@ -113,7 +114,7 @@ class _HomeworksList extends State<HomeworksList> {
           } else {
             child = ListView.builder(
               physics: AlwaysScrollableScrollPhysics(),
-              controller: _scrollControllerHomeworks,
+              controller: widget.scrollControllerHomeworks,
               itemCount: homeworks.length,
               itemBuilder: (_, index) {
                 index =
@@ -134,7 +135,16 @@ class _HomeworksList extends State<HomeworksList> {
                             homeworks.values.toList()[index][idx],
                             widget.homePage,
                           ],
-                        ).then((_) => setState(() {})),
+                        ).then((_) {
+                          double offset =
+                              widget.scrollControllerHomeworks.offset;
+                          widget.scrollControllerHomeworks.animateTo(
+                            offset + 0.5,
+                            duration: Duration(milliseconds: 1),
+                            curve: Curves.bounceIn,
+                          );
+                          //setState(() {});
+                        }),
                         actionButton: widget.homePage
                             ? FittedBox(
                                 child: TextButton(

@@ -16,11 +16,14 @@ class HomeScreenBodyHomeworks extends StatefulWidget {
 
   final SharedPreferences sharedPreferences;
 
+  final ScrollController scrollControllerHomeworks;
+
   HomeScreenBodyHomeworks({
     @required this.database,
     @required this.notifications,
     @required this.sharedPreferences,
     @required this.homePage,
+    @required this.scrollControllerHomeworks,
   });
 
   @override
@@ -57,6 +60,7 @@ class _HomeScreenBodyHomeworksState extends State<HomeScreenBodyHomeworks> {
       builder: (context, orientation) {
         if (MediaQuery.of(context).orientation == Orientation.portrait) {
           return HomeworksList(
+              scrollControllerHomeworks: widget.scrollControllerHomeworks,
               database: widget.database,
               homePage: widget.homePage,
               notifications: widget.notifications,

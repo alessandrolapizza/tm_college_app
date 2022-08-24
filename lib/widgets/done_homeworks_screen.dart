@@ -28,6 +28,7 @@ class DoneHomeworksScreen extends StatelessWidget {
         title: Text("Devoirs complétés"),
       ),
       body: HomeworksList(
+        scrollControllerHomeworks: ScrollController(),
         sharedPreferences: sharedPreferences,
         database: database,
         homePage: false,
