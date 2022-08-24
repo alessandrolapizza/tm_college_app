@@ -22,7 +22,7 @@ class StartNewSchoolYearSettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: ModularAppBar(
-        title: Text("Nouvelle Année Scolaire"),
+        title: Text("Nouvelle année scolaire"),
         hideSettingsButton: true,
         backArrow: true,
         centerTitle: true,

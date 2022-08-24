@@ -2,7 +2,7 @@ import "package:flutter/material.dart";
 import 'package:settings_ui/settings_ui.dart';
 
 class ModularSettingsTile extends AbstractSettingsTile {
-  final IconData icon;
+  final Widget leading;
 
   final String description;
 
@@ -16,9 +16,12 @@ class ModularSettingsTile extends AbstractSettingsTile {
 
   final bool enabled;
 
+  final Color color;
+
   ModularSettingsTile({
-    @required this.icon,
     @required this.title,
+    this.leading,
+    this.color,
     this.enabled = true,
     this.hideArrow,
     this.value,
@@ -46,7 +49,7 @@ class ModularSettingsTile extends AbstractSettingsTile {
                       color: Colors.grey,
                     )
           : null,
-      leading: Icon(icon),
+      leading: leading == null ? null : leading,
       description: description == null
           ? null
           : Text(
@@ -56,13 +59,19 @@ class ModularSettingsTile extends AbstractSettingsTile {
               ),
             ),
       title: value == null
-          ? Text(title)
+          ? Text(
+              title,
+              style: TextStyle(color: color),
+            )
           : Container(
               width: double.infinity,
               child: Wrap(
                 alignment: WrapAlignment.spaceBetween,
                 children: [
-                  Text(title),
+                  Text(
+                    title,
+                    style: TextStyle(color: color),
+                  ),
                   Text(
                     "$value",
                     style: TextStyle(

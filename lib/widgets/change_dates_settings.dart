@@ -268,7 +268,7 @@ class _ChangeDatesSettingsState extends State<ChangeDatesSettings> {
                                 .getString("firstTermBeginingDate"),
                           ),
                         ),
-              icon: Icons.edit_calendar_rounded,
+              leading: Icon(Icons.edit_calendar_rounded),
             ),
             ModularSettingsTile(
               hideArrow: true,
@@ -277,7 +277,7 @@ class _ChangeDatesSettingsState extends State<ChangeDatesSettings> {
                       null,
               onPressedFunction: selectSecondTermBeginingDate,
               title: "Début du deuxième semestre",
-              icon: Icons.edit_calendar_rounded,
+              leading: Icon(Icons.edit_calendar_rounded),
               value: widget.sharedPreferences
                           .getString("secondTermBeginingDate") ==
                       null
@@ -296,7 +296,7 @@ class _ChangeDatesSettingsState extends State<ChangeDatesSettings> {
                   null,
               onPressedFunction: selectSecondTermEndingDate,
               title: "Fin du deuxième semestre",
-              icon: Icons.edit_calendar_rounded,
+              leading: Icon(Icons.edit_calendar_rounded),
               value:
                   widget.sharedPreferences.getString("secondTermEndingDate") ==
                           null
@@ -317,12 +317,12 @@ class _ChangeDatesSettingsState extends State<ChangeDatesSettings> {
                   padding: EdgeInsets.symmetric(horizontal: 20),
                   child: Wrap(children: [
                     Text(
-                      "Les dates de début et de fin de semestres servent à calculer tes moyennes correctement ainsi qu'à déterminer la période valide où tu peux entrer de nouveaux devoirs.\n\nSi tu commences une nouvelles année scolaire, ce n'est peut-être pas l'option que tu cherches. Voir : ",
+                      "Les dates de début et de fin de semestres servent à calculer tes moyennes correctement ainsi qu'à déterminer la période valide où tu peux entrer de nouveaux devoirs.\n\nSi tu commences une nouvelle année scolaire, ce n'est peut-être pas l'option que tu cherches. Voir : ",
                       style: TextStyle(color: Colors.grey[600]),
                     ),
                     Center(
                       child: TextButton(
-                        child: Text("Commencer une nouvelle Année Scolaire"),
+                        child: Text("Commencer une nouvelle année scolaire"),
                         onPressed: () {
                           Navigator.pop(context);
                           Navigator.pushNamed(

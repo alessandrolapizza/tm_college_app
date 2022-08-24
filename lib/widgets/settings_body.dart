@@ -202,7 +202,7 @@ class _SettingsBodyState extends State<SettingsBody>
               ],
             ),
             SettingsSection(
-              title: Text("Nouvelle Année Scolaire"),
+              title: Text("Nouvelle année scolaire"),
               tiles: [
                 SettingsTile(
                   trailing: Icon(
@@ -218,7 +218,7 @@ class _SettingsBodyState extends State<SettingsBody>
                     ),
                   ),
                   title: Text(
-                    "Commencer une nouvelle Année Scolaire",
+                    "Commencer une nouvelle année scolaire",
                   ),
                   onPressed: (_) {
                     Navigator.pushNamed(
@@ -233,7 +233,7 @@ class _SettingsBodyState extends State<SettingsBody>
                 ModularSettingsTile(
                   description:
                       "Permet de voir les changements effectués au fil des mises à jour.",
-                  icon: Icons.notes_rounded,
+                  leading: Icon(Icons.notes_rounded),
                   title: "Voir les notes de mises à jour",
                   onPressedFunction: () => Navigator.push(
                     context,
@@ -253,7 +253,8 @@ class _SettingsBodyState extends State<SettingsBody>
                 SettingsTile(
                   leading: Icon(Icons.contact_mail_rounded),
                   title: Text("Contact"),
-                  description: Text("Une suggestion, un bug ou autre chose ? Fais-le savoir ! :)"),
+                  description: Text(
+                      "Une suggestion, un bug ou autre chose ? Fais-le savoir ! :)"),
                   onPressed: (_) {
                     showDialog(
                       context: context,
@@ -295,7 +296,7 @@ class _SettingsBodyState extends State<SettingsBody>
                   ),
                 ),
                 ModularSettingsTile(
-                  icon: Icons.local_pizza_rounded,
+                  leading: Icon(Icons.local_pizza_rounded),
                   value: "Made with <3",
                   title: "Version ${widget.packageInfo.version}",
                   onPressedFunction: () => widget.confettiController.play(),

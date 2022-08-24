@@ -85,7 +85,7 @@ class App extends StatelessWidget {
       supportedLocales: [
         defaultLocale,
       ],
-      title: "Mon année Scolaire",
+      title: "Mon Année Scolaire",
       initialRoute: "/",
       routes: {
         "/": (_) => sharedPreferences.getBool("introductionSeen") ?? false

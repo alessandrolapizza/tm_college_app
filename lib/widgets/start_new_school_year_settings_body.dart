@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:settings_ui/settings_ui.dart";
 import "package:shared_preferences/shared_preferences.dart";
+import 'package:tm_college_app/widgets/modular_settings_tile.dart';
 import "../models/homework.dart";
 import "../models/my_database.dart";
 import "../models/notifications.dart";
@@ -27,18 +28,18 @@ class StartNewSchoolYearSettingsBody extends StatelessWidget {
           settingsListBackground: Theme.of(context).scaffoldBackgroundColor),
       sections: [
         SettingsSection(
-          title: Text("Commencer une nouvelle Année Scolaire"),
+          title: Text("Commencer une nouvelle année scolaire"),
           tiles: [
-            SettingsTile(
-              onPressed: (_) {
+            ModularSettingsTile(
+              onPressedFunction: () {
                 showDialog(
                   context: context,
                   builder: (_) {
                     return ModularAlertDialog(
                       themeColor: Theme.of(context).primaryColor,
-                      title: Text("Commencer nouvelle Année Scolaire ?"),
+                      title: Text("Commencer nouvelle année scolaire ?"),
                       content: Text(
-                          "Es-tu sûr de vouloir commencer une nouvelle Année Scolaire ?"),
+                          "Es-tu sûr de vouloir commencer une nouvelle année scolaire ?"),
                       actionButtons: [
                         TextButton(
                           child: Text("Annuler"),
@@ -87,10 +88,9 @@ class StartNewSchoolYearSettingsBody extends StatelessWidget {
                   },
                 );
               },
-              title: Text(
-                "Confirmer",
-                style: TextStyle(color: Colors.red),
-              ),
+              hideArrow: true,
+              title: "Confirmer",
+              color: Colors.red,
             ),
           ],
         ),
