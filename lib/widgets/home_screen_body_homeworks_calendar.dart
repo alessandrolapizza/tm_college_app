@@ -272,15 +272,8 @@ class _HomeScreenBodyHomeworksCalendarState
                       child: Text(
                         DateFormat("E").format(day),
                         style: (day.isAfter(DateTime.now()))
-                            ? (day.isAfter(DateTime.parse(widget.sharedPreferences.getString("firstTermBeginingDate"))) ||
-                                        isSameDay(
-                                            day,
-                                            DateTime.parse(widget.sharedPreferences
-                                                .getString(
-                                                    "firstTermBeginingDate")))) &&
-                                    (day.isBefore(DateTime.parse(
-                                            widget.sharedPreferences.getString(
-                                                "secondTermEndingDate"))) ||
+                            ? (day.isAfter(DateTime.parse(widget.sharedPreferences.getString("firstTermBeginingDate"))) || isSameDay(day, DateTime.parse(widget.sharedPreferences.getString("firstTermBeginingDate")))) &&
+                                    (day.isBefore(DateTime.parse(widget.sharedPreferences.getString("secondTermEndingDate"))) ||
                                         isSameDay(
                                             day,
                                             DateTime.parse(widget
@@ -289,7 +282,18 @@ class _HomeScreenBodyHomeworksCalendarState
                                                     "secondTermEndingDate"))))
                                 ? TextStyle(color: Colors.black)
                                 : TextStyle(color: Colors.grey)
-                            : TextStyle(color: Colors.red),
+                            : (day.isAfter(DateTime.parse(widget.sharedPreferences.getString("firstTermBeginingDate"))) ||
+                                        isSameDay(
+                                            day,
+                                            DateTime.parse(widget
+                                                .sharedPreferences
+                                                .getString(
+                                                    "firstTermBeginingDate")))) &&
+                                    (day.isBefore(DateTime.parse(widget.sharedPreferences.getString("secondTermEndingDate"))) ||
+                                        isSameDay(
+                                            day, DateTime.parse(widget.sharedPreferences.getString("secondTermEndingDate"))))
+                                ? TextStyle(color: Colors.grey)
+                                : TextStyle(color: Colors.red),
                       ),
                     );
                   },
