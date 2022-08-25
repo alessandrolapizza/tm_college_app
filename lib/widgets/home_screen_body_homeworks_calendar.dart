@@ -292,8 +292,8 @@ class _HomeScreenBodyHomeworksCalendarState
                                     (day.isBefore(DateTime.parse(widget.sharedPreferences.getString("secondTermEndingDate"))) ||
                                         isSameDay(
                                             day, DateTime.parse(widget.sharedPreferences.getString("secondTermEndingDate"))))
-                                ? TextStyle(color: Colors.grey)
-                                : TextStyle(color: Colors.red),
+                                ? TextStyle(color: Colors.red)
+                                : TextStyle(color: Colors.grey),
                       ),
                     );
                   },
