@@ -64,7 +64,7 @@ class App extends StatelessWidget {
       await sharedPreferences.setString("secondTermEndingDate",
           sharedPreferences.getString("secondTermEndDate"));
       await sharedPreferences.remove("secondTermEndDate");
-      await sharedPreferences.setString("upgraderVersion", packageInfo.version);
+      await sharedPreferences.setString("upgraderVersion", packageInfo.version); //METTRE A DEUX, en string.
       await sharedPreferences.setBool("changelogSeen", false);
     }
   }
