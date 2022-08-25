@@ -210,7 +210,6 @@ class CalendarDayColumn extends StatelessWidget {
                     ),
                   );
                 } else if (homeworks.length == index) {
-                  print("test");
                   return Container();
                 } else {
                   return Container();

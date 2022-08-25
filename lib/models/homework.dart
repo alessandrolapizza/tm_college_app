@@ -83,18 +83,6 @@ class Homework {
     List<Homework> homeworks = await database.homeworks();
     homeworks.forEach(
       (homework) async {
-        print(firstTermBeginingDate.toString() +
-            "  " +
-            homework.dueDate.toString());
-        print(homework.dueDate.isAfter(
-          secondTermEndingDate == null
-              ? DateTime.parse(
-                  sharedPreferences.getString(
-                    "secondTermEndingDate",
-                  ),
-                )
-              : secondTermEndingDate,
-        ));
         if (homework.dueDate.isBefore(firstTermBeginingDate == null
                 ? DateTime.parse(
                     sharedPreferences.getString(
