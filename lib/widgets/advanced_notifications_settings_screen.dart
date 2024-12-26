@@ -10,8 +10,8 @@ class AdvancedNotificationsSettingsScreen extends StatelessWidget {
   final Notifications notifications;
 
   AdvancedNotificationsSettingsScreen({
-    @required this.sharedPreferences,
-    @required this.notifications,
+    required this.sharedPreferences,
+    required this.notifications,
   });
 
   @override

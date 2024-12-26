@@ -1,18 +1,18 @@
 import "package:flutter/material.dart";
-import "./edit_screens_bottom_buttons.dart";
-import "./edit_subject_form.dart";
-import "./edit_subject_select_color_button.dart";
-import "./edit_subject_select_icon_button.dart";
-import "./fade_gradient.dart";
+import "../edit_screens_bottom_buttons.dart";
+import "edit_subject_form.dart";
+import "edit_subject_select_color_button.dart";
+import "edit_subject_select_icon_button.dart";
+import "../fade_gradient.dart";
 
 class EditSubjectBody extends StatelessWidget {
   final Function selectIconFunction;
 
-  final IconData selectedIcon;
+  final IconData? selectedIcon;
 
   final Function selectColor;
 
-  final Color selectedColor;
+  final Color? selectedColor;
 
   final Function createSubjectFunction;
 
@@ -26,17 +26,20 @@ class EditSubjectBody extends StatelessWidget {
 
   final bool colorMissing;
 
+  final bool editScreen;
+
   EditSubjectBody({
-    @required this.selectIconFunction,
-    @required this.selectedIcon,
-    @required this.selectColor,
-    @required this.selectedColor,
-    @required this.createSubjectFunction,
-    @required this.subjectNameController,
-    @required this.subjectRoomNumberController,
-    @required this.createSubjectFormKey,
-    @required this.iconMissing,
-    @required this.colorMissing,
+    required this.selectIconFunction,
+    required this.selectedIcon,
+    required this.selectColor,
+    required this.selectedColor,
+    required this.createSubjectFunction,
+    required this.subjectNameController,
+    required this.subjectRoomNumberController,
+    required this.createSubjectFormKey,
+    required this.iconMissing,
+    required this.colorMissing,
+    required this.editScreen,
   });
 
   @override
@@ -94,7 +97,10 @@ class EditSubjectBody extends StatelessWidget {
                   ),
                 ),
               ),
-              EditScreensBottomButton(editFunction: createSubjectFunction),
+              EditScreensBottomButton(
+                editFunction: createSubjectFunction,
+                editScreen: editScreen,
+              ),
             ],
           ),
         ),

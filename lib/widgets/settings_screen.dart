@@ -20,10 +20,10 @@ class SettingsScreen extends StatelessWidget {
       ConfettiController(duration: Duration(seconds: 1));
 
   SettingsScreen({
-    @required this.database,
-    @required this.notifications,
-    @required this.sharedPreferences,
-    @required this.packageInfo,
+    required this.database,
+    required this.notifications,
+    required this.sharedPreferences,
+    required this.packageInfo,
   });
 
   @override

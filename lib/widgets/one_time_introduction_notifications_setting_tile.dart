@@ -9,8 +9,8 @@ class OneTimeIntroductionNotificationsSettingTile extends StatefulWidget {
   final Notifications notifications;
 
   OneTimeIntroductionNotificationsSettingTile({
-    @required this.sharedPreferences,
-    @required this.notifications,
+    required this.sharedPreferences,
+    required this.notifications,
   });
 
   @override
@@ -21,7 +21,7 @@ class OneTimeIntroductionNotificationsSettingTile extends StatefulWidget {
 class _OneTimeIntroductionNotificationsSettingTileState
     extends State<OneTimeIntroductionNotificationsSettingTile>
     with WidgetsBindingObserver {
-  Future<String> permissionStatusFuture;
+  Future<String>? permissionStatusFuture;
 
   @override
   void initState() {

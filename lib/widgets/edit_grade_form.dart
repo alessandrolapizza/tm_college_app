@@ -6,7 +6,7 @@ class EditGradeForm extends StatelessWidget {
 
   final String dropdownValue;
 
-  final List<Subject> subjects;
+  final List<Subject>? subjects;
 
   final GlobalKey<FormState> editGradeFormKey;
 
@@ -17,13 +17,13 @@ class EditGradeForm extends StatelessWidget {
   final bool singleSubject;
 
   EditGradeForm({
-    @required this.dropdownValue,
-    @required this.onChangedFunction,
-    @required this.subjects,
-    @required this.editGradeFormKey,
-    @required this.coefficientController,
-    @required this.gradeController,
-    @required this.singleSubject,
+    required this.dropdownValue,
+    required this.onChangedFunction,
+    required this.subjects,
+    required this.editGradeFormKey,
+    required this.coefficientController,
+    required this.gradeController,
+    required this.singleSubject,
   });
 
   @override
@@ -41,7 +41,7 @@ class EditGradeForm extends StatelessWidget {
                   children: [
                     DropdownButtonFormField(
                       isExpanded: true,
-                      validator: (value) {
+                      validator: (dynamic value) {
                         if (value == "0") {
                           return "Une matière doit être sélectionnée";
                         } else {
@@ -49,7 +49,7 @@ class EditGradeForm extends StatelessWidget {
                         }
                       },
                       value: dropdownValue,
-                      onChanged: (value) => onChangedFunction(value),
+                      onChanged: (dynamic value) => onChangedFunction(value),
                       items: List.from(
                         [
                           DropdownMenuItem(
@@ -59,11 +59,11 @@ class EditGradeForm extends StatelessWidget {
                               value: "0")
                         ],
                       )..addAll(
-                          subjects.map<DropdownMenuItem<String>>(
+                          subjects!.map<DropdownMenuItem<String>>(
                             (Subject subject) {
                               return DropdownMenuItem<String>(
                                 value: subject.id,
-                                child: Text(subject.name),
+                                child: Text(subject.name!),
                               );
                             },
                           ).toList(),
@@ -81,7 +81,7 @@ class EditGradeForm extends StatelessWidget {
                   validator: (value) {
                     bool isDouble = false;
                     try {
-                      double.parse(value.replaceAll(",", "."));
+                      double.parse(value!.replaceAll(",", "."));
                       isDouble = true;
                     } on FormatException {
                       isDouble = false;
@@ -116,7 +116,7 @@ class EditGradeForm extends StatelessWidget {
                   validator: (value) {
                     bool isDouble = false;
                     try {
-                      double.parse(value.replaceAll(",", "."));
+                      double.parse(value!.replaceAll(",", "."));
                       isDouble = true;
                     } on FormatException {
                       isDouble = false;

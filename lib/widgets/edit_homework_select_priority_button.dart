@@ -6,17 +6,17 @@ import "../models/homework.dart";
 class EditHomeworkSelectPriorityButton extends StatelessWidget {
   final Function selectPriorityFunction;
 
-  final int selectedPriority;
+  final int? selectedPriority;
 
   EditHomeworkSelectPriorityButton({
-    @required this.selectPriorityFunction,
-    @required this.selectedPriority,
+    required this.selectPriorityFunction,
+    required this.selectedPriority,
   });
 
   @override
   Widget build(BuildContext context) {
     return ModularOutlinedButton(
-      onPressedFunction: selectPriorityFunction,
+      onPressedFunction: () => selectPriorityFunction(context),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -28,7 +28,7 @@ class EditHomeworkSelectPriorityButton extends StatelessWidget {
                 )
               : CircleColor(
                   color: Homework.priorityColorMap.values
-                      .toList()[selectedPriority],
+                      .toList()[selectedPriority!],
                   circleSize: 20),
         ],
       ),

@@ -13,9 +13,9 @@ class StartNewSchoolYearSettingsScreen extends StatelessWidget {
   final Notifications notifications;
 
   StartNewSchoolYearSettingsScreen({
-    @required this.sharedPreferences,
-    @required this.database,
-    @required this.notifications,
+    required this.sharedPreferences,
+    required this.database,
+    required this.notifications,
   });
 
   @override

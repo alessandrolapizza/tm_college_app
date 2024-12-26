@@ -6,16 +6,17 @@ class ModularFloatingActionButton extends StatelessWidget {
   final IconData icon;
 
   ModularFloatingActionButton({
-    @required this.onPressedFunction,
-    @required this.icon,
+    required this.onPressedFunction,
+    required this.icon,
   });
 
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
-      backgroundColor: Theme.of(context).primaryColor.withOpacity(0.9),
-      highlightElevation: 0,
-      elevation: 0,
+      backgroundColor:
+          Theme.of(context).colorScheme.primaryContainer.withValues(alpha: 0.9),
+      //   highlightElevation: 0,
+      //elevation: 0,
       onPressed: () => onPressedFunction(),
       child: Icon(icon),
     );

@@ -3,7 +3,12 @@ import "package:flutter/material.dart";
 class EditScreensBottomButton extends StatelessWidget {
   final Function editFunction;
 
-  EditScreensBottomButton({@required this.editFunction});
+  final bool? editScreen;
+
+  EditScreensBottomButton({
+    required this.editFunction,
+    this.editScreen,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,9 +24,13 @@ class EditScreensBottomButton extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 5),
           ),
-          ElevatedButton(
+          FilledButton(
             onPressed: () => editFunction(),
-            child: Text("Enregistrer"),
+            child: Text(editScreen == null
+                ? "Ajouter"
+                : editScreen!
+                    ? "Modifier"
+                    : "Ajouter"),
           ),
         ],
       ),

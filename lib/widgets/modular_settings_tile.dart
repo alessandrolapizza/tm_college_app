@@ -2,24 +2,24 @@ import "package:flutter/material.dart";
 import 'package:settings_ui/settings_ui.dart';
 
 class ModularSettingsTile extends AbstractSettingsTile {
-  final Widget leading;
+  final Widget? leading;
 
-  final String description;
+  final String? description;
 
   final String title;
 
-  final String value;
+  final String? value;
 
-  final bool hideArrow;
+  final bool? hideArrow;
 
-  final Function onPressedFunction;
+  final Function? onPressedFunction;
 
   final bool enabled;
 
-  final Color color;
+  final Color? color;
 
   ModularSettingsTile({
-    @required this.title,
+    required this.title,
     this.leading,
     this.color,
     this.enabled = true,
@@ -33,7 +33,7 @@ class ModularSettingsTile extends AbstractSettingsTile {
   Widget build(BuildContext context) {
     return SettingsTile(
       enabled: enabled,
-      onPressed: onPressedFunction == null ? null : (_) => onPressedFunction(),
+      onPressed: onPressedFunction == null ? null : (_) => onPressedFunction!(),
       trailing: value == null
           ? hideArrow == null
               ? Icon(
@@ -41,7 +41,7 @@ class ModularSettingsTile extends AbstractSettingsTile {
                   size: 15,
                   color: Colors.grey,
                 )
-              : hideArrow
+              : hideArrow!
                   ? null
                   : Icon(
                       Icons.arrow_forward_ios_rounded,
@@ -53,7 +53,7 @@ class ModularSettingsTile extends AbstractSettingsTile {
       description: description == null
           ? null
           : Text(
-              description,
+              description!,
               style: TextStyle(
                 color: Colors.grey[600],
               ),

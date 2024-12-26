@@ -8,14 +8,14 @@ class HomeworkCard extends StatelessWidget {
 
   final Function onTapFunction;
 
-  final Widget actionButton;
+  final Widget? actionButton;
 
   final SharedPreferences sharedPreferences;
 
   HomeworkCard({
-    @required this.homework,
-    @required this.onTapFunction,
-    @required this.sharedPreferences,
+    required this.homework,
+    required this.onTapFunction,
+    required this.sharedPreferences,
     this.actionButton,
   });
 
@@ -39,7 +39,7 @@ class HomeworkCard extends StatelessWidget {
                 child: Card(
                   elevation: 3,
                   color: Homework.priorityColorMap.values
-                      .toList()[homework.priority],
+                      .toList()[homework.priority!],
                 ),
               ),
               Expanded(
@@ -47,8 +47,8 @@ class HomeworkCard extends StatelessWidget {
                 child: Container(
                   margin: EdgeInsets.symmetric(vertical: 10),
                   child: CircleAvatarWithBorder(
-                    color: homework.subject.color,
-                    icon: homework.subject.icon,
+                    color: homework.subject!.color,
+                    icon: homework.subject!.icon,
                   ),
                 ),
               ),
@@ -59,13 +59,13 @@ class HomeworkCard extends StatelessWidget {
                   child: Column(
                     children: [
                       Text(
-                        homework.subject.name,
+                        homework.subject!.name!,
                         style: TextStyle(fontWeight: FontWeight.w600),
                       ),
                       Container(
                         margin: EdgeInsets.only(top: 3),
                         child: Text(
-                          homework.content,
+                          homework.content!,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,
                         ),

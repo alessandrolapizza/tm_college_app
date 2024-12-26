@@ -1,17 +1,17 @@
 import "package:flutter/material.dart";
-import "./modular_outlined_button.dart";
+import "../modular_outlined_button.dart";
 
 class EditSubjectSelectIconButton extends StatelessWidget {
   final Function selectIconFunction;
 
-  final IconData selectedIcon;
+  final IconData? selectedIcon;
 
   final bool iconMissing;
 
   EditSubjectSelectIconButton({
-    @required this.selectIconFunction,
-    @required this.selectedIcon,
-    @required this.iconMissing,
+    required this.selectIconFunction,
+    required this.selectedIcon,
+    required this.iconMissing,
   });
 
   @override

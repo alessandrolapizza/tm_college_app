@@ -14,9 +14,9 @@ class ChangeDatesSettingsScreen extends StatelessWidget {
 
 
   ChangeDatesSettingsScreen({
-    @required this.database,
-    @required this.sharedPreferences,
-    @required this.notifications,
+    required this.database,
+    required this.sharedPreferences,
+    required this.notifications,
   });
 
   @override

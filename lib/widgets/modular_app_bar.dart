@@ -1,12 +1,12 @@
 import "package:flutter/material.dart";
 import "./modular_icon_button.dart";
 
-class ModularAppBar extends StatelessWidget with PreferredSizeWidget {
-  final Text title;
+class ModularAppBar extends StatelessWidget implements PreferredSizeWidget {
+  final Text? title;
 
-  final List<ModularIconButton> actions;
+  final List<ModularIconButton>? actions;
 
-  final bool centerTitle;
+  final bool? centerTitle;
 
   final bool backArrow;
 
@@ -29,11 +29,11 @@ class ModularAppBar extends StatelessWidget with PreferredSizeWidget {
       onPressedFunction: () => Navigator.pushNamed(context, "/settings_screen"),
       icon: Icons.settings_rounded,
     );
-    List<ModularIconButton> actionsWithSettings;
+    List<ModularIconButton>? actionsWithSettings;
     if (actions == null && !hideSettingsButton) {
       actionsWithSettings = [settingAction];
     } else if (!hideSettingsButton) {
-      actions.add(settingAction);
+      actions!.add(settingAction);
       actionsWithSettings = actions;
     } else {
       actionsWithSettings = actions;

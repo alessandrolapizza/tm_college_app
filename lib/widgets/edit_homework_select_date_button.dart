@@ -5,14 +5,14 @@ import "./modular_outlined_button.dart";
 class EditHomeworkSelectDateButton extends StatelessWidget {
   final Function selectDateFunction;
 
-  final DateTime selectedDate;
+  final DateTime? selectedDate;
 
   final bool dateMissing;
 
   EditHomeworkSelectDateButton({
-    @required this.selectDateFunction,
-    @required this.selectedDate,
-    @required this.dateMissing,
+    required this.selectDateFunction,
+    required this.selectedDate,
+    required this.dateMissing,
   });
 
   @override
@@ -32,7 +32,7 @@ class EditHomeworkSelectDateButton extends StatelessWidget {
               ]
             : [
                 Text(
-                  DateFormat("EEE d MMMM").format(selectedDate),
+                  DateFormat("EEE d MMMM").format(selectedDate!),
                 )
               ],
       ),

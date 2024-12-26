@@ -15,8 +15,8 @@ class AdvancedNotificationsSettingsBody extends StatefulWidget {
   final Notifications notifications;
 
   AdvancedNotificationsSettingsBody({
-    @required this.sharedPreferences,
-    @required this.notifications,
+    required this.sharedPreferences,
+    required this.notifications,
   });
 
   @override

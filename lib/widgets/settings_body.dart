@@ -21,11 +21,11 @@ class SettingsBody extends StatefulWidget {
   final ConfettiController confettiController;
 
   SettingsBody({
-    @required this.database,
-    @required this.notifications,
-    @required this.sharedPreferences,
-    @required this.packageInfo,
-    @required this.confettiController,
+    required this.database,
+    required this.notifications,
+    required this.sharedPreferences,
+    required this.packageInfo,
+    required this.confettiController,
   });
 
   @override
@@ -34,7 +34,7 @@ class SettingsBody extends StatefulWidget {
 
 class _SettingsBodyState extends State<SettingsBody>
     with WidgetsBindingObserver {
-  Future<String> _permissionStatusFuture;
+  Future<String>? _permissionStatusFuture;
 
   @override
   void initState() {

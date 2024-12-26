@@ -12,8 +12,8 @@ class OneTimeIntroductionScreen extends StatefulWidget {
   final SharedPreferences sharedPreferences;
 
   OneTimeIntroductionScreen({
-    @required this.notifications,
-    @required this.sharedPreferences,
+    required this.notifications,
+    required this.sharedPreferences,
   });
 
   @override
@@ -24,7 +24,7 @@ class OneTimeIntroductionScreen extends StatefulWidget {
 class _OneTimeIntroductionScreenState extends State<OneTimeIntroductionScreen> {
   bool _show = false;
 
-  void _showDoneButton({@required bool show}) {
+  void _showDoneButton({required bool show}) {
     setState(() => _show = show);
   }
 
@@ -33,7 +33,8 @@ class _OneTimeIntroductionScreenState extends State<OneTimeIntroductionScreen> {
     return IntroductionScreen(
       dotsFlex: 2,
       showDoneButton: _show,
-      color: Colors.black,
+
+      // color: Colors.,
       done: Text(
         "Terminé",
         style: TextStyle(fontWeight: FontWeight.w600),

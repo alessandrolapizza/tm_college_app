@@ -11,19 +11,19 @@ import "./modular_outlined_button.dart";
 import "./theme_controller.dart";
 
 class EditGradeDialog extends StatefulWidget {
-  final List<Subject> subjects;
+  final List<Subject>? subjects;
 
   final SharedPreferences sharedPreferences;
 
   final MyDatabase database;
 
-  final Grade grade;
+  final Grade? grade;
 
   final bool singleSubject;
 
   EditGradeDialog({
-    @required this.sharedPreferences,
-    @required this.database,
+    required this.sharedPreferences,
+    required this.database,
     this.singleSubject = false,
     this.grade,
     this.subjects,
@@ -41,7 +41,7 @@ class _EditGradeDialogState extends State<EditGradeDialog> {
 
   final TextEditingController _gradeController = TextEditingController();
 
-  DateTime _selectedGradeDate;
+  DateTime? _selectedGradeDate;
 
   String _dropdownValue = "0";
 
@@ -51,27 +51,27 @@ class _EditGradeDialogState extends State<EditGradeDialog> {
   void initState() {
     super.initState();
     if (widget.grade != null) {
-      _gradeController.text = widget.grade.grade.toString();
-      _selectedGradeDate = widget.grade.date;
+      _gradeController.text = widget.grade!.grade.toString();
+      _selectedGradeDate = widget.grade!.date;
       _coefficientController.text =
-          widget.grade.coefficient.toString();//.substring(0, 4);
+          widget.grade!.coefficient.toString();//.substring(0, 4);
     } else {
       _selectedGradeDate = DateTime.now().isAfter(
         DateTime.parse(
-          widget.sharedPreferences.getString("firstTermBeginingDate"),
+          widget.sharedPreferences.getString("firstTermBeginingDate")!,
         ),
       )
           ? DateTime.now().isBefore(
               DateTime.parse(
-                widget.sharedPreferences.getString("secondTermEndingDate"),
+                widget.sharedPreferences.getString("secondTermEndingDate")!,
               ),
             )
               ? DateTime.now()
               : DateTime.parse(
-                  widget.sharedPreferences.getString("secondTermEndingDate"),
+                  widget.sharedPreferences.getString("secondTermEndingDate")!,
                 )
           : DateTime.parse(
-              widget.sharedPreferences.getString("firstTermBeginingDate"),
+              widget.sharedPreferences.getString("firstTermBeginingDate")!,
             );
     }
   }
@@ -83,16 +83,16 @@ class _EditGradeDialogState extends State<EditGradeDialog> {
   }
 
   Future<void> _selectGradeDate() async {
-    DateTime date = await showDatePicker(
+    DateTime? date = await showDatePicker(
       cancelText: "Annuler",
       confirmText: "OK",
       context: context,
-      initialDate: _selectedGradeDate,
+      initialDate: _selectedGradeDate!,
       firstDate: DateTime.parse(
-        widget.sharedPreferences.getString("firstTermBeginingDate"),
+        widget.sharedPreferences.getString("firstTermBeginingDate")!,
       ),
       lastDate: DateTime.parse(
-        widget.sharedPreferences.getString("secondTermEndingDate"),
+        widget.sharedPreferences.getString("secondTermEndingDate")!,
       ),
     );
     if (date != null) {
@@ -101,7 +101,7 @@ class _EditGradeDialogState extends State<EditGradeDialog> {
   }
 
   _editGrade() {
-    if (_editGradeFormKey.currentState.validate() &&
+    if (_editGradeFormKey.currentState!.validate() &&
         _selectedGradeDate != null) {
       if (widget.grade != null) {
         widget.database.updateGrade(Grade(
@@ -109,8 +109,8 @@ class _EditGradeDialogState extends State<EditGradeDialog> {
                 double.parse(_coefficientController.text.replaceAll(",", ".")),
             date: _selectedGradeDate,
             grade: double.parse(_gradeController.text.replaceAll(",", ".")),
-            subjectId: widget.grade.subjectId,
-            id: widget.grade.id));
+            subjectId: widget.grade!.subjectId,
+            id: widget.grade!.id));
       } else {
         widget.database.insertGrade(
           Grade(
@@ -118,8 +118,8 @@ class _EditGradeDialogState extends State<EditGradeDialog> {
                   _coefficientController.text.replaceAll(",", ".")),
               date: _selectedGradeDate,
               grade: double.parse(_gradeController.text.replaceAll(",", ".")),
-              subjectId: widget.subjects.length == 1
-                  ? widget.subjects[0].id
+              subjectId: widget.subjects!.length == 1
+                  ? widget.subjects![0].id
                   : _dropdownValue),
         );
       }
@@ -161,7 +161,7 @@ class _EditGradeDialogState extends State<EditGradeDialog> {
                   child: _selectedGradeDate == null
                       ? Text("Date")
                       : Text(
-                          DateFormat("EEE d MMMM").format(_selectedGradeDate),
+                          DateFormat("EEE d MMMM").format(_selectedGradeDate!),
                         ),
                   missingObject: _gradeDateMissing,
                 ),

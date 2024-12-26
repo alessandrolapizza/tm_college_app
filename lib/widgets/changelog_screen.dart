@@ -13,8 +13,8 @@ class ChangelogScreen extends StatelessWidget {
   final bool fromSettings;
 
   ChangelogScreen({
-    @required this.packageInfo,
-    @required this.sharedPreferences,
+    required this.packageInfo,
+    required this.sharedPreferences,
     this.fromSettings = false,
   });
 

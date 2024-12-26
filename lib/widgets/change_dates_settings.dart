@@ -12,14 +12,14 @@ import 'package:tm_college_app/widgets/modular_settings_tile.dart';
 class ChangeDatesSettings extends StatefulWidget {
   final SharedPreferences sharedPreferences;
 
-  final MyDatabase database;
+  final MyDatabase? database;
 
-  final Notifications notifications;
+  final Notifications? notifications;
 
-  final Function showDoneButtonFunction;
+  final Function? showDoneButtonFunction;
 
   ChangeDatesSettings({
-    @required this.sharedPreferences,
+    required this.sharedPreferences,
     this.database,
     this.notifications,
     this.showDoneButtonFunction,
@@ -30,25 +30,25 @@ class ChangeDatesSettings extends StatefulWidget {
 }
 
 class _ChangeDatesSettingsState extends State<ChangeDatesSettings> {
-  DateTime getDateTime({@required String date}) {
+  DateTime? getDateTime({required String date}) {
     return widget.sharedPreferences.getString(date) == null
         ? null
         : DateTime.parse(
-            widget.sharedPreferences.getString(date),
+            widget.sharedPreferences.getString(date)!,
           );
   }
 
   void selectFirstTermBeginingDate() async {
-    DateTime date = await showDatePicker(
+    DateTime? date = await showDatePicker(
       confirmText: "OK",
       cancelText: "Annuler",
       context: context,
       initialDate: getDateTime(date: "firstTermBeginingDate") == null
           ? DateTime.now()
-          : getDateTime(date: "firstTermBeginingDate"),
+          : getDateTime(date: "firstTermBeginingDate")!,
       firstDate: DateTime(DateTime.now().year - 1),
       lastDate: getDateTime(date: "secondTermBeginingDate") != null
-          ? getDateTime(date: "secondTermBeginingDate").subtract(
+          ? getDateTime(date: "secondTermBeginingDate")!.subtract(
               Duration(days: 1),
             )
           : DateTime(DateTime.now().year + 1, 12, 29),
@@ -56,12 +56,12 @@ class _ChangeDatesSettingsState extends State<ChangeDatesSettings> {
     if (date != null) {
       if (widget.database != null) {
         List<Homework> outHomeworks = await Homework.outHomeworks(
-          database: widget.database,
+          database: widget.database!,
           sharedPreferences: widget.sharedPreferences,
           firstTermBeginingDate: date,
         );
         List<Grade> outGrades = await Grade.outGrades(
-          database: widget.database,
+          database: widget.database!,
           sharedPreferences: widget.sharedPreferences,
           firstTermBeginingDate: date,
         );
@@ -87,7 +87,7 @@ class _ChangeDatesSettingsState extends State<ChangeDatesSettings> {
                     onPressed: () async {
                       outHomeworks.forEach(
                         (homework) async {
-                          await widget.database.deleteHomework(
+                          await widget.database!.deleteHomework(
                             homework: homework,
                             notifications: widget.notifications,
                           );
@@ -95,7 +95,7 @@ class _ChangeDatesSettingsState extends State<ChangeDatesSettings> {
                       );
                       outGrades.forEach(
                         (grade) async {
-                          await widget.database.deleteGrade(
+                          await widget.database!.deleteGrade(
                             grade.id,
                           );
                         },
@@ -124,24 +124,24 @@ class _ChangeDatesSettingsState extends State<ChangeDatesSettings> {
   }
 
   void selectSecondTermBeginingDate() async {
-    DateTime date = await showDatePicker(
+    DateTime? date = await showDatePicker(
       confirmText: "OK",
       cancelText: "Annuler",
       context: context,
       initialDate: getDateTime(date: "secondTermBeginingDate") == null
           ? DateTime.parse(
-              widget.sharedPreferences.getString("firstTermBeginingDate"),
+              widget.sharedPreferences.getString("firstTermBeginingDate")!,
             ).add(
               Duration(days: 1),
             )
-          : getDateTime(date: "secondTermBeginingDate"),
+          : getDateTime(date: "secondTermBeginingDate")!,
       firstDate: DateTime.parse(
-        widget.sharedPreferences.getString("firstTermBeginingDate"),
+        widget.sharedPreferences.getString("firstTermBeginingDate")!,
       ).add(
         Duration(days: 1),
       ),
       lastDate: getDateTime(date: "secondTermEndingDate") != null
-          ? getDateTime(date: "secondTermEndingDate").subtract(
+          ? getDateTime(date: "secondTermEndingDate")!.subtract(
               Duration(days: 1),
             )
           : DateTime(DateTime.now().year + 1, 12, 30),
@@ -154,19 +154,19 @@ class _ChangeDatesSettingsState extends State<ChangeDatesSettings> {
   }
 
   void selectSecondTermEndingDate() async {
-    DateTime date = await showDatePicker(
+    DateTime? date = await showDatePicker(
       confirmText: "OK",
       cancelText: "Annuler",
       context: context,
       initialDate: getDateTime(date: "secondTermEndingDate") == null
           ? DateTime.parse(
-              widget.sharedPreferences.getString("secondTermBeginingDate"),
+              widget.sharedPreferences.getString("secondTermBeginingDate")!,
             ).add(
               Duration(days: 1),
             )
-          : getDateTime(date: "secondTermEndingDate"),
+          : getDateTime(date: "secondTermEndingDate")!,
       firstDate: DateTime.parse(
-        widget.sharedPreferences.getString("secondTermBeginingDate"),
+        widget.sharedPreferences.getString("secondTermBeginingDate")!,
       ).add(
         Duration(days: 1),
       ),
@@ -175,12 +175,12 @@ class _ChangeDatesSettingsState extends State<ChangeDatesSettings> {
     if (date != null) {
       if (widget.database != null) {
         List<Homework> outHomeworks = await Homework.outHomeworks(
-          database: widget.database,
+          database: widget.database!,
           sharedPreferences: widget.sharedPreferences,
           secondTermEndingDate: date,
         );
         List<Grade> outGrades = await Grade.outGrades(
-          database: widget.database,
+          database: widget.database!,
           sharedPreferences: widget.sharedPreferences,
           secondTermEndingDate: date,
         );
@@ -206,7 +206,7 @@ class _ChangeDatesSettingsState extends State<ChangeDatesSettings> {
                     onPressed: () async {
                       outHomeworks.forEach(
                         (homework) async {
-                          await widget.database.deleteHomework(
+                          await widget.database!.deleteHomework(
                             homework: homework,
                             notifications: widget.notifications,
                           );
@@ -214,7 +214,7 @@ class _ChangeDatesSettingsState extends State<ChangeDatesSettings> {
                       );
                       outGrades.forEach(
                         (grade) async {
-                          await widget.database.deleteGrade(
+                          await widget.database!.deleteGrade(
                             grade.id,
                           );
                         },
@@ -238,7 +238,7 @@ class _ChangeDatesSettingsState extends State<ChangeDatesSettings> {
         await widget.sharedPreferences
             .setString("secondTermEndingDate", date.toString());
         setState(() {});
-        widget.showDoneButtonFunction(show: true);
+        widget.showDoneButtonFunction!(show: true);
       }
     }
   }
@@ -265,7 +265,7 @@ class _ChangeDatesSettingsState extends State<ChangeDatesSettings> {
                       : DateFormat("dd.MM.y").format(
                           DateTime.parse(
                             widget.sharedPreferences
-                                .getString("firstTermBeginingDate"),
+                                .getString("firstTermBeginingDate")!,
                           ),
                         ),
               leading: Icon(Icons.edit_calendar_rounded),
@@ -285,7 +285,7 @@ class _ChangeDatesSettingsState extends State<ChangeDatesSettings> {
                   : DateFormat("dd.MM.y").format(
                       DateTime.parse(
                         widget.sharedPreferences
-                            .getString("secondTermBeginingDate"),
+                            .getString("secondTermBeginingDate")!,
                       ),
                     ),
             ),
@@ -304,39 +304,39 @@ class _ChangeDatesSettingsState extends State<ChangeDatesSettings> {
                       : DateFormat("dd.MM.y").format(
                           DateTime.parse(
                             widget.sharedPreferences
-                                .getString("secondTermEndingDate"),
+                                .getString("secondTermEndingDate")!,
                           ),
                         ),
             ),
           ],
         ),
-        widget.database == null
-            ? null
-            : CustomSettingsSection(
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  child: Wrap(children: [
-                    Text(
-                      "Les dates de début et de fin de semestres servent à calculer tes moyennes correctement ainsi qu'à déterminer la période valide où tu peux entrer de nouveaux devoirs.\n\nSi tu commences une nouvelle année scolaire, ce n'est peut-être pas l'option que tu cherches. Voir : ",
-                      style: TextStyle(color: Colors.grey[600]),
-                    ),
-                    Center(
-                      child: TextButton(
-                        child: Text("Commencer une nouvelle année scolaire"),
-                        onPressed: () {
-                          Navigator.pop(context);
-                          Navigator.pushNamed(
-                              context, "start_new_school_year_settings_screen");
-                        },
-                      ),
-                    ),
-                    Text(
-                      "\nPour rappel, le calcul de la moyenne se fait comme suit :\n\nMoyenne = (Moyenne du premier semestre arrondie au dixième + Moyenne du deuxième semestre arrondie au dixième) / 2\n\n",
-                      style: TextStyle(color: Colors.grey[600]),
-                    )
-                  ]),
-                ),
-              )
+        // widget.database == null
+        //     ? null
+        //     : CustomSettingsSection(
+        //         child: Container(
+        //           padding: EdgeInsets.symmetric(horizontal: 20),
+        //           child: Wrap(children: [
+        //             Text(
+        //               "Les dates de début et de fin de semestres servent à calculer tes moyennes correctement ainsi qu'à déterminer la période valide où tu peux entrer de nouveaux devoirs.\n\nSi tu commences une nouvelle année scolaire, ce n'est peut-être pas l'option que tu cherches. Voir : ",
+        //               style: TextStyle(color: Colors.grey[600]),
+        //             ),
+        //             Center(
+        //               child: TextButton(
+        //                 child: Text("Commencer une nouvelle année scolaire"),
+        //                 onPressed: () {
+        //                   Navigator.pop(context);
+        //                   Navigator.pushNamed(
+        //                       context, "start_new_school_year_settings_screen");
+        //                 },
+        //               ),
+        //             ),
+        //             Text(
+        //               "\nPour rappel, le calcul de la moyenne se fait comme suit :\n\nMoyenne = (Moyenne du premier semestre arrondie au dixième + Moyenne du deuxième semestre arrondie au dixième) / 2\n\n",
+        //               style: TextStyle(color: Colors.grey[600]),
+        //             )
+        //           ]),
+        //         ),
+        //       )
       ],
     );
   }

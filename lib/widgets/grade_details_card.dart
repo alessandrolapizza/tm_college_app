@@ -11,9 +11,9 @@ class GradeDetailsCard extends StatelessWidget {
   final Function deleteGradeFunction;
 
   GradeDetailsCard({
-    @required this.grade,
-    @required this.editGradeFunction,
-    @required this.deleteGradeFunction,
+    required this.grade,
+    required this.editGradeFunction,
+    required this.deleteGradeFunction,
   });
 
   @override
@@ -29,7 +29,7 @@ class GradeDetailsCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Text(
-                    DateFormat("dd.MM.yyyy").format(grade.date),
+                    DateFormat("dd.MM.yyyy").format(grade.date!),
                   ),
                   Text(
                     grade.grade.toString(),

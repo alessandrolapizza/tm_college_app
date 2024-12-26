@@ -9,9 +9,9 @@ class VersionChangelogBloc extends StatelessWidget {
   final PackageInfo packageInfo;
 
   VersionChangelogBloc({
-    @required this.changelogText,
-    @required this.version,
-    @required this.packageInfo,
+    required this.changelogText,
+    required this.version,
+    required this.packageInfo,
   });
 
   @override

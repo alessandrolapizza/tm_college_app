@@ -8,8 +8,8 @@ class AdvancedNotificationsSettingsDayNumberPicker extends StatefulWidget {
   final int notificationsPriorityNumber;
 
   AdvancedNotificationsSettingsDayNumberPicker({
-    @required this.sharedPreferences,
-    @required this.notificationsPriorityNumber,
+    required this.sharedPreferences,
+    required this.notificationsPriorityNumber,
   });
 
   @override

@@ -5,22 +5,22 @@ import "./circle_avatar_with_border.dart";
 import "./modular_chart.dart";
 
 class AverageCard extends StatelessWidget {
-  final Subject subject;
+  final Subject? subject;
 
-  final List<Map<DateTime, double>> averages;
+  final List<Map<DateTime, double>>? averages;
 
-  final Function onTapFunction;
+  final Function? onTapFunction;
 
   AverageCard({
-    @required this.subject,
-    @required this.averages,
+    required this.subject,
+    required this.averages,
     this.onTapFunction,
   });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onTapFunction != null ? onTapFunction : null,
+      onTap: onTapFunction != null ? onTapFunction as void Function()? : null,
       child: Card(
           child: Container(
         height: 100,
@@ -39,9 +39,9 @@ class AverageCard extends StatelessWidget {
                         child: Row(
                           children: [
                             CircleAvatarWithBorder(
-                                color: subject.color, icon: subject.icon),
+                                color: subject!.color, icon: subject!.icon),
                             Text(
-                              subject.name,
+                              subject!.name!,
                               style: TextStyle(
                                   fontWeight: FontWeight.w600, fontSize: 15),
                             ),
@@ -53,40 +53,46 @@ class AverageCard extends StatelessWidget {
                   ),
                   Expanded(
                     flex: 4,
-                    child: ModularChart(
-                      averages: averages,
-                      color: Grade.color(
-                        average: double.parse(
-                          averages[averages.length - 1]
-                              .values
-                              .toList()[0]
-                              .toStringAsFixed(1),
-                        ),
-                      ),
-                    ),
+                    child: averages == null
+                        ? Text("Chargement")
+                        : ModularChart(
+                            averages: averages,
+                            color: averages == null
+                                ? Colors.red
+                                : Grade.color(
+                                    average: double.parse(
+                                      averages![averages!.length - 1]
+                                          .values
+                                          .toList()[0]
+                                          .toStringAsFixed(1),
+                                    ),
+                                  ),
+                          ),
                   ),
                 ],
               ),
             ),
             Expanded(
               child: Center(
-                child: Text(
-                  averages[averages.length - 1]
-                      .values
-                      .toList()[0]
-                      .toStringAsFixed(1),
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      color: Grade.color(
-                        average: double.parse(
-                          averages[averages.length - 1]
-                              .values
-                              .toList()[0]
-                              .toStringAsFixed(1),
-                        ),
+                child: averages == null
+                    ? Text("Chargement ...")
+                    : Text(
+                        averages![averages!.length - 1]
+                            .values
+                            .toList()[0]
+                            .toStringAsFixed(1),
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            color: Grade.color(
+                              average: double.parse(
+                                averages![averages!.length - 1]
+                                    .values
+                                    .toList()[0]
+                                    .toStringAsFixed(1),
+                              ),
+                            ),
+                            fontSize: 30),
                       ),
-                      fontSize: 30),
-                ),
               ),
             )
           ],

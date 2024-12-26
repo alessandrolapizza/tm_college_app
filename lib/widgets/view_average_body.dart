@@ -18,10 +18,10 @@ class ViewAverageBody extends StatefulWidget {
   final int index;
 
   ViewAverageBody({
-    @required this.database,
-    @required this.sharedPreferences,
-    @required this.subject,
-    @required this.index,
+    required this.database,
+    required this.sharedPreferences,
+    required this.subject,
+    required this.index,
   });
 
   @override
@@ -32,7 +32,7 @@ class _ViewAverageBodyState extends State<ViewAverageBody> {
   final ScrollController _gradesScrollController = ScrollController();
 
   _deleteGrade({
-    @required String gradeId,
+    required String gradeId,
     bool lastGrade = false,
   }) {
     showDialog(
@@ -74,7 +74,7 @@ class _ViewAverageBodyState extends State<ViewAverageBody> {
     );
   }
 
-  _editGrade({@required Grade grade}) {
+  _editGrade({required Grade grade}) {
     showDialog(
       context: context,
       builder: (_) {
@@ -92,20 +92,31 @@ class _ViewAverageBodyState extends State<ViewAverageBody> {
     return FutureBuilder(
       future: widget.database.grades(),
       builder: (_, snapshot) {
-        Widget child;
+        // List<dynamic> maps;
+        Map<Subject?, List<Map<DateTime, double>>> averages = {};
+        Map<Subject?, Map<DateTime, List<Grade>>> gradesSorted = {};
         if (snapshot.hasData) {
           final maps = Grade.gradesMaps(
-            grades: snapshot.data,
+            grades: snapshot.data!, // as List<Grade>,
             sharedPreferences: widget.sharedPreferences,
           );
-          final Map<Subject, Map<DateTime, List<Grade>>> gradesSorted = maps[0];
-          final Map<Subject, List<Map<DateTime, double>>> averages = maps[1];
-          child = Column(
-            children: [
-              AverageCard(
-                subject: widget.subject,
-                averages: averages[averages.keys.toList()[widget.index]],
+          gradesSorted = maps[0];
+          averages = maps[1];
+        }
+        Widget child = Column(
+          children: [
+            Hero(
+              tag: "${widget.subject.id}",
+              child: Material(
+                child: AverageCard(
+                  subject: widget.subject,
+                  averages: snapshot.hasData
+                      ? averages[averages.keys.toList()[widget.index]]
+                      : null,
+                ),
               ),
+            ),
+            if (snapshot.hasData)
               Expanded(
                 child: GradesList(
                   gradesScrollController: _gradesScrollController,
@@ -116,11 +127,8 @@ class _ViewAverageBodyState extends State<ViewAverageBody> {
                       gradesSorted[averages.keys.toList()[widget.index]],
                 ),
               ),
-            ],
-          );
-        } else {
-          child = Center(child: CircularProgressIndicator());
-        }
+          ],
+        );
         return child;
       },
     );

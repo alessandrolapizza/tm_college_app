@@ -5,7 +5,7 @@ import "./grade_details_card.dart";
 import "./modular_sticky_header.dart";
 
 class GradesList extends StatelessWidget {
-  final Map<DateTime, List<Grade>> gradesSortedSubjectSpecific;
+  final Map<DateTime, List<Grade>>? gradesSortedSubjectSpecific;
 
   final SharedPreferences sharedPreferences;
 
@@ -16,21 +16,21 @@ class GradesList extends StatelessWidget {
   final ScrollController gradesScrollController;
 
   GradesList({
-    @required this.gradesSortedSubjectSpecific,
-    @required this.sharedPreferences,
-    @required this.deleteGradeFunction,
-    @required this.editGradeFunction,
-    @required this.gradesScrollController,
+    required this.gradesSortedSubjectSpecific,
+    required this.sharedPreferences,
+    required this.deleteGradeFunction,
+    required this.editGradeFunction,
+    required this.gradesScrollController,
   });
 
   @override
   Widget build(BuildContext context) {
     Map<DateTime, List<Grade>> firstSemester = {};
     Map<DateTime, List<Grade>> secondSemester = {};
-    gradesSortedSubjectSpecific.forEach((date, grades) {
+    gradesSortedSubjectSpecific!.forEach((date, grades) {
       if (date.isBefore(
         DateTime.parse(
-          sharedPreferences.getString("secondTermBeginingDate"),
+          sharedPreferences.getString("secondTermBeginingDate")!,
         ),
       )) {
         firstSemester[date] = grades;
@@ -57,23 +57,23 @@ class GradesList extends StatelessWidget {
                 physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: semesterGrades[index]
-                        [semesterGrades[index].keys.toList()[idx]]
+                        [semesterGrades[index].keys.toList()[idx]]!
                     .length,
                 itemBuilder: (_, i) {
                   return GradeDetailsCard(
                     editGradeFunction: editGradeFunction,
                     deleteGradeFunction: () => deleteGradeFunction(
                         gradeId: semesterGrades[index]
-                                [semesterGrades[index].keys.toList()[idx]][i]
+                                [semesterGrades[index].keys.toList()[idx]]![i]
                             .id,
-                        lastGrade: gradesSortedSubjectSpecific[
-                                        gradesSortedSubjectSpecific.keys
-                                            .toList()[0]]
+                        lastGrade: gradesSortedSubjectSpecific![
+                                        gradesSortedSubjectSpecific!.keys
+                                            .toList()[0]]!
                                     .length ==
                                 1 &&
-                            gradesSortedSubjectSpecific.keys.length == 1),
+                            gradesSortedSubjectSpecific!.keys.length == 1),
                     grade: semesterGrades[index]
-                        [semesterGrades[index].keys.toList()[idx]][i],
+                        [semesterGrades[index].keys.toList()[idx]]![i],
                   );
                 },
               );

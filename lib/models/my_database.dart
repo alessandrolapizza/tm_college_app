@@ -8,7 +8,7 @@ import "./notifications.dart";
 import "./subject.dart";
 
 class MyDatabase {
-  Future<Database> database;
+  Future<Database>? database;
 
   Future<void> defineDatabasePath() async {
     database = openDatabase(
@@ -29,7 +29,7 @@ class MyDatabase {
   }
 
   Future<void> inserertSubject(Subject matiere) async {
-    final db = await database;
+    final db = (await database)!;
     await db.insert(
       "subjects",
       matiere.toMapDb(),
@@ -38,7 +38,7 @@ class MyDatabase {
   }
 
   Future<void> insertHomework(Homework homework) async {
-    final db = await database;
+    final db = (await database)!;
     await db.insert(
       "homeworks",
       homework.toMapDb(),
@@ -47,7 +47,7 @@ class MyDatabase {
   }
 
   Future<void> insertGrade(Grade grade) async {
-    final db = await database;
+    final db = (await database)!;
     await db.insert(
       "grades",
       grade.toMapDb(),
@@ -56,7 +56,7 @@ class MyDatabase {
   }
 
   Future<List<Subject>> subjects() async {
-    final Database db = await database;
+    final Database db = (await database)!;
 
     final List<Map<String, dynamic>> maps = await db.query("subjects");
 
@@ -78,7 +78,7 @@ class MyDatabase {
   }
 
   Future<List<Homework>> homeworks() async {
-    final db = await database;
+    final db = (await database)!;
 
     Map<String, Subject> subjectsIdMaps = {
       Subject.noSubject.id: Subject.noSubject
@@ -118,7 +118,7 @@ class MyDatabase {
   }
 
   Future<List<Grade>> grades() async {
-    final db = await database;
+    final db = (await database)!;
 
     Map<String, Subject> subjectsIdMaps = {};
 
@@ -144,7 +144,7 @@ class MyDatabase {
   }
 
   Future<void> updateSubject(Subject subject) async {
-    final db = await database;
+    final db = (await database)!;
     await db.update(
       "subjects",
       subject.toMapDb(),
@@ -154,7 +154,7 @@ class MyDatabase {
   }
 
   Future<void> updateHomework(Homework homework) async {
-    final db = await database;
+    final db = (await database)!;
     await db.update(
       "homeworks",
       homework.toMapDb(),
@@ -164,7 +164,7 @@ class MyDatabase {
   }
 
   Future<void> updateGrade(Grade grade) async {
-    final db = await database;
+    final db = (await database)!;
     await db.update(
       "grades",
       grade.toMapDb(),
@@ -174,7 +174,7 @@ class MyDatabase {
   }
 
   Future<void> deleteGrade(String id) async {
-    final db = await database;
+    final db = (await database)!;
     await db.delete(
       "grades",
       where: "id = ?",
@@ -183,14 +183,14 @@ class MyDatabase {
   }
 
   Future<void> deleteHomework({
-    @required Homework homework,
-    @required Notifications notifications,
+    required Homework homework,
+    required Notifications? notifications,
   }) async {
-    final db = await database;
+    final db = (await database)!;
     final String id = homework.id;
     if (homework.notificationsIds != null) {
-      await notifications
-          .cancelMultipleNotifications(homework.notificationsIds);
+      await notifications!
+          .cancelMultipleNotifications(homework.notificationsIds!);
     }
     await db.delete(
       "homeworks",
@@ -200,10 +200,10 @@ class MyDatabase {
   }
 
   Future<void> deleteSubject({
-    @required Subject subject,
-    @required Notifications notifications,
+    required Subject subject,
+    required Notifications notifications,
   }) async {
-    final db = await database;
+    final db = (await database)!;
 
     final String id = subject.id;
 

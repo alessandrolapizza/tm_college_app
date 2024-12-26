@@ -5,17 +5,17 @@ import "../models/subject.dart";
 class EditHomeworkSelectSubjectButton extends StatelessWidget {
   final Function selectSubjectFunction;
 
-  final Subject selectedSubject;
+  final Subject? selectedSubject;
 
   EditHomeworkSelectSubjectButton({
-    @required this.selectSubjectFunction,
-    @required this.selectedSubject,
+    required this.selectSubjectFunction,
+    required this.selectedSubject,
   });
 
   @override
   Widget build(BuildContext context) {
     return ModularOutlinedButton(
-      onPressedFunction: selectSubjectFunction,
+      onPressedFunction: () => selectSubjectFunction(context),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children:
@@ -28,8 +28,8 @@ class EditHomeworkSelectSubjectButton extends StatelessWidget {
                     ),
                   ]
                 : [
-                    Icon(selectedSubject.icon),
-                    Text(" " + selectedSubject.name),
+                    Icon(selectedSubject!.icon),
+                    Text(" " + selectedSubject!.name!),
                   ],
       ),
     );

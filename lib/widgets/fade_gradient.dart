@@ -3,7 +3,7 @@ import "package:flutter/material.dart";
 class FadeGradient extends StatelessWidget {
   final Widget child;
 
-  FadeGradient({@required this.child});
+  FadeGradient({required this.child});
 
   @override
   Widget build(BuildContext context) {

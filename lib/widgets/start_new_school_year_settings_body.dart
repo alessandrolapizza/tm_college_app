@@ -16,9 +16,9 @@ class StartNewSchoolYearSettingsBody extends StatelessWidget {
   final Notifications notifications;
 
   StartNewSchoolYearSettingsBody({
-    @required this.sharedPreferences,
-    @required this.database,
-    @required this.notifications,
+    required this.sharedPreferences,
+    required this.database,
+    required this.notifications,
   });
 
   @override

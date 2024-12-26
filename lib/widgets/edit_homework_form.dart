@@ -1,13 +1,13 @@
 import "package:flutter/material.dart";
 
 class EditHomeworkForm extends StatelessWidget {
-  final TextEditingController homeworkContentController;
+  final TextEditingController? homeworkContentController;
 
   final GlobalKey<FormState> createHomeworkFormKey;
 
   EditHomeworkForm({
-    @required this.homeworkContentController,
-    @required this.createHomeworkFormKey,
+    required this.homeworkContentController,
+    required this.createHomeworkFormKey,
   });
 
   @override

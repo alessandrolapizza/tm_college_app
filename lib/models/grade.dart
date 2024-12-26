@@ -7,17 +7,17 @@ import "./subject.dart";
 
 class Grade {
   final String id;
-  final String subjectId;
-  final Subject subject;
-  final double grade;
-  final double coefficient;
-  final DateTime date;
+  final String? subjectId;
+  final Subject? subject;
+  final double? grade;
+  final double? coefficient;
+  final DateTime? date;
 
   Grade({
-    @required this.coefficient,
-    @required this.date,
-    @required this.grade,
-    @required this.subjectId,
+    required this.coefficient,
+    required this.date,
+    required this.grade,
+    required this.subjectId,
     this.subject,
     id,
   }) : id = id == null ? Uuid().v1() : id;
@@ -32,7 +32,7 @@ class Grade {
     };
   }
 
-  static Color color({@required average}) {
+  static Color? color({required average}) {
     if (average < 3) {
       return Colors.red[400];
     } else if (average < 4) {
@@ -45,17 +45,17 @@ class Grade {
   }
 
   static List<dynamic> gradesMaps({
-    @required List<Grade> grades,
-    @required SharedPreferences sharedPreferences,
+    required List<Grade> grades,
+    required SharedPreferences sharedPreferences,
   }) {
-    Map<Subject, List<Grade>> gradesSubjectsMap = {};
-    Map<Subject, Map<DateTime, List<Grade>>> gradesSorted = {};
-    Map<Subject, List<Map<DateTime, double>>> averages = {};
+    Map<Subject?, List<Grade>> gradesSubjectsMap = {};
+    Map<Subject?, Map<DateTime, List<Grade>>> gradesSorted = {};
+    Map<Subject?, List<Map<DateTime, double>>> averages = {};
 
     grades.forEach(
       (Grade grade) {
         if (gradesSubjectsMap.containsKey(grade.subject)) {
-          gradesSubjectsMap[grade.subject].add(grade);
+          gradesSubjectsMap[grade.subject]!.add(grade);
         } else {
           gradesSubjectsMap[grade.subject] = [grade];
         }
@@ -66,16 +66,16 @@ class Grade {
       (subject) {
         SortedMap<Comparable<DateTime>, List<Grade>> gradesDatesMapSorted =
             SortedMap(Ordering.byKey());
-        gradesSubjectsMap[subject].forEach(
+        gradesSubjectsMap[subject]!.forEach(
           (Grade grade) {
             if (gradesDatesMapSorted.containsKey(DateTime.utc(
-                grade.date.year, grade.date.month, grade.date.day))) {
+                grade.date!.year, grade.date!.month, grade.date!.day))) {
               gradesDatesMapSorted[DateTime.utc(
-                      grade.date.year, grade.date.month, grade.date.day)]
+                      grade.date!.year, grade.date!.month, grade.date!.day)]!
                   .add(grade);
             } else {
               gradesDatesMapSorted[DateTime.utc(
-                  grade.date.year, grade.date.month, grade.date.day)] = [grade];
+                  grade.date!.year, grade.date!.month, grade.date!.day)] = [grade];
             }
           },
         );
@@ -85,44 +85,44 @@ class Grade {
 
     gradesSorted.keys.forEach(
       (subject) {
-        gradesSorted[subject].keys.forEach(
+        gradesSorted[subject]!.keys.forEach(
           (DateTime date) {
             double grades = 0;
             double coefficients = 0;
             double secondSemesterGrades = 0;
             double secondSemesterCoefficients = 0;
-            gradesSorted[subject][date].forEach(
+            gradesSorted[subject]![date]!.forEach(
               (Grade grade) {
                 if (date.isBefore(
                   DateTime.parse(
-                    sharedPreferences.getString("secondTermBeginingDate"),
+                    sharedPreferences.getString("secondTermBeginingDate")!,
                   ),
                 )) {
-                  grades += (grade.grade * grade.coefficient);
-                  coefficients += grade.coefficient;
+                  grades += (grade.grade! * grade.coefficient!);
+                  coefficients += grade.coefficient!;
                 } else {
-                  secondSemesterGrades += (grade.grade * grade.coefficient);
-                  secondSemesterCoefficients += grade.coefficient;
+                  secondSemesterGrades += (grade.grade! * grade.coefficient!);
+                  secondSemesterCoefficients += grade.coefficient!;
                 }
               },
             );
-            gradesSorted[subject].keys.forEach(
+            gradesSorted[subject]!.keys.forEach(
               (DateTime subDate) {
                 if (subDate.isBefore(date)) {
-                  gradesSorted[subject][subDate].forEach(
+                  gradesSorted[subject]![subDate]!.forEach(
                     //test
                     (Grade subGrade) {
                       if (subDate.isBefore(
                         DateTime.parse(
-                          sharedPreferences.getString("secondTermBeginingDate"),
+                          sharedPreferences.getString("secondTermBeginingDate")!,
                         ),
                       )) {
-                        grades += (subGrade.grade * subGrade.coefficient);
-                        coefficients += subGrade.coefficient;
+                        grades += (subGrade.grade! * subGrade.coefficient!);
+                        coefficients += subGrade.coefficient!;
                       } else {
                         secondSemesterGrades +=
-                            (subGrade.grade * subGrade.coefficient);
-                        secondSemesterCoefficients += subGrade.coefficient;
+                            (subGrade.grade! * subGrade.coefficient!);
+                        secondSemesterCoefficients += subGrade.coefficient!;
                       }
                     },
                   );
@@ -130,7 +130,7 @@ class Grade {
               },
             );
             if (averages.containsKey(subject)) {
-              averages[subject].add({
+              averages[subject]!.add({
                 date: secondSemesterCoefficients == 0
                     ? (grades / coefficients)
                     : coefficients == 0
@@ -166,28 +166,28 @@ class Grade {
   }
 
   static Future<List<Grade>> outGrades({
-    @required MyDatabase database,
-    @required SharedPreferences sharedPreferences,
-    DateTime firstTermBeginingDate,
-    DateTime secondTermEndingDate,
+    required MyDatabase database,
+    required SharedPreferences sharedPreferences,
+    DateTime? firstTermBeginingDate,
+    DateTime? secondTermEndingDate,
   }) async {
     List<Grade> outGrades = [];
     List<Grade> grades = await database.grades();
     grades.forEach(
       (grade) async {
-        if (grade.date.isBefore(firstTermBeginingDate == null
+        if (grade.date!.isBefore(firstTermBeginingDate == null
                 ? DateTime.parse(
                     sharedPreferences.getString(
                       "firstTermBeginingDate",
-                    ),
+                    )!,
                   )
                 : firstTermBeginingDate) ||
-            grade.date.isAfter(
+            grade.date!.isAfter(
               secondTermEndingDate == null
                   ? DateTime.parse(
                       sharedPreferences.getString(
                         "secondTermEndingDate",
-                      ),
+                      )!,
                     )
                   : secondTermEndingDate,
             )) {

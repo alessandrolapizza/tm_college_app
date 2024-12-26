@@ -10,17 +10,17 @@ import "./fade_gradient.dart";
 class EditHomeworkBody extends StatelessWidget {
   final Function selectSubjectFunction;
 
-  final Subject selectedSubject;
+  final Subject? selectedSubject;
 
-  final TextEditingController homeworkContentController;
+  final TextEditingController? homeworkContentController;
 
   final Function selectDateFunction;
 
-  final DateTime selectedDate;
+  final DateTime? selectedDate;
 
   final Function selectPriorityFunction;
 
-  final int selectedPriority;
+  final int? selectedPriority;
 
   final Function editHomeworkFunction;
 
@@ -29,16 +29,16 @@ class EditHomeworkBody extends StatelessWidget {
   final bool dateMissing;
 
   EditHomeworkBody({
-    @required this.selectSubjectFunction,
-    @required this.selectedSubject,
-    @required this.homeworkContentController,
-    @required this.selectDateFunction,
-    @required this.selectedDate,
-    @required this.selectPriorityFunction,
-    @required this.selectedPriority,
-    @required this.editHomeworkFunction,
-    @required this.createHomeworkFormKey,
-    @required this.dateMissing,
+    required this.selectSubjectFunction,
+    required this.selectedSubject,
+    required this.homeworkContentController,
+    required this.selectDateFunction,
+    required this.selectedDate,
+    required this.selectPriorityFunction,
+    required this.selectedPriority,
+    required this.editHomeworkFunction,
+    required this.createHomeworkFormKey,
+    required this.dateMissing,
   });
 
   @override

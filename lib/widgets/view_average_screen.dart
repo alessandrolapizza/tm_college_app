@@ -14,8 +14,8 @@ class ViewAverageScreen extends StatefulWidget {
   final SharedPreferences sharedPreferences;
 
   ViewAverageScreen({
-    @required this.database,
-    @required this.sharedPreferences,
+    required this.database,
+    required this.sharedPreferences,
   });
 
   @override
@@ -25,7 +25,7 @@ class ViewAverageScreen extends StatefulWidget {
 class _ViewAverageScreenState extends State<ViewAverageScreen> {
   @override
   Widget build(BuildContext context) {
-    final List<dynamic> arguments = ModalRoute.of(context).settings.arguments;
+    final List<dynamic> arguments = ModalRoute.of(context)!.settings.arguments as List<dynamic>;
     final Subject subject = arguments[0];
     final int index = arguments[1];
     return ThemeController(

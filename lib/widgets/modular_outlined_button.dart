@@ -1,14 +1,14 @@
 import "package:flutter/material.dart";
 
 class ModularOutlinedButton extends StatelessWidget {
-  final Widget child;
+  final Widget? child;
 
   final Function onPressedFunction;
 
   final missingObject;
 
   ModularOutlinedButton({
-    @required this.onPressedFunction,
+    required this.onPressedFunction,
     this.child,
     this.missingObject,
   });
@@ -20,15 +20,20 @@ class ModularOutlinedButton extends StatelessWidget {
       width: double.infinity,
       child: OutlinedButton(
         style: ButtonStyle(
+          iconColor: missingObject != null
+              ? missingObject
+                  ? WidgetStateProperty.all(Theme.of(context).colorScheme.error)
+                  : null
+              : null,
           foregroundColor: missingObject != null
               ? missingObject
-                  ? MaterialStateProperty.all(Colors.red)
+                  ? WidgetStateProperty.all(Theme.of(context).colorScheme.error)
                   : null
               : null,
           side: missingObject != null
               ? missingObject
-                  ? MaterialStateProperty.all(
-                      BorderSide(color: Colors.red),
+                  ? WidgetStateProperty.all(
+                      BorderSide(color: Theme.of(context).colorScheme.error),
                     )
                   : null
               : null,

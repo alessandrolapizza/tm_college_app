@@ -2,16 +2,16 @@ import "package:flutter/material.dart";
 import "./theme_controller.dart";
 
 class ModularAlertDialog extends StatelessWidget {
-  final List<Widget> actionButtons;
+  final List<Widget>? actionButtons;
 
-  final Color themeColor;
+  final Color? themeColor;
 
-  final Widget title;
+  final Widget? title;
 
-  final Widget content;
+  final Widget? content;
 
   ModularAlertDialog({
-    @required this.themeColor,
+    required this.themeColor,
     this.actionButtons,
     this.title,
     this.content,
@@ -19,20 +19,17 @@ class ModularAlertDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ThemeController(
-      color: themeColor,
-      child: AlertDialog(
-        title: title,
-        content: content,
-        actions: actionButtons == null
-            ? [
-                TextButton(
-                  child: Text("OK"),
-                  onPressed: () => Navigator.pop(context),
-                ),
-              ]
-            : actionButtons,
-      ),
+    return AlertDialog(
+      title: title,
+      content: content,
+      actions: actionButtons == null
+          ? [
+              TextButton(
+                child: Text("OK"),
+                onPressed: () => Navigator.pop(context),
+              ),
+            ]
+          : actionButtons,
     );
   }
 }

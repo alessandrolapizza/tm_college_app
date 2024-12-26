@@ -5,13 +5,13 @@ import "./view_homework_priority_banner.dart";
 import "../models/homework.dart";
 
 class ViewHomeworkBody extends StatelessWidget {
-  final Homework homework;
+  final Homework? homework;
 
   final bool homePage;
 
   ViewHomeworkBody({
-    @required this.homework,
-    @required this.homePage,
+    required this.homework,
+    required this.homePage,
   });
 
   @override

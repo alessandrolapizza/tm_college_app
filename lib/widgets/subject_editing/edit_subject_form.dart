@@ -8,9 +8,9 @@ class EditSubjectForm extends StatelessWidget {
   final GlobalKey<FormState> createSubjectFormKey;
 
   EditSubjectForm({
-    @required this.subjectNameController,
-    @required this.subjectRoomNumberController,
-    @required this.createSubjectFormKey,
+    required this.subjectNameController,
+    required this.subjectRoomNumberController,
+    required this.createSubjectFormKey,
   });
 
   @override
@@ -33,7 +33,7 @@ class EditSubjectForm extends StatelessWidget {
             textInputAction: TextInputAction.next,
             onEditingComplete: () => FocusScope.of(context).nextFocus(),
             decoration: InputDecoration(
-              icon: Icon(Icons.text_fields_rounded),
+              icon: Icon(Icons.title_rounded),
               labelText: "Nom",
               border: OutlineInputBorder(),
             ),

@@ -1,9 +1,9 @@
 import "package:flutter/material.dart";
 import "package:shared_preferences/shared_preferences.dart";
-import "../models/my_database.dart";
-import "../models/grade.dart";
-import "./empty_centered_text.dart";
-import "./average_card.dart";
+import "../../models/my_database.dart";
+import "../../models/grade.dart";
+import "../empty_centered_text.dart";
+import "../average_card.dart";
 
 class HomeScreenBodyAverages extends StatelessWidget {
   final MyDatabase database;
@@ -13,9 +13,9 @@ class HomeScreenBodyAverages extends StatelessWidget {
   final Function onTapFunctionGradeCard;
 
   HomeScreenBodyAverages({
-    @required this.database,
-    @required this.sharedPreferences,
-    @required this.onTapFunctionGradeCard,
+    required this.database,
+    required this.sharedPreferences,
+    required this.onTapFunctionGradeCard,
   });
 
   @override
@@ -25,8 +25,9 @@ class HomeScreenBodyAverages extends StatelessWidget {
       builder: (_, snapshot) {
         Widget child;
         if (snapshot.hasData) {
+          var snapshotData = snapshot.data! as List<Grade>;
           final List maps = Grade.gradesMaps(
-            grades: snapshot.data,
+            grades: snapshotData,
             sharedPreferences: sharedPreferences,
           );
           final gradesSorted = maps[0];
@@ -39,11 +40,19 @@ class HomeScreenBodyAverages extends StatelessWidget {
             child = ListView.builder(
               itemCount: gradesSorted.length,
               itemBuilder: (_, index) {
-                return AverageCard(
-                  onTapFunction: () => onTapFunctionGradeCard(
-                      index: index, subject: averages.keys.toList()[index]),
-                  subject: averages.keys.toList()[index],
-                  averages: averages[averages.keys.toList()[index]],
+                return Hero(
+                  tag: "${averages.keys.toList()[index].id}",
+                  child: Material(
+                    child: AverageCard(
+                      onTapFunction: () => onTapFunctionGradeCard(
+                        ctx: context,
+                        index: index,
+                        subject: averages.keys.toList()[index],
+                      ),
+                      subject: averages.keys.toList()[index],
+                      averages: averages[averages.keys.toList()[index]],
+                    ),
+                  ),
                 );
               },
             );

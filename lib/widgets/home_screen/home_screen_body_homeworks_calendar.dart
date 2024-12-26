@@ -17,9 +17,9 @@ class HomeScreenBodyHomeworksCalendar extends StatefulWidget {
   final Notifications notifications;
 
   HomeScreenBodyHomeworksCalendar({
-    @required this.notifications,
-    @required this.sharedPreferences,
-    @required this.database,
+    required this.notifications,
+    required this.sharedPreferences,
+    required this.database,
   });
 
   @override
@@ -29,9 +29,9 @@ class HomeScreenBodyHomeworksCalendar extends StatefulWidget {
 
 class _HomeScreenBodyHomeworksCalendarState
     extends State<HomeScreenBodyHomeworksCalendar> {
-  DateTime selectedDayVar;
+  DateTime? selectedDayVar;
 
-  DateTime focusedDayVar;
+  DateTime? focusedDayVar;
 
   void checkHomework(Homework homework) async {
     await Homework.homeworkChecker(
@@ -54,7 +54,7 @@ class _HomeScreenBodyHomeworksCalendarState
       context: context,
       builder: (_) {
         return ModularAlertDialog(
-          themeColor: homework.subject.color,
+          themeColor: homework.subject!.color,
           title: Text("Supprimer devoir ?"),
           content: Text("Es-tu sûr de vouloir supprimer ce devoir ?"),
           actionButtons: [
@@ -131,6 +131,7 @@ class _HomeScreenBodyHomeworksCalendarState
         future: widget.database.homeworks(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
+            var snapshotData = snapshot.data as List<Homework>;
             return SafeArea(
               child: TableCalendar(
                 headerStyle: HeaderStyle(
@@ -152,7 +153,7 @@ class _HomeScreenBodyHomeworksCalendarState
                       notifications: widget.notifications,
                       database: widget.database,
                       day: day,
-                      homeworks: snapshot.data,
+                      homeworks: snapshotData,
                     );
                   },
                   selectedBuilder: (context, day, focusedDay) {
@@ -165,7 +166,7 @@ class _HomeScreenBodyHomeworksCalendarState
                       database: widget.database,
                       day: day,
                       selected: true,
-                      homeworks: snapshot.data,
+                      homeworks: snapshotData,
                     );
                   },
                   todayBuilder: (context, day, focusedDay) {
@@ -176,7 +177,7 @@ class _HomeScreenBodyHomeworksCalendarState
                       checkFunction: checkHomework,
                       notifications: widget.notifications,
                       database: widget.database,
-                      homeworks: snapshot.data,
+                      homeworks: snapshotData,
                       day: day,
                       today: true,
                     );
@@ -187,7 +188,7 @@ class _HomeScreenBodyHomeworksCalendarState
                     int medium = 0;
                     int high = 0;
                     if (isSameDay(day, focusedDayVar)) {
-                      snapshot.data.forEach(
+                      snapshotData.forEach(
                         (homework) {
                           if (isSameDay(day, homework.dueDate) &&
                               !homework.done) {
@@ -242,7 +243,7 @@ class _HomeScreenBodyHomeworksCalendarState
                           child: Text(
                             toBeginningOfSentenceCase(
                               DateFormat("MMMM y").format(day),
-                            ),
+                            )!,
                           ),
                         ),
                       ],
@@ -272,26 +273,26 @@ class _HomeScreenBodyHomeworksCalendarState
                       child: Text(
                         DateFormat("E").format(day),
                         style: (day.isAfter(DateTime.now()))
-                            ? (day.isAfter(DateTime.parse(widget.sharedPreferences.getString("firstTermBeginingDate"))) || isSameDay(day, DateTime.parse(widget.sharedPreferences.getString("firstTermBeginingDate")))) &&
-                                    (day.isBefore(DateTime.parse(widget.sharedPreferences.getString("secondTermEndingDate"))) ||
+                            ? (day.isAfter(DateTime.parse(widget.sharedPreferences.getString("firstTermBeginingDate")!)) || isSameDay(day, DateTime.parse(widget.sharedPreferences.getString("firstTermBeginingDate")!))) &&
+                                    (day.isBefore(DateTime.parse(widget.sharedPreferences.getString("secondTermEndingDate")!)) ||
                                         isSameDay(
                                             day,
                                             DateTime.parse(widget
                                                 .sharedPreferences
                                                 .getString(
-                                                    "secondTermEndingDate"))))
+                                                    "secondTermEndingDate")!)))
                                 ? TextStyle(color: Colors.black)
                                 : TextStyle(color: Colors.grey)
-                            : (day.isAfter(DateTime.parse(widget.sharedPreferences.getString("firstTermBeginingDate"))) ||
+                            : (day.isAfter(DateTime.parse(widget.sharedPreferences.getString("firstTermBeginingDate")!)) ||
                                         isSameDay(
                                             day,
                                             DateTime.parse(widget
                                                 .sharedPreferences
                                                 .getString(
-                                                    "firstTermBeginingDate")))) &&
-                                    (day.isBefore(DateTime.parse(widget.sharedPreferences.getString("secondTermEndingDate"))) ||
+                                                    "firstTermBeginingDate")!))) &&
+                                    (day.isBefore(DateTime.parse(widget.sharedPreferences.getString("secondTermEndingDate")!)) ||
                                         isSameDay(
-                                            day, DateTime.parse(widget.sharedPreferences.getString("secondTermEndingDate"))))
+                                            day, DateTime.parse(widget.sharedPreferences.getString("secondTermEndingDate")!)))
                                 ? TextStyle(color: Colors.red)
                                 : TextStyle(color: Colors.grey),
                       ),
@@ -304,7 +305,7 @@ class _HomeScreenBodyHomeworksCalendarState
                       deleteFunction: deleteHomework,
                       day: day,
                       checkFunction: checkHomework,
-                      homeworks: snapshot.data,
+                      homeworks: snapshotData,
                       database: widget.database,
                       notifications: widget.notifications,
                     );
@@ -317,29 +318,29 @@ class _HomeScreenBodyHomeworksCalendarState
                     (DateTime.now().isAfter(
                       DateTime.parse(
                         widget.sharedPreferences
-                            .getString("firstTermBeginingDate"),
+                            .getString("firstTermBeginingDate")!,
                       ),
                     )
                         ? DateTime.now().isBefore(
                             DateTime.parse(
                               widget.sharedPreferences
-                                  .getString("secondTermEndingDate"),
+                                  .getString("secondTermEndingDate")!,
                             ),
                           )
                             ? DateTime.now()
                             : DateTime.parse(
                                 widget.sharedPreferences
-                                    .getString("secondTermEndingDate"),
+                                    .getString("secondTermEndingDate")!,
                               )
                         : DateTime.parse(
                             widget.sharedPreferences
-                                .getString("firstTermBeginingDate"),
+                                .getString("firstTermBeginingDate")!,
                           )), //Montrer bonne semaine
                 firstDay: DateTime.parse(
-                  widget.sharedPreferences.getString("firstTermBeginingDate"),
+                  widget.sharedPreferences.getString("firstTermBeginingDate")!,
                 ),
                 lastDay: DateTime.parse(
-                  widget.sharedPreferences.getString("secondTermEndingDate"),
+                  widget.sharedPreferences.getString("secondTermEndingDate")!,
                 ),
               ),
             );

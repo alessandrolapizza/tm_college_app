@@ -1,13 +1,13 @@
 import "package:flutter/material.dart";
 
 class CircleAvatarWithBorder extends StatelessWidget {
-  final Color color;
+  final Color? color;
 
-  final IconData icon;
+  final IconData? icon;
 
   CircleAvatarWithBorder({
-    @required this.color,
-    @required this.icon,
+    required this.color,
+    required this.icon,
   });
 
   @override
@@ -26,7 +26,7 @@ class CircleAvatarWithBorder extends StatelessWidget {
               fit: BoxFit.contain,
               child: Icon(
                 icon,
-                color: ThemeData.estimateBrightnessForColor(color) ==
+                color: ThemeData.estimateBrightnessForColor(color!) ==
                         Brightness.dark
                     ? Colors.white
                     : Colors.black,

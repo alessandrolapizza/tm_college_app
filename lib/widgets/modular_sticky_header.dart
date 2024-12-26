@@ -9,8 +9,8 @@ class ModularStickyHeader extends StatelessWidget {
   final bool show;
 
   ModularStickyHeader({
-    @required this.content,
-    @required this.header,
+    required this.content,
+    required this.header,
     this.show = true,
   });
 

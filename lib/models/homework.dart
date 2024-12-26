@@ -7,20 +7,20 @@ import "./subject.dart";
 
 class Homework {
   final String id;
-  final String subjectId;
-  final Subject subject;
-  final String content;
-  final DateTime dueDate;
-  final int priority;
+  final String? subjectId;
+  final Subject? subject;
+  final String? content;
+  final DateTime? dueDate;
+  final int? priority;
   final bool done;
-  final List<int> notificationsIds;
+  final List<int>? notificationsIds;
 
   Homework({
-    @required this.subjectId,
-    @required this.content,
-    @required this.dueDate,
-    @required this.priority,
-    @required this.done,
+    required this.subjectId,
+    required this.content,
+    required this.dueDate,
+    required this.priority,
+    required this.done,
     this.notificationsIds,
     this.subject,
     id,
@@ -46,13 +46,13 @@ class Homework {
   };
 
   static Future<void> homeworkChecker({
-    @required Homework homework,
-    @required MyDatabase database,
-    @required Notifications notifications,
+    required Homework homework,
+    required MyDatabase database,
+    required Notifications notifications,
   }) async {
     if (!homework.done && homework.notificationsIds != null) {
       await notifications
-          .cancelMultipleNotifications(homework.notificationsIds);
+          .cancelMultipleNotifications(homework.notificationsIds!);
     }
     Homework checkedHomework = Homework(
       done: homework.done ? false : true,
@@ -64,9 +64,9 @@ class Homework {
       id: homework.id,
       notificationsIds: homework.done
           ? await notifications.scheduleNotifications(
-              homeworkPriority: homework.priority,
+              homeworkPriority: homework.priority!,
               homeworkDueDate: homework.dueDate,
-              homeworkSubjectName: homework.subject.name,
+              homeworkSubjectName: homework.subject!.name,
             )
           : [],
     );
@@ -74,28 +74,28 @@ class Homework {
   }
 
   static Future<List<Homework>> outHomeworks({
-    @required MyDatabase database,
-    @required SharedPreferences sharedPreferences,
-    DateTime firstTermBeginingDate,
-    DateTime secondTermEndingDate,
+    required MyDatabase database,
+    required SharedPreferences sharedPreferences,
+    DateTime? firstTermBeginingDate,
+    DateTime? secondTermEndingDate,
   }) async {
     List<Homework> outHomeworks = [];
     List<Homework> homeworks = await database.homeworks();
     homeworks.forEach(
       (homework) async {
-        if (homework.dueDate.isBefore(firstTermBeginingDate == null
+        if (homework.dueDate!.isBefore(firstTermBeginingDate == null
                 ? DateTime.parse(
                     sharedPreferences.getString(
                       "firstTermBeginingDate",
-                    ),
+                    )!,
                   )
                 : firstTermBeginingDate) ||
-            homework.dueDate.isAfter(
+            homework.dueDate!.isAfter(
               secondTermEndingDate == null
                   ? DateTime.parse(
                       sharedPreferences.getString(
                         "secondTermEndingDate",
-                      ),
+                      )!,
                     )
                   : secondTermEndingDate,
             )) {

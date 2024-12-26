@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tm_college_app/models/my_database.dart';
 import 'package:tm_college_app/models/notifications.dart';
-import 'package:tm_college_app/widgets/home_screen_body_homeworks_calendar.dart';
+import 'package:tm_college_app/widgets/home_screen/home_screen_body_homeworks_calendar.dart';
 import 'package:tm_college_app/widgets/homeworks_list.dart';
 
 class HomeScreenBodyHomeworks extends StatefulWidget {
@@ -19,11 +19,11 @@ class HomeScreenBodyHomeworks extends StatefulWidget {
   final ScrollController scrollControllerHomeworks;
 
   HomeScreenBodyHomeworks({
-    @required this.database,
-    @required this.notifications,
-    @required this.sharedPreferences,
-    @required this.homePage,
-    @required this.scrollControllerHomeworks,
+    required this.database,
+    required this.notifications,
+    required this.sharedPreferences,
+    required this.homePage,
+    required this.scrollControllerHomeworks,
   });
 
   @override

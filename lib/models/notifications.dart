@@ -1,6 +1,6 @@
 import "package:flutter_local_notifications/flutter_local_notifications.dart";
 import "package:flutter_native_timezone/flutter_native_timezone.dart";
-import "package:flutter/foundation.dart";
+//import "package:flutter/foundation.dart"; //Pas utilisé ?
 import "package:intl/intl.dart";
 import "package:notification_permissions/notification_permissions.dart";
 import "package:shared_preferences/shared_preferences.dart";
@@ -15,8 +15,8 @@ class Notifications {
   final MyDatabase database;
 
   Notifications({
-    @required this.sharedPreferences,
-    @required this.database,
+    required this.sharedPreferences,
+    required this.database,
   });
 
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -46,13 +46,13 @@ class Notifications {
 
     await flutterLocalNotificationsPlugin.initialize(
       initializationSettings,
-      onSelectNotification: (String payload) async {
-        await notificationFired(payload: payload);
+      onSelectNotification: (String? payload) async {
+        await notificationFired(payload: payload!);
       },
     );
   }
 
-  Future<void> notificationFired({@required String payload}) async {
+  Future<void> notificationFired({required String payload}) async {
     await sharedPreferences.setString("notificationOpenedAppPayload", payload);
   }
 
@@ -71,10 +71,10 @@ class Notifications {
   }
 
   Future<List<int>> scheduleNotifications({
-    @required int homeworkPriority,
-    @required DateTime homeworkDueDate,
-    @required String homeworkSubjectName,
-    List<int> oldNotifications,
+    required int homeworkPriority,
+    required DateTime? homeworkDueDate,
+    required String? homeworkSubjectName,
+    List<int>? oldNotifications,
   }) async {
     final List<int> priorityNotificationsSettings = [
       sharedPreferences.getInt("notificationsPriorityNumberWhite") ?? 0,
@@ -90,7 +90,7 @@ class Notifications {
     for (int i = 1;
         i != priorityNotificationsSettings[homeworkPriority] + 1;
         i++) {
-      DateTime scheduleDate = homeworkDueDate.subtract(Duration(days: i));
+      DateTime scheduleDate = homeworkDueDate!.subtract(Duration(days: i));
       int uniqueId = await Future.delayed(
         Duration(microseconds: 1),
         () {
@@ -153,8 +153,8 @@ class Notifications {
   }
 
   Future<void> toggleNotifications({
-    @required toggleState,
-    @required snapshotData,
+    required toggleState,
+    required snapshotData,
   }) async {
     List<Homework> homeworks = [];
     homeworks = await database.homeworks();
@@ -174,8 +174,8 @@ class Notifications {
                 subjectId: homework.subjectId,
                 notificationsIds: await scheduleNotifications(
                   homeworkDueDate: homework.dueDate,
-                  homeworkPriority: homework.priority,
-                  homeworkSubjectName: homework.subject.name,
+                  homeworkPriority: homework.priority!,
+                  homeworkSubjectName: homework.subject!.name,
                   oldNotifications: homework.notificationsIds,
                 ),
               ),
@@ -197,7 +197,7 @@ class Notifications {
       homeworks.forEach(
         (homework) async {
           if (!homework.done && homework.notificationsIds != null) {
-            await cancelMultipleNotifications(homework.notificationsIds);
+            await cancelMultipleNotifications(homework.notificationsIds!);
           }
         },
       );
@@ -216,16 +216,16 @@ class Notifications {
             return permUnknown;
           case PermissionStatus.provisional:
             return permProvisional;
-          default:
-            return null;
+          // default: //Je ne pense pas qu'il y a besoin de ça ici + null safety
+          //   return null;
         }
       },
     );
   }
 
   Future<void> changeNotificationsTime({
-    @required selectedTime,
-    @required context,
+    required selectedTime,
+    required context,
   }) async {
     List<Homework> homeworks;
 
@@ -250,8 +250,8 @@ class Notifications {
               subjectId: homework.subjectId,
               notificationsIds: await scheduleNotifications(
                 homeworkDueDate: homework.dueDate,
-                homeworkPriority: homework.priority,
-                homeworkSubjectName: homework.subject.name,
+                homeworkPriority: homework.priority!,
+                homeworkSubjectName: homework.subject!.name,
                 oldNotifications: homework.notificationsIds,
               ),
             ),
@@ -268,8 +268,8 @@ class Notifications {
     homeworks.forEach(
       (homework) async {
         if (!homework.done) {
-          if (homework.notificationsIds.length != 0) {
-            await cancelMultipleNotifications(homework.notificationsIds);
+          if (homework.notificationsIds!.length != 0) {
+            await cancelMultipleNotifications(homework.notificationsIds!);
           }
           database.updateHomework(
             Homework(
@@ -282,8 +282,8 @@ class Notifications {
               subjectId: homework.subjectId,
               notificationsIds: await scheduleNotifications(
                 homeworkDueDate: homework.dueDate,
-                homeworkPriority: homework.priority,
-                homeworkSubjectName: homework.subject.name,
+                homeworkPriority: homework.priority!,
+                homeworkSubjectName: homework.subject!.name,
                 oldNotifications: homework.notificationsIds,
               ),
             ),

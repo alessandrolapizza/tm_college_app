@@ -1,15 +1,16 @@
+import "package:flutter_iconpicker/Models/configuration.dart";
 import "package:flutter_iconpicker/flutter_iconpicker.dart";
 import "package:flutter_material_color_picker/flutter_material_color_picker.dart";
 import "package:flutter/material.dart";
-import "../models/my_database.dart";
-import "../models/notifications.dart";
-import "../models/subject.dart";
-import "./app.dart";
-import "./edit_subject_body.dart";
-import "./modular_alert_dialog.dart";
-import "./modular_app_bar.dart";
-import "./modular_icon_button.dart";
-import "./theme_controller.dart";
+import "../../models/my_database.dart";
+import "../../models/notifications.dart";
+import "../../models/subject.dart";
+import "../app.dart";
+import "edit_subject_body.dart";
+import "../modular_alert_dialog.dart";
+import "../modular_app_bar.dart";
+import "../modular_icon_button.dart";
+import "../theme_controller.dart";
 
 class EditSubjectScreen extends StatefulWidget {
   final MyDatabase database;
@@ -17,8 +18,8 @@ class EditSubjectScreen extends StatefulWidget {
   final Notifications notifications;
 
   EditSubjectScreen({
-    @required this.database,
-    @required this.notifications,
+    required this.database,
+    required this.notifications,
   });
 
   @override
@@ -29,7 +30,7 @@ class _EditSubjectScreenState extends State<EditSubjectScreen> with RouteAware {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    App.routeObserver.subscribe(this, ModalRoute.of(context));
+    App.routeObserver.subscribe(this, ModalRoute.of(context)!);
   }
 
   @override
@@ -55,11 +56,11 @@ class _EditSubjectScreenState extends State<EditSubjectScreen> with RouteAware {
 
   final GlobalKey<FormState> _createSubjectFormKey = GlobalKey();
 
-  IconData _selectedIcon;
+  IconData? _selectedIcon;
 
-  Color _selectedColor;
+  Color? _selectedColor;
 
-  Color _color;
+  Color? _color;
 
   bool _colorSelectorOpenend = false;
 
@@ -67,43 +68,72 @@ class _EditSubjectScreenState extends State<EditSubjectScreen> with RouteAware {
 
   bool _colorMissing = false;
 
-  String _subjectId;
+  String? _subjectId;
 
   void _selectIcon(BuildContext ctx) async {
-    IconData _icon = await FlutterIconPicker.showIconPicker(
-      context,
-      iconPackModes: const <IconPack>[IconPack.material],
-      noResultsText: "Aucun résultat pour :",
-      searchIcon: Icon(Icons.search_rounded),
-      searchClearIcon: Icon(Icons.close_rounded),
-      searchHintText: "Rechercher (anglais)",
-      closeChild: Text(
-        "Fermer",
-        style: TextStyle(
-          color:
-              Theme.of(ctx).outlinedButtonTheme.style.foregroundColor.resolve(
-                    Set<MaterialState>.from(MaterialState.values),
-                  ),
-        ),
+    // IconData? _icon = await showIconPicker(context,
+    //     configuration: SinglePickerConfiguration(
+    //       iconPackModes: const <IconPack>[IconPack.material],
+    //       noResultsText: "Aucun résultat pour :",
+    //       searchIcon: Icon(Icons.search_rounded),
+    //       searchClearIcon: Icon(Icons.close_rounded),
+    //       searchHintText: "Rechercher (anglais)",
+    //       title: Text("Choisir un icon"),
+    //       closeChild: Text(
+    //         "Fermer",
+    //         style: TextStyle(
+    //           color: Theme.of(ctx)
+    //               .outlinedButtonTheme
+    //               .style!
+    //               .foregroundColor!
+    //               .resolve(
+    //                 Set<MaterialState>.from(MaterialState.values),
+    //               ),
+    //         ),
+    //       ),
+    //     )) as IconData?;
+
+    IconPickerIcon? _icon = await showIconPicker(
+      ctx,
+      configuration: SinglePickerConfiguration(
+        closeChild: Text("Fermer"),
+        // adaptiveDialog: true,
+        // showTooltips: true,
+        // iconColor: Colors.red,
+        showSearchBar: true,
+        backgroundColor: Theme.of(ctx).colorScheme.surfaceContainerHigh,
+        title: Text("Choisir une icône",
+            style: Theme.of(context)
+                .textTheme
+                .headlineSmall), //from flutter doc for material3 (https://api.flutter.dev/flutter/material/AlertDialog/titleTextStyle.html)
+        searchHintText: "Rechercher (anglais)",
+        noResultsText: "Aucun résultat pour :",
+        iconPickerShape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+        iconPackModes: const <IconPack>[IconPack.roundedMaterial],
+        searchComparator: (String search, IconPickerIcon icon) =>
+            search
+                .toLowerCase()
+                .contains(icon.name.replaceAll('_', ' ').toLowerCase()) ||
+            icon.name.toLowerCase().contains(search.toLowerCase()),
       ),
-      title: Text("Choisir un icon"),
     );
 
     if (_icon != null) {
-      setState(() => _selectedIcon = _icon);
+      setState(() => _selectedIcon = _icon.data);
     }
   }
 
-  void _selectColor() async {
+  void _selectColor(BuildContext ctx) async {
     int validColor = 0;
 
     _colorSelectorOpenend = true;
 
-    Color waitingColor;
+    Color? waitingColor;
 
     waitingColor = await showDialog(
       barrierDismissible: true,
-      context: context,
+      context: ctx,
       builder: (_) {
         return ModularAlertDialog(
           actionButtons: [
@@ -115,13 +145,10 @@ class _EditSubjectScreenState extends State<EditSubjectScreen> with RouteAware {
           themeColor: _selectedColor == null
               ? Color(App.defaultColorThemeValue)
               : _selectedColor,
-          title: Text(
-            "Choisir une couleur",
-            style: TextStyle(color: Colors.black),
-          ),
+          title: Text("Choisir une couleur"),
           content: MaterialColorPicker(
             selectedColor: _selectedColor == null ? null : _selectedColor,
-            shrinkWrap: true,
+            //shrinkWrap: true,
             onColorChange: (Color changeColor) {
               _color = changeColor;
               if (validColor == 0) {
@@ -149,7 +176,7 @@ class _EditSubjectScreenState extends State<EditSubjectScreen> with RouteAware {
   }
 
   Future<void> _createSubject() async {
-    if (_createSubjectFormKey.currentState.validate() &&
+    if (_createSubjectFormKey.currentState!.validate() &&
         _selectedIcon != null &&
         _selectedColor != null) {
       if (_subjectId != null) {
@@ -192,11 +219,12 @@ class _EditSubjectScreenState extends State<EditSubjectScreen> with RouteAware {
 
   @override
   Widget build(BuildContext context) {
-    final List<dynamic> arguments = ModalRoute.of(context).settings.arguments;
+    final List<dynamic>? arguments =
+        ModalRoute.of(context)!.settings.arguments as List<dynamic>?;
     if (_subjectId == null && arguments != null) {
       final Subject subject = arguments[0];
-      _subjectNameController.text = subject.name;
-      _subjectRoomNumberController.text = subject.room;
+      _subjectNameController.text = subject.name!;
+      _subjectRoomNumberController.text = subject.room!;
       _selectedColor = subject.color;
       _selectedIcon = subject.icon;
       _color = subject.color;
@@ -239,7 +267,7 @@ class _EditSubjectScreenState extends State<EditSubjectScreen> with RouteAware {
                                 ),
                                 onPressed: () async {
                                   await widget.database.deleteSubject(
-                                    subject: arguments[0],
+                                    subject: arguments![0],
                                     notifications: widget.notifications,
                                   );
                                   Navigator.pop(context);
@@ -256,6 +284,7 @@ class _EditSubjectScreenState extends State<EditSubjectScreen> with RouteAware {
               : null,
         ),
         body: EditSubjectBody(
+          editScreen: _subjectId != null,
           selectIconFunction: _selectIcon,
           selectedIcon: _selectedIcon,
           selectColor: _selectColor,

@@ -16,7 +16,7 @@ class CalendarDayColumn extends StatelessWidget {
 
   final bool selected;
 
-  final List<Homework> homeworks;
+  final List<Homework>? homeworks;
 
   final Function checkFunction;
 
@@ -31,14 +31,14 @@ class CalendarDayColumn extends StatelessWidget {
   final SharedPreferences sharedPreferences;
 
   CalendarDayColumn({
-    @required this.checkFunction,
-    @required this.day,
-    @required this.homeworks,
-    @required this.notifications,
-    @required this.database,
-    @required this.deleteFunction,
-    @required this.selectDayFunction,
-    @required this.sharedPreferences,
+    required this.checkFunction,
+    required this.day,
+    required this.homeworks,
+    required this.notifications,
+    required this.database,
+    required this.deleteFunction,
+    required this.selectDayFunction,
+    required this.sharedPreferences,
     this.today = false,
     this.selected = false,
   });
@@ -91,12 +91,12 @@ class CalendarDayColumn extends StatelessWidget {
           flex: 5,
           child: FadeGradient(
             child: ListView.builder(
-              itemCount: homeworks.length,
+              itemCount: homeworks!.length,
               itemBuilder: (_, index) {
-                if (homeworks[index].dueDate.year == day.year &&
-                    homeworks[index].dueDate.month == day.month &&
-                    homeworks[index].dueDate.day == day.day &&
-                    !homeworks[index].done) {
+                if (homeworks![index].dueDate!.year == day.year &&
+                    homeworks![index].dueDate!.month == day.month &&
+                    homeworks![index].dueDate!.day == day.day &&
+                    !homeworks![index].done) {
                   return InkWell(
                     onTap: () {
                       selectDayFunction(day);
@@ -107,7 +107,7 @@ class CalendarDayColumn extends StatelessWidget {
                             actionButtons: [
                               TextButton(
                                 onPressed: () =>
-                                    deleteFunction(homeworks[index]),
+                                    deleteFunction(homeworks![index]),
                                 child: Icon(Icons.delete_rounded),
                               ),
                               TextButton(
@@ -120,7 +120,7 @@ class CalendarDayColumn extends StatelessWidget {
                                     context,
                                     "/edit_homework_screen",
                                     arguments: [
-                                      homeworks[index],
+                                      homeworks![index],
                                       false,
                                     ],
                                   );
@@ -129,7 +129,7 @@ class CalendarDayColumn extends StatelessWidget {
                               ),
                               TextButton(
                                 onPressed: () async => await checkFunction(
-                                  homeworks[index],
+                                  homeworks![index],
                                 ),
                                 child: Icon(Icons.check_rounded),
                               ),
@@ -146,14 +146,14 @@ class CalendarDayColumn extends StatelessWidget {
                                       width: double.infinity,
                                       height: 17,
                                       child: ViewHomeworkPriorityBanner(
-                                        homework: homeworks[index],
+                                        homework: homeworks![index],
                                       ),
                                     ),
                                     Padding(
                                       padding: EdgeInsets.only(bottom: 15),
                                     ),
                                     ViewHomeworkContent(
-                                      homework: homeworks[index],
+                                      homework: homeworks![index],
                                     ),
                                     Padding(
                                       padding: EdgeInsets.only(bottom: 15),
@@ -162,10 +162,10 @@ class CalendarDayColumn extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            themeColor: homeworks[index].subject.color,
+                            themeColor: homeworks![index].subject!.color,
                             title: ViewHomeworkDetailsSentence(
                               homePage: true,
-                              homework: homeworks[index],
+                              homework: homeworks![index],
                             ),
                           );
                         },
@@ -173,7 +173,7 @@ class CalendarDayColumn extends StatelessWidget {
                     },
                     child: Card(
                       margin: EdgeInsets.all(3), // Enlever ptt..
-                      color: homeworks[index].subject.color,
+                      color: homeworks![index].subject!.color,
                       child: Container(
                         height: 35,
                         child: Row(
@@ -187,16 +187,16 @@ class CalendarDayColumn extends StatelessWidget {
                                   height: 20,
                                 ),
                                 color: Homework.priorityColorMap.values
-                                    .toList()[homeworks[index].priority],
+                                    .toList()[homeworks![index].priority!],
                               ),
                             ),
                             Expanded(
                               child: Text(
-                                homeworks[index].subject.name,
+                                homeworks![index].subject!.name!,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
                                   color: ThemeData.estimateBrightnessForColor(
-                                              homeworks[index].subject.color) ==
+                                              homeworks![index].subject!.color!) ==
                                           Brightness.dark
                                       ? Colors.white
                                       : Colors.black,
@@ -209,7 +209,7 @@ class CalendarDayColumn extends StatelessWidget {
                       ),
                     ),
                   );
-                } else if (homeworks.length == index) {
+                } else if (homeworks!.length == index) {
                   return Container();
                 } else {
                   return Container();

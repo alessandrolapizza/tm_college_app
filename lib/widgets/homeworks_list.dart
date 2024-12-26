@@ -21,11 +21,11 @@ class HomeworksList extends StatefulWidget {
   final ScrollController scrollControllerHomeworks;
 
   HomeworksList({
-    @required this.database,
-    @required this.homePage,
-    @required this.notifications,
-    @required this.sharedPreferences,
-    @required this.scrollControllerHomeworks,
+    required this.database,
+    required this.homePage,
+    required this.notifications,
+    required this.sharedPreferences,
+    required this.scrollControllerHomeworks,
   });
 
   @override
@@ -70,31 +70,33 @@ class _HomeworksList extends State<HomeworksList> {
               homeworksDateMapDoneSorted = SortedMap(Ordering.byKey());
           SortedMap<Comparable<DateTime>, List<Homework>>
               homeworksDateMapToDoSorted = SortedMap(Ordering.byKey());
-
-          snapshot.data.forEach(
+          var snapshotData = snapshot.data! as List<Homework>;
+          snapshotData.forEach(
             (Homework homework) {
               if (!homework.done) {
                 if (homeworksDateMapToDo.containsKey(homework.dueDate)) {
-                  homeworksDateMapToDo[homework.dueDate].add(homework);
+                  homeworksDateMapToDo[homework.dueDate]!.add(homework);
                 } else {
-                  homeworksDateMapToDo[homework.dueDate] = [homework];
+                  homeworksDateMapToDo[homework.dueDate!] = [homework];
                 }
               } else {
                 if (homeworksDateMapDone.containsKey(homework.dueDate)) {
-                  homeworksDateMapDone[homework.dueDate].add(homework);
+                  homeworksDateMapDone[homework.dueDate]!.add(homework);
                 } else {
-                  homeworksDateMapDone[homework.dueDate] = [homework];
+                  homeworksDateMapDone[homework.dueDate!] = [homework];
                 }
               }
             },
           );
 
           if (homeworksDateMapDone != null) {
-            homeworksDateMapDoneSorted.addAll(homeworksDateMapDone);
+            homeworksDateMapDoneSorted.addAll(homeworksDateMapDone
+                as Map<Comparable<DateTime>, List<Homework>>);
           }
 
           if (homeworksDateMapToDo != null) {
-            homeworksDateMapToDoSorted.addAll(homeworksDateMapToDo);
+            homeworksDateMapToDoSorted.addAll(homeworksDateMapToDo
+                as Map<Comparable<DateTime>, List<Homework>>);
           }
 
           SortedMap<Comparable<DateTime>, List<Homework>> homeworks =
@@ -192,38 +194,39 @@ class _HomeworksList extends State<HomeworksList> {
                     (homeworks.keys.toList()[index] as DateTime) ==
                             DateTime(DateTime.now().year, DateTime.now().month,
                                 DateTime.now().day - 2)
-                        ? "Avant-hier (${DateFormat("EEEE d MMMM").format(homeworks.keys.toList()[index])})"
+                        ? "Avant-hier (${DateFormat("EEEE d MMMM").format(homeworks.keys.toList()[index] as DateTime)})"
                         : (homeworks.keys.toList()[index] as DateTime) ==
                                 DateTime(
                                     DateTime.now().year,
                                     DateTime.now().month,
                                     DateTime.now().day - 1)
-                            ? "Hier (${DateFormat("EEEE d MMMM").format(homeworks.keys.toList()[index])})"
+                            ? "Hier (${DateFormat("EEEE d MMMM").format(homeworks.keys.toList()[index] as DateTime)})"
                             : (homeworks.keys.toList()[index] as DateTime) ==
                                     DateTime(
                                         DateTime.now().year,
                                         DateTime.now().month,
                                         DateTime.now().day)
-                                ? "Aujourd'hui (${DateFormat("EEEE d MMMM").format(homeworks.keys.toList()[index])})"
+                                ? "Aujourd'hui (${DateFormat("EEEE d MMMM").format(homeworks.keys.toList()[index] as DateTime)})"
                                 : (homeworks.keys.toList()[index]
                                             as DateTime) ==
                                         DateTime(
                                             DateTime.now().year,
                                             DateTime.now().month,
                                             DateTime.now().day + 1)
-                                    ? "Demain (${DateFormat("EEEE d MMMM").format(homeworks.keys.toList()[index])})"
+                                    ? "Demain (${DateFormat("EEEE d MMMM").format(homeworks.keys.toList()[index] as DateTime)})"
                                     : (homeworks.keys.toList()[index]
                                                 as DateTime) ==
                                             DateTime(
                                                 DateTime.now().year,
                                                 DateTime.now().month,
                                                 DateTime.now().day + 2)
-                                        ? "Après-demain (${DateFormat("EEEE d MMMM").format(homeworks.keys.toList()[index])})"
+                                        ? "Après-demain (${DateFormat("EEEE d MMMM").format(homeworks.keys.toList()[index] as DateTime)})"
                                         : DateFormat("EEEE d MMMM").format(
-                                            homeworks.keys.toList()[index]),
+                                            homeworks.keys.toList()[index]
+                                                as DateTime),
                     style: TextStyle(
-                        color: DateTime.now()
-                                .isAfter(homeworks.keys.toList()[index])
+                        color: DateTime.now().isAfter(
+                                homeworks.keys.toList()[index] as DateTime)
                             ? Colors.red
                             : Colors.black,
                         fontWeight: FontWeight.w500),

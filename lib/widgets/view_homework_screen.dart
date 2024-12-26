@@ -18,9 +18,9 @@ class ViewHomeworkScreen extends StatefulWidget {
   final SharedPreferences sharedPreferences;
 
   ViewHomeworkScreen({
-    @required this.database,
-    @required this.notifications,
-    @required this.sharedPreferences,
+    required this.database,
+    required this.notifications,
+    required this.sharedPreferences,
   });
 
   @override
@@ -34,9 +34,10 @@ class _ViewHomeworkScreenState extends State<ViewHomeworkScreen> {
       future: widget.database.homeworks(),
       builder: (_, snapshot) {
         Widget child;
-        Homework homeworkToUse;
+        var snapshotData = snapshot.data! as List<Homework>;
+        Homework? homeworkToUse;
         if (snapshot.hasData) {
-          snapshot.data.forEach(
+          snapshotData.forEach(
             (homework) {
               if (homework.id ==
                   widget.sharedPreferences.getString("homeworkId")) {
@@ -45,13 +46,13 @@ class _ViewHomeworkScreenState extends State<ViewHomeworkScreen> {
             },
           );
           child = ThemeController(
-            color: homeworkToUse.subject.color,
+            color: homeworkToUse!.subject!.color,
             child: Scaffold(
-              floatingActionButton: homeworkToUse.done
+              floatingActionButton: homeworkToUse!.done
                   ? ModularFloatingActionButton(
                       onPressedFunction: () async {
                         await Homework.homeworkChecker(
-                          homework: homeworkToUse,
+                          homework: homeworkToUse!,
                           database: widget.database,
                           notifications: widget.notifications,
                         );
@@ -80,7 +81,7 @@ class _ViewHomeworkScreenState extends State<ViewHomeworkScreen> {
               appBar: ModularAppBar(
                 hideSettingsButton: true,
                 backArrow: true,
-                actions: !homeworkToUse.done
+                actions: !homeworkToUse!.done
                     ? [
                         ModularIconButton(
                           onPressedFunction: () {
@@ -89,9 +90,9 @@ class _ViewHomeworkScreenState extends State<ViewHomeworkScreen> {
                               context: context,
                               builder: (_) {
                                 return ThemeController(
-                                  color: homeworkToUse.subject.color,
+                                  color: homeworkToUse!.subject!.color,
                                   child: ModularAlertDialog(
-                                    themeColor: homeworkToUse.subject.color,
+                                    themeColor: homeworkToUse!.subject!.color,
                                     title: Text("Supprimer devoir ?"),
                                     content: Text(
                                         "Es-tu sûr de vouloir supprimer ce devoir ?"),
@@ -107,7 +108,7 @@ class _ViewHomeworkScreenState extends State<ViewHomeworkScreen> {
                                         ),
                                         onPressed: () async {
                                           await widget.database.deleteHomework(
-                                            homework: homeworkToUse,
+                                            homework: homeworkToUse!,
                                             notifications: widget.notifications,
                                           );
                                           Navigator.pop(context);
@@ -125,7 +126,7 @@ class _ViewHomeworkScreenState extends State<ViewHomeworkScreen> {
                         ModularIconButton(
                           onPressedFunction: () async {
                             await Homework.homeworkChecker(
-                              homework: homeworkToUse,
+                              homework: homeworkToUse!,
                               database: widget.database,
                               notifications: widget.notifications,
                             );
@@ -150,9 +151,9 @@ class _ViewHomeworkScreenState extends State<ViewHomeworkScreen> {
                               context: context,
                               builder: (_) {
                                 return ThemeController(
-                                  color: homeworkToUse.subject.color,
+                                  color: homeworkToUse!.subject!.color,
                                   child: ModularAlertDialog(
-                                    themeColor: homeworkToUse.subject.color,
+                                    themeColor: homeworkToUse!.subject!.color,
                                     title: Text("Supprimer devoir ?"),
                                     content: Text(
                                         "Es-tu sûr de vouloir supprimer ce devoir ?"),
@@ -168,7 +169,7 @@ class _ViewHomeworkScreenState extends State<ViewHomeworkScreen> {
                                         ),
                                         onPressed: () async {
                                           await widget.database.deleteHomework(
-                                            homework: homeworkToUse,
+                                            homework: homeworkToUse!,
                                             notifications: widget.notifications,
                                           );
                                           Navigator.pop(context);
@@ -188,7 +189,7 @@ class _ViewHomeworkScreenState extends State<ViewHomeworkScreen> {
                 centerTitle: true,
               ),
               body: ViewHomeworkBody(
-                homePage: !homeworkToUse.done,
+                homePage: !homeworkToUse!.done,
                 homework: homeworkToUse,
               ),
             ),

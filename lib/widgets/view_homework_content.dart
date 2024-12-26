@@ -3,9 +3,9 @@ import "../models/homework.dart";
 import "./fade_gradient.dart";
 
 class ViewHomeworkContent extends StatelessWidget {
-  final Homework homework;
+  final Homework? homework;
 
-  ViewHomeworkContent({@required this.homework});
+  ViewHomeworkContent({required this.homework});
 
   @override
   Widget build(BuildContext context) {
@@ -15,14 +15,14 @@ class ViewHomeworkContent extends StatelessWidget {
       height: MediaQuery.of(context).size.height / 5,
       decoration: BoxDecoration(
         border: Border.all(
-          color: Colors.grey[350],
+          color: Colors.grey[350]!,
         ),
         borderRadius: BorderRadius.circular(5),
       ),
       child: FadeGradient(
         child: SingleChildScrollView(
           child: Text(
-            homework.content,
+            homework!.content!,
           ),
         ),
       ),

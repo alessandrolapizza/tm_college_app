@@ -8,9 +8,9 @@ class DatePickerOutlinedButton extends StatelessWidget {
   final Function function;
 
   DatePickerOutlinedButton({
-    @required this.enabled,
-    @required this.text,
-    @required this.function,
+    required this.enabled,
+    required this.text,
+    required this.function,
   });
 
   @override

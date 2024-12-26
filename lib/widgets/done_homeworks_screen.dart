@@ -13,9 +13,9 @@ class DoneHomeworksScreen extends StatelessWidget {
   final SharedPreferences sharedPreferences;
 
   DoneHomeworksScreen({
-    @required this.database,
-    @required this.notifications,
-    @required this.sharedPreferences,
+    required this.database,
+    required this.notifications,
+    required this.sharedPreferences,
   });
 
   @override
